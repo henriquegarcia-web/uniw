@@ -1,0 +1,54 @@
+// src/navigation/MainTabNavigator.tsx
+
+import React from 'react'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+
+import { MainTabParamList } from './types'
+
+import { HomeStack } from './HomeStack'
+import { CartStack } from './CartStack'
+import { SettingsStack } from './SettingsStack'
+
+import WishlistScreen from '@/screens/WishlistScreen'
+import SearchScreen from '@/screens/SearchScreen'
+
+// TODO: Instale e importe uma biblioteca de ícones, como a expo-vector-icons
+import { Text } from 'react-native'
+
+const Tab = createBottomTabNavigator<MainTabParamList>()
+
+export function MainTabNavigator() {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        // TODO: Substitua o texto por componentes de ícone reais
+        tabBarIcon: ({ color, size }) => (
+          <Text style={{ color, fontSize: size }}>ICON</Text>
+        ),
+      }}
+    >
+      <Tab.Screen name="HomeStack" component={HomeStack} options={{ title: 'Início' }} />
+      <Tab.Screen
+        name="Wishlist"
+        component={WishlistScreen}
+        options={{ title: 'Desejos' }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{ title: 'Pesquisar' }}
+      />
+      <Tab.Screen
+        name="CartStack"
+        component={CartStack}
+        options={{ title: 'Carrinho' }}
+      />
+      <Tab.Screen
+        name="SettingsStack"
+        component={SettingsStack}
+        options={{ title: 'Perfil' }}
+      />
+    </Tab.Navigator>
+  )
+}
