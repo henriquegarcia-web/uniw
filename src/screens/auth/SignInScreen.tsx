@@ -32,6 +32,7 @@ const SignInScreen = ({ navigation }: SignInScreenProps) => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(signInSchema),
+    mode: 'onBlur',
     defaultValues: { email: '', password: '' },
   })
 

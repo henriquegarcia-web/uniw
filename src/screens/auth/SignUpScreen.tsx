@@ -35,7 +35,7 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
     setError,
   } = useForm({
     resolver: yupResolver(signUpSchema),
-    mode: 'onTouched',
+    mode: 'onBlur',
     defaultValues: {
       nome: '',
       email: '',

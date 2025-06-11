@@ -1,6 +1,13 @@
 // src/contexts/ClientAuthProvider.tsx
 
-import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react'
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  ReactNode,
+  useMemo,
+} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { onAuthStateChanged } from 'firebase/auth'
 
@@ -21,6 +28,7 @@ type AuthContextData = {
   signOut(): void
   signUp(name: string, email: string, cpf: string, password: string): Promise<void>
   completeOnboarding(): Promise<void>
+  resetPassword(email: string): Promise<void>
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -66,6 +74,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     return () => unsubscribe()
   }, [])
 
+  const isAuthenticated = useMemo(() => {
+    return !!user
+  }, [user])
+
   const completeOnboarding = async () => {
     try {
       await AsyncStorage.setItem('@Onboarding:completed', 'true')
@@ -106,12 +118,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }
 
+  const resetPassword = async (email: string) => {
+    setIsLoadingAuth(true)
+    setErrorAuth(null)
+    try {
+      await authService.resetPassword(email)
+    } catch (error: any) {
+      setErrorAuth(error.message)
+      throw error
+    } finally {
+      setIsLoadingAuth(false)
+    }
+  }
+
   const clearAuthError = () => setErrorAuth(null)
 
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticated: !!user,
+        isAuthenticated,
         user,
         isLoadingAuth,
         isErrorAuth: !!errorAuth,
@@ -123,6 +148,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         signIn,
         signOut,
         signUp,
+        resetPassword,
       }}
     >
       {children}

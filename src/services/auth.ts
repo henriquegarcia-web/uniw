@@ -13,10 +13,12 @@ import { IUser, IBaseProfile, UserRole, UserStatus, AuthProvider } from '@/types
 
 export async function isEmailInUse(email: string): Promise<boolean> {
   try {
-    const methods = await fetchSignInMethodsForEmail(auth, email)
-    return methods.length > 0
+    const usersRef = ref(database, 'users')
+    const cpfQuery = query(usersRef, orderByChild('baseProfile/email'), equalTo(email))
+    const snapshot = await get(cpfQuery)
+    return snapshot.exists()
   } catch (error) {
-    console.error('Erro ao verificar e-mail:', error)
+    console.error('Erro ao verificar EMAIL:', error)
     return false
   }
 }
@@ -53,6 +55,7 @@ export async function signUp(
         nome,
         email,
         cpf: cpf.replace(/\D/g, ''),
+        foto: null,
         telefone: null,
         dataNascimento: null,
         endereco: {

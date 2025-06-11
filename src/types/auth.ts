@@ -97,6 +97,7 @@ export interface IBaseProfile {
   email: string
   cpf: string
 
+  foto: string | null
   telefone: string | null
   dataNascimento: number | null
   endereco: {
@@ -178,4 +179,16 @@ export const signUpSchema = yup.object({
     .string()
     .oneOf([yup.ref('password')], 'As senhas devem ser iguais.')
     .required('Confirme sua senha.'),
+})
+
+export const forgotPasswordSchema = yup.object({
+  email: yup
+    .string()
+    .email('Por favor, insira um e-mail válido.')
+    .required('O campo de e-mail é obrigatório.')
+    .test('is-email-exists', 'Este e-mail não está em uso.', async (value) => {
+      if (!value) return true
+      const isExists = await isEmailInUse(value)
+      return !!isExists
+    }),
 })
