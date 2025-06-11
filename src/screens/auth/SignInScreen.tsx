@@ -23,7 +23,8 @@ import { SocialIcon } from '@/components/SocialIcon'
 import { ButtonIcon } from '@/components/forms/ButtonIcon'
 
 const SignInScreen = ({ navigation }: SignInScreenProps) => {
-  const { signIn, isLoadingAuth, isErrorAuth, errorAuth } = useClientAuth()
+  const { signIn, isLoadingAuth, isErrorAuth, errorAuth, clearAuthError } =
+    useClientAuth()
 
   const {
     control,
@@ -123,8 +124,13 @@ const SignInScreen = ({ navigation }: SignInScreenProps) => {
 
         <View style={styles.signUpContainer}>
           <Text style={styles.signUpText}>Criar uma conta </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Text style={styles.signUpLink}>Sign Up</Text>
+          <TouchableOpacity
+            onPress={() => {
+              clearAuthError()
+              navigation.navigate('SignUp')
+            }}
+          >
+            <Text style={styles.signUpLink}>Registrar</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -203,6 +209,7 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.md,
     color: theme.colors.secondary,
+    textDecorationLine: 'underline',
   },
 })
 

@@ -1,3 +1,5 @@
+// src/types/auth.ts
+
 import * as yup from 'yup'
 
 import { FormattedOption } from './global'
@@ -145,6 +147,10 @@ export const signUpSchema = yup.object({
     .string()
     .email('Por favor, insira um e-mail válido.')
     .required('O campo de e-mail é obrigatório.'),
+  cpf: yup
+    .string()
+    .required('O campo de CPF é obrigatório.')
+    .matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'Digite um CPF no formato 000.000.000-00'),
   password: yup
     .string()
     .min(6, 'A senha deve ter no mínimo 6 caracteres.')

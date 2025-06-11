@@ -14,11 +14,12 @@ type AuthContextData = {
   isLoadingAuth: boolean
   isErrorAuth: boolean
   errorAuth: any
+  clearAuthError: () => void
   hasCompletedOnboarding: boolean
   isLoadingOnboarding: boolean
   signIn(email: string, password: string): Promise<void>
   signOut(): void
-  signUp(name: string, email: string, password: string): Promise<void>
+  signUp(name: string, email: string, cpf: string, password: string): Promise<void>
   completeOnboarding(): Promise<void>
 }
 
@@ -94,16 +95,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }
 
-  const signUp = async (name: string, email: string, password: string) => {
+  const signUp = async (name: string, email: string, cpf: string, password: string) => {
     setIsLoadingAuth(true)
     setErrorAuth(null)
     try {
-      await authService.signUp(name, email, password)
+      await authService.signUp(name, email, cpf, password)
     } catch (error: any) {
       setErrorAuth(error.message)
       setIsLoadingAuth(false)
     }
   }
+
+  const clearAuthError = () => setErrorAuth(null)
 
   return (
     <AuthContext.Provider
@@ -113,6 +116,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         isLoadingAuth,
         isErrorAuth: !!errorAuth,
         errorAuth,
+        clearAuthError,
         hasCompletedOnboarding,
         isLoadingOnboarding,
         completeOnboarding,

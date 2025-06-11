@@ -9,7 +9,7 @@ export const theme = {
     surface: '#F5F5F5',
 
     text: '#333333',
-    text_secondary: '#8A8A8A',
+    text_secondary: '#676767',
 
     border: '#E0E0E0',
 

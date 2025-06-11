@@ -20,6 +20,7 @@ import {
 export async function signUp(
   nome: string,
   email: string,
+  cpf: string,
   password: string,
 ): Promise<IUser> {
   try {
@@ -36,7 +37,7 @@ export async function signUp(
       baseProfile: {
         nome,
         email,
-        cpf: '', // Coletar em outra etapa do cadastro
+        cpf,
         telefone: null,
         dataNascimento: null,
         endereco: {
