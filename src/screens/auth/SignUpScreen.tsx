@@ -21,6 +21,8 @@ import { InputText } from '@/components/forms/InputText'
 import { Button } from '@/components/forms/Button'
 import { ButtonIcon } from '@/components/forms/ButtonIcon'
 import { SocialIcon } from '@/components/SocialIcon'
+import { isCpfInUse, isEmailInUse } from '@/services/auth'
+import { applyMask } from '@/utils/masks'
 
 const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
   const { signUp, isLoadingAuth, isErrorAuth, errorAuth, clearAuthError } =
@@ -30,8 +32,10 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
     control,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm({
     resolver: yupResolver(signUpSchema),
+    mode: 'onTouched',
     defaultValues: {
       nome: '',
       email: '',
@@ -41,9 +45,21 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
     },
   })
 
-  const handleSignUp = (data: FieldValues) => {
-    signUp(data.nome, data.email, data.cpf, data.password)
-    console.log('Dados do formulário:', data)
+  const handleSignUp = async (data: FieldValues) => {
+    const isEmailTaken = await isEmailInUse(data.email)
+    if (isEmailTaken) {
+      setError('email', { type: 'manual', message: 'Este e-mail já está em uso.' })
+      return
+    }
+
+    const isCpfTaken = await isCpfInUse(data.cpf)
+    if (isCpfTaken) {
+      setError('cpf', { type: 'manual', message: 'Este CPF já está em uso.' })
+      return
+    }
+
+    const cleanedCpf = data.cpf.replace(/\D/g, '')
+    signUp(data.nome, data.email, cleanedCpf, data.password)
   }
 
   return (
@@ -98,10 +114,10 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
             name="cpf"
             render={({ field: { onChange, onBlur, value } }) => (
               <InputText
-                iconName="credit-card" // Ícone genérico para documento
-                placeholder="CPF (000.000.000-00)"
+                iconName="credit-card"
+                placeholder="CPF"
                 onBlur={onBlur}
-                onChangeText={onChange} // TODO: Adicionar máscara de formatação
+                onChangeText={(text) => onChange(applyMask(text, 'cpf'))}
                 value={value}
                 keyboardType="numeric"
                 maxLength={14}

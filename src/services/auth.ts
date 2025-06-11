@@ -4,18 +4,35 @@ import {
   signOut,
   sendPasswordResetEmail,
   type User as FirebaseUser,
+  fetchSignInMethodsForEmail,
 } from 'firebase/auth'
-import { ref, set, get, child } from 'firebase/database'
+import { ref, set, get, child, equalTo, orderByChild, query } from 'firebase/database'
 
 import { auth, database } from './firebaseConfig'
-import {
-  IUser,
-  IBaseProfile,
-  IClienteProfile,
-  UserRole,
-  UserStatus,
-  AuthProvider,
-} from '@/types/auth'
+import { IUser, IBaseProfile, UserRole, UserStatus, AuthProvider } from '@/types/auth'
+
+export async function isEmailInUse(email: string): Promise<boolean> {
+  try {
+    const methods = await fetchSignInMethodsForEmail(auth, email)
+    return methods.length > 0
+  } catch (error) {
+    console.error('Erro ao verificar e-mail:', error)
+    return false
+  }
+}
+
+export async function isCpfInUse(cpf: string): Promise<boolean> {
+  try {
+    const cleanedCpf = cpf.replace(/\D/g, '')
+    const usersRef = ref(database, 'users')
+    const cpfQuery = query(usersRef, orderByChild('baseProfile/cpf'), equalTo(cleanedCpf))
+    const snapshot = await get(cpfQuery)
+    return snapshot.exists()
+  } catch (error) {
+    console.error('Erro ao verificar CPF:', error)
+    return false
+  }
+}
 
 export async function signUp(
   nome: string,
@@ -24,20 +41,18 @@ export async function signUp(
   password: string,
 ): Promise<IUser> {
   try {
-    // 1. Cria o usuário no Firebase Authentication
     const userCredential = await createUserWithEmailAndPassword(auth, email, password)
     const firebaseUser = userCredential.user
 
-    // 2. Prepara os dados do perfil para o Realtime Database
     const now = Date.now()
     const newUser: IUser = {
       id: firebaseUser.uid,
-      role: UserRole.CLIENTE, // Define o papel padrão como Cliente
-      status: UserStatus.ATIVO, // Define o status padrão como Ativo
+      role: UserRole.CLIENTE,
+      status: UserStatus.ATIVO,
       baseProfile: {
         nome,
         email,
-        cpf,
+        cpf: cpf.replace(/\D/g, ''),
         telefone: null,
         dataNascimento: null,
         endereco: {
@@ -65,14 +80,11 @@ export async function signUp(
       updatedAt: now,
     }
 
-    // 3. Salva o perfil do usuário no Realtime Database
     const userRef = ref(database, `users/${firebaseUser.uid}`)
     await set(userRef, newUser)
 
     return newUser
   } catch (error: any) {
-    // Aqui você pode tratar erros específicos do Firebase (ex: email já em uso)
-    console.error('Erro no cadastro:', error.message)
     throw new Error('Não foi possível registrar o usuário.')
   }
 }
@@ -82,8 +94,6 @@ export async function signIn(email: string, password: string): Promise<FirebaseU
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
     return userCredential.user
   } catch (error: any) {
-    // Trata erros como senha incorreta ou usuário não encontrado
-    // console.error('Erro no login:', error.message)
     throw new Error('E-mail ou senha inválidos.')
   }
 }
@@ -92,7 +102,6 @@ export async function logout(): Promise<void> {
   try {
     await signOut(auth)
   } catch (error: any) {
-    // console.error('Erro ao fazer logout:', error.message)
     throw new Error('Não foi possível fazer logout.')
   }
 }
@@ -101,7 +110,6 @@ export async function resetPassword(email: string): Promise<void> {
   try {
     await sendPasswordResetEmail(auth, email)
   } catch (error: any) {
-    // console.error('Erro ao redefinir senha:', error.message)
     throw new Error('Não foi possível enviar o e-mail de redefinição.')
   }
 }
@@ -115,7 +123,6 @@ export async function getFullUserData(userId: string): Promise<IUser | null> {
     }
     return null
   } catch (error) {
-    // console.error('Erro ao buscar dados do usuário:', error)
     return null
   }
 }

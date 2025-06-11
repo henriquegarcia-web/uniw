@@ -3,6 +3,8 @@
 import * as yup from 'yup'
 
 import { FormattedOption } from './global'
+import { isCpfInUse, isEmailInUse } from '@/services/auth'
+import { isValidCpf } from '@/utils/validators'
 
 // ─── USER ROLES ─────────────────────────────────────────────────────────────
 
@@ -143,18 +145,35 @@ export const signInSchema = yup.object({
 
 export const signUpSchema = yup.object({
   nome: yup.string().required('O campo de nome é obrigatório.'),
+
   email: yup
     .string()
     .email('Por favor, insira um e-mail válido.')
-    .required('O campo de e-mail é obrigatório.'),
+    .required('O campo de e-mail é obrigatório.')
+    .test('is-email-unique', 'Este e-mail já está em uso.', async (value) => {
+      if (!value) return true
+      const isTaken = await isEmailInUse(value)
+      return !isTaken
+    }),
+
   cpf: yup
     .string()
     .required('O campo de CPF é obrigatório.')
-    .matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'Digite um CPF no formato 000.000.000-00'),
+    .test('is-cpf-valid', 'Digite um CPF válido.', (value) => {
+      if (!value) return true
+      return isValidCpf(value)
+    })
+    .test('is-cpf-unique', 'Este CPF já está em uso.', async (value) => {
+      if (!value || !isValidCpf(value)) return true
+      const isTaken = await isCpfInUse(value)
+      return !isTaken
+    }),
+
   password: yup
     .string()
     .min(6, 'A senha deve ter no mínimo 6 caracteres.')
     .required('O campo de senha é obrigatório.'),
+
   confirmPassword: yup
     .string()
     .oneOf([yup.ref('password')], 'As senhas devem ser iguais.')
