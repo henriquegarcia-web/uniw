@@ -1,28 +1,19 @@
-import React, {
-  createContext,
-  useState,
-  useContext,
-  useEffect,
-  ReactNode,
-  useMemo,
-} from 'react'
+// src/contexts/ClientAuthProvider.tsx
+
+import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-// import * as api from '@/services/api'; // Exemplo de import de serviços de API
+import { onAuthStateChanged } from 'firebase/auth'
 
-// --- Definição de Tipos ---
+import { auth } from '@/services/firebaseConfig'
+import * as authService from '@/services/auth'
+import { IUser } from '@/types/auth'
 
-// Tipo para o objeto de usuário
-type User = {
-  id: string
-  name: string
-  email: string
-}
-
-// Tipo para os dados que o contexto irá prover
 type AuthContextData = {
-  user: User | null
+  user: IUser | null
   isAuthenticated: boolean
   isLoadingAuth: boolean
+  isErrorAuth: boolean
+  errorAuth: any
   hasCompletedOnboarding: boolean
   isLoadingOnboarding: boolean
   signIn(email: string, password: string): Promise<void>
@@ -33,58 +24,46 @@ type AuthContextData = {
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
-// --- Componente Provedor ---
-
 type AuthProviderProps = {
   children: ReactNode
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  // --- States ---
-  const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<IUser | null>(null)
+
   const [isLoadingAuth, setIsLoadingAuth] = useState(true)
+  const [errorAuth, setErrorAuth] = useState<any>(null)
+
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(false)
   const [isLoadingOnboarding, setIsLoadingOnboarding] = useState(true)
 
-  const isAuthenticated = useMemo(() => {
-    return !!user
-  }, [user])
-
-  // --- Efeito para Carregar Dados Iniciais ---
   useEffect(() => {
-    async function loadDataFromStorage() {
-      // Inicia o carregamento
-      setIsLoadingAuth(true)
-      setIsLoadingOnboarding(true)
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        const userProfile = await authService.getFullUserData(firebaseUser.uid)
+        setUser(userProfile)
+      } else {
+        setUser(null)
+      }
+      setIsLoadingAuth(false)
+    })
 
+    const checkOnboarding = async () => {
       try {
-        // Busca o status do onboarding e o token/usuário do storage ao mesmo tempo
-        const [onboardingStatus, storedUser] = await Promise.all([
-          AsyncStorage.getItem('@Onboarding:completed'),
-          AsyncStorage.getItem('@Auth:user'), // Exemplo de chave para usuário
-        ])
-
+        const onboardingStatus = await AsyncStorage.getItem('@Onboarding:completed')
         if (onboardingStatus === 'true') {
           setHasCompletedOnboarding(true)
         }
-
-        if (storedUser) {
-          // Se encontrou dados do usuário, parseia e define no estado
-          setUser(JSON.parse(storedUser))
-        }
       } catch (error) {
-        console.error('Falha ao carregar dados do storage', error)
+        console.error('Falha ao buscar status do onboarding', error)
       } finally {
-        // Finaliza os loadings
-        setIsLoadingAuth(false)
         setIsLoadingOnboarding(false)
       }
     }
 
-    loadDataFromStorage()
+    checkOnboarding()
+    return () => unsubscribe()
   }, [])
-
-  // --- Funções ---
 
   const completeOnboarding = async () => {
     try {
@@ -95,51 +74,45 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }
 
-  // --- Estrutura das Funções de Autenticação ---
-
   const signIn = async (email: string, password: string) => {
     setIsLoadingAuth(true)
-    console.log('Tentando login com:', email, password)
-    //
-    // LÓGICA DE LOGIN COM FIREBASE OU SUA API VIRIA AQUI
-    // Ex: const response = await api.signIn({ email, password });
-    //
-    // Em caso de sucesso:
-    // const loggedUser = { id: '123', name: 'Usuário', email };
-    // await AsyncStorage.setItem('@Auth:user', JSON.stringify(loggedUser));
-    // setUser(loggedUser);
-    //
-    setIsLoadingAuth(false)
+    setErrorAuth(null)
+    try {
+      await authService.signIn(email, password)
+    } catch (error: any) {
+      setErrorAuth(error.message)
+      setIsLoadingAuth(false)
+    }
   }
 
   const signOut = async () => {
     setIsLoadingAuth(true)
-    console.log('Deslogando...')
-    //
-    // LÓGICA DE LOGOUT
-    //
-    // await AsyncStorage.removeItem('@Auth:user');
-    // await AsyncStorage.removeItem('@Auth:token');
-    // setUser(null);
-    //
-    setIsLoadingAuth(false)
+    try {
+      await authService.logout()
+    } catch (error) {
+      setIsLoadingAuth(false)
+    }
   }
 
   const signUp = async (name: string, email: string, password: string) => {
     setIsLoadingAuth(true)
-    console.log('Registrando novo usuário:', name, email)
-    //
-    // LÓGICA DE CADASTRO
-    //
-    setIsLoadingAuth(false)
+    setErrorAuth(null)
+    try {
+      await authService.signUp(name, email, password)
+    } catch (error: any) {
+      setErrorAuth(error.message)
+      setIsLoadingAuth(false)
+    }
   }
 
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticated,
+        isAuthenticated: !!user,
         user,
         isLoadingAuth,
+        isErrorAuth: !!errorAuth,
+        errorAuth,
         hasCompletedOnboarding,
         isLoadingOnboarding,
         completeOnboarding,
@@ -153,7 +126,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   )
 }
 
-// --- Hook Customizado ---
 export function useClientAuth(): AuthContextData {
   const context = useContext(AuthContext)
 

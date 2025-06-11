@@ -2,16 +2,16 @@
 
 export const theme = {
   colors: {
-    primary: '#2EBD55', // Verde principal
-    secondary: '#C441A4', // Roxo/rosa secundário
+    primary: '#00CF00',
+    secondary: '#B667A5',
 
-    background: '#FFFFFF', // Fundo principal da maioria das telas
-    surface: '#F5F5F5', // Fundo de cards, inputs e seções
+    background: '#FFFFFF',
+    surface: '#F5F5F5',
 
-    text: '#333333', // Cor de texto principal, escura
-    text_secondary: '#8A8A8A', // Cor de texto para legendas e placeholders
+    text: '#333333',
+    text_secondary: '#8A8A8A',
 
-    border: '#E0E0E0', // Cor para bordas e divisores
+    border: '#E0E0E0',
 
     success: '#2EBD55',
     error: '#D91E1E',
@@ -23,35 +23,52 @@ export const theme = {
     md: 16,
     lg: 24,
     xl: 32,
+    '2xl': 42,
+    '3xl': 54,
+    '4xl': 64,
+    'phone-default-header': 20,
   },
 
   fonts: {
-    // OBS: Lembre-se de carregar essas fontes no seu App.tsx usando expo-font!
     family: {
-      regular: 'SuaFonteRegular', // Substitua pelo nome da sua fonte
-      medium: 'SuaFonteMedium',
-      bold: 'SuaFonteBold',
+      thin: 'Montserrat-Thin',
+      extraLight: 'Montserrat-ExtraLight',
+      light: 'Montserrat-Light',
+      regular: 'Montserrat-Regular',
+      medium: 'Montserrat-Medium',
+      semiBold: 'Montserrat-SemiBold',
+      bold: 'Montserrat-Bold',
+      extraBold: 'Montserrat-ExtraBold',
+      black: 'Montserrat-Black',
     },
     size: {
       xs: 12,
       sm: 14,
       md: 16,
-      lg: 18,
+      lg: 20,
       xl: 24,
-      '2xl': 32,
+      '2xl': 34,
+      '3xl': 42,
     },
-    // Pesos de fonte para consistência
     weights: {
+      thin: '100' as const,
+      extraLight: '200' as const,
+      light: '300' as const,
       regular: '400' as const,
       medium: '500' as const,
+      semiBold: '600' as const,
       bold: '700' as const,
+      extraBold: '800' as const,
+      black: '900' as const,
     },
   },
 
   borders: {
     radius: {
+      xs: 4,
       sm: 8,
       md: 16,
+      circle: '100%',
     },
     width: {
       thin: 1,
