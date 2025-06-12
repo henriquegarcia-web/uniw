@@ -1,6 +1,6 @@
 // src/components/EditableUserPassword.tsx
 
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useForm, Controller, type FieldValues } from 'react-hook-form'
@@ -11,6 +11,7 @@ import { changePasswordSchema } from '@/types/auth'
 import { InputText } from './InputText'
 import { Button } from './Button'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
+import { useFocusEffect } from '@react-navigation/native'
 
 interface EditableUserPasswordProps {}
 
@@ -18,7 +19,6 @@ export const EditableUserPassword = ({}: EditableUserPasswordProps) => {
   const { isLoadingAuthFunctions, reauthenticate, changePassword } = useClientAuth()
 
   const [modalVisible, setModalVisible] = useState(false)
-  const [isEditing, setIsEditing] = useState(false)
 
   const {
     control,
@@ -27,6 +27,7 @@ export const EditableUserPassword = ({}: EditableUserPasswordProps) => {
     reset,
     setError,
     getValues,
+    clearErrors,
   } = useForm({
     resolver: yupResolver(changePasswordSchema),
     mode: 'onBlur',
@@ -67,6 +68,14 @@ export const EditableUserPassword = ({}: EditableUserPasswordProps) => {
     }
   }
 
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        clearErrors()
+      }
+    }, [clearErrors]),
+  )
+
   return (
     <>
       <View style={styles.content}>
@@ -106,7 +115,6 @@ export const EditableUserPassword = ({}: EditableUserPasswordProps) => {
               name="newPassword"
               render={({ field: { onChange, onBlur, value } }) => (
                 <InputText
-                  type="contrast"
                   iconName="lock"
                   placeholder="Crie uma senha"
                   onBlur={onBlur}
@@ -122,7 +130,6 @@ export const EditableUserPassword = ({}: EditableUserPasswordProps) => {
               name="confirmNewPassword"
               render={({ field: { onChange, onBlur, value } }) => (
                 <InputText
-                  type="contrast"
                   iconName="lock"
                   placeholder="Confirme sua senha"
                   onBlur={onBlur}

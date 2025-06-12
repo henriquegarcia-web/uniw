@@ -15,6 +15,7 @@ import { Feather } from '@expo/vector-icons'
 import { theme } from '@/styles/theme'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import { MainTabParamList } from '@/navigation/types'
+import { useClientAuth } from '@/contexts/ClientAuthProvider'
 
 type HeaderVariant = 'main' | 'back-cart' | 'back-title' | 'back-title-action'
 
@@ -34,6 +35,8 @@ export const Header = ({
   onRightIconPress,
 }: HeaderProps) => {
   const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>()
+
+  const { user } = useClientAuth()
 
   const handleBackPress = navigation.goBack
 
@@ -79,13 +82,21 @@ export const Header = ({
         return null
     }
   }
+  const userHasPhoto = !!user?.baseProfile?.foto
 
   const renderRightComponent = () => {
     switch (variant) {
       case 'main':
         return (
           <TouchableOpacity onPress={onProfilePress}>
-            <Image source={require('@/assets/images/avatar.jpg')} style={styles.avatar} />
+            {userHasPhoto ? (
+              <Image source={{ uri: user.baseProfile.foto! }} style={styles.avatar} />
+            ) : (
+              <Image
+                source={require('@/assets/images/avatar.jpg')}
+                style={styles.avatarPlaceholder}
+              />
+            )}
           </TouchableOpacity>
         )
       case 'back-cart':
@@ -154,6 +165,11 @@ const styles = StyleSheet.create({
     width: 80,
   },
   avatar: {
+    height: 36,
+    width: 36,
+    borderRadius: theme.borders.radius.circle,
+  },
+  avatarPlaceholder: {
     height: 36,
     width: 36,
     borderRadius: theme.borders.radius.circle,

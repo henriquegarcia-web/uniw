@@ -57,7 +57,6 @@ export const EditableUserName = ({}: EditableUserNameProps) => {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Alterar Nome</Text>
             <InputText
-            type='contrast'
               placeholder="Digite seu novo nome"
               value={newName}
               onChangeText={setNewName}

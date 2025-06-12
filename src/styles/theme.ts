@@ -9,7 +9,7 @@ export const theme = {
     buttonSecondary: '#FFFFFF',
 
     background: '#FFFFFF',
-    surface: '#F5F5F5',
+    surface: '#FAFAFA',
 
     text: '#333333',
     text_secondary: '#676767',

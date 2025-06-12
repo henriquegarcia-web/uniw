@@ -16,7 +16,6 @@ import { theme } from '@/styles/theme'
 type FeatherIconName = keyof typeof Feather.glyphMap
 
 interface InputTextProps extends TextInputProps {
-  type?: 'default' | 'contrast'
   label?: string
   iconName?: FeatherIconName
   isPassword?: boolean
@@ -25,13 +24,11 @@ interface InputTextProps extends TextInputProps {
 }
 
 export const InputText = forwardRef<TextInput, InputTextProps>(
-  ({ type = 'default', label, iconName, isPassword, error, width, ...rest }, ref) => {
+  ({ label, iconName, isPassword, error, width, ...rest }, ref) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
     const hasError = !!error
     const borderColor = hasError ? theme.colors.error : theme.colors.border
-    const backgroundColor =
-      type === 'default' ? theme.colors.surface : theme.colors.background
 
     const togglePasswordVisibility = () => {
       setIsPasswordVisible((prevState) => !prevState)
@@ -41,7 +38,7 @@ export const InputText = forwardRef<TextInput, InputTextProps>(
       <View style={[!width && styles.container, { width: `${width || 100}%` }]}>
         {label && <Text style={styles.label}>{label}</Text>}
 
-        <View style={[styles.inputContainer, { borderColor, backgroundColor }]}>
+        <View style={[styles.inputContainer, { borderColor }]}>
           {iconName && (
             <Feather
               name={iconName}
@@ -90,10 +87,10 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.colors.surface,
     borderRadius: theme.borders.radius.sm,
     borderWidth: theme.borders.width.thin,
     paddingHorizontal: theme.spacing.md,
+    backgroundColor: theme.colors.background,
   },
   icon: {
     marginRight: theme.spacing.sm,
@@ -104,6 +101,7 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
     color: theme.colors.text,
+    backgroundColor: theme.colors.background,
   },
   errorText: {
     marginTop: theme.spacing.xs,
