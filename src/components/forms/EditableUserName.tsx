@@ -57,6 +57,7 @@ export const EditableUserName = ({}: EditableUserNameProps) => {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Alterar Nome</Text>
             <InputText
+            type='contrast'
               placeholder="Digite seu novo nome"
               value={newName}
               onChangeText={setNewName}
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
   modalContent: {
     width: '100%',
     height: 240,
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.surface,
     borderRadius: theme.borders.radius.md,
     padding: theme.spacing.lg,
   },

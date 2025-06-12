@@ -12,9 +12,41 @@ import {
 
 import { theme } from '@/styles/theme'
 
+const variantStyles = {
+  primary: {
+    container: {
+      backgroundColor: theme.colors.buttonPrimary,
+    },
+    text: {
+      color: theme.colors.text_contrast,
+      fontFamily: theme.fonts.family.semiBold,
+    },
+  },
+  secondary: {
+    container: {
+      backgroundColor: theme.colors.buttonSecondary,
+    },
+    text: {
+      color: theme.colors.buttonPrimary,
+      fontFamily: theme.fonts.family.bold,
+    },
+  },
+  negative: {
+    container: {
+      backgroundColor: theme.colors.buttonSecondary,
+    },
+    text: {
+      color: theme.colors.error,
+      fontFamily: theme.fonts.family.semiBold,
+    },
+  },
+}
+
+type ButtonVariant = keyof typeof variantStyles
+
 interface ButtonProps extends TouchableOpacityProps {
   title: string
-  variant?: 'primary' | 'secondary'
+  variant?: ButtonVariant
   loading?: boolean
 }
 
@@ -25,13 +57,6 @@ export const Button = ({
   disabled,
   ...rest
 }: ButtonProps) => {
-  const backgroundColor =
-    variant === 'primary' ? theme.colors.buttonPrimary : theme.colors.buttonSecondary
-  const color =
-    variant === 'primary' ? theme.colors.text_contrast : theme.colors.buttonPrimary
-  const fontFamily =
-    variant === 'primary' ? theme.fonts.family.semiBold : theme.fonts.family.bold
-
   const scaleValue = useRef(new Animated.Value(1)).current
 
   const handlePressIn = () => {
@@ -56,6 +81,8 @@ export const Button = ({
 
   const isButtonDisabled = loading || disabled
 
+  const currentVariant = variantStyles[variant]
+
   return (
     <Pressable
       onPressIn={handlePressIn}
@@ -66,7 +93,7 @@ export const Button = ({
       <Animated.View
         style={[
           styles.container,
-          { backgroundColor },
+          currentVariant.container,
           isButtonDisabled && styles.disabled,
           animatedStyle,
         ]}
@@ -74,7 +101,7 @@ export const Button = ({
         {loading ? (
           <ActivityIndicator color={theme.colors.background} />
         ) : (
-          <Text style={[styles.text, { color, fontFamily }]}>{title}</Text>
+          <Text style={[styles.text, currentVariant.text]}>{title}</Text>
         )}
       </Animated.View>
     </Pressable>

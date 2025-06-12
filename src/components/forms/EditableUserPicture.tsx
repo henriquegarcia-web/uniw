@@ -109,18 +109,18 @@ export const EditableUserPicture = ({}: EditableUserPictureProps) => {
           onPress={() => setModalVisible(false)}
         >
           <SafeAreaView style={styles.actionSheet}>
-            <TouchableOpacity style={styles.optionButton} onPress={handlePickImage}>
-              <Text style={styles.optionText}>Alterar foto de perfil</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.optionButton, !userHasPhoto && styles.disabledOption]}
-              onPress={handleRemoveImage}
-              // disabled={!userHasPhoto}
-            >
-              <Text style={[styles.optionText, styles.destructiveText]}>
-                Remover foto
-              </Text>
-            </TouchableOpacity>
+            <Button
+              title={userHasPhoto ? 'Alterar foto de perfil' : 'Adicionar foto de perfil'}
+              variant="primary"
+              onPress={handlePickImage}
+            />
+            {userHasPhoto && (
+              <Button
+                title="Remover foto"
+                variant="negative"
+                onPress={handleRemoveImage}
+              />
+            )}
             <Button
               title="Cancelar"
               variant="secondary"
@@ -162,17 +162,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   actionSheet: {
+    rowGap: theme.spacing.sm,
     backgroundColor: theme.colors.surface,
     borderTopLeftRadius: theme.borders.radius.md,
     borderTopRightRadius: theme.borders.radius.md,
-    padding: theme.spacing.sm,
+    padding: theme.spacing.md,
   },
   optionButton: {
     backgroundColor: theme.colors.background,
     borderRadius: theme.borders.radius.sm,
     padding: theme.spacing.md,
     alignItems: 'center',
-    marginBottom: theme.spacing.sm,
   },
   cancelButton: {
     marginTop: theme.spacing.xs,

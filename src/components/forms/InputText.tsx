@@ -16,6 +16,7 @@ import { theme } from '@/styles/theme'
 type FeatherIconName = keyof typeof Feather.glyphMap
 
 interface InputTextProps extends TextInputProps {
+  type?: 'default' | 'contrast'
   label?: string
   iconName?: FeatherIconName
   isPassword?: boolean
@@ -24,11 +25,12 @@ interface InputTextProps extends TextInputProps {
 }
 
 export const InputText = forwardRef<TextInput, InputTextProps>(
-  ({ label, iconName, isPassword, error, width, ...rest }, ref) => {
+  ({ type = 'default', label, iconName, isPassword, error, width, ...rest }, ref) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
     const hasError = !!error
     const borderColor = hasError ? theme.colors.error : theme.colors.border
+    const backgroundColor = type ==='default' ? theme.colors.surface : theme.colors.background
 
     const togglePasswordVisibility = () => {
       setIsPasswordVisible((prevState) => !prevState)
@@ -38,7 +40,7 @@ export const InputText = forwardRef<TextInput, InputTextProps>(
       <View style={[!width && styles.container, { width: `${width || 100}%` }]}>
         {label && <Text style={styles.label}>{label}</Text>}
 
-        <View style={[styles.inputContainer, { borderColor }]}>
+        <View style={[styles.inputContainer, { borderColor, backgroundColor }]}>
           {iconName && (
             <Feather
               name={iconName}
