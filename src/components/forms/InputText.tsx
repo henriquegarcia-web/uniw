@@ -20,10 +20,11 @@ interface InputTextProps extends TextInputProps {
   iconName?: FeatherIconName
   isPassword?: boolean
   error?: string | null
+  width?: number
 }
 
 export const InputText = forwardRef<TextInput, InputTextProps>(
-  ({ label, iconName, isPassword, error, ...rest }, ref) => {
+  ({ label, iconName, isPassword, error, width, ...rest }, ref) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
     const hasError = !!error
@@ -34,7 +35,7 @@ export const InputText = forwardRef<TextInput, InputTextProps>(
     }
 
     return (
-      <View style={styles.container}>
+      <View style={[!width && styles.container, { width: `${width || 100}%` }]}>
         {label && <Text style={styles.label}>{label}</Text>}
 
         <View style={[styles.inputContainer, { borderColor }]}>
@@ -75,7 +76,7 @@ export const InputText = forwardRef<TextInput, InputTextProps>(
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    flex: 1,
   },
   label: {
     marginBottom: theme.spacing.sm,

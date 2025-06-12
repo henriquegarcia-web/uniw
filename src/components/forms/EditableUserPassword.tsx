@@ -32,9 +32,8 @@ export const EditableUserPassword = ({}: EditableUserPasswordProps) => {
         name="currentPassword"
         render={({ field: { onChange, onBlur, value } }) => (
           <InputText
-            iconName="lock"
             label="Senha"
-            placeholder="Digite sua senha atual"
+            placeholder="Digite sua senha atual para edita-la"
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}

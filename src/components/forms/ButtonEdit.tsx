@@ -66,7 +66,7 @@ export const ButtonEdit = ({
           animatedStyle,
         ]}
       >
-        <Feather name="edit-2" size={size === 'md' ? 16 : 10} color="white" />
+        <Feather name="edit-2" size={size === 'md' ? 16 : 9} color="white" />
       </Animated.View>
     </Pressable>
   )

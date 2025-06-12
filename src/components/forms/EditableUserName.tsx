@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   nameEdit: {
     position: 'absolute',
-    top: -10,
-    right: -20,
+    top: -9,
+    right: -17,
   },
 })

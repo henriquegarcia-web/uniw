@@ -25,10 +25,10 @@ export const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarPro
         <Feather name="shopping-cart" size={26} color={theme.colors.background} />
       </TouchableOpacity>
 
-      {/* Fundo da TabBar com SVG */}
+      {/* Fundo da TabBar com SVG
       <Svg width={width} height={SVG_HEIGHT} style={styles.svgBackground}>
-        <Path d={d} fill={theme.colors.background} />
-      </Svg>
+        <Path d={d} fill={theme.colors.background} stroke={theme.colors.border} />
+      </Svg> */}
 
       {/* Container dos ícones */}
       <View style={styles.tabBarInner}>
@@ -109,6 +109,8 @@ const styles = StyleSheet.create({
   svgBackground: {
     position: 'absolute',
     top: -20,
+
+    backgroundColor: 'white',
   },
   tabBarInner: {
     position: 'absolute',
@@ -118,6 +120,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    backgroundColor: theme.colors.background,
     borderTopWidth: 1,
     borderColor: theme.colors.border,
   },

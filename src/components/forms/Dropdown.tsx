@@ -20,7 +20,7 @@ export type DropdownItem = {
   value: any
 }
 
-interface AppDropdownProps {
+interface DropdownProps {
   label?: string
   iconName?: FeatherIconName
   items: DropdownItem[]
@@ -31,7 +31,7 @@ interface AppDropdownProps {
   disabled?: boolean
 }
 
-export const AppDropdown = ({
+export const Dropdown = ({
   label,
   iconName,
   items,
@@ -40,7 +40,7 @@ export const AppDropdown = ({
   placeholder = 'Selecione uma opção',
   error,
   disabled = false,
-}: AppDropdownProps) => {
+}: DropdownProps) => {
   const [modalVisible, setModalVisible] = useState(false)
 
   const selectedItemLabel = items.find((item) => item.value === value)?.label
@@ -113,7 +113,6 @@ export const AppDropdown = ({
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    marginBottom: theme.spacing.md,
   },
   label: {
     marginBottom: theme.spacing.sm,

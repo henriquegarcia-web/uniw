@@ -147,23 +147,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     try {
       await authService.updateProfile(user.id, data)
-
-      // setUser((currentUser) => {
-      //   if (!currentUser) return null
-
-      //   return {
-      //     ...currentUser,
-      //     baseProfile: {
-      //       ...currentUser.baseProfile,
-      //       ...data,
-      //       endereco: {
-      //         ...currentUser.baseProfile.endereco,
-      //         ...data.endereco,
-      //       },
-      //     },
-      //     updatedAt: Date.now(),
-      //   }
-      // })
     } catch (error: any) {
       setErrorAuth(error.message)
       throw error

@@ -70,6 +70,7 @@ export async function signUp(
         endereco: {
           cep: null,
           rua: null,
+          numero: null,
           bairro: null,
           cidade: null,
           estado: null,
@@ -144,25 +145,25 @@ export async function updateProfile(
   data: Partial<Pick<IBaseProfile, 'telefone' | 'endereco'>>,
 ): Promise<void> {
   try {
-    const updates: { [key: string]: any } = {}
-
-    if (data.telefone) {
-      updates[`/users/${userId}/baseProfile/telefone`] = data.telefone
+    if ('telefone' in data && data.telefone !== undefined) {
+      const telefoneRef = ref(database, `/users/${userId}/baseProfile/telefone`)
+      await set(telefoneRef, data.telefone)
     }
 
     if (data.endereco) {
       for (const [key, value] of Object.entries(data.endereco)) {
-        if (value) {
-          updates[`/users/${userId}/baseProfile/endereco/${key}`] = value
+        if (value !== undefined) {
+          const enderecoFieldRef = ref(
+            database,
+            `/users/${userId}/baseProfile/endereco/${key}`,
+          )
+          await set(enderecoFieldRef, value)
         }
       }
     }
 
-    updates[`/users/${userId}/updatedAt`] = Date.now()
-
-    const dbRef = ref(database)
-
-    await update(dbRef, updates)
+    const updatedAtRef = ref(database, `/users/${userId}/updatedAt`)
+    await set(updatedAtRef, Date.now())
   } catch (error: any) {
     console.error('Erro ao atualizar o perfil:', error.message)
     throw new Error('Não foi possível atualizar os dados do perfil.')

@@ -103,6 +103,7 @@ export interface IBaseProfile {
   endereco: {
     cep: string | null
     rua: string | null
+    numero: string | null
     bairro: string | null
     cidade: string | null
     estado: string | null
@@ -209,11 +210,9 @@ export const changePasswordSchema = yup.object({
 })
 
 export const updateProfileSchema = yup.object({
-  email: yup
-    .string()
-    .email('Por favor, insira um e-mail válido.')
-    .required('O campo de e-mail é obrigatório.'),
-  phone: yup
+  email: yup.string().nullable(),
+  cpf: yup.string().nullable(),
+  telefone: yup
     .string()
     .nullable()
     .test(
@@ -221,7 +220,7 @@ export const updateProfileSchema = yup.object({
       'Número de telefone inválido',
       (value) => !value || isValidPhone(value),
     ),
-  address: yup
+  endereco: yup
     .object()
     .shape({
       cep: yup
@@ -229,6 +228,7 @@ export const updateProfileSchema = yup.object({
         .nullable()
         .test('is-valid-cep', 'CEP inválido', (value) => !value || isValidCep(value)),
       rua: yup.string().nullable(),
+      numero: yup.string().nullable(),
       bairro: yup.string().nullable(),
       cidade: yup.string().nullable(),
       estado: yup.string().nullable(),
