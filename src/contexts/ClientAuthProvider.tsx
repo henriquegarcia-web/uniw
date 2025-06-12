@@ -96,6 +96,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       await authService.signIn(email, password)
     } catch (error: any) {
       setErrorAuth(error.message)
+    } finally {
       setIsLoadingAuthFunctions(false)
     }
   }
@@ -105,6 +106,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     try {
       await authService.logout()
     } catch (error) {
+    } finally {
       setIsLoadingAuthFunctions(false)
     }
   }
@@ -116,6 +118,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       await authService.signUp(name, email, cpf, password)
     } catch (error: any) {
       setErrorAuth(error.message)
+    } finally {
       setIsLoadingAuthFunctions(false)
     }
   }

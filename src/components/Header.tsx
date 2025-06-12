@@ -13,6 +13,8 @@ import { useNavigation } from '@react-navigation/native'
 import { Feather } from '@expo/vector-icons'
 
 import { theme } from '@/styles/theme'
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
+import { MainTabParamList } from '@/navigation/types'
 
 type HeaderVariant = 'main' | 'back-cart' | 'back-title' | 'back-title-action'
 
@@ -21,10 +23,6 @@ type FeatherIconName = keyof typeof Feather.glyphMap
 export interface HeaderProps {
   variant: HeaderVariant
   title?: string
-  onBackPress?: () => void
-  onCartPress?: () => void
-  onMenuPress?: () => void
-  onProfilePress?: () => void
   rightIconName?: FeatherIconName
   onRightIconPress?: () => void
 }
@@ -32,16 +30,16 @@ export interface HeaderProps {
 export const Header = ({
   variant,
   title,
-  onBackPress,
-  onCartPress,
-  onMenuPress,
-  onProfilePress,
   rightIconName,
   onRightIconPress,
 }: HeaderProps) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>()
 
-  const handleBackPress = onBackPress || navigation.goBack
+  const handleBackPress = navigation.goBack
+
+  const onCartPress = () => navigation.navigate('CartStack', { screen: 'Cart' })
+  const onMenuPress = () => {}
+  const onProfilePress = () => navigation.navigate('SettingsStack', { screen: 'Profile' })
 
   const renderLeftComponent = () => {
     switch (variant) {
@@ -87,7 +85,7 @@ export const Header = ({
       case 'main':
         return (
           <TouchableOpacity onPress={onProfilePress}>
-            <Image source={require('@/assets/favicon.png')} style={styles.avatar} />
+            <Image source={require('@/assets/images/avatar.jpg')} style={styles.avatar} />
           </TouchableOpacity>
         )
       case 'back-cart':

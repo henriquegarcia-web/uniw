@@ -92,7 +92,7 @@ const getIconName = (routeName: string): keyof typeof Feather.glyphMap => {
     case 'Search':
       return 'search'
     case 'SettingsStack':
-      return 'settings'
+      return 'user'
     default:
       return 'circle'
   }
@@ -109,11 +109,6 @@ const styles = StyleSheet.create({
   svgBackground: {
     position: 'absolute',
     top: -20,
-    elevation: 8, // Sombra para Android
-    shadowColor: '#000', // Sombra para iOS
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
   },
   tabBarInner: {
     position: 'absolute',
@@ -123,6 +118,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    borderTopWidth: 1,
+    borderColor: theme.colors.border,
   },
   tabItem: {
     flex: 1,
@@ -130,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tabLabel: {
-    fontSize: 10,
+    fontSize: theme.fonts.size.xs,
     marginTop: 4,
     fontFamily: theme.fonts.family.medium,
   },

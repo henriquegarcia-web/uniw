@@ -2,17 +2,15 @@
 
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-
 import { MainTabParamList } from './types'
 
 import { HomeStack } from './HomeStack'
 import { CartStack } from './CartStack'
 import { SettingsStack } from './SettingsStack'
-
 import WishlistScreen from '@/screens/WishlistScreen'
 import SearchScreen from '@/screens/SearchScreen'
 
-import { Text } from 'react-native'
+import { CustomTabBar } from './CustomTabBar'
 import { Header } from '@/components/Header'
 
 const Tab = createBottomTabNavigator<MainTabParamList>()
@@ -22,11 +20,8 @@ export function MainTabNavigator() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        // TODO: Substitua o texto por componentes de ícone reais
-        tabBarIcon: ({ color, size }) => (
-          <Text style={{ color, fontSize: size }}>ICON</Text>
-        ),
       }}
+      tabBar={(props) => <CustomTabBar {...props} />}
     >
       <Tab.Screen name="HomeStack" component={HomeStack} options={{ title: 'Início' }} />
       <Tab.Screen
