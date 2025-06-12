@@ -14,13 +14,13 @@ export const theme = {
     border: '#E0E0E0',
 
     success: '#2EBD55',
-    error: '#D91E1E',
+    error: '#F83758',
   },
 
   spacing: {
     xs: 4,
     sm: 8,
-    md: 16,
+    md: 18,
     lg: 24,
     xl: 32,
     '2xl': 42,
@@ -68,7 +68,7 @@ export const theme = {
       xs: 4,
       sm: 8,
       md: 16,
-      circle: '100%',
+      circle: 100,
     },
     width: {
       thin: 1,

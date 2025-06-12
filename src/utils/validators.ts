@@ -55,3 +55,39 @@ export function isValidCpf(cpf: string): boolean {
 
   return true
 }
+
+// ─── Validador de Telefone ──────────────────────────────────────────────────
+
+export function isValidPhone(phone: string): boolean {
+  if (!phone) return false
+  const cleaned = phone.replace(/\D/g, '')
+  return cleaned.length === 10 || cleaned.length === 11
+}
+
+// ─── Validador de Data de Validade ──────────────────────────────────────────
+
+export function isValidExpiryDate(expiryDate: string): boolean {
+  if (!expiryDate || !/^\d{2}\/\d{2}$/.test(expiryDate)) {
+    return false
+  }
+
+  const [monthStr, yearStr] = expiryDate.split('/')
+  const month = parseInt(monthStr, 10)
+  const year = parseInt(`20${yearStr}`, 10)
+  if (month < 1 || month > 12) {
+    return false
+  }
+
+  const now = new Date()
+  const currentYear = now.getFullYear()
+  const currentMonth = now.getMonth() + 1
+  if (year < currentYear) {
+    return false
+  }
+
+  if (year === currentYear && month < currentMonth) {
+    return false
+  }
+
+  return true
+}

@@ -2,19 +2,23 @@
 
 // ─── Tipagens ───────────────────────────────────────────────────────────────
 
-export type SupportedMask = 'currency' | 'cep' | 'cpf'
+export type SupportedMask = 'currency' | 'cep' | 'cpf' | 'phone' | 'expiryDate';
 
 type MaskInput = {
-  currency: number | string
-  cep: string
-  cpf: string
-}
+  currency: number | string;
+  cep: string;
+  cpf: string;
+  phone: string;
+  expiryDate: string;
+};
 
 type MaskReturn = {
-  currency: string
-  cep: string
-  cpf: string
-}
+  currency: string;
+  cep: string;
+  cpf: string;
+  phone: string;
+  expiryDate: string;
+};
 
 type MaskHandlers = {
   [K in SupportedMask]: (_value: MaskInput[K]) => MaskReturn[K]
@@ -58,6 +62,25 @@ const maskHandlers: MaskHandlers = {
       .replace(/(\d{3})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d{1,2})/, '$1-$2')
       .replace(/(-\d{2})\d+?$/, '$1')
+  },
+
+  // Formata string como Telefone: (00) 00000-0000
+  phone: (value) => {
+    if (!value) return ''
+    return value
+      .replace(/\D/g, '')
+      .replace(/^(\d{2})/, '($1) ')
+      .replace(/(\d{5})(\d)/, '$1-$2')
+      .replace(/(-\d{4})\d+?$/, '$1')
+  },
+
+  // Formata string como MM/AA
+  expiryDate: (value) => {
+    if (!value) return '';
+    return value
+      .replace(/\D/g, '') 
+      .replace(/(\d{2})(\d)/, '$1/$2') 
+      .slice(0, 5); 
   },
 }
 

@@ -4,7 +4,7 @@ import * as yup from 'yup'
 
 import { FormattedOption } from './global'
 import { isCpfInUse, isEmailInUse } from '@/services/auth'
-import { isValidCpf } from '@/utils/validators'
+import { isValidCep, isValidCpf, isValidPhone } from '@/utils/validators'
 
 // ─── USER ROLES ─────────────────────────────────────────────────────────────
 
@@ -191,4 +191,47 @@ export const forgotPasswordSchema = yup.object({
       const isExists = await isEmailInUse(value)
       return !!isExists
     }),
+})
+
+export const changePasswordSchema = yup.object({
+  currentPassword: yup
+    .string()
+    .min(6, 'A senha deve ter no mínimo 6 caracteres.')
+    .required('A senha atual é obrigatória.'),
+  newPassword: yup
+    .string()
+    .min(6, 'A senha deve ter no mínimo 6 caracteres.')
+    .required('A nova senha é obrigatória.'),
+  confirmNewPassword: yup
+    .string()
+    .oneOf([yup.ref('newPassword')], 'As senhas devem ser iguais.')
+    .required('Confirme sua nova senha.'),
+})
+
+export const updateProfileSchema = yup.object({
+  email: yup
+    .string()
+    .email('Por favor, insira um e-mail válido.')
+    .required('O campo de e-mail é obrigatório.'),
+  phone: yup
+    .string()
+    .nullable()
+    .test(
+      'is-valid-phone',
+      'Número de telefone inválido',
+      (value) => !value || isValidPhone(value),
+    ),
+  address: yup
+    .object()
+    .shape({
+      cep: yup
+        .string()
+        .nullable()
+        .test('is-valid-cep', 'CEP inválido', (value) => !value || isValidCep(value)),
+      rua: yup.string().nullable(),
+      bairro: yup.string().nullable(),
+      cidade: yup.string().nullable(),
+      estado: yup.string().nullable(),
+    })
+    .nullable(),
 })

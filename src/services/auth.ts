@@ -6,7 +6,16 @@ import {
   type User as FirebaseUser,
   fetchSignInMethodsForEmail,
 } from 'firebase/auth'
-import { ref, set, get, child, equalTo, orderByChild, query } from 'firebase/database'
+import {
+  ref,
+  set,
+  get,
+  child,
+  equalTo,
+  orderByChild,
+  query,
+  update,
+} from 'firebase/database'
 
 import { auth, database } from './firebaseConfig'
 import { IUser, IBaseProfile, UserRole, UserStatus, AuthProvider } from '@/types/auth'
@@ -132,10 +141,30 @@ export async function getFullUserData(userId: string): Promise<IUser | null> {
 
 export async function updateProfile(
   userId: string,
-  data: Partial<IBaseProfile>, // Exemplo usando apenas o perfil base
+  data: Partial<Pick<IBaseProfile, 'telefone' | 'endereco'>>,
 ): Promise<void> {
-  // TODO: Implementar a lógica de atualização usando a função `update` do Firebase Realtime Database.
-  // Ex: const userRef = ref(database, `users/${userId}/baseProfile`);
-  // await update(userRef, data);
-  // console.log('Atualizando perfil para o usuário:', userId, 'com dados:', data)
+  try {
+    const updates: { [key: string]: any } = {}
+
+    if (data.telefone) {
+      updates[`/users/${userId}/baseProfile/telefone`] = data.telefone
+    }
+
+    if (data.endereco) {
+      for (const [key, value] of Object.entries(data.endereco)) {
+        if (value) {
+          updates[`/users/${userId}/baseProfile/endereco/${key}`] = value
+        }
+      }
+    }
+
+    updates[`/users/${userId}/updatedAt`] = Date.now()
+
+    const dbRef = ref(database)
+
+    await update(dbRef, updates)
+  } catch (error: any) {
+    console.error('Erro ao atualizar o perfil:', error.message)
+    throw new Error('Não foi possível atualizar os dados do perfil.')
+  }
 }

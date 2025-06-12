@@ -13,7 +13,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 
 import { auth } from '@/services/firebaseConfig'
 import * as authService from '@/services/auth'
-import { IUser } from '@/types/auth'
+import { IBaseProfile, IUser } from '@/types/auth'
 
 type AuthContextData = {
   user: IUser | null
@@ -30,6 +30,7 @@ type AuthContextData = {
   signUp(name: string, email: string, cpf: string, password: string): Promise<void>
   completeOnboarding(): Promise<void>
   resetPassword(email: string): Promise<void>
+  updateProfile(data: Partial<IBaseProfile>): Promise<void>
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -136,6 +137,41 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }
 
+  const updateProfile = async (data: Partial<IBaseProfile>) => {
+    if (!user) {
+      throw new Error('Nenhum usuário autenticado para atualizar o perfil.')
+    }
+
+    setIsLoadingAuthFunctions(true)
+    setErrorAuth(null)
+
+    try {
+      await authService.updateProfile(user.id, data)
+
+      // setUser((currentUser) => {
+      //   if (!currentUser) return null
+
+      //   return {
+      //     ...currentUser,
+      //     baseProfile: {
+      //       ...currentUser.baseProfile,
+      //       ...data,
+      //       endereco: {
+      //         ...currentUser.baseProfile.endereco,
+      //         ...data.endereco,
+      //       },
+      //     },
+      //     updatedAt: Date.now(),
+      //   }
+      // })
+    } catch (error: any) {
+      setErrorAuth(error.message)
+      throw error
+    } finally {
+      setIsLoadingAuthFunctions(false)
+    }
+  }
+
   const clearAuthError = () => setErrorAuth(null)
 
   return (
@@ -154,6 +190,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         signIn,
         signOut,
         signUp,
+        updateProfile,
         resetPassword,
       }}
     >

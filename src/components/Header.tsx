@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   avatar: {
     height: 36,
     width: 36,
-    borderRadius: 18,
+    borderRadius: theme.borders.radius.circle,
   },
   cartButton: {
     backgroundColor: theme.colors.secondary,
