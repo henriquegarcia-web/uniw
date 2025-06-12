@@ -9,6 +9,7 @@ import { OnBoardingStack } from '@/navigation/OnBoardingStack'
 
 import SplashScreen from '@/screens/SplashScreen'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
+import { navigationRef, onNavigationReady } from '@/services/navigation'
 
 export function Routes() {
   const { isAuthenticated, isLoadingAuth, hasCompletedOnboarding, isLoadingOnboarding } =
@@ -19,7 +20,7 @@ export function Routes() {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef} onReady={onNavigationReady}>
       {!hasCompletedOnboarding ? (
         <OnBoardingStack />
       ) : isAuthenticated ? (

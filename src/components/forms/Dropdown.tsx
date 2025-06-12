@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.colors.surface,
+    backgroundColor: theme.colors.background,
     borderRadius: theme.borders.radius.sm,
     borderWidth: theme.borders.width.thin,
     height: 50,

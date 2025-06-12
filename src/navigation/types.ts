@@ -2,6 +2,7 @@
 
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
+import { NavigatorScreenParams } from '@react-navigation/native'
 
 // --- Pilhas de Navegação (Stacks) ---
 
@@ -31,16 +32,17 @@ export type SettingsStackParamList = {
   Profile: undefined
   AddNewCard: undefined
   OrderHistory: undefined
+  Settings: undefined
 }
 
 // --- Navegador Principal (Tabs) ---
 
 export type MainTabParamList = {
-  HomeStack: { screen: 'Home' } // Exemplo de como passar params iniciais
+  HomeStack: NavigatorScreenParams<HomeStackParamList> | undefined
   Wishlist: undefined
   Search: undefined
-  CartStack: { screen: 'Cart' }
-  SettingsStack: { screen: 'Profile' }
+  CartStack: NavigatorScreenParams<CartStackParamList> | undefined
+  SettingsStack: NavigatorScreenParams<SettingsStackParamList> | undefined
 }
 
 // --- Tipos de Props para cada Tela ---
@@ -83,6 +85,10 @@ export type CheckoutSuccessScreenProps = NativeStackScreenProps<
 >
 
 // Perfil
+export type SettingsScreenProps = NativeStackScreenProps<
+  SettingsStackParamList,
+  'Settings'
+>
 export type ProfileScreenProps = NativeStackScreenProps<SettingsStackParamList, 'Profile'>
 export type AddNewCardScreenProps = NativeStackScreenProps<
   SettingsStackParamList,

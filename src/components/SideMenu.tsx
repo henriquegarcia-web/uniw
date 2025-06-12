@@ -16,6 +16,8 @@ import { Feather } from '@expo/vector-icons'
 import { useMenu } from '@/contexts/MenuProvider'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { theme } from '@/styles/theme'
+import { navigate } from '@/services/navigation'
+import { MainTabParamList } from '@/navigation/types'
 
 const { width } = Dimensions.get('window')
 const MENU_WIDTH = width * 0.75
@@ -33,6 +35,19 @@ export const SideMenu = () => {
       useNativeDriver: true,
     }).start()
   }, [isOpen, position])
+
+  const navigateAndClose = (
+    name: keyof MainTabParamList,
+    params?: MainTabParamList[keyof MainTabParamList],
+  ) => {
+    navigate(name, params)
+    closeMenu()
+  }
+
+  const handleSignOut = () => {
+    closeMenu()
+    signOut()
+  }
 
   if (!isOpen) {
     return null
@@ -52,21 +67,34 @@ export const SideMenu = () => {
         </View>
         <SafeAreaView style={styles.menuWrapper}>
           <View style={styles.menuItems}>
-            <TouchableOpacity style={styles.menuItem}>
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => navigateAndClose('SettingsStack', { screen: 'Profile' })}
+            >
               <Feather name="user" size={22} color={theme.colors.text} />
               <Text style={styles.menuItemText}>Meu Perfil</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem}>
+
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() =>
+                navigateAndClose('SettingsStack', { screen: 'OrderHistory' })
+              }
+            >
               <Feather name="shopping-bag" size={22} color={theme.colors.text} />
               <Text style={styles.menuItemText}>Meus Pedidos</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem}>
+
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => navigateAndClose('SettingsStack', { screen: 'Settings' })}
+            >
               <Feather name="settings" size={22} color={theme.colors.text} />
               <Text style={styles.menuItemText}>Configurações</Text>
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity style={styles.logoutButton} onPress={signOut}>
+          <TouchableOpacity style={styles.logoutButton} onPress={handleSignOut}>
             <Feather name="log-out" size={22} color={theme.colors.error} />
             <Text style={[styles.menuItemText, { color: theme.colors.error }]}>Sair</Text>
           </TouchableOpacity>

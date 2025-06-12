@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: theme.fonts.family.semiBold,
     fontSize: theme.fonts.size.lg,
-    lineHeight: theme.fonts.size.lg,
+    lineHeight: theme.fonts.size.xl,
     color: theme.colors.text,
   },
   logo: {
