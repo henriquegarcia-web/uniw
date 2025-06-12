@@ -11,9 +11,10 @@ import React, {
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { onAuthStateChanged } from 'firebase/auth'
 
-import { auth } from '@/services/firebaseConfig'
+import { auth, database } from '@/services/firebaseConfig'
 import * as authService from '@/services/auth'
 import { IBaseProfile, IUser } from '@/types/auth'
+import { onValue, ref } from 'firebase/database'
 
 type AuthContextData = {
   user: IUser | null
@@ -31,6 +32,9 @@ type AuthContextData = {
   completeOnboarding(): Promise<void>
   resetPassword(email: string): Promise<void>
   updateProfile(data: Partial<IBaseProfile>): Promise<void>
+  updateUserName(newName: string): Promise<void>
+  updateUserProfilePicture(imageUri: string): Promise<void>
+  removeUserProfilePicture(): Promise<void>
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -50,14 +54,24 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLoadingOnboarding, setIsLoadingOnboarding] = useState(true)
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    const unsubscribeAuth = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
-        const userProfile = await authService.getFullUserData(firebaseUser.uid)
-        setUser(userProfile)
+        const userProfileRef = ref(database, `users/${firebaseUser.uid}`)
+
+        const unsubscribeDb = onValue(userProfileRef, (snapshot) => {
+          if (snapshot.exists()) {
+            setUser(snapshot.val() as IUser)
+          } else {
+            setUser(null)
+          }
+          setIsLoadingAuth(false)
+        })
+
+        return () => unsubscribeDb()
       } else {
         setUser(null)
+        setIsLoadingAuth(false)
       }
-      setIsLoadingAuth(false)
     })
 
     const checkOnboarding = async () => {
@@ -74,7 +88,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     checkOnboarding()
-    return () => unsubscribe()
+    return () => unsubscribeAuth()
   }, [])
 
   const isAuthenticated = useMemo(() => {
@@ -155,6 +169,52 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }
 
+  const updateUserName = async (newName: string) => {
+    if (!user) {
+      throw new Error('Nenhum usuário autenticado para atualizar o nome.')
+    }
+
+    setIsLoadingAuthFunctions(true)
+    setErrorAuth(null)
+
+    try {
+      await authService.updateUserName(user.id, newName)
+    } catch (error: any) {
+      setErrorAuth(error.message)
+      throw error
+    } finally {
+      setIsLoadingAuthFunctions(false)
+    }
+  }
+
+  const updateUserProfilePicture = async (imageUri: string) => {
+    if (!user) throw new Error('Usuário não autenticado.')
+    setIsLoadingAuthFunctions(true)
+    setErrorAuth(null)
+    try {
+      await authService.updateUserProfilePicture(user.id, imageUri)
+    } catch (error: any) {
+      setErrorAuth(error.message)
+      throw error
+    } finally {
+      setIsLoadingAuthFunctions(false)
+    }
+  }
+
+  const removeUserProfilePicture = async () => {
+    if (!user?.baseProfile.foto) throw new Error('Usuário não tem foto para remover.')
+    setIsLoadingAuthFunctions(true)
+    setErrorAuth(null)
+    try {
+      await authService.removeUserProfilePicture(user.id, user.baseProfile.foto)
+    } catch (error: any) {
+      setErrorAuth(error.message)
+      throw error
+    } finally {
+      setIsLoadingAuthFunctions(false)
+    }
+  }
+
   const clearAuthError = () => setErrorAuth(null)
 
   return (
@@ -174,6 +234,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         signOut,
         signUp,
         updateProfile,
+        updateUserName,
+        updateUserProfilePicture,
+        removeUserProfilePicture,
         resetPassword,
       }}
     >

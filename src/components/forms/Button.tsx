@@ -26,7 +26,11 @@ export const Button = ({
   ...rest
 }: ButtonProps) => {
   const backgroundColor =
-    variant === 'primary' ? theme.colors.primary : theme.colors.secondary
+    variant === 'primary' ? theme.colors.buttonPrimary : theme.colors.buttonSecondary
+  const color =
+    variant === 'primary' ? theme.colors.text_contrast : theme.colors.buttonPrimary
+  const fontFamily =
+    variant === 'primary' ? theme.fonts.family.semiBold : theme.fonts.family.bold
 
   const scaleValue = useRef(new Animated.Value(1)).current
 
@@ -70,7 +74,7 @@ export const Button = ({
         {loading ? (
           <ActivityIndicator color={theme.colors.background} />
         ) : (
-          <Text style={styles.text}>{title}</Text>
+          <Text style={[styles.text, { color, fontFamily }]}>{title}</Text>
         )}
       </Animated.View>
     </Pressable>
@@ -88,9 +92,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   text: {
-    color: theme.colors.background,
     fontSize: theme.fonts.size.lg,
-    fontFamily: theme.fonts.family.semiBold,
   },
   disabled: {
     opacity: 0.5,

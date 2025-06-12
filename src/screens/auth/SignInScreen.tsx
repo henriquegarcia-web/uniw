@@ -99,7 +99,7 @@ const SignInScreen = ({ navigation }: SignInScreenProps) => {
           <View style={styles.submitContainer}>
             <Button
               title="Login"
-              variant="secondary"
+              variant="primary"
               onPress={handleSubmit(handleSignIn)}
               loading={isLoadingAuthFunctions}
               disabled={isLoadingAuthFunctions}

@@ -310,7 +310,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
           <View style={styles.submitContainer}>
             <Button
               title="Salvar Alterações"
-              variant="secondary"
+              variant="primary"
               onPress={handleSubmit(handleUpdateProfile)}
               loading={isLoadingAuthFunctions}
               disabled={!isDirty || isLoadingAuthFunctions}

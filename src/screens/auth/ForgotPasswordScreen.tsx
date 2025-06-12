@@ -81,7 +81,7 @@ const ForgotPasswordScreen = ({ navigation }: ForgotPasswordScreenProps) => {
           <View style={styles.submitContainer}>
             <Button
               title="Enviar"
-              variant="secondary"
+              variant="primary"
               onPress={handleSubmit(handlePasswordReset)}
               loading={isLoadingAuthFunctions}
               disabled={isLoadingAuthFunctions}

@@ -4,7 +4,6 @@ import {
   signOut,
   sendPasswordResetEmail,
   type User as FirebaseUser,
-  fetchSignInMethodsForEmail,
 } from 'firebase/auth'
 import {
   ref,
@@ -17,8 +16,14 @@ import {
   update,
 } from 'firebase/database'
 
-import { auth, database } from './firebaseConfig'
+import { auth, database, storage } from './firebaseConfig'
 import { IUser, IBaseProfile, UserRole, UserStatus, AuthProvider } from '@/types/auth'
+import {
+  getDownloadURL,
+  uploadBytes,
+  ref as storageRef,
+  deleteObject,
+} from 'firebase/storage'
 
 export async function isEmailInUse(email: string): Promise<boolean> {
   try {
@@ -167,5 +172,78 @@ export async function updateProfile(
   } catch (error: any) {
     console.error('Erro ao atualizar o perfil:', error.message)
     throw new Error('Não foi possível atualizar os dados do perfil.')
+  }
+}
+
+export async function updateUserName(userId: string, newName: string): Promise<void> {
+  try {
+    const updates: { [key: string]: any } = {}
+    updates[`/users/${userId}/baseProfile/nome`] = newName
+    updates[`/users/${userId}/updatedAt`] = Date.now()
+
+    const dbRef = ref(database)
+    await update(dbRef, updates)
+  } catch (error: any) {
+    console.error('Erro ao atualizar o nome:', error.message)
+    throw new Error('Não foi possível atualizar o nome do usuário.')
+  }
+}
+
+export async function updateUserProfilePicture(
+  userId: string,
+  imageUri: string,
+): Promise<string> {
+  try {
+    const response = await fetch(imageUri)
+    const blob = await response.blob()
+
+    const fileExtension = imageUri.split('.').pop()
+    const fileName = `profile_${Date.now()}.${fileExtension}`
+    const imageRef = storageRef(storage, `profile_pictures/${userId}/${fileName}`)
+
+    await uploadBytes(imageRef, blob)
+
+    const downloadURL = await getDownloadURL(imageRef)
+
+    const updates: { [key: string]: any } = {}
+    updates[`/users/${userId}/baseProfile/foto`] = downloadURL
+    updates[`/users/${userId}/updatedAt`] = Date.now()
+
+    const dbRef = ref(database)
+    await update(dbRef, updates)
+
+    return downloadURL
+  } catch (error: any) {
+    console.error('Erro ao fazer upload da foto de perfil:', error.message)
+    throw new Error('Não foi possível atualizar a foto de perfil.')
+  }
+}
+
+export async function removeUserProfilePicture(
+  userId: string,
+  photoUrl: string,
+): Promise<void> {
+  try {
+    const imageRef = storageRef(storage, photoUrl)
+
+    await deleteObject(imageRef)
+
+    const updates: { [key: string]: any } = {}
+    updates[`/users/${userId}/baseProfile/foto`] = null
+    updates[`/users/${userId}/updatedAt`] = Date.now()
+
+    const dbRef = ref(database)
+    await update(dbRef, updates)
+  } catch (error: any) {
+    if (error.code === 'storage/object-not-found') {
+      console.log('Arquivo já não existia no Storage, limpando apenas o banco de dados.')
+      const updates: { [key: string]: any } = {}
+      updates[`/users/${userId}/baseProfile/foto`] = null
+      updates[`/users/${userId}/updatedAt`] = Date.now()
+      await update(ref(database), updates)
+    } else {
+      console.error('Erro ao remover a foto de perfil:', error.message)
+      throw new Error('Não foi possível remover a foto de perfil.')
+    }
   }
 }

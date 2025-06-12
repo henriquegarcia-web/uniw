@@ -167,7 +167,7 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
           <View style={styles.submitContainer}>
             <Button
               title="Criar Conta"
-              variant="secondary"
+              variant="primary"
               onPress={handleSubmit(handleSignUp)}
               loading={isLoadingAuthFunctions}
               disabled={isLoadingAuthFunctions}

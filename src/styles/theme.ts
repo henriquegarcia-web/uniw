@@ -5,11 +5,15 @@ export const theme = {
     primary: '#00CF00',
     secondary: '#B667A5',
 
+    buttonPrimary: '#B667A5',
+    buttonSecondary: '#FFFFFF',
+
     background: '#FFFFFF',
     surface: '#F5F5F5',
 
     text: '#333333',
     text_secondary: '#676767',
+    text_contrast: '#fff',
 
     border: '#E0E0E0',
 
