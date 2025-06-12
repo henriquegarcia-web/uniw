@@ -6,11 +6,11 @@ export default {
     slug: 'uniw-app',
     version: '1.0.0',
     orientation: 'portrait',
-    icon: './src/assets/icon.png',
+    icon: './src/assets/uniw_logo.png',
     userInterfaceStyle: 'light',
     newArchEnabled: true,
     splash: {
-      image: './src/assets/splash-icon.png',
+      image: './src/assets/uniw_logo.png',
       resizeMode: 'contain',
       backgroundColor: '#ffffff',
     },

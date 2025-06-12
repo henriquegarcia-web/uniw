@@ -12,8 +12,8 @@ import { SettingsStack } from './SettingsStack'
 import WishlistScreen from '@/screens/WishlistScreen'
 import SearchScreen from '@/screens/SearchScreen'
 
-// TODO: Instale e importe uma biblioteca de ícones, como a expo-vector-icons
 import { Text } from 'react-native'
+import { Header } from '@/components/Header'
 
 const Tab = createBottomTabNavigator<MainTabParamList>()
 
@@ -32,17 +32,25 @@ export function MainTabNavigator() {
       <Tab.Screen
         name="Wishlist"
         component={WishlistScreen}
-        options={{ title: 'Desejos' }}
-      />
-      <Tab.Screen
-        name="Search"
-        component={SearchScreen}
-        options={{ title: 'Pesquisar' }}
+        options={{
+          title: 'Desejos',
+          headerShown: true,
+          header: () => <Header variant="main" />,
+        }}
       />
       <Tab.Screen
         name="CartStack"
         component={CartStack}
         options={{ title: 'Carrinho' }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          title: 'Pesquisar',
+          headerShown: true,
+          header: () => <Header variant="main" />,
+        }}
       />
       <Tab.Screen
         name="SettingsStack"

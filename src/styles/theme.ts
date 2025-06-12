@@ -26,7 +26,7 @@ export const theme = {
     '2xl': 42,
     '3xl': 54,
     '4xl': 64,
-    'phone-default-header': 20,
+    'phone-default-header': 30,
   },
 
   fonts: {
