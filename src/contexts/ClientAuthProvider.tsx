@@ -35,6 +35,8 @@ type AuthContextData = {
   updateUserName(newName: string): Promise<void>
   updateUserProfilePicture(imageUri: string): Promise<void>
   removeUserProfilePicture(): Promise<void>
+  reauthenticate(password: string): Promise<void>
+  changePassword(newPassword: string): Promise<void>
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -215,6 +217,32 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }
 
+  const reauthenticate = async (password: string) => {
+    setIsLoadingAuthFunctions(true)
+    setErrorAuth(null)
+    try {
+      await authService.reauthenticate(password)
+    } catch (error: any) {
+      setErrorAuth(error.message)
+      throw error
+    } finally {
+      setIsLoadingAuthFunctions(false)
+    }
+  }
+
+  const changePassword = async (newPassword: string) => {
+    setIsLoadingAuthFunctions(true)
+    setErrorAuth(null)
+    try {
+      await authService.changePassword(newPassword)
+    } catch (error: any) {
+      setErrorAuth(error.message)
+      throw error
+    } finally {
+      setIsLoadingAuthFunctions(false)
+    }
+  }
+
   const clearAuthError = () => setErrorAuth(null)
 
   return (
@@ -237,6 +265,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         updateUserName,
         updateUserProfilePicture,
         removeUserProfilePicture,
+        reauthenticate,
+        changePassword,
         resetPassword,
       }}
     >

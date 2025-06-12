@@ -4,6 +4,9 @@ import {
   signOut,
   sendPasswordResetEmail,
   type User as FirebaseUser,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  updatePassword,
 } from 'firebase/auth'
 import {
   ref,
@@ -245,5 +248,38 @@ export async function removeUserProfilePicture(
       console.error('Erro ao remover a foto de perfil:', error.message)
       throw new Error('Não foi possível remover a foto de perfil.')
     }
+  }
+}
+
+export async function reauthenticate(currentPassword: string): Promise<void> {
+  const user = auth.currentUser
+  if (!user || !user.email) {
+    throw new Error('Nenhum usuário encontrado para reautenticação.')
+  }
+
+  const credential = EmailAuthProvider.credential(user.email, currentPassword)
+
+  try {
+    await reauthenticateWithCredential(user, credential)
+  } catch (error: any) {
+    console.error('Falha na reautenticação:', error)
+    if (error.code === 'auth/wrong-password') {
+      throw new Error('A senha atual está incorreta.')
+    }
+    throw new Error('Não foi possível verificar sua identidade.')
+  }
+}
+
+export async function changePassword(newPassword: string): Promise<void> {
+  const user = auth.currentUser
+  if (!user) {
+    throw new Error('Nenhum usuário autenticado para alterar a senha.')
+  }
+
+  try {
+    await updatePassword(user, newPassword)
+  } catch (error: any) {
+    console.error('Erro ao alterar a senha:', error)
+    throw new Error('Não foi possível alterar a senha.')
   }
 }

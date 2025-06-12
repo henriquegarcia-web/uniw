@@ -30,7 +30,8 @@ export const InputText = forwardRef<TextInput, InputTextProps>(
 
     const hasError = !!error
     const borderColor = hasError ? theme.colors.error : theme.colors.border
-    const backgroundColor = type ==='default' ? theme.colors.surface : theme.colors.background
+    const backgroundColor =
+      type === 'default' ? theme.colors.surface : theme.colors.background
 
     const togglePasswordVisibility = () => {
       setIsPasswordVisible((prevState) => !prevState)
@@ -64,7 +65,7 @@ export const InputText = forwardRef<TextInput, InputTextProps>(
                 name={isPasswordVisible ? 'eye' : 'eye-off'}
                 size={20}
                 color={theme.colors.text_secondary}
-                style={styles.icon}
+                // style={styles.icon}
               />
             </TouchableOpacity>
           )}
