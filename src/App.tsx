@@ -3,6 +3,8 @@ import { useFonts } from 'expo-font'
 
 import { Routes } from '@/navigation'
 import { AuthProvider } from '@/contexts/ClientAuthProvider'
+import { MenuProvider } from '@/contexts/MenuProvider'
+import { SideMenu } from './components/SideMenu'
 import SplashScreen from './screens/SplashScreen'
 
 export default function App() {
@@ -24,8 +26,11 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <StatusBar style="auto" />
-      <Routes />
+      <MenuProvider>
+        <StatusBar style="auto" />
+        <Routes />
+        <SideMenu />
+      </MenuProvider>
     </AuthProvider>
   )
 }

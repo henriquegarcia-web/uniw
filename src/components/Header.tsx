@@ -16,6 +16,7 @@ import { theme } from '@/styles/theme'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import { MainTabParamList } from '@/navigation/types'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
+import { useMenu } from '@/contexts/MenuProvider'
 
 type HeaderVariant = 'main' | 'back-cart' | 'back-title' | 'back-title-action'
 
@@ -37,11 +38,11 @@ export const Header = ({
   const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>()
 
   const { user } = useClientAuth()
+  const { openMenu } = useMenu()
 
   const handleBackPress = navigation.goBack
-
+  const onMenuPress = openMenu
   const onCartPress = () => navigation.navigate('CartStack', { screen: 'Cart' })
-  const onMenuPress = () => {}
   const onProfilePress = () => navigation.navigate('SettingsStack', { screen: 'Profile' })
 
   const renderLeftComponent = () => {
