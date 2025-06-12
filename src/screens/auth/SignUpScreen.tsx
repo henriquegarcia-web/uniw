@@ -25,7 +25,7 @@ import { isCpfInUse, isEmailInUse } from '@/services/auth'
 import { applyMask } from '@/utils/masks'
 
 const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
-  const { signUp, isLoadingAuth, isErrorAuth, errorAuth, clearAuthError } =
+  const { signUp, isLoadingAuthFunctions, isErrorAuth, errorAuth, clearAuthError } =
     useClientAuth()
 
   const {
@@ -169,8 +169,8 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
               title="Criar Conta"
               variant="secondary"
               onPress={handleSubmit(handleSignUp)}
-              loading={isLoadingAuth}
-              disabled={isLoadingAuth}
+              loading={isLoadingAuthFunctions}
+              disabled={isLoadingAuthFunctions}
             />
           </View>
 

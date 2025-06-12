@@ -19,6 +19,7 @@ type AuthContextData = {
   user: IUser | null
   isAuthenticated: boolean
   isLoadingAuth: boolean
+  isLoadingAuthFunctions: boolean
   isErrorAuth: boolean
   errorAuth: any
   clearAuthError: () => void
@@ -41,6 +42,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<IUser | null>(null)
 
   const [isLoadingAuth, setIsLoadingAuth] = useState(true)
+  const [isLoadingAuthFunctions, setIsLoadingAuthFunctions] = useState(false)
   const [errorAuth, setErrorAuth] = useState<any>(null)
 
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(false)
@@ -88,38 +90,38 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }
 
   const signIn = async (email: string, password: string) => {
-    setIsLoadingAuth(true)
+    setIsLoadingAuthFunctions(true)
     setErrorAuth(null)
     try {
       await authService.signIn(email, password)
     } catch (error: any) {
       setErrorAuth(error.message)
-      setIsLoadingAuth(false)
+      setIsLoadingAuthFunctions(false)
     }
   }
 
   const signOut = async () => {
-    setIsLoadingAuth(true)
+    setIsLoadingAuthFunctions(true)
     try {
       await authService.logout()
     } catch (error) {
-      setIsLoadingAuth(false)
+      setIsLoadingAuthFunctions(false)
     }
   }
 
   const signUp = async (name: string, email: string, cpf: string, password: string) => {
-    setIsLoadingAuth(true)
+    setIsLoadingAuthFunctions(true)
     setErrorAuth(null)
     try {
       await authService.signUp(name, email, cpf, password)
     } catch (error: any) {
       setErrorAuth(error.message)
-      setIsLoadingAuth(false)
+      setIsLoadingAuthFunctions(false)
     }
   }
 
   const resetPassword = async (email: string) => {
-    setIsLoadingAuth(true)
+    setIsLoadingAuthFunctions(true)
     setErrorAuth(null)
     try {
       await authService.resetPassword(email)
@@ -127,7 +129,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setErrorAuth(error.message)
       throw error
     } finally {
-      setIsLoadingAuth(false)
+      setIsLoadingAuthFunctions(false)
     }
   }
 
@@ -139,6 +141,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         isAuthenticated,
         user,
         isLoadingAuth,
+        isLoadingAuthFunctions,
         isErrorAuth: !!errorAuth,
         errorAuth,
         clearAuthError,

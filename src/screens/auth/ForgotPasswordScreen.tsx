@@ -22,7 +22,7 @@ import { forgotPasswordSchema } from '@/types/auth'
 import { isEmailInUse } from '@/services/auth'
 
 const ForgotPasswordScreen = ({ navigation }: ForgotPasswordScreenProps) => {
-  const { resetPassword, isLoadingAuth } = useClientAuth()
+  const { resetPassword, isLoadingAuthFunctions } = useClientAuth()
 
   const {
     control,
@@ -83,8 +83,8 @@ const ForgotPasswordScreen = ({ navigation }: ForgotPasswordScreenProps) => {
               title="Enviar"
               variant="secondary"
               onPress={handleSubmit(handlePasswordReset)}
-              loading={isLoadingAuth}
-              disabled={isLoadingAuth}
+              loading={isLoadingAuthFunctions}
+              disabled={isLoadingAuthFunctions}
             />
           </View>
         </View>

@@ -23,7 +23,7 @@ import { SocialIcon } from '@/components/SocialIcon'
 import { ButtonIcon } from '@/components/forms/ButtonIcon'
 
 const SignInScreen = ({ navigation }: SignInScreenProps) => {
-  const { signIn, isLoadingAuth, isErrorAuth, errorAuth, clearAuthError } =
+  const { signIn, isLoadingAuthFunctions, isErrorAuth, errorAuth, clearAuthError } =
     useClientAuth()
 
   const {
@@ -101,8 +101,8 @@ const SignInScreen = ({ navigation }: SignInScreenProps) => {
               title="Login"
               variant="secondary"
               onPress={handleSubmit(handleSignIn)}
-              loading={isLoadingAuth}
-              disabled={isLoadingAuth}
+              loading={isLoadingAuthFunctions}
+              disabled={isLoadingAuthFunctions}
             />
           </View>
 

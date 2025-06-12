@@ -7,10 +7,16 @@ import { AuthStack } from '@/navigation/AuthStack'
 import { MainTabNavigator } from '@/navigation/MainTabNavigator'
 import { OnBoardingStack } from '@/navigation/OnBoardingStack'
 
+import SplashScreen from '@/screens/SplashScreen'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 
 export function Routes() {
-  const { isAuthenticated, hasCompletedOnboarding } = useClientAuth()
+  const { isAuthenticated, isLoadingAuth, hasCompletedOnboarding, isLoadingOnboarding } =
+    useClientAuth()
+
+  if (isLoadingAuth || isLoadingOnboarding) {
+    return <SplashScreen />
+  }
 
   return (
     <NavigationContainer>
