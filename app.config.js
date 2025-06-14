@@ -10,14 +10,15 @@ export default {
     userInterfaceStyle: 'light',
     newArchEnabled: true,
     splash: {
-      image: './src/assets/uniw_logo.png',
-      resizeMode: 'contain',
+      image: './src/assets/backgrounds/splash-background.png',
+      resizeMode: 'cover',
       backgroundColor: '#ffffff',
     },
     ios: {
       supportsTablet: true,
     },
     android: {
+      package: 'com.uniw.app',
       adaptiveIcon: {
         foregroundImage: './src/assets/adaptive-icon.png',
         backgroundColor: '#ffffff',
@@ -27,8 +28,11 @@ export default {
     web: {
       favicon: './src/assets/favicon.png',
     },
-    plugins: ['expo-font'],
+    plugins: ['expo-font', 'expo-dev-client'],
     extra: {
+      eas: {
+        projectId: '812553f4-aa20-4fba-b088-aa0528af72b3',
+      },
       firebaseApiKey: process.env.FIREBASE_API_KEY,
       firebaseAuthDomain: process.env.FIREBASE_AUTH_DOMAIN,
       firebaseDatabaseURL: process.env.FIREBASE_DATABASE_URL,

@@ -1,6 +1,6 @@
 // src/screens/ProfileScreen.tsx
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   StyleSheet,
   SafeAreaView,
@@ -29,6 +29,7 @@ import { ibgeService, IBGEState, IBGECity } from '@/services/ibge'
 import { EditableUserPicture } from '@/components/forms/EditableUserPicture'
 import { EditableUserName } from '@/components/forms/EditableUserName'
 import { EditableUserPassword } from '@/components/forms/EditableUserPassword'
+import { useFocusEffect } from '@react-navigation/native'
 
 const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
   const { user, updateProfile, isLoadingAuthFunctions } = useClientAuth()
@@ -142,6 +143,15 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
       Alert.alert('Erro', 'Não foi possível atualizar seu perfil.')
     }
   }
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        reset()
+      }
+    }, [reset]),
+  )
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView

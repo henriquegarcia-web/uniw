@@ -70,7 +70,7 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
         keyboardShouldPersistTaps="handled"
       >
         <View></View>
-        <View>
+        <View style={styles.content}>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Criar uma</Text>
             <Text style={styles.title}>nova conta</Text>
@@ -221,6 +221,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: theme.spacing.lg,
     paddingTop: theme.spacing['4xl'],
+  },
+  content: {
+    rowGap: theme.spacing.md,
   },
   titleContainer: {
     marginBottom: theme.spacing['4xl'],

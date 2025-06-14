@@ -48,7 +48,7 @@ const SignInScreen = ({ navigation }: SignInScreenProps) => {
         keyboardShouldPersistTaps="handled"
       >
         <View></View>
-        <View>
+        <View style={styles.content}>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Bem</Text>
             <Text style={styles.title}>vindo(a)!</Text>
@@ -152,6 +152,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: theme.spacing.lg,
     paddingTop: theme.spacing['4xl'],
+  },
+  content: {
+    rowGap: theme.spacing.md,
   },
   titleContainer: {
     rowGap: 10,
