@@ -43,6 +43,11 @@ export interface IProductCategory {
   imageUrl: string
 }
 
+export interface IProductRating {
+  average: number
+  reviews: number
+}
+
 export interface IProduct {
   id: string
   categoryId: string
@@ -51,7 +56,7 @@ export interface IProduct {
   description: string
   images: string[]
   badges?: ProductBadge[]
-  averageRating?: number
+  rating?: IProductRating
   reviews?: IReview[]
   variationTypes: IVariationType[]
   skus: IProductSKU[]
@@ -110,12 +115,15 @@ export const mockProducts: IProduct[] = [
     description:
       'Nossa base mais vendida, com acabamento matte aveludado, longa duração e resistente à água. Controla a oleosidade e minimiza a aparência dos poros.',
     images: [
-      'https://picsum.photos/seed/base1/800/800',
-      'https://picsum.photos/seed/base2/800/800',
-      'https://picsum.photos/seed/base3/800/800',
+      'https://picsum.photos/seed/base1/400/800',
+      'https://picsum.photos/seed/base2/400/800',
+      'https://picsum.photos/seed/base3/400/800',
     ],
     badges: [ProductBadge.VIP, ProductBadge.IN_STOCK],
-    averageRating: 4.8,
+    rating: {
+      average: 3.8,
+      reviews: 2000,
+    },
     variationTypes: [
       {
         name: 'Cor',
@@ -141,7 +149,10 @@ export const mockProducts: IProduct[] = [
       'Batom com fórmula enriquecida com manteiga de karité e vitamina E para lábios macios e coloridos o dia todo.',
     images: ['https://picsum.photos/seed/lipstick1/800/800'],
     badges: [ProductBadge.SALE],
-    averageRating: 4.6,
+    rating: {
+      average: 4.6,
+      reviews: 2000,
+    },
     variationTypes: [
       {
         name: 'Cor',
@@ -176,7 +187,10 @@ export const mockProducts: IProduct[] = [
     description:
       'Crie looks incríveis com 12 sombras de alta pigmentação, incluindo acabamentos matte e cintilantes.',
     images: ['https://picsum.photos/seed/palette1/800/800'],
-    averageRating: 4.9,
+    rating: {
+      average: 4.9,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-3-sunset', price: 189.9, stock: 70, attributes: {} }],
   },
@@ -187,7 +201,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Cílios de boneca em uma camada',
     description: '...',
     images: ['https://picsum.photos/seed/mascara/800/800'],
-    averageRating: 4.7,
+    rating: {
+      average: 4.7,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-4-mascara', price: 79.9, stock: 200, attributes: {} }],
   },
@@ -198,7 +215,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Sela a maquiagem e controla o brilho',
     description: '...',
     images: ['https://picsum.photos/seed/powder/800/800'],
-    averageRating: 4.5,
+    rating: {
+      average: 4.5,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-5-powder', price: 89.9, stock: 120, attributes: {} }],
   },
@@ -213,7 +233,10 @@ export const mockProducts: IProduct[] = [
       'Combate os radicais livres, uniformiza o tom da pele e promove luminosidade. Ideal para todos os tipos de pele.',
     images: ['https://picsum.photos/seed/serum1/800/800'],
     badges: [ProductBadge.NEW_ARRIVAL, ProductBadge.VIP],
-    averageRating: 4.9,
+    rating: {
+      average: 4.9,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-6-serum', price: 210.0, stock: 80, attributes: {} }],
   },
@@ -224,7 +247,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Limpa sem ressecar',
     description: '...',
     images: ['https://picsum.photos/seed/cleanser/800/800'],
-    averageRating: 4.8,
+    rating: {
+      average: 4.8,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-7-cleanser', price: 95.5, stock: 150, attributes: {} }],
   },
@@ -235,7 +261,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Hidratação intensa por 48h',
     description: '...',
     images: ['https://picsum.photos/seed/moisturizer/800/800'],
-    averageRating: 4.7,
+    rating: {
+      average: 4.7,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-8-moisturizer', price: 150.0, stock: 100, attributes: {} }],
   },
@@ -246,7 +275,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Alta proteção e controle de oleosidade',
     description: '...',
     images: ['https://picsum.photos/seed/sunscreen/800/800'],
-    averageRating: 5.0,
+    rating: {
+      average: 5.0,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-9-sunscreen', price: 110.0, stock: 300, attributes: {} }],
   },
@@ -261,7 +293,10 @@ export const mockProducts: IProduct[] = [
       'Uma fragrância misteriosa e sedutora, com notas de jasmim, baunilha e sândalo. Perfeita para a noite.',
     images: ['https://picsum.photos/seed/perfume1/800/800'],
     badges: [ProductBadge.VIP],
-    averageRating: 4.9,
+    rating: {
+      average: 4.9,
+      reviews: 2000,
+    },
     variationTypes: [
       {
         name: 'Tamanho',
@@ -285,7 +320,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Cítrico e refrescante',
     description: '...',
     images: ['https://picsum.photos/seed/perfume2/800/800'],
-    averageRating: 4.6,
+    rating: {
+      average: 4.6,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-11-fresh', price: 180.0, stock: 90, attributes: {} }],
   },
@@ -296,7 +334,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Doce e aconchegante',
     description: '...',
     images: ['https://picsum.photos/seed/bodysplash/800/800'],
-    averageRating: 4.7,
+    rating: {
+      average: 4.7,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-12-vanilla', price: 89.9, stock: 250, attributes: {} }],
   },
@@ -309,7 +350,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Para cabelos secos e danificados',
     description: '...',
     images: ['https://picsum.photos/seed/shampoo/800/800'],
-    averageRating: 4.8,
+    rating: {
+      average: 4.8,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-13-shampoo', price: 65.0, stock: 180, attributes: {} }],
   },
@@ -320,7 +364,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Reparação intensa em 3 minutos',
     description: '...',
     images: ['https://picsum.photos/seed/hairmask/800/800'],
-    averageRating: 4.9,
+    rating: {
+      average: 4.9,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-14-hairmask', price: 99.0, stock: 110, attributes: {} }],
   },
@@ -331,7 +378,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Brilho e maciez sem pesar',
     description: '...',
     images: ['https://picsum.photos/seed/hairoil/800/800'],
-    averageRating: 5.0,
+    rating: {
+      average: 5.0,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-15-hairoil', price: 75.0, stock: 220, attributes: {} }],
   },
@@ -348,7 +398,10 @@ export const mockProducts: IProduct[] = [
       'https://picsum.photos/seed/dress1/800/800',
       'https://picsum.photos/seed/dress2/800/800',
     ],
-    averageRating: 4.7,
+    rating: {
+      average: 4.7,
+      reviews: 2000,
+    },
     badges: [ProductBadge.NEW_ARRIVAL],
     variationTypes: [
       {
@@ -401,7 +454,10 @@ export const mockProducts: IProduct[] = [
     caption: 'O clássico indispensável',
     description: '...',
     images: ['https://picsum.photos/seed/blazer/800/800'],
-    averageRating: 4.9,
+    rating: {
+      average: 4.9,
+      reviews: 2000,
+    },
     variationTypes: [
       {
         name: 'Tamanho',
@@ -423,7 +479,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Modelagem perfeita que valoriza',
     description: '...',
     images: ['https://picsum.photos/seed/jeans/800/800'],
-    averageRating: 4.6,
+    rating: {
+      average: 4.6,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-18-jeans', price: 220.0, stock: 50, attributes: {} }],
   },
@@ -434,7 +493,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Moderna e versátil',
     description: '...',
     images: ['https://picsum.photos/seed/skirt/800/800'],
-    averageRating: 4.8,
+    rating: {
+      average: 4.8,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-19-skirt', price: 199.9, stock: 40, attributes: {} }],
   },
@@ -445,7 +507,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Sensualidade e sofisticação',
     description: '...',
     images: ['https://picsum.photos/seed/body/800/800'],
-    averageRating: 4.9,
+    rating: {
+      average: 4.9,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-20-body', price: 159.0, stock: 60, attributes: {} }],
   },
@@ -456,7 +521,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Toque macio e qualidade superior',
     description: '...',
     images: ['https://picsum.photos/seed/tshirt/800/800'],
-    averageRating: 5.0,
+    rating: {
+      average: 5.0,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-21-tshirt', price: 120.0, stock: 100, attributes: {} }],
   },
@@ -469,7 +537,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Espaçosa e elegante para o dia a dia',
     description: '...',
     images: ['https://picsum.photos/seed/bag1/800/800'],
-    averageRating: 4.9,
+    rating: {
+      average: 4.9,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-22-bag', price: 599.0, stock: 30, attributes: {} }],
   },
@@ -480,7 +551,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Discreto e sofisticado',
     description: '...',
     images: ['https://picsum.photos/seed/necklace/800/800'],
-    averageRating: 4.8,
+    rating: {
+      average: 4.8,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-23-necklace', price: 180.0, stock: 70, attributes: {} }],
   },
@@ -491,7 +565,10 @@ export const mockProducts: IProduct[] = [
     caption: 'O toque final para seu look',
     description: '...',
     images: ['https://picsum.photos/seed/belt/800/800'],
-    averageRating: 4.7,
+    rating: {
+      average: 4.7,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-24-belt', price: 129.0, stock: 90, attributes: {} }],
   },
@@ -502,7 +579,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Estilo retrô e proteção UV400',
     description: '...',
     images: ['https://picsum.photos/seed/sunglasses/800/800'],
-    averageRating: 4.9,
+    rating: {
+      average: 4.9,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-25-sunglasses', price: 350.0, stock: 50, attributes: {} }],
   },
@@ -515,7 +595,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Elegância e poder',
     description: '...',
     images: ['https://picsum.photos/seed/scarpin/800/800'],
-    averageRating: 4.8,
+    rating: {
+      average: 4.8,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-26-scarpin', price: 320.0, stock: 45, attributes: {} }],
   },
@@ -526,7 +609,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Conforto e estilo para qualquer ocasião',
     description: '...',
     images: ['https://picsum.photos/seed/sneaker/800/800'],
-    averageRating: 4.9,
+    rating: {
+      average: 4.9,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-27-sneaker', price: 280.0, stock: 120, attributes: {} }],
   },
@@ -537,7 +623,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Minimalista e chique',
     description: '...',
     images: ['https://picsum.photos/seed/sandal/800/800'],
-    averageRating: 4.7,
+    rating: {
+      average: 4.7,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-28-sandal', price: 250.0, stock: 80, attributes: {} }],
   },
@@ -550,7 +639,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Brilho intenso e longa duração',
     description: '...',
     images: ['https://picsum.photos/seed/nailpolish/800/800'],
-    averageRating: 4.9,
+    rating: {
+      average: 4.9,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-29-polish', price: 25.0, stock: 500, attributes: {} }],
   },
@@ -561,7 +653,10 @@ export const mockProducts: IProduct[] = [
     caption: 'Tudo que você precisa para unhas perfeitas',
     description: '...',
     images: ['https://picsum.photos/seed/manicurekit/800/800'],
-    averageRating: 4.8,
+    rating: {
+      average: 4.8,
+      reviews: 2000,
+    },
     variationTypes: [],
     skus: [{ id: 'sku-30-kit', price: 85.0, stock: 150, attributes: {} }],
   },

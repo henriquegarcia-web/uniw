@@ -83,6 +83,7 @@ const filterButtonStyles = StyleSheet.create({
     height: 30,
     paddingHorizontal: theme.spacing.sm,
     borderRadius: theme.borders.radius.sm,
+    backgroundColor: theme.colors.background,
 
     borderWidth: 1,
     borderColor: theme.colors.border,

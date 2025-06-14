@@ -10,15 +10,18 @@ export const theme = {
 
     background: '#FFFFFF',
     surface: '#FAFAFA',
+    disabled: '#d4d4d4',
 
     text: '#333333',
     text_secondary: '#676767',
+    text_tertiary: '#bababa',
     text_contrast: '#fff',
 
     border: '#E0E0E0',
 
     success: '#2EBD55',
     error: '#F83758',
+    waring: '#EDB310',
   },
 
   spacing: {
@@ -49,7 +52,7 @@ export const theme = {
       xs: 12,
       sm: 14,
       md: 16,
-      lg: 20,
+      lg: 18,
       xl: 24,
       '2xl': 34,
       '3xl': 42,
