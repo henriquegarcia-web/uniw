@@ -130,9 +130,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tabLabel: {
+    fontFamily: theme.fonts.family.medium,
     fontSize: theme.fonts.size.xs,
     marginTop: 4,
-    fontFamily: theme.fonts.family.medium,
   },
   centerButton: {
     top: -15,
