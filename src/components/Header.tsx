@@ -17,6 +17,7 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import { MainTabParamList } from '@/navigation/types'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { useMenu } from '@/contexts/MenuProvider'
+import { InputSearch } from './forms/InputSearch'
 
 type HeaderVariant = 'main' | 'back-cart' | 'back-title' | 'back-title-action'
 
@@ -128,6 +129,11 @@ export const Header = ({
         <View style={styles.centerComponent}>{renderCenterComponent()}</View>
         <View style={styles.sideComponent}>{renderRightComponent()}</View>
       </View>
+      {variant === 'main' && (
+        <View style={styles.searchContainer}>
+          <InputSearch onVoicePress={() => {}} />
+        </View>
+      )}
     </SafeAreaView>
   )
 }
@@ -135,7 +141,7 @@ export const Header = ({
 const styles = StyleSheet.create({
   safeArea: {
     paddingTop: theme.spacing['phone-default-header'],
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.surface,
   },
   container: {
     height: 70,
@@ -143,8 +149,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: theme.spacing.lg,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
   },
   sideComponent: {
     flexDirection: 'row',
@@ -154,6 +158,10 @@ const styles = StyleSheet.create({
     flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  searchContainer: {
+    height: 50,
+    paddingHorizontal: theme.spacing.lg,
   },
   title: {
     fontFamily: theme.fonts.family.semiBold,

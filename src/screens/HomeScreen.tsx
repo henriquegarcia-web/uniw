@@ -16,9 +16,10 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.surface,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: theme.spacing['4xl'],
   },
 })
 export default HomeScreen

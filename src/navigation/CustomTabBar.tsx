@@ -7,7 +7,7 @@ import { Svg, Path } from 'react-native-svg'
 import { theme } from '@/styles/theme'
 
 const { width } = Dimensions.get('window')
-const TAB_BAR_HEIGHT = 65
+const TAB_BAR_HEIGHT = 75
 const SVG_HEIGHT = TAB_BAR_HEIGHT + 20
 
 export const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
