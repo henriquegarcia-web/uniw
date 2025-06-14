@@ -4,13 +4,17 @@ import React from 'react'
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
 
 import { theme } from '@/styles/theme'
-import { mockCategories, type IProductCategory } from '@/types/products'
+import type { IProductCategory } from '@/types/products'
 
-interface CategoriesNavigatorProps {}
+interface CategoriesNavigatorProps {
+  categories: IProductCategory[]
+  onSelectCategory: (categoryId: string) => void
+}
 
-export const CategoriesNavigator = ({}: CategoriesNavigatorProps) => {
-  const onSelectCategory = (categoryId: string) => {}
-
+export const CategoriesNavigator = ({
+  categories,
+  onSelectCategory,
+}: CategoriesNavigatorProps) => {
   const renderCategoryItem = ({ item }: { item: IProductCategory }) => (
     <TouchableOpacity
       style={styles.itemContainer}
@@ -25,7 +29,7 @@ export const CategoriesNavigator = ({}: CategoriesNavigatorProps) => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={mockCategories}
+        data={categories}
         renderItem={renderCategoryItem}
         keyExtractor={(item) => item.id}
         horizontal={true}
@@ -49,14 +53,12 @@ const styles = StyleSheet.create({
   image: {
     width: 64,
     height: 64,
-    borderRadius: 30,
+    borderRadius: 32,
   },
   label: {
     width: 80,
     textAlign: 'center',
-
     fontFamily: theme.fonts.family.medium,
     fontSize: theme.fonts.size.sm,
-    // color: theme.colors.secondary,
   },
 })

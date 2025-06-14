@@ -1,15 +1,22 @@
-// src/screens/WishlistScreen.tsx
+// src/screens/CategoryDetailScreen.tsx
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import { StyleSheet, SafeAreaView, Text } from 'react-native'
 
-import type { WishlistScreenProps } from '@/navigation/types'
+import type { CategoryDetailsScreenProps } from '@/navigation/types'
 import { theme } from '@/styles/theme'
-import { ListingHeader } from '@/components/ListingHeader'
 import { ProductList } from '@/components/product/ProductList'
 import { mockProducts } from '@/types/products'
+import { getCategoryById } from '@/utils/mockGetters'
 
-const WishlistScreen = ({ navigation }: WishlistScreenProps) => {
+const CategoryDetailsScreen = ({ navigation, route }: CategoryDetailsScreenProps) => {
+  const { categoryId } = route.params
+
+  const categoryData = useMemo(() => {
+    const data = getCategoryById(categoryId)
+    return data
+  }, [categoryId])
+
   const handleSelectProduct = (productId: string) => {
     const parentNavigator = navigation.getParent()
 
@@ -25,8 +32,6 @@ const WishlistScreen = ({ navigation }: WishlistScreenProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ListingHeader title="Todos" />
-
       <ProductList products={mockProducts} handleSelectProduct={handleSelectProduct} />
     </SafeAreaView>
   )
@@ -36,8 +41,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.surface,
     marginBottom: theme.spacing['4xl'],
-    paddingVertical: theme.spacing.md,
+    paddingVertical: theme.spacing.sm,
     rowGap: theme.spacing.lg,
   },
 })
-export default WishlistScreen
+export default CategoryDetailsScreen

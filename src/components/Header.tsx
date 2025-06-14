@@ -41,7 +41,9 @@ export const Header = ({
   const { user } = useClientAuth()
   const { openMenu } = useMenu()
 
-  const handleBackPress = navigation.goBack
+  const handleBackPress = () => {
+    navigation.goBack()
+  }
   const onMenuPress = openMenu
   const onCartPress = () => navigation.navigate('CartStack', { screen: 'Cart' })
   const onProfilePress = () => navigation.navigate('SettingsStack', { screen: 'Profile' })
@@ -104,7 +106,12 @@ export const Header = ({
       case 'back-cart':
         return (
           <TouchableOpacity onPress={onCartPress} style={styles.cartButton}>
-            <Feather name="shopping-cart" size={24} color={theme.colors.background} />
+            <Feather
+              name="shopping-cart"
+              size={20}
+              color={theme.colors.background}
+              style={{ marginTop: 1, marginRight: 1 }}
+            />
           </TouchableOpacity>
         )
       case 'back-title-action':

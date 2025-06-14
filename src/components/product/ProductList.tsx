@@ -9,13 +9,10 @@ import { theme } from '@/styles/theme'
 
 interface ProductListProps {
   products: IProduct[]
+  handleSelectProduct: (productId: string) => void
 }
 
-export const ProductList = ({ products }: ProductListProps) => {
-  const handleProductPress = (productId: string) => {
-    console.log('Card do produto pressionado:', productId)
-  }
-
+export const ProductList = ({ products, handleSelectProduct }: ProductListProps) => {
   const handleToggleWishlist = (productId: string) => {
     console.log('Ícone de favorito pressionado:', productId)
   }
@@ -26,7 +23,7 @@ export const ProductList = ({ products }: ProductListProps) => {
       renderItem={({ item }) => (
         <ProductCard
           product={item}
-          onPress={handleProductPress}
+          onPress={handleSelectProduct}
           onToggleWishlist={handleToggleWishlist}
         />
       )}

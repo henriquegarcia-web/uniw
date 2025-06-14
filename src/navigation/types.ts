@@ -1,7 +1,6 @@
 // src/navigation/types.ts
 
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
 import { NavigatorScreenParams } from '@react-navigation/native'
 
 // --- Pilhas de Navegação (Stacks) ---
@@ -18,6 +17,11 @@ export type AuthStackParamList = {
 
 export type HomeStackParamList = {
   Home: undefined
+}
+
+export type CategoryStackParamList = {
+  CategoryList: undefined
+  CategoryDetails: { categoryId: string }
   ProductDetails: { productId: string }
 }
 
@@ -40,7 +44,7 @@ export type SettingsStackParamList = {
 export type MainTabParamList = {
   HomeStack: NavigatorScreenParams<HomeStackParamList> | undefined
   Wishlist: undefined
-  Search: undefined
+  CategoryStack: NavigatorScreenParams<CategoryStackParamList> | undefined
   CartStack: NavigatorScreenParams<CartStackParamList> | undefined
   SettingsStack: NavigatorScreenParams<SettingsStackParamList> | undefined
 }
@@ -63,14 +67,23 @@ export type ForgotPasswordScreenProps = NativeStackScreenProps<
 
 // Home
 export type HomeScreenProps = NativeStackScreenProps<HomeStackParamList, 'Home'>
+
+// Desejos e Pesquisa (telas simples)
+export type CategoryListScreenProps = NativeStackScreenProps<
+  CategoryStackParamList,
+  'CategoryList'
+>
+export type CategoryDetailsScreenProps = NativeStackScreenProps<
+  CategoryStackParamList,
+  'CategoryDetails'
+>
 export type ProductDetailsScreenProps = NativeStackScreenProps<
-  HomeStackParamList,
+  CategoryStackParamList,
   'ProductDetails'
 >
 
 // Desejos e Pesquisa (telas simples)
 export type WishlistScreenProps = NativeStackScreenProps<MainTabParamList, 'Wishlist'>
-export type SearchScreenProps = NativeStackScreenProps<MainTabParamList, 'Search'>
 
 // Carrinho
 export type CartScreenProps = NativeStackScreenProps<CartStackParamList, 'Cart'>

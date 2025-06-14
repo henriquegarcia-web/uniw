@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 import { Feather } from '@expo/vector-icons'
-import { Svg, Path } from 'react-native-svg'
+// import { Svg, Path } from 'react-native-svg'
 
 import { theme } from '@/styles/theme'
 
@@ -89,8 +89,8 @@ const getIconName = (routeName: string): keyof typeof Feather.glyphMap => {
       return 'home'
     case 'Wishlist':
       return 'heart'
-    case 'Search':
-      return 'search'
+    case 'CategoryStack':
+      return 'grid'
     case 'SettingsStack':
       return 'user'
     default:

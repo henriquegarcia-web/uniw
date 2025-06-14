@@ -8,10 +8,10 @@ import { HomeStack } from './HomeStack'
 import { CartStack } from './CartStack'
 import { SettingsStack } from './SettingsStack'
 import WishlistScreen from '@/screens/WishlistScreen'
-import SearchScreen from '@/screens/SearchScreen'
 
 import { CustomTabBar } from './CustomTabBar'
 import { Header } from '@/components/Header'
+import { CategoryStack } from './CategoryStack'
 
 const Tab = createBottomTabNavigator<MainTabParamList>()
 
@@ -25,13 +25,9 @@ export function MainTabNavigator() {
     >
       <Tab.Screen name="HomeStack" component={HomeStack} options={{ title: 'Início' }} />
       <Tab.Screen
-        name="Wishlist"
-        component={WishlistScreen}
-        options={{
-          title: 'Desejos',
-          headerShown: true,
-          header: () => <Header variant="main" />,
-        }}
+        name="CategoryStack"
+        component={CategoryStack}
+        options={{ title: 'Produtos' }}
       />
       <Tab.Screen
         name="CartStack"
@@ -39,10 +35,10 @@ export function MainTabNavigator() {
         options={{ title: 'Carrinho' }}
       />
       <Tab.Screen
-        name="Search"
-        component={SearchScreen}
+        name="Wishlist"
+        component={WishlistScreen}
         options={{
-          title: 'Pesquisar',
+          title: 'Desejos',
           headerShown: true,
           header: () => <Header variant="main" />,
         }}
