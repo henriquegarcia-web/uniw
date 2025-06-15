@@ -1,13 +1,13 @@
 // src/screens/CategoryDetailScreen.tsx
 
 import React, { useMemo } from 'react'
-import { StyleSheet, SafeAreaView, Text } from 'react-native'
+import { StyleSheet, SafeAreaView, Text, ScrollView } from 'react-native'
 
 import type { CategoryDetailsScreenProps } from '@/navigation/types'
 import { theme } from '@/styles/theme'
 import { ProductList } from '@/components/product/ProductList'
 import { mockProducts } from '@/types/products'
-import { getCategoryById } from '@/utils/mockGetters'
+import { getCategoryById, getProductsByCategoryId } from '@/utils/mockGetters'
 
 const CategoryDetailsScreen = ({ navigation, route }: CategoryDetailsScreenProps) => {
   const { categoryId } = route.params
@@ -17,22 +17,14 @@ const CategoryDetailsScreen = ({ navigation, route }: CategoryDetailsScreenProps
     return data
   }, [categoryId])
 
-  const handleSelectProduct = (productId: string) => {
-    const parentNavigator = navigation.getParent()
-
-    if (parentNavigator) {
-      parentNavigator.navigate('CategoryStack', {
-        screen: 'ProductDatails',
-        params: {
-          productId: productId,
-        },
-      })
-    }
-  }
+  const categoryProducts = useMemo(() => {
+    const data = getProductsByCategoryId(categoryId)
+    return data
+  }, [categoryId])
 
   return (
     <SafeAreaView style={styles.container}>
-      <ProductList products={mockProducts} handleSelectProduct={handleSelectProduct} />
+      <ProductList products={categoryProducts} />
     </SafeAreaView>
   )
 }

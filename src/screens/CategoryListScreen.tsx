@@ -1,16 +1,17 @@
 // src/screens/CategoryListScreen.tsx
 
 import React from 'react'
-import { StyleSheet, SafeAreaView, Text } from 'react-native'
+import { StyleSheet, SafeAreaView } from 'react-native'
 
 import type { CategoryListScreenProps } from '@/navigation/types'
 import { theme } from '@/styles/theme'
-import { SectionHeader } from '@/components/SectionHeader'
+import { CategoryList } from '@/components/category/CategoriesList'
+import { mockCategories } from '@/types/products'
 
 const CategoryListScreen = ({ navigation }: CategoryListScreenProps) => {
   return (
     <SafeAreaView style={styles.container}>
-      <SectionHeader title="Todas as Categorias" />
+      <CategoryList categories={mockCategories} />
     </SafeAreaView>
   )
 }
@@ -21,6 +22,9 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing['4xl'],
     paddingVertical: theme.spacing.md,
     rowGap: theme.spacing.lg,
+
+    // borderWidth: 1,
+    // borderColor: 'red',
   },
 })
 export default CategoryListScreen

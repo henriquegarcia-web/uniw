@@ -6,26 +6,41 @@ import { Feather } from '@expo/vector-icons'
 
 import { theme } from '@/styles/theme'
 import { IProduct } from '@/types/products'
-import { applyMask } from '@/utils/masks'
 import { ProductRating } from './ProductRating'
 import { ProductPrice } from './ProductPrice'
+import { useNavigation } from '@react-navigation/native'
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
+import { MainTabParamList } from '@/navigation/types'
 
 interface ProductCardProps {
   product: IProduct
-  onPress: (productId: string) => void
-  onToggleWishlist: (productId: string) => void
 }
 
-export const ProductCard = ({ product, onPress, onToggleWishlist }: ProductCardProps) => {
+export const ProductCard = ({ product }: ProductCardProps) => {
+  const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>()
+
   const displayImage = product.images[0]
   const displayPrice = product.skus[0]?.price || 0
   const displayPromotionalPrice = product.skus[0]?.promotionalPrice || 0
+
+  const handleSelectProduct = (productId: string) => {
+    navigation.navigate('CategoryStack', {
+      screen: 'ProductDetails',
+      params: {
+        productId: productId,
+      },
+    })
+  }
+
+  const handleToggleWishlist = (productId: string) => {
+    console.log('Ícone de favorito pressionado:', productId)
+  }
 
   return (
     <TouchableOpacity
       style={styles.container}
       activeOpacity={0.8}
-      onPress={() => onPress(product.id)}
+      onPress={() => handleSelectProduct(product.id)}
     >
       <View style={styles.imageContainer}>
         <Image source={{ uri: displayImage }} style={styles.image} />
@@ -44,7 +59,7 @@ export const ProductCard = ({ product, onPress, onToggleWishlist }: ProductCardP
 
         <View style={styles.footer}>
           <ProductRating rating={product.rating} />
-          <TouchableOpacity onPress={() => onToggleWishlist(product.id)}>
+          <TouchableOpacity onPress={() => handleToggleWishlist(product.id)}>
             <Feather name="heart" size={22} color={theme.colors.text_secondary} />
           </TouchableOpacity>
         </View>

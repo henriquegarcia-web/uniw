@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.lg,
   },
   title: {
-    fontFamily: theme.fonts.family.semiBold,
+    fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.lg,
     lineHeight: theme.fonts.size.xl,
     color: theme.colors.text,

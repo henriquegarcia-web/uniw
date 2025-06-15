@@ -1,33 +1,17 @@
 // src/screens/WishlistScreen.tsx
 
 import React from 'react'
-import { StyleSheet, SafeAreaView, Text } from 'react-native'
+import { StyleSheet, SafeAreaView } from 'react-native'
 
 import type { WishlistScreenProps } from '@/navigation/types'
 import { theme } from '@/styles/theme'
-import { ListingHeader } from '@/components/ListingHeader'
 import { ProductList } from '@/components/product/ProductList'
 import { mockProducts } from '@/types/products'
 
 const WishlistScreen = ({ navigation }: WishlistScreenProps) => {
-  const handleSelectProduct = (productId: string) => {
-    const parentNavigator = navigation.getParent()
-
-    if (parentNavigator) {
-      parentNavigator.navigate('CategoryStack', {
-        screen: 'ProductDatails',
-        params: {
-          productId: productId,
-        },
-      })
-    }
-  }
-
   return (
     <SafeAreaView style={styles.container}>
-      <ListingHeader title="Todos" />
-
-      <ProductList products={mockProducts} handleSelectProduct={handleSelectProduct} />
+      <ProductList products={mockProducts} />
     </SafeAreaView>
   )
 }

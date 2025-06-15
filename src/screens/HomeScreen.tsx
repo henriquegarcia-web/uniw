@@ -5,29 +5,13 @@ import { StyleSheet, SafeAreaView } from 'react-native'
 
 import type { HomeScreenProps } from '@/navigation/types'
 import { theme } from '@/styles/theme'
-import { CategoriesNavigator } from '@/components/CategoriesNavigator'
+import { CategoriesNavigator } from '@/components/category/CategoriesNavigator'
 import { mockCategories } from '@/types/products'
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
-  const handleSelectCategory = (categoryId: string) => {
-    const parentNavigator = navigation.getParent()
-
-    if (parentNavigator) {
-      parentNavigator.navigate('CategoryStack', {
-        screen: 'CategoryDetails',
-        params: {
-          categoryId: categoryId,
-        },
-      })
-    }
-  }
-
   return (
     <SafeAreaView style={styles.container}>
-      <CategoriesNavigator
-        categories={mockCategories}
-        onSelectCategory={handleSelectCategory}
-      />
+      <CategoriesNavigator categories={mockCategories} />
     </SafeAreaView>
   )
 }

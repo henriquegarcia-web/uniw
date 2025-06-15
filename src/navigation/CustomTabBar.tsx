@@ -5,6 +5,7 @@ import { Feather } from '@expo/vector-icons'
 // import { Svg, Path } from 'react-native-svg'
 
 import { theme } from '@/styles/theme'
+import { CommonActions } from '@react-navigation/native'
 
 const { width } = Dimensions.get('window')
 const TAB_BAR_HEIGHT = 75
@@ -44,16 +45,35 @@ export const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarPro
           }
 
           const onPress = () => {
+            const isFocused = state.index === index
+
+            // Previne a ação padrão de toque na aba
             const event = navigation.emit({
               type: 'tabPress',
               target: route.key,
               canPreventDefault: true,
             })
 
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name)
+            if (!event.defaultPrevented) {
+              // Esta é a ação que navega E reseta a pilha
+              navigation.dispatch({
+                ...CommonActions.navigate(route.name, route.params),
+                target: state.key,
+              })
             }
           }
+
+          // const onPress = () => {
+          //   const event = navigation.emit({
+          //     type: 'tabPress',
+          //     target: route.key,
+          //     canPreventDefault: true,
+          //   })
+
+          //   if (!isFocused && !event.defaultPrevented) {
+          //     navigation.navigate(route.name)
+          //   }
+          // }
 
           return (
             <TouchableOpacity key={route.key} style={styles.tabItem} onPress={onPress}>

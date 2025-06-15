@@ -9,14 +9,9 @@ import { applyMask } from '@/utils/masks'
 interface ProductPriceProps {
   price: number
   promotionalPrice?: number
-  containerStyle?: object
 }
 
-export const ProductPrice = ({
-  price,
-  promotionalPrice,
-  containerStyle,
-}: ProductPriceProps) => {
+export const ProductPrice = ({ price, promotionalPrice }: ProductPriceProps) => {
   const isOnSale = promotionalPrice && promotionalPrice < price
 
   const calculateDiscount = () => {
@@ -29,7 +24,7 @@ export const ProductPrice = ({
 
   if (isOnSale) {
     return (
-      <View style={[styles.container, containerStyle]}>
+      <View style={styles.container}>
         <Text style={styles.promotionalPrice}>
           {applyMask(promotionalPrice, 'currency')}
         </Text>
@@ -42,7 +37,7 @@ export const ProductPrice = ({
   }
 
   return (
-    <View style={[styles.container, containerStyle]}>
+    <View style={styles.container}>
       <Text style={styles.regularPrice}>{applyMask(price, 'currency')}</Text>
     </View>
   )
@@ -60,6 +55,7 @@ const styles = StyleSheet.create({
   promotionalPrice: {
     fontFamily: theme.fonts.family.bold,
     fontSize: 20,
+    lineHeight: 20,
     color: theme.colors.text,
   },
   originalPrice: {
@@ -76,6 +72,7 @@ const styles = StyleSheet.create({
   regularPrice: {
     fontFamily: theme.fonts.family.bold,
     fontSize: 20,
+    lineHeight: 20,
     color: theme.colors.text,
   },
 })
