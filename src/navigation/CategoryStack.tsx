@@ -10,6 +10,7 @@ import { Header } from '@/components/Header'
 import CategoryDetailsScreen from '@/screens/CategoryDetailsScreen'
 import CategoryListScreen from '@/screens/CategoryListScreen'
 import { getCategoryById } from '@/utils/mockGetters'
+import SearchResultsScreen from '@/screens/SearchResultsScreen'
 
 const Stack = createNativeStackNavigator<CategoryStackParamList>()
 
@@ -30,13 +31,9 @@ export function CategoryStack() {
       <Stack.Screen
         name="CategoryDetails"
         component={CategoryDetailsScreen}
-        // 1. Transforme 'options' em uma função que recebe { route }
         options={({ route }) => {
-          // 2. Agora o TypeScript sabe que route.params contém 'categoryId'
           const { categoryId } = route.params
           const category = getCategoryById(categoryId)
-
-          // 3. Retorne o objeto de opções
           return {
             headerShown: true,
             header: () => <Header variant="back-title" title={category?.name} />,
@@ -49,6 +46,14 @@ export function CategoryStack() {
         options={{
           headerShown: true,
           header: () => <Header variant="back-cart" />,
+        }}
+      />
+      <Stack.Screen
+        name="SearchResults"
+        component={SearchResultsScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="main" />,
         }}
       />
     </Stack.Navigator>

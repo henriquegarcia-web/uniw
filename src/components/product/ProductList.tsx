@@ -10,9 +10,10 @@ import { ListingHeader } from '../ListingHeader'
 
 interface ProductListProps {
   products: IProduct[]
+  HeaderComponent: React.ReactElement
 }
 
-export const ProductList = ({ products }: ProductListProps) => {
+export const ProductList = ({ products, HeaderComponent }: ProductListProps) => {
   const data = [...products]
   if (data.length % 2 !== 0) {
     data.push({ id: 'placeholder-item', empty: true } as any)
@@ -28,7 +29,7 @@ export const ProductList = ({ products }: ProductListProps) => {
 
   return (
     <FlatList
-      ListHeaderComponent={<ListingHeader title="Todos" />}
+      ListHeaderComponent={HeaderComponent}
       data={data}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}

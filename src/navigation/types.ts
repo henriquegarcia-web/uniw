@@ -23,6 +23,7 @@ export type CategoryStackParamList = {
   CategoryList: undefined
   CategoryDetails: { categoryId: string }
   ProductDetails: { productId: string }
+  SearchResults: { searchTerm: string }
 }
 
 export type CartStackParamList = {
@@ -80,6 +81,10 @@ export type CategoryDetailsScreenProps = NativeStackScreenProps<
 export type ProductDetailsScreenProps = NativeStackScreenProps<
   CategoryStackParamList,
   'ProductDetails'
+>
+export type SearchResultsScreenProps = NativeStackScreenProps<
+  CategoryStackParamList,
+  'SearchResults'
 >
 
 // Desejos e Pesquisa (telas simples)

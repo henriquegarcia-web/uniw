@@ -56,7 +56,7 @@ export const ProductRating = ({ rating }: ProductRatingProps) => {
           )
         })}
       </View>
-      <Text style={styles.reviewsText}>{formatReviewCount(rating.reviews)}</Text>
+      <Text style={styles.reviewsText}>{formatReviewCount(rating.reviewsCount)}</Text>
     </View>
   )
 }

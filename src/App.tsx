@@ -6,6 +6,7 @@ import { AuthProvider } from '@/contexts/ClientAuthProvider'
 import { MenuProvider } from '@/contexts/MenuProvider'
 import { SideMenu } from './components/SideMenu'
 import SplashScreen from './screens/SplashScreen'
+import { SearchProvider } from './contexts/SearchProvider'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,9 +28,11 @@ export default function App() {
   return (
     <AuthProvider>
       <MenuProvider>
-        <StatusBar style="auto" />
-        <Routes />
-        <SideMenu />
+        <SearchProvider>
+          <StatusBar style="auto" />
+          <Routes />
+          <SideMenu />
+        </SearchProvider>
       </MenuProvider>
     </AuthProvider>
   )

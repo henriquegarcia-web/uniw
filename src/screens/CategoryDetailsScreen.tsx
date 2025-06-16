@@ -8,6 +8,8 @@ import { theme } from '@/styles/theme'
 import { ProductList } from '@/components/product/ProductList'
 import { mockProducts } from '@/types/products'
 import { getCategoryById, getProductsByCategoryId } from '@/utils/mockGetters'
+import { ListingHeader } from '@/components/ListingHeader'
+import { useProcessedProducts } from '@/hooks/useProcessedProducts'
 
 const CategoryDetailsScreen = ({ navigation, route }: CategoryDetailsScreenProps) => {
   const { categoryId } = route.params
@@ -22,9 +24,23 @@ const CategoryDetailsScreen = ({ navigation, route }: CategoryDetailsScreenProps
     return data
   }, [categoryId])
 
+  const { processedProducts, filters, setFilters, sortOption, setSortOption } =
+    useProcessedProducts(categoryProducts)
+
   return (
     <SafeAreaView style={styles.container}>
-      <ProductList products={categoryProducts} />
+      <ProductList
+        products={processedProducts}
+        HeaderComponent={
+          <ListingHeader
+            title="Todos"
+            currentSort={sortOption}
+            onSortChange={setSortOption}
+            currentFilters={filters}
+            onFiltersApply={setFilters}
+          />
+        }
+      />
     </SafeAreaView>
   )
 }

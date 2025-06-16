@@ -45,7 +45,7 @@ export interface IProductCategory {
 
 export interface IProductRating {
   average: number
-  reviews: number
+  reviewsCount: number
 }
 
 export interface IProduct {
@@ -61,6 +61,27 @@ export interface IProduct {
   variationTypes: IVariationType[]
   skus: IProductSKU[]
 }
+
+export type SortOption =
+  | 'popularity'
+  | 'price-asc'
+  | 'price-desc'
+  | 'name-asc'
+  | 'rating-desc'
+
+export interface FilterState {
+  minPrice?: number
+  maxPrice?: number
+  badges?: ProductBadge[]
+}
+
+export const sortOptions: { label: string; value: SortOption }[] = [
+  { label: 'Populares', value: 'popularity' },
+  { label: 'Nome (A-Z)', value: 'name-asc' },
+  { label: 'Preço (Menor para o Maior)', value: 'price-asc' },
+  { label: 'Preço (Maior para o Menor)', value: 'price-desc' },
+  { label: 'Melhores Avaliações', value: 'rating-desc' },
+]
 
 export const mockCategories: IProductCategory[] = [
   {
@@ -122,7 +143,7 @@ export const mockProducts: IProduct[] = [
     badges: [ProductBadge.VIP, ProductBadge.IN_STOCK],
     rating: {
       average: 3.8,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [
       {
@@ -151,7 +172,7 @@ export const mockProducts: IProduct[] = [
     badges: [ProductBadge.SALE],
     rating: {
       average: 4.6,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [
       {
@@ -189,7 +210,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/palette1/800/800'],
     rating: {
       average: 4.9,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-3-sunset', price: 189.9, stock: 70, attributes: {} }],
@@ -203,7 +224,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/mascara/800/800'],
     rating: {
       average: 4.7,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-4-mascara', price: 79.9, stock: 200, attributes: {} }],
@@ -217,7 +238,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/powder/800/800'],
     rating: {
       average: 4.5,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-5-powder', price: 89.9, stock: 120, attributes: {} }],
@@ -235,7 +256,7 @@ export const mockProducts: IProduct[] = [
     badges: [ProductBadge.NEW_ARRIVAL, ProductBadge.VIP],
     rating: {
       average: 4.9,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-6-serum', price: 210.0, stock: 80, attributes: {} }],
@@ -249,7 +270,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/cleanser/800/800'],
     rating: {
       average: 4.8,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-7-cleanser', price: 95.5, stock: 150, attributes: {} }],
@@ -263,7 +284,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/moisturizer/800/800'],
     rating: {
       average: 4.7,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-8-moisturizer', price: 150.0, stock: 100, attributes: {} }],
@@ -277,7 +298,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/sunscreen/800/800'],
     rating: {
       average: 5.0,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-9-sunscreen', price: 110.0, stock: 300, attributes: {} }],
@@ -295,7 +316,7 @@ export const mockProducts: IProduct[] = [
     badges: [ProductBadge.VIP],
     rating: {
       average: 4.9,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [
       {
@@ -322,7 +343,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/perfume2/800/800'],
     rating: {
       average: 4.6,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-11-fresh', price: 180.0, stock: 90, attributes: {} }],
@@ -336,7 +357,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/bodysplash/800/800'],
     rating: {
       average: 4.7,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-12-vanilla', price: 89.9, stock: 250, attributes: {} }],
@@ -352,7 +373,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/shampoo/800/800'],
     rating: {
       average: 4.8,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-13-shampoo', price: 65.0, stock: 180, attributes: {} }],
@@ -366,7 +387,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/hairmask/800/800'],
     rating: {
       average: 4.9,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-14-hairmask', price: 99.0, stock: 110, attributes: {} }],
@@ -380,7 +401,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/hairoil/800/800'],
     rating: {
       average: 5.0,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-15-hairoil', price: 75.0, stock: 220, attributes: {} }],
@@ -400,7 +421,7 @@ export const mockProducts: IProduct[] = [
     ],
     rating: {
       average: 4.7,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     badges: [ProductBadge.NEW_ARRIVAL],
     variationTypes: [
@@ -456,7 +477,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/blazer/800/800'],
     rating: {
       average: 4.9,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [
       {
@@ -481,7 +502,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/jeans/800/800'],
     rating: {
       average: 4.6,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-18-jeans', price: 220.0, stock: 50, attributes: {} }],
@@ -495,7 +516,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/skirt/800/800'],
     rating: {
       average: 4.8,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-19-skirt', price: 199.9, stock: 40, attributes: {} }],
@@ -509,7 +530,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/body/800/800'],
     rating: {
       average: 4.9,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-20-body', price: 159.0, stock: 60, attributes: {} }],
@@ -523,7 +544,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/tshirt/800/800'],
     rating: {
       average: 5.0,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-21-tshirt', price: 120.0, stock: 100, attributes: {} }],
@@ -539,7 +560,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/bag1/800/800'],
     rating: {
       average: 4.9,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-22-bag', price: 599.0, stock: 30, attributes: {} }],
@@ -553,7 +574,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/necklace/800/800'],
     rating: {
       average: 4.8,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-23-necklace', price: 180.0, stock: 70, attributes: {} }],
@@ -567,7 +588,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/belt/800/800'],
     rating: {
       average: 4.7,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-24-belt', price: 129.0, stock: 90, attributes: {} }],
@@ -581,7 +602,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/sunglasses/800/800'],
     rating: {
       average: 4.9,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-25-sunglasses', price: 350.0, stock: 50, attributes: {} }],
@@ -597,7 +618,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/scarpin/800/800'],
     rating: {
       average: 4.8,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-26-scarpin', price: 320.0, stock: 45, attributes: {} }],
@@ -611,7 +632,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/sneaker/800/800'],
     rating: {
       average: 4.9,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-27-sneaker', price: 280.0, stock: 120, attributes: {} }],
@@ -625,7 +646,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/sandal/800/800'],
     rating: {
       average: 4.7,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-28-sandal', price: 250.0, stock: 80, attributes: {} }],
@@ -641,7 +662,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/nailpolish/800/800'],
     rating: {
       average: 4.9,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-29-polish', price: 25.0, stock: 500, attributes: {} }],
@@ -655,7 +676,7 @@ export const mockProducts: IProduct[] = [
     images: ['https://picsum.photos/seed/manicurekit/800/800'],
     rating: {
       average: 4.8,
-      reviews: 2000,
+      reviewsCount: 2000,
     },
     variationTypes: [],
     skus: [{ id: 'sku-30-kit', price: 85.0, stock: 150, attributes: {} }],

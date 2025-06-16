@@ -1,6 +1,6 @@
 // src/components/InputSearch.tsx
 
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState } from 'react'
 import {
   View,
   TextInput,
@@ -12,6 +12,10 @@ import {
 
 import { Feather } from '@expo/vector-icons'
 import { theme } from '@/styles/theme'
+import { useNavigation } from '@react-navigation/native'
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
+import { MainTabParamList } from '@/navigation/types'
+import { useSearch } from '@/contexts/SearchProvider'
 
 interface InputSearchProps extends TextInputProps {
   error?: string | null
@@ -23,6 +27,21 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
   ({ error, width, onVoicePress, ...rest }, ref) => {
     const hasError = !!error
     const borderColor = hasError ? theme.colors.error : theme.colors.border
+
+    const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>()
+
+    const { searchTerm, setSearchTerm } = useSearch()
+
+    const handleSearch = () => {
+      if (!searchTerm || searchTerm.trim() === '') return
+
+      navigation.navigate('CategoryStack', {
+        screen: 'SearchResults',
+        params: {
+          searchTerm: searchTerm,
+        },
+      })
+    }
 
     return (
       <View style={[!width && styles.container, { width: `${width || 100}%` }]}>
@@ -39,6 +58,10 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
             style={styles.input}
             placeholder="Pesquisar produto"
             placeholderTextColor={theme.colors.text_secondary}
+            value={searchTerm}
+            onChangeText={setSearchTerm}
+            onSubmitEditing={() => handleSearch()}
+            returnKeyType="search"
             {...rest}
           />
 

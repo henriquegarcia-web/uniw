@@ -1,14 +1,24 @@
 // src/screens/HomeScreen.tsx
 
-import React from 'react'
+import React, { useCallback } from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native'
 
 import type { HomeScreenProps } from '@/navigation/types'
 import { theme } from '@/styles/theme'
 import { CategoriesNavigator } from '@/components/category/CategoriesNavigator'
 import { mockCategories } from '@/types/products'
+import { useSearch } from '@/contexts/SearchProvider'
+import { useFocusEffect } from '@react-navigation/native'
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
+  const { clearSearch: clearContextSearch } = useSearch()
+
+  useFocusEffect(
+    useCallback(() => {
+      clearContextSearch()
+    }, [clearContextSearch]),
+  )
+
   return (
     <SafeAreaView style={styles.container}>
       <CategoriesNavigator categories={mockCategories} />

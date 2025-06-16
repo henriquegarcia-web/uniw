@@ -11,7 +11,7 @@ import { mockProducts } from '@/types/products'
 const WishlistScreen = ({ navigation }: WishlistScreenProps) => {
   return (
     <SafeAreaView style={styles.container}>
-      <ProductList products={mockProducts} />
+      {/* <ProductList products={mockProducts} /> */}
     </SafeAreaView>
   )
 }
