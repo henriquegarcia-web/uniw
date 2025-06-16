@@ -1,6 +1,6 @@
 // src/screens/ProductDetailScreen.tsx
 
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { StyleSheet, SafeAreaView, Text, ScrollView, View } from 'react-native'
 
 import type { ProductDetailsScreenProps } from '@/navigation/types'
@@ -12,6 +12,10 @@ import { BuyButton } from '@/components/product/BuyButton'
 import { Button } from '@/components/forms/Button'
 import { getProductById } from '@/utils/mockGetters'
 import { useProductVariations } from '@/hooks/useProductVariations'
+import { ProductVariations } from '@/components/product/ProductVariations'
+import { ProductRating } from '@/components/product/ProductRating'
+import { ProductPrice } from '@/components/product/ProductPrice'
+import { ProductTitle } from '@/components/product/ProductTitle'
 
 const ProductDetailsScreen = ({ route }: ProductDetailsScreenProps) => {
   const { productId } = route.params
@@ -36,12 +40,26 @@ const ProductDetailsScreen = ({ route }: ProductDetailsScreenProps) => {
         contentContainerStyle={styles.contentContainer}
         keyboardShouldPersistTaps="handled"
       >
-        <ProductImageCarousel />
-        <ProductDetails />
+        <ProductImageCarousel images={productData.images} />
+        <ProductVariations
+          variationTypes={productData.variationTypes}
+          selectedVariations={selectedVariations}
+          onSelectVariation={handleSelectVariation}
+        />
+        <ProductTitle name={productData.name} caption={productData.caption} />
+        <ProductRating rating={productData.rating} />
+        <ProductPrice
+          price={selectedSku?.price ?? 0}
+          promotionalPrice={selectedSku?.promotionalPrice ?? 0}
+        />
+        <ProductDetails
+          description={productData.description}
+          badges={productData.badges}
+        />
 
         <View style={styles.buyContainer}>
-          <BuyButton />
-          <BuyButton />
+          <BuyButton type="cart" onPress={() => {}} />
+          <BuyButton type="buy" onPress={() => {}} />
           <FavouriteButton />
         </View>
 

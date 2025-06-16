@@ -1,9 +1,28 @@
+import { FormattedOption } from './global'
+
 export enum ProductBadge {
   VIP = 'vip',
   IN_STOCK = 'in_stock',
   RETURN_POLICY = 'return_policy',
   NEW_ARRIVAL = 'new_arrival',
   SALE = 'sale',
+}
+
+export const getProductBadge = (badge?: ProductBadge): FormattedOption => {
+  switch (badge) {
+    case ProductBadge.VIP:
+      return { label: 'VIP', icon: 'shield' }
+    case ProductBadge.IN_STOCK:
+      return { label: 'Em estoque', icon: 'package' }
+    case ProductBadge.RETURN_POLICY:
+      return { label: 'Política de devolução', icon: 'refresh-cw' }
+    case ProductBadge.NEW_ARRIVAL:
+      return { label: 'Lançamento', icon: 'trending-up' }
+    case ProductBadge.SALE:
+      return { label: 'Oferta', icon: 'tag' }
+    default:
+      return { label: 'Desconhecido', icon: 'star' }
+  }
 }
 
 export interface IReview {
@@ -156,9 +175,9 @@ export const mockProducts: IProduct[] = [
       },
     ],
     skus: [
-      { id: 'sku-1-claro', price: 129.9, stock: 50, attributes: { Cor: 'Claro 01' } },
-      { id: 'sku-1-medio', price: 129.9, stock: 45, attributes: { Cor: 'Médio 02' } },
-      { id: 'sku-1-escuro', price: 129.9, stock: 30, attributes: { Cor: 'Escuro 03' } },
+      { id: 'sku-1-claro', price: 129.9, stock: 50, attributes: { Cor: 'claro-01' } },
+      { id: 'sku-1-medio', price: 129.9, stock: 45, attributes: { Cor: 'medio-02' } },
+      { id: 'sku-1-escuro', price: 129.9, stock: 30, attributes: { Cor: 'escuro-03' } },
     ],
   },
   {
@@ -189,14 +208,14 @@ export const mockProducts: IProduct[] = [
         price: 49.9,
         promotionalPrice: 39.9,
         stock: 100,
-        attributes: { Cor: 'Vermelho Fatal' },
+        attributes: { Cor: 'vermelho-fatal' },
       },
       {
         id: 'sku-2-nude',
         price: 49.9,
         promotionalPrice: 39.9,
         stock: 150,
-        attributes: { Cor: 'Nude Clássico' },
+        attributes: { Cor: 'nude-classico' },
       },
     ],
   },
@@ -314,10 +333,7 @@ export const mockProducts: IProduct[] = [
       'Uma fragrância misteriosa e sedutora, com notas de jasmim, baunilha e sândalo. Perfeita para a noite.',
     images: ['https://picsum.photos/seed/perfume1/800/800'],
     badges: [ProductBadge.VIP],
-    rating: {
-      average: 4.9,
-      reviewsCount: 2000,
-    },
+    rating: { average: 4.9, reviewsCount: 2000 },
     variationTypes: [
       {
         name: 'Tamanho',
@@ -419,10 +435,7 @@ export const mockProducts: IProduct[] = [
       'https://picsum.photos/seed/dress1/800/800',
       'https://picsum.photos/seed/dress2/800/800',
     ],
-    rating: {
-      average: 4.7,
-      reviewsCount: 2000,
-    },
+    rating: { average: 4.7, reviewsCount: 2000 },
     badges: [ProductBadge.NEW_ARRIVAL],
     variationTypes: [
       {
@@ -446,25 +459,25 @@ export const mockProducts: IProduct[] = [
         id: 'sku-16-red-p',
         price: 299.9,
         stock: 10,
-        attributes: { Cor: 'Vermelho', Tamanho: 'P' },
+        attributes: { Cor: 'vermelho', Tamanho: 'p' },
       },
       {
         id: 'sku-16-red-m',
         price: 299.9,
         stock: 15,
-        attributes: { Cor: 'Vermelho', Tamanho: 'M' },
+        attributes: { Cor: 'vermelho', Tamanho: 'm' },
       },
       {
         id: 'sku-16-blue-m',
         price: 299.9,
         stock: 12,
-        attributes: { Cor: 'Azul', Tamanho: 'M' },
+        attributes: { Cor: 'azul', Tamanho: 'm' },
       },
       {
         id: 'sku-16-blue-g',
         price: 299.9,
         stock: 8,
-        attributes: { Cor: 'Azul', Tamanho: 'G' },
+        attributes: { Cor: 'azul', Tamanho: 'g' },
       },
     ],
   },
@@ -475,10 +488,7 @@ export const mockProducts: IProduct[] = [
     caption: 'O clássico indispensável',
     description: '...',
     images: ['https://picsum.photos/seed/blazer/800/800'],
-    rating: {
-      average: 4.9,
-      reviewsCount: 2000,
-    },
+    rating: { average: 4.9, reviewsCount: 2000 },
     variationTypes: [
       {
         name: 'Tamanho',
@@ -489,8 +499,8 @@ export const mockProducts: IProduct[] = [
       },
     ],
     skus: [
-      { id: 'sku-17-p', price: 450.0, stock: 20, attributes: { Tamanho: 'P' } },
-      { id: 'sku-17-m', price: 450.0, stock: 25, attributes: { Tamanho: 'M' } },
+      { id: 'sku-17-p', price: 450.0, stock: 20, attributes: { Tamanho: 'p' } },
+      { id: 'sku-17-m', price: 450.0, stock: 25, attributes: { Tamanho: 'm' } },
     ],
   },
   {
