@@ -6,28 +6,32 @@ import { StyleSheet, SafeAreaView, Text, ScrollView, View } from 'react-native'
 import type {
   ProductDetailsScreenProps,
   SearchProductDetailsScreenProps,
+  WishlistedProductDetailsScreenProps,
 } from '@/navigation/types'
 import { theme } from '@/styles/theme'
 import { ProductImageCarousel } from '@/components/product/ProductImageCarousel'
 import { ProductDetails } from '@/components/product/ProductDetails'
 import { FavouriteButton } from '@/components/product/FavouriteButton'
 import { BuyButton } from '@/components/product/BuyButton'
-import { Button } from '@/components/forms/Button'
 import { getProductById } from '@/utils/mockGetters'
 import { useProductVariations } from '@/hooks/useProductVariations'
 import { ProductVariations } from '@/components/product/ProductVariations'
 import { ProductRating } from '@/components/product/ProductRating'
 import { ProductPrice } from '@/components/product/ProductPrice'
 import { ProductTitle } from '@/components/product/ProductTitle'
+import { ProductShipping } from '@/components/product/ProductShipping'
 
 const ProductDetailsScreen = ({
   route,
-}: ProductDetailsScreenProps | SearchProductDetailsScreenProps) => {
+}:
+  | ProductDetailsScreenProps
+  | SearchProductDetailsScreenProps
+  | WishlistedProductDetailsScreenProps) => {
   const { productId } = route.params
 
   const productData = useMemo(() => getProductById(productId), [productId])
 
-  const { selectedSku, selectedVariations, handleSelectVariation } =
+  const { selectedSku, selectedVariations, handleSelectVariation, isOptionDisabled } =
     useProductVariations(productData)
 
   if (!productData) {
@@ -46,17 +50,23 @@ const ProductDetailsScreen = ({
         keyboardShouldPersistTaps="handled"
       >
         <ProductImageCarousel images={productData.images} />
-        <ProductVariations
-          variationTypes={productData.variationTypes}
-          selectedVariations={selectedVariations}
-          onSelectVariation={handleSelectVariation}
-        />
         <ProductTitle name={productData.name} caption={productData.caption} />
-        <ProductRating rating={productData.rating} />
-        <ProductPrice
-          price={selectedSku?.price ?? 0}
-          promotionalPrice={selectedSku?.promotionalPrice ?? 0}
-        />
+        <ProductRating rating={productData.rating} large />
+        <View style={styles.priceContainer}>
+          <ProductPrice
+            price={selectedSku?.price ?? 0}
+            promotionalPrice={selectedSku?.promotionalPrice ?? 0}
+            large
+          />
+        </View>
+        <View style={styles.variationsContainer}>
+          <ProductVariations
+            variationTypes={productData.variationTypes}
+            selectedVariations={selectedVariations}
+            onSelectVariation={handleSelectVariation}
+            isOptionDisabled={isOptionDisabled}
+          />
+        </View>
         <ProductDetails
           description={productData.description}
           badges={productData.badges}
@@ -65,15 +75,14 @@ const ProductDetailsScreen = ({
         <View style={styles.buyContainer}>
           <BuyButton type="cart" onPress={() => {}} />
           <BuyButton type="buy" onPress={() => {}} />
-          <FavouriteButton />
+          <View style={styles.buyContainerFavourite}>
+            <FavouriteButton productId={productData.id} large />
+          </View>
         </View>
 
-        <View style={styles.deliveryBanner}>
-          <Text style={styles.deliveryBannerTopText}>Será postado em</Text>
-          <Text style={styles.deliveryBannerBottomText}>até 10 dias úteis</Text>
-        </View>
+        <ProductShipping shippingDetails={selectedSku?.shippingDetails} />
 
-        <View style={styles.optionsContainer}>
+        {/* <View style={styles.optionsContainer}>
           <Button
             title="Ver similares"
             leftIcon="eye"
@@ -82,13 +91,13 @@ const ProductDetailsScreen = ({
             style={{ flex: 1 }}
           />
           <Button
-            title="Add para comparar"
+            title="Comparar"
             leftIcon="copy"
             variant="tertiary"
             onPress={() => {}}
             style={{ flex: 1 }}
           />
-        </View>
+        </View> */}
       </ScrollView>
     </SafeAreaView>
   )
@@ -108,14 +117,26 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingHorizontal: theme.spacing.lg,
     paddingBottom: theme.spacing.xl,
+    rowGap: theme.spacing.sm,
   },
-  buyContainer: {},
-  deliveryBanner: {},
-  deliveryBannerTopText: {},
-  deliveryBannerBottomText: {},
-  optionsContainer: {
+  priceContainer: {
+    marginTop: theme.spacing.sm,
+  },
+  variationsContainer: {
+    marginVertical: theme.spacing.sm,
+  },
+  buyContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: 'center',
+    columnGap: theme.spacing.sm,
+    paddingVertical: theme.spacing.md,
+  },
+  buyContainerFavourite: {
+    marginLeft: theme.spacing.xs,
+  },
+  optionsContainer: {
+    flex: 1,
+    flexDirection: 'row',
     columnGap: theme.spacing.sm,
   },
 })

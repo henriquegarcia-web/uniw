@@ -10,12 +10,14 @@ interface ProductVariationsProps {
   variationTypes: IVariationType[]
   selectedVariations: { [key: string]: string }
   onSelectVariation: (variationName: string, optionValue: string) => void
+  isOptionDisabled: (variationName: string, optionValue: string) => boolean
 }
 
 export const ProductVariations = ({
   variationTypes,
   selectedVariations,
   onSelectVariation,
+  isOptionDisabled,
 }: ProductVariationsProps) => {
   if (!variationTypes || variationTypes.length === 0) {
     return null
@@ -39,11 +41,18 @@ export const ProductVariations = ({
             <View style={styles.optionsContainer}>
               {variationType.options.map((option) => {
                 const isSelected = currentSelection === option.value
+                const isDisabled = isOptionDisabled(variationType.name, option.value)
+
                 return (
                   <TouchableOpacity
                     key={option.value}
-                    style={[styles.optionButton, isSelected && styles.optionSelected]}
+                    style={[
+                      styles.optionButton,
+                      isSelected && styles.optionSelected,
+                      isDisabled && styles.optionDisabled,
+                    ]}
                     onPress={() => onSelectVariation(variationType.name, option.value)}
+                    disabled={isDisabled}
                   >
                     <Text
                       style={[styles.optionText, isSelected && styles.optionTextSelected]}
@@ -63,14 +72,12 @@ export const ProductVariations = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: theme.spacing.md,
+    rowGap: theme.spacing.md,
   },
-  variationGroup: {
-    marginBottom: theme.spacing.lg,
-  },
+  variationGroup: {},
   variationName: {
     fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.md,
+    fontSize: theme.fonts.size.lg,
     color: theme.colors.text,
     marginBottom: theme.spacing.sm,
   },
@@ -83,12 +90,11 @@ const styles = StyleSheet.create({
     gap: theme.spacing.md,
   },
   optionButton: {
-    borderWidth: 1.5,
-    borderColor: theme.colors.border,
-    borderRadius: theme.borders.radius.sm,
+    borderWidth: 2,
+    borderColor: theme.colors.secondary,
+    borderRadius: theme.borders.radius.xs,
     paddingVertical: theme.spacing.sm,
-    paddingHorizontal: theme.spacing.lg,
-    minWidth: 48,
+    paddingHorizontal: theme.spacing.md,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -96,8 +102,12 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.secondary,
     borderColor: theme.colors.secondary,
   },
+  optionDisabled: {
+    borderColor: theme.colors.disabled,
+    backgroundColor: theme.colors.surface,
+  },
   optionText: {
-    fontFamily: theme.fonts.family.medium,
+    fontFamily: theme.fonts.family.semiBold,
     fontSize: theme.fonts.size.md,
     color: theme.colors.text_secondary,
   },

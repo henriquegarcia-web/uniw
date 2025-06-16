@@ -30,6 +30,7 @@ export function SearchStack() {
         name="SearchProductDetails"
         component={ProductDetailsScreen}
         options={{
+          // title: '',
           headerShown: true,
           header: () => <Header variant="back-cart" />,
         }}

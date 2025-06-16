@@ -43,6 +43,7 @@ export type ProfileStackParamList = {
   OrderHistory: undefined
   Settings: undefined
   Wishlist: undefined
+  WishlistedProductDetails: { productId: string }
 }
 
 // --- Navegador Principal (Tabs) ---
@@ -127,4 +128,8 @@ export type OrderHistoryScreenProps = NativeStackScreenProps<
 export type WishlistScreenProps = NativeStackScreenProps<
   ProfileStackParamList,
   'Wishlist'
+>
+export type WishlistedProductDetailsScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'WishlistedProductDetails'
 >

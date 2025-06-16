@@ -21,6 +21,14 @@ export const ProductTitle = ({ name, caption }: ProductTitleProps) => {
 
 const styles = StyleSheet.create({
   container: {},
-  productName: {},
-  productCaption: {},
+  productName: {
+    fontFamily: theme.fonts.family.bold,
+    fontSize: theme.fonts.size.xl,
+    color: theme.colors.text,
+  },
+  productCaption: {
+    fontFamily: theme.fonts.family.regular,
+    fontSize: theme.fonts.size.md,
+    color: theme.colors.text,
+  },
 })

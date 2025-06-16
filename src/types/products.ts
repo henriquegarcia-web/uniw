@@ -44,6 +44,16 @@ export interface IVariationType {
   options: IVariationOption[]
 }
 
+export interface IShippingDetails {
+  weightInGrams: number
+  dimensionsCm: {
+    width: number
+    height: number
+    length: number
+  }
+  shippingLeadTimeDays: number
+}
+
 export interface IProductSKU {
   id: string
   price: number
@@ -54,6 +64,8 @@ export interface IProductSKU {
   attributes: {
     [variationName: string]: string
   }
+
+  shippingDetails?: IShippingDetails
 }
 
 export interface IProductCategory {
@@ -175,9 +187,39 @@ export const mockProducts: IProduct[] = [
       },
     ],
     skus: [
-      { id: 'sku-1-claro', price: 129.9, stock: 50, attributes: { Cor: 'claro-01' } },
-      { id: 'sku-1-medio', price: 129.9, stock: 45, attributes: { Cor: 'medio-02' } },
-      { id: 'sku-1-escuro', price: 129.9, stock: 30, attributes: { Cor: 'escuro-03' } },
+      {
+        id: 'sku-1-claro',
+        price: 129.9,
+        stock: 50,
+        attributes: { Cor: 'claro-01' },
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+      {
+        id: 'sku-1-medio',
+        price: 129.9,
+        stock: 45,
+        attributes: { Cor: 'medio-02' },
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+      {
+        id: 'sku-1-escuro',
+        price: 129.9,
+        stock: 30,
+        attributes: { Cor: 'escuro-03' },
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
     ],
   },
   {
@@ -209,6 +251,11 @@ export const mockProducts: IProduct[] = [
         promotionalPrice: 39.9,
         stock: 100,
         attributes: { Cor: 'vermelho-fatal' },
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
       },
       {
         id: 'sku-2-nude',
@@ -216,6 +263,11 @@ export const mockProducts: IProduct[] = [
         promotionalPrice: 39.9,
         stock: 150,
         attributes: { Cor: 'nude-classico' },
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
       },
     ],
   },
@@ -232,7 +284,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-3-sunset', price: 189.9, stock: 70, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-3-sunset',
+        price: 189.9,
+        stock: 70,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-4',
@@ -246,7 +310,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-4-mascara', price: 79.9, stock: 200, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-4-mascara',
+        price: 79.9,
+        stock: 200,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-5',
@@ -260,7 +336,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-5-powder', price: 89.9, stock: 120, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-5-powder',
+        price: 89.9,
+        stock: 120,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
 
   // --- SKINCARE (4 Produtos) ---
@@ -278,7 +366,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-6-serum', price: 210.0, stock: 80, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-6-serum',
+        price: 210.0,
+        stock: 80,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-7',
@@ -292,7 +392,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-7-cleanser', price: 95.5, stock: 150, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-7-cleanser',
+        price: 95.5,
+        stock: 150,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-8',
@@ -306,7 +418,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-8-moisturizer', price: 150.0, stock: 100, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-8-moisturizer',
+        price: 150.0,
+        stock: 100,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-9',
@@ -320,7 +444,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-9-sunscreen', price: 110.0, stock: 300, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-9-sunscreen',
+        price: 110.0,
+        stock: 300,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
 
   // --- PERFUMES (3 Produtos) ---
@@ -345,9 +481,39 @@ export const mockProducts: IProduct[] = [
       },
     ],
     skus: [
-      { id: 'sku-10-30', price: 250.0, stock: 50, attributes: { Tamanho: '30ml' } },
-      { id: 'sku-10-50', price: 380.0, stock: 40, attributes: { Tamanho: '50ml' } },
-      { id: 'sku-10-100', price: 520.0, stock: 20, attributes: { Tamanho: '100ml' } },
+      {
+        id: 'sku-10-30',
+        price: 250.0,
+        stock: 50,
+        attributes: { Tamanho: '30ml' },
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+      {
+        id: 'sku-10-50',
+        price: 380.0,
+        stock: 40,
+        attributes: { Tamanho: '50ml' },
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+      {
+        id: 'sku-10-100',
+        price: 520.0,
+        stock: 20,
+        attributes: { Tamanho: '100ml' },
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
     ],
   },
   {
@@ -362,7 +528,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-11-fresh', price: 180.0, stock: 90, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-11-fresh',
+        price: 180.0,
+        stock: 90,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-12',
@@ -376,7 +554,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-12-vanilla', price: 89.9, stock: 250, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-12-vanilla',
+        price: 89.9,
+        stock: 250,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
 
   // --- CABELO (3 Produtos) ---
@@ -392,7 +582,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-13-shampoo', price: 65.0, stock: 180, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-13-shampoo',
+        price: 65.0,
+        stock: 180,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-14',
@@ -406,7 +608,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-14-hairmask', price: 99.0, stock: 110, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-14-hairmask',
+        price: 99.0,
+        stock: 110,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-15',
@@ -420,7 +634,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-15-hairoil', price: 75.0, stock: 220, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-15-hairoil',
+        price: 75.0,
+        stock: 220,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
 
   // --- MODA FEMININA (6 Produtos) ---
@@ -460,24 +686,44 @@ export const mockProducts: IProduct[] = [
         price: 199.9,
         stock: 10,
         attributes: { Cor: 'vermelho', Tamanho: 'p' },
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
       },
       {
         id: 'sku-16-red-m',
         price: 299.9,
         stock: 15,
         attributes: { Cor: 'vermelho', Tamanho: 'm' },
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
       },
       {
         id: 'sku-16-blue-m',
         price: 299.9,
         stock: 12,
         attributes: { Cor: 'azul', Tamanho: 'm' },
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
       },
       {
         id: 'sku-16-blue-g',
         price: 299.9,
         stock: 8,
         attributes: { Cor: 'azul', Tamanho: 'g' },
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
       },
     ],
   },
@@ -499,8 +745,28 @@ export const mockProducts: IProduct[] = [
       },
     ],
     skus: [
-      { id: 'sku-17-p', price: 450.0, stock: 20, attributes: { Tamanho: 'p' } },
-      { id: 'sku-17-m', price: 450.0, stock: 25, attributes: { Tamanho: 'm' } },
+      {
+        id: 'sku-17-p',
+        price: 450.0,
+        stock: 20,
+        attributes: { Tamanho: 'p' },
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+      {
+        id: 'sku-17-m',
+        price: 450.0,
+        stock: 25,
+        attributes: { Tamanho: 'm' },
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
     ],
   },
   {
@@ -515,7 +781,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-18-jeans', price: 220.0, stock: 50, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-18-jeans',
+        price: 220.0,
+        stock: 50,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-19',
@@ -529,7 +807,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-19-skirt', price: 199.9, stock: 40, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-19-skirt',
+        price: 199.9,
+        stock: 40,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-20',
@@ -543,7 +833,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-20-body', price: 159.0, stock: 60, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-20-body',
+        price: 159.0,
+        stock: 60,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-21',
@@ -557,7 +859,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-21-tshirt', price: 120.0, stock: 100, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-21-tshirt',
+        price: 120.0,
+        stock: 100,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
 
   // --- BOLSAS E ACESSÓRIOS (4 Produtos) ---
@@ -573,7 +887,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-22-bag', price: 599.0, stock: 30, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-22-bag',
+        price: 599.0,
+        stock: 30,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-23',
@@ -587,7 +913,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-23-necklace', price: 180.0, stock: 70, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-23-necklace',
+        price: 180.0,
+        stock: 70,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-24',
@@ -601,7 +939,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-24-belt', price: 129.0, stock: 90, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-24-belt',
+        price: 129.0,
+        stock: 90,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-25',
@@ -615,7 +965,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-25-sunglasses', price: 350.0, stock: 50, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-25-sunglasses',
+        price: 350.0,
+        stock: 50,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
 
   // --- SAPATOS (3 Produtos) ---
@@ -631,7 +993,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-26-scarpin', price: 320.0, stock: 45, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-26-scarpin',
+        price: 320.0,
+        stock: 45,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-27',
@@ -645,7 +1019,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-27-sneaker', price: 280.0, stock: 120, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-27-sneaker',
+        price: 280.0,
+        stock: 120,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-28',
@@ -659,7 +1045,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-28-sandal', price: 250.0, stock: 80, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-28-sandal',
+        price: 250.0,
+        stock: 80,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
 
   // --- UNHAS (2 Produtos) ---
@@ -675,7 +1073,19 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-29-polish', price: 25.0, stock: 500, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-29-polish',
+        price: 25.0,
+        stock: 500,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
   {
     id: 'prod-30',
@@ -689,6 +1099,18 @@ export const mockProducts: IProduct[] = [
       reviewsCount: 2000,
     },
     variationTypes: [],
-    skus: [{ id: 'sku-30-kit', price: 85.0, stock: 150, attributes: {} }],
+    skus: [
+      {
+        id: 'sku-30-kit',
+        price: 85.0,
+        stock: 150,
+        attributes: {},
+        shippingDetails: {
+          weightInGrams: 150,
+          dimensionsCm: { width: 5, height: 12, length: 5 },
+          shippingLeadTimeDays: 2,
+        },
+      },
+    ],
   },
 ]

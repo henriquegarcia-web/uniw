@@ -1,17 +1,42 @@
 // src/screens/WishlistScreen.tsx
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native'
 
 import type { WishlistScreenProps } from '@/navigation/types'
 import { theme } from '@/styles/theme'
 import { ProductList } from '@/components/product/ProductList'
-import { mockProducts } from '@/types/products'
+import { getProductsByIds } from '@/utils/mockGetters'
+import { useClientAuth } from '@/contexts/ClientAuthProvider'
+import { ListingHeader } from '@/components/ListingHeader'
+import { useProcessedProducts } from '@/hooks/useProcessedProducts'
 
 const WishlistScreen = ({ navigation }: WishlistScreenProps) => {
+  const { user } = useClientAuth()
+
+  const favoriteProducts = useMemo(() => {
+    if (!user?.clienteProfile?.favoritos) return []
+    return getProductsByIds(user.clienteProfile.favoritos)
+  }, [user])
+
+  const { processedProducts, sortOption, setSortOption, filters, setFilters } =
+    useProcessedProducts(favoriteProducts)
+
   return (
     <SafeAreaView style={styles.container}>
-      {/* <ProductList products={mockProducts} /> */}
+      <ProductList
+        type="wishlist"
+        products={processedProducts}
+        HeaderComponent={
+          <ListingHeader
+            title="Todos"
+            currentSort={sortOption}
+            onSortChange={setSortOption}
+            currentFilters={filters}
+            onFiltersApply={setFilters}
+          />
+        }
+      />
     </SafeAreaView>
   )
 }

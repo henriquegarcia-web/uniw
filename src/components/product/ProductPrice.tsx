@@ -9,10 +9,13 @@ import { applyMask } from '@/utils/masks'
 interface ProductPriceProps {
   price: number
   promotionalPrice?: number
+  large?: boolean
 }
 
-export const ProductPrice = ({ price, promotionalPrice }: ProductPriceProps) => {
+export const ProductPrice = ({ price, promotionalPrice, large }: ProductPriceProps) => {
   const isOnSale = promotionalPrice && promotionalPrice < price
+
+  const mainPriceSize = large ? theme.fonts.size['2xl'] : 20
 
   const calculateDiscount = () => {
     if (!isOnSale) return 0
@@ -25,7 +28,12 @@ export const ProductPrice = ({ price, promotionalPrice }: ProductPriceProps) => 
   if (isOnSale) {
     return (
       <View style={styles.container}>
-        <Text style={styles.promotionalPrice}>
+        <Text
+          style={[
+            styles.promotionalPrice,
+            { fontSize: mainPriceSize, lineHeight: mainPriceSize },
+          ]}
+        >
           {applyMask(promotionalPrice, 'currency')}
         </Text>
         <View style={styles.salePriceRow}>
@@ -38,7 +46,14 @@ export const ProductPrice = ({ price, promotionalPrice }: ProductPriceProps) => 
 
   return (
     <View style={styles.container}>
-      <Text style={styles.regularPrice}>{applyMask(price, 'currency')}</Text>
+      <Text
+        style={[
+          styles.regularPrice,
+          { fontSize: mainPriceSize, lineHeight: mainPriceSize },
+        ]}
+      >
+        {applyMask(price, 'currency')}
+      </Text>
     </View>
   )
 }
@@ -54,8 +69,6 @@ const styles = StyleSheet.create({
   },
   promotionalPrice: {
     fontFamily: theme.fonts.family.bold,
-    fontSize: 20,
-    lineHeight: 20,
     color: theme.colors.text,
   },
   originalPrice: {
@@ -71,8 +84,6 @@ const styles = StyleSheet.create({
   },
   regularPrice: {
     fontFamily: theme.fonts.family.bold,
-    fontSize: 20,
-    lineHeight: 20,
     color: theme.colors.text,
   },
 })

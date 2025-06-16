@@ -29,3 +29,11 @@ export function getProductById(productId: string): IProduct | undefined {
   }
   return mockProducts.find((product) => product.id === productId)
 }
+
+export function getProductsByIds(productIds?: string[]): IProduct[] {
+  if (!productIds || productIds.length === 0) {
+    return []
+  }
+
+  return mockProducts.filter((product) => productIds.includes(product.id))
+}

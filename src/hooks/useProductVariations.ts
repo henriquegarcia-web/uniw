@@ -1,12 +1,13 @@
 // src/hooks/useProductVariations.ts
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import type { IProduct, IProductSKU, IVariationType } from '@/types/products'
 
 interface UseProductVariationsReturn {
   selectedSku: IProductSKU | undefined
   selectedVariations: { [key: string]: string }
   handleSelectVariation: (variationName: string, optionValue: string) => void
+  isOptionDisabled: (variationName: string, optionValue: string) => boolean
 }
 
 export const useProductVariations = (
@@ -57,9 +58,32 @@ export const useProductVariations = (
     })
   }, [product, selectedVariations])
 
+  const isOptionDisabled = useCallback(
+    (variationName: string, optionValue: string): boolean => {
+      if (!product) return true
+
+      const potentialSelection = {
+        ...selectedVariations,
+        [variationName]: optionValue,
+      }
+
+      const hasAnyAvailableSku = product.skus.some((sku) => {
+        if (sku.stock === 0) return false
+
+        return Object.entries(potentialSelection).every(([key, value]) => {
+          return sku.attributes[key] === value
+        })
+      })
+
+      return !hasAnyAvailableSku
+    },
+    [product, selectedVariations],
+  )
+
   return {
     selectedSku,
     selectedVariations,
     handleSelectVariation,
+    isOptionDisabled,
   }
 }

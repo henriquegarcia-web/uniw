@@ -10,7 +10,7 @@ import { theme } from '@/styles/theme'
 interface ProductListProps {
   products: IProduct[]
   HeaderComponent: React.ReactElement
-  type: 'category' | 'search'
+  type: 'category' | 'search' | 'wishlist'
 }
 
 export const ProductList = ({ products, HeaderComponent, type }: ProductListProps) => {

@@ -14,10 +14,12 @@ export const theme = {
 
     text: '#333333',
     text_secondary: '#676767',
-    text_tertiary: '#bababa',
+    text_tertiary: '#a1a1a1',
     text_contrast: '#fff',
 
     border: '#E0E0E0',
+
+    red: '#eb4034',
 
     success: '#2EBD55',
     error: '#F83758',

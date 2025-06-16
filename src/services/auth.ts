@@ -1,3 +1,5 @@
+// src/srvices/auth.ts
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,

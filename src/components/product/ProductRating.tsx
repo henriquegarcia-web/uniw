@@ -9,13 +9,14 @@ import { IProductRating } from '@/types/products'
 
 interface ProductRatingProps {
   rating?: IProductRating
+  large?: boolean
 }
 
 const formatReviewCount = (count: number): string => {
   return new Intl.NumberFormat('pt-BR').format(count)
 }
 
-export const ProductRating = ({ rating }: ProductRatingProps) => {
+export const ProductRating = ({ rating, large = false }: ProductRatingProps) => {
   if (!rating || !rating.average) {
     return null
   }
@@ -49,7 +50,7 @@ export const ProductRating = ({ rating }: ProductRatingProps) => {
             <FontAwesome
               key={index}
               name={iconName}
-              size={14}
+              size={large ? 16 : 14}
               color={iconColor === 'active' ? theme.colors.waring : theme.colors.disabled}
               style={styles.star}
             />

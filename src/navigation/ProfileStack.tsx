@@ -11,6 +11,7 @@ import AddNewCardScreen from '@/screens/profile/AddNewCardScreen'
 import OrderHistoryScreen from '@/screens/profile/OrderHistoryScreen'
 import SettingsScreen from '@/screens/profile/SettingsScreen'
 import WishlistScreen from '@/screens/WishlistScreen'
+import ProductDetailsScreen from '@/screens/ProductDetailsScreen'
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>()
 
@@ -62,6 +63,14 @@ export function ProfileStack() {
         options={{
           headerShown: true,
           header: () => <Header variant="back-title" title="Favoritos" />,
+        }}
+      />
+      <Stack.Screen
+        name="WishlistedProductDetails"
+        component={ProductDetailsScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="back-cart" />,
         }}
       />
     </Stack.Navigator>

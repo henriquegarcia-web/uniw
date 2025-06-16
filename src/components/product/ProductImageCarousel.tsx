@@ -55,7 +55,7 @@ export const ProductImageCarousel = ({ images }: ProductImageCarouselProps) => {
 
   if (!images || images.length === 0)
     return (
-      <View style={styles.noImage}>
+      <View style={[styles.container, styles.noImage]}>
         <Image
           source={require('@/assets/backgrounds/product-without-image-placeholder.png')}
           style={styles.noImageImage}
@@ -121,11 +121,14 @@ export const ProductImageCarousel = ({ images }: ProductImageCarouselProps) => {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: ITEM_WIDTH,
+    marginBottom: theme.spacing.sm,
+  },
   noImage: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    height: ITEM_WIDTH,
     borderRadius: theme.borders.radius.md,
     overflow: 'hidden',
     backgroundColor: theme.colors.disabled,
@@ -134,10 +137,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     objectFit: 'cover',
-  },
-  container: {
-    width: '100%',
-    height: ITEM_WIDTH,
   },
   listContentContainer: {
     gap: GAP_SIZE,

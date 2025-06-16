@@ -11,10 +11,11 @@ import { ProductPrice } from './ProductPrice'
 import { useNavigation } from '@react-navigation/native'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import { MainTabParamList } from '@/navigation/types'
+import { FavouriteButton } from './FavouriteButton'
 
 interface ProductCardProps {
   product: IProduct
-  type: 'category' | 'search'
+  type: 'category' | 'search' | 'wishlist'
 }
 
 export const ProductCard = ({ product, type }: ProductCardProps) => {
@@ -37,16 +38,22 @@ export const ProductCard = ({ product, type }: ProductCardProps) => {
       })
       return
     }
-    navigation.navigate('SearchStack', {
-      screen: 'SearchProductDetails',
+    if (type === 'search') {
+      navigation.navigate('SearchStack', {
+        screen: 'SearchProductDetails',
+        params: {
+          productId: productId,
+        },
+      })
+      return
+    }
+
+    navigation.navigate('ProfileStack', {
+      screen: 'WishlistedProductDetails',
       params: {
         productId: productId,
       },
     })
-  }
-
-  const handleToggleWishlist = (productId: string) => {
-    console.log('Ícone de favorito pressionado:', productId)
   }
 
   return (
@@ -72,9 +79,7 @@ export const ProductCard = ({ product, type }: ProductCardProps) => {
 
         <View style={styles.footer}>
           <ProductRating rating={product.rating} />
-          <TouchableOpacity onPress={() => handleToggleWishlist(product.id)}>
-            <Feather name="heart" size={22} color={theme.colors.text_secondary} />
-          </TouchableOpacity>
+          <FavouriteButton productId={product.id} />
         </View>
       </View>
     </TouchableOpacity>

@@ -3,10 +3,11 @@ import { useFonts } from 'expo-font'
 
 import { Routes } from '@/navigation'
 import { AuthProvider } from '@/contexts/ClientAuthProvider'
+import { ProfileProvider } from './contexts/ClientProfileProvider'
 import { MenuProvider } from '@/contexts/MenuProvider'
 import { SideMenu } from './components/SideMenu'
-import SplashScreen from './screens/SplashScreen'
 import { SearchProvider } from './contexts/SearchProvider'
+import SplashScreen from './screens/SplashScreen'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,13 +28,15 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <MenuProvider>
-        <SearchProvider>
-          <StatusBar style="auto" />
-          <Routes />
-          <SideMenu />
-        </SearchProvider>
-      </MenuProvider>
+      <ProfileProvider>
+        <MenuProvider>
+          <SearchProvider>
+            <StatusBar style="auto" />
+            <Routes />
+            <SideMenu />
+          </SearchProvider>
+        </MenuProvider>
+      </ProfileProvider>
     </AuthProvider>
   )
 }

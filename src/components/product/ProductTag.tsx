@@ -19,8 +19,8 @@ export const ProductTag = ({ label, leftIcon }: ProductTagProps) => {
       {leftIcon && (
         <Feather
           name={leftIcon}
-          size={20}
-          color={theme.colors.text_secondary}
+          size={16}
+          color={theme.colors.text_tertiary}
           style={styles.icon}
         />
       )}
@@ -31,7 +31,21 @@ export const ProductTag = ({ label, leftIcon }: ProductTagProps) => {
 }
 
 const styles = StyleSheet.create({
-  container: {},
-  label: {},
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    columnGap: theme.spacing.xs,
+    paddingVertical: theme.spacing.xs,
+    paddingHorizontal: theme.spacing.sm,
+    borderRadius: theme.borders.radius.xs,
+    borderWidth: 1,
+    borderColor: theme.colors.text_tertiary,
+  },
+  label: {
+    fontFamily: theme.fonts.family.semiBold,
+    fontSize: theme.fonts.size.sm,
+    lineHeight: theme.fonts.size.sm,
+    color: theme.colors.text_tertiary,
+  },
   icon: {},
 })

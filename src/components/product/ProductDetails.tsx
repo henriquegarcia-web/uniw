@@ -15,8 +15,10 @@ interface ProductDetailsProps {
 export const ProductDetails = ({ description, badges }: ProductDetailsProps) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.sectionTitle}>Detalhes do Produto</Text>
-      <Text style={styles.sectionText}>{description}</Text>
+      <View style={styles.detailsContainer}>
+        <Text style={styles.detailsTitle}>Detalhes do Produto</Text>
+        <Text style={styles.detailsText}>{description}</Text>
+      </View>
       <View style={styles.badgesWrapper}>
         {badges?.map((badge) => {
           const badgeData = getProductBadge(badge)
@@ -30,8 +32,23 @@ export const ProductDetails = ({ description, badges }: ProductDetailsProps) => 
 }
 
 const styles = StyleSheet.create({
-  container: {},
-  sectionTitle: {},
-  sectionText: {},
-  badgesWrapper: {},
+  container: {
+    rowGap: theme.spacing.sm,
+  },
+  detailsContainer: {},
+  detailsTitle: {
+    fontFamily: theme.fonts.family.semiBold,
+    fontSize: theme.fonts.size.lg,
+    color: theme.colors.text,
+  },
+  detailsText: {
+    fontFamily: theme.fonts.family.regular,
+    fontSize: theme.fonts.size.md,
+    color: theme.colors.text,
+  },
+  badgesWrapper: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: theme.spacing.sm,
+  },
 })
