@@ -12,15 +12,25 @@ import { ListingHeader } from '@/components/ListingHeader'
 import { useSearch } from '@/contexts/SearchProvider'
 
 const SearchResultsScreen = ({ navigation, route }: SearchResultsScreenProps) => {
-  const { searchTerm } = useSearch()
+  const { searchTerm: submittedSearchTerm } = route.params || {}
 
   const { processedProducts, sortOption, setSortOption, filters, setFilters } =
-    useProcessedProducts(mockProducts, searchTerm)
+    useProcessedProducts(mockProducts, submittedSearchTerm ?? '')
+
+  const { clearSearch } = useSearch()
+
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     return () => {
+  //       clearSearch()
+  //     }
+  //   }, [clearSearch]),
+  // )
 
   if (!processedProducts || processedProducts.length === 0) {
     return (
       <SafeAreaView style={styles.container}>
-        <Text>Nenhum produto encontrado para a busca: "{searchTerm}"</Text>
+        <Text>Nenhum produto encontrado para a busca: "{submittedSearchTerm}"</Text>
       </SafeAreaView>
     )
   }

@@ -12,9 +12,9 @@ import {
 
 import { Feather } from '@expo/vector-icons'
 import { theme } from '@/styles/theme'
-import { useNavigation } from '@react-navigation/native'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { MainTabParamList } from '@/navigation/types'
+import { CategoryStackParamList, MainTabParamList } from '@/navigation/types'
 import { useSearch } from '@/contexts/SearchProvider'
 
 interface InputSearchProps extends TextInputProps {
@@ -29,17 +29,19 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
     const borderColor = hasError ? theme.colors.error : theme.colors.border
 
     const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>()
+    const route = useRoute<RouteProp<MainTabParamList, 'SearchResults'>>()
 
     const { searchTerm, setSearchTerm, clearSearch } = useSearch()
 
     const handleSearch = () => {
       if (!searchTerm || searchTerm.trim() === '') return
 
-      navigation.navigate('SearchResults')
+      navigation.navigate('SearchResults', { searchTerm })
     }
 
     const handleClearSearch = () => {
       clearSearch()
+      navigation.navigate('SearchResults', { searchTerm: '' })
     }
 
     return (
@@ -64,18 +66,17 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
             {...rest}
           />
 
-          {searchTerm.trim() !== '' && (
+          {searchTerm && searchTerm.trim() !== '' && (
             <TouchableOpacity onPress={handleClearSearch}>
               <Feather name="x-circle" size={20} color={theme.colors.text_secondary} />
             </TouchableOpacity>
           )}
 
-          {(onVoicePress && !searchTerm) ||
-            (searchTerm.trim() === '' && (
-              <TouchableOpacity onPress={onVoicePress}>
-                <Feather name="mic" size={20} color={theme.colors.text_secondary} />
-              </TouchableOpacity>
-            ))}
+          {onVoicePress && (!searchTerm || searchTerm.trim() === '') && (
+            <TouchableOpacity onPress={onVoicePress}>
+              <Feather name="mic" size={20} color={theme.colors.text_secondary} />
+            </TouchableOpacity>
+          )}
         </View>
 
         {hasError && <Text style={styles.errorText}>{error}</Text>}

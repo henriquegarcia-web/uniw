@@ -46,7 +46,7 @@ export type MainTabParamList = {
   HomeStack: NavigatorScreenParams<HomeStackParamList> | undefined
   CategoryStack: NavigatorScreenParams<CategoryStackParamList> | undefined
   CartStack: NavigatorScreenParams<CartStackParamList> | undefined
-  SearchResults: undefined
+  SearchResults: { searchTerm: string }
   ProfileStack: NavigatorScreenParams<ProfileStackParamList> | undefined
 }
 
