@@ -1,23 +1,22 @@
 // src/screens/SearchResultsScreen.tsx
 
 import React, { useEffect } from 'react'
-import { StyleSheet, SafeAreaView } from 'react-native'
+import { StyleSheet, SafeAreaView, Text } from 'react-native'
 
 import type { SearchResultsScreenProps } from '@/navigation/types'
 import { theme } from '@/styles/theme'
 import { ProductList } from '@/components/product/ProductList'
 import { mockProducts } from '@/types/products'
-import { useFocusEffect } from '@react-navigation/native'
-import { useSearch } from '@/contexts/SearchProvider'
 import { useProcessedProducts } from '@/hooks/useProcessedProducts'
 import { ListingHeader } from '@/components/ListingHeader'
 
 const SearchResultsScreen = ({ navigation, route }: SearchResultsScreenProps) => {
   const { searchTerm: initialSearchTerm } = route.params
 
-  const { clearSearch: clearContextSearch } = useSearch()
+  // const { clearSearch: clearContextSearch } = useSearch()
 
   const {
+    searchTerm,
     processedProducts,
     setSearchTerm,
     sortOption,
@@ -38,6 +37,14 @@ const SearchResultsScreen = ({ navigation, route }: SearchResultsScreenProps) =>
   //     }
   //   }, [clearContextSearch]),
   // )
+
+  if (!processedProducts || processedProducts.length === 0) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text>Nenhum produto encontrado com a busca "{searchTerm}"</Text>
+      </SafeAreaView>
+    )
+  }
 
   return (
     <SafeAreaView style={styles.container}>

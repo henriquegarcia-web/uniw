@@ -30,7 +30,7 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
 
     const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>()
 
-    const { searchTerm, setSearchTerm } = useSearch()
+    const { searchTerm, setSearchTerm, clearSearch } = useSearch()
 
     const handleSearch = () => {
       if (!searchTerm || searchTerm.trim() === '') return
@@ -41,6 +41,11 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
           searchTerm: searchTerm,
         },
       })
+    }
+
+    const handleClearSearch = () => {
+      clearSearch()
+      navigation.goBack()
     }
 
     return (
@@ -65,11 +70,18 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
             {...rest}
           />
 
-          {onVoicePress && (
-            <TouchableOpacity onPress={onVoicePress}>
-              <Feather name="mic" size={20} color={theme.colors.text_secondary} />
+          {searchTerm.trim() !== '' && (
+            <TouchableOpacity onPress={handleClearSearch}>
+              <Feather name="x-circle" size={20} color={theme.colors.text_secondary} />
             </TouchableOpacity>
           )}
+
+          {(onVoicePress && !searchTerm) ||
+            (searchTerm.trim() === '' && (
+              <TouchableOpacity onPress={onVoicePress}>
+                <Feather name="mic" size={20} color={theme.colors.text_secondary} />
+              </TouchableOpacity>
+            ))}
         </View>
 
         {hasError && <Text style={styles.errorText}>{error}</Text>}

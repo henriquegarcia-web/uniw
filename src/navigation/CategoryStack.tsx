@@ -55,6 +55,13 @@ export function CategoryStack() {
           headerShown: true,
           header: () => <Header variant="main" />,
         }}
+        // options={({ route }) => {
+        //   const { searchTerm } = route.params
+        //   return {
+        //     headerShown: true,
+        //     header: () => <Header variant="back-title" title={`"${searchTerm}"`} />,
+        //   }
+        // }}
       />
     </Stack.Navigator>
   )
