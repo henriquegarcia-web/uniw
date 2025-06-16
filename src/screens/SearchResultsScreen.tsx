@@ -38,6 +38,7 @@ const SearchResultsScreen = ({ navigation, route }: SearchResultsScreenProps) =>
   return (
     <SafeAreaView style={styles.container}>
       <ProductList
+        type="search"
         products={processedProducts}
         HeaderComponent={
           <ListingHeader

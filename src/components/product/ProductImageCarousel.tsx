@@ -15,10 +15,12 @@ import { Feather } from '@expo/vector-icons'
 import { theme } from '@/styles/theme'
 
 interface ProductImageCarouselProps {
-  images: string[]
+  images?: string[]
 }
 
-const { width } = Dimensions.get('window')
+const { width: SCREEN_WIDTH } = Dimensions.get('window')
+const ITEM_WIDTH = SCREEN_WIDTH - 2 * theme.spacing.lg
+const GAP_SIZE = theme.spacing.md
 
 export const ProductImageCarousel = ({ images }: ProductImageCarouselProps) => {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -43,7 +45,7 @@ export const ProductImageCarousel = ({ images }: ProductImageCarouselProps) => {
   }
 
   const handleNext = () => {
-    if (activeIndex < images.length - 1) {
+    if (images && activeIndex < images.length - 1) {
       flatListRef.current?.scrollToIndex({
         index: activeIndex + 1,
         animated: true,
@@ -51,24 +53,38 @@ export const ProductImageCarousel = ({ images }: ProductImageCarouselProps) => {
     }
   }
 
+  if (!images || images.length === 0)
+    return (
+      <View style={styles.noImage}>
+        <Image
+          source={require('@/assets/backgrounds/product-without-image-placeholder.png')}
+          style={styles.noImageImage}
+        />
+      </View>
+    )
+
   return (
     <View style={styles.container}>
       <FlatList
         ref={flatListRef}
         data={images}
         renderItem={({ item }) => (
-          <View style={styles.imageContainer}>
+          <View style={styles.itemContainer}>
             <Image source={{ uri: item }} style={styles.image} resizeMode="cover" />
           </View>
         )}
         keyExtractor={(_, index) => `carousel-item-${index}`}
         horizontal
-        pagingEnabled
         showsHorizontalScrollIndicator={false}
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={{
           itemVisiblePercentThreshold: 50,
         }}
+        pagingEnabled={false}
+        decelerationRate="fast"
+        snapToInterval={ITEM_WIDTH + GAP_SIZE}
+        snapToAlignment="start"
+        contentContainerStyle={styles.listContentContainer}
       />
 
       <View style={styles.paginationContainer}>
@@ -88,7 +104,7 @@ export const ProductImageCarousel = ({ images }: ProductImageCarouselProps) => {
           style={[styles.navButton, styles.leftButton]}
           onPress={handlePrev}
         >
-          <Feather name="chevron-left" size={28} color={theme.colors.text} />
+          <Feather name="chevron-left" size={22} color={theme.colors.text} />
         </TouchableOpacity>
       )}
 
@@ -97,7 +113,7 @@ export const ProductImageCarousel = ({ images }: ProductImageCarouselProps) => {
           style={[styles.navButton, styles.rightButton]}
           onPress={handleNext}
         >
-          <Feather name="chevron-right" size={28} color={theme.colors.text} />
+          <Feather name="chevron-right" size={22} color={theme.colors.text} />
         </TouchableOpacity>
       )}
     </View>
@@ -105,44 +121,64 @@ export const ProductImageCarousel = ({ images }: ProductImageCarouselProps) => {
 }
 
 const styles = StyleSheet.create({
+  noImage: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: ITEM_WIDTH,
+    borderRadius: theme.borders.radius.md,
+    overflow: 'hidden',
+    backgroundColor: theme.colors.disabled,
+  },
+  noImageImage: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+  },
   container: {
     width: '100%',
-    height: width,
+    height: ITEM_WIDTH,
   },
-  imageContainer: {
-    width: width,
+  listContentContainer: {
+    gap: GAP_SIZE,
+  },
+  itemContainer: {
+    width: ITEM_WIDTH,
     height: '100%',
+    borderRadius: theme.borders.radius.md,
+    overflow: 'hidden',
+    backgroundColor: theme.colors.surface,
   },
   image: {
     width: '100%',
     height: '100%',
+    objectFit: 'cover',
   },
   paginationContainer: {
-    position: 'absolute',
-    bottom: theme.spacing.md,
-    left: 0,
-    right: 0,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     gap: theme.spacing.sm,
+    marginTop: theme.spacing.md,
   },
   dot: {
     width: 8,
     height: 8,
-    borderRadius: 4,
+    borderRadius: theme.borders.radius.circle,
   },
   activeDot: {
+    width: 10,
+    height: 10,
     backgroundColor: theme.colors.secondary,
   },
   inactiveDot: {
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    backgroundColor: theme.colors.disabled,
   },
 
   navButton: {
     position: 'absolute',
     top: '50%',
-    marginTop: -20,
+    marginTop: -30,
     width: 40,
     height: 40,
     borderRadius: 20,
@@ -152,8 +188,10 @@ const styles = StyleSheet.create({
   },
   leftButton: {
     left: theme.spacing.md,
+    paddingRight: 2,
   },
   rightButton: {
     right: theme.spacing.md,
+    paddingLeft: 2,
   },
 })

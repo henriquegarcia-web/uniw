@@ -73,7 +73,7 @@ export interface IProduct {
   name: string
   caption?: string
   description: string
-  images: string[]
+  images?: string[]
   badges?: ProductBadge[]
   rating?: IProductRating
   reviews?: IReview[]
@@ -457,7 +457,7 @@ export const mockProducts: IProduct[] = [
     skus: [
       {
         id: 'sku-16-red-p',
-        price: 299.9,
+        price: 199.9,
         stock: 10,
         attributes: { Cor: 'vermelho', Tamanho: 'p' },
       },

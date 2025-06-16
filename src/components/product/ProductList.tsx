@@ -6,14 +6,14 @@ import { FlatList, StyleSheet, View } from 'react-native'
 import { ProductCard } from './ProductCard'
 import { IProduct } from '@/types/products'
 import { theme } from '@/styles/theme'
-import { ListingHeader } from '../ListingHeader'
 
 interface ProductListProps {
   products: IProduct[]
   HeaderComponent: React.ReactElement
+  type: 'category' | 'search'
 }
 
-export const ProductList = ({ products, HeaderComponent }: ProductListProps) => {
+export const ProductList = ({ products, HeaderComponent, type }: ProductListProps) => {
   const data = [...products]
   if (data.length % 2 !== 0) {
     data.push({ id: 'placeholder-item', empty: true } as any)
@@ -24,7 +24,7 @@ export const ProductList = ({ products, HeaderComponent }: ProductListProps) => 
       return <View style={styles.itemInvisible} />
     }
 
-    return <ProductCard product={item} />
+    return <ProductCard product={item} type={type} />
   }
 
   return (

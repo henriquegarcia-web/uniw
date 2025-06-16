@@ -12,6 +12,7 @@ import { CustomTabBar } from './CustomTabBar'
 import { Header } from '@/components/Header'
 import { CategoryStack } from './CategoryStack'
 import SearchResultsScreen from '@/screens/SearchResultsScreen'
+import { SearchStack } from './SearchStack'
 
 const Tab = createBottomTabNavigator<MainTabParamList>()
 
@@ -35,13 +36,9 @@ export function MainTabNavigator() {
         options={{ title: 'Carrinho' }}
       />
       <Tab.Screen
-        name="SearchResults"
-        component={SearchResultsScreen}
-        options={{
-          title: 'Pesquisa',
-          headerShown: true,
-          header: () => <Header variant="main" />,
-        }}
+        name="SearchStack"
+        component={SearchStack}
+        options={{ title: 'Pesquisa' }}
       />
       <Tab.Screen
         name="ProfileStack"

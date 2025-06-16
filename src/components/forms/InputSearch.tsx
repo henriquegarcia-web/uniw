@@ -12,9 +12,9 @@ import {
 
 import { Feather } from '@expo/vector-icons'
 import { theme } from '@/styles/theme'
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { CategoryStackParamList, MainTabParamList } from '@/navigation/types'
+import { MainTabParamList } from '@/navigation/types'
 import { useSearch } from '@/contexts/SearchProvider'
 
 interface InputSearchProps extends TextInputProps {
@@ -29,19 +29,25 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
     const borderColor = hasError ? theme.colors.error : theme.colors.border
 
     const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>()
-    const route = useRoute<RouteProp<MainTabParamList, 'SearchResults'>>()
 
     const { searchTerm, setSearchTerm, clearSearch } = useSearch()
 
     const handleSearch = () => {
       if (!searchTerm || searchTerm.trim() === '') return
 
-      navigation.navigate('SearchResults', { searchTerm })
+      navigation.navigate('SearchStack', {
+        screen: 'SearchResults',
+        params: { searchTerm },
+      })
     }
 
     const handleClearSearch = () => {
       clearSearch()
-      navigation.navigate('SearchResults', { searchTerm: '' })
+
+      navigation.navigate('SearchStack', {
+        screen: 'SearchResults',
+        params: { searchTerm: '' },
+      })
     }
 
     return (

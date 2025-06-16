@@ -30,6 +30,7 @@ const CategoryDetailsScreen = ({ navigation, route }: CategoryDetailsScreenProps
   return (
     <SafeAreaView style={styles.container}>
       <ProductList
+        type="category"
         products={processedProducts}
         HeaderComponent={
           <ListingHeader

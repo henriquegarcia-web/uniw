@@ -3,7 +3,10 @@
 import React, { useEffect, useMemo } from 'react'
 import { StyleSheet, SafeAreaView, Text, ScrollView, View } from 'react-native'
 
-import type { ProductDetailsScreenProps } from '@/navigation/types'
+import type {
+  ProductDetailsScreenProps,
+  SearchProductDetailsScreenProps,
+} from '@/navigation/types'
 import { theme } from '@/styles/theme'
 import { ProductImageCarousel } from '@/components/product/ProductImageCarousel'
 import { ProductDetails } from '@/components/product/ProductDetails'
@@ -17,7 +20,9 @@ import { ProductRating } from '@/components/product/ProductRating'
 import { ProductPrice } from '@/components/product/ProductPrice'
 import { ProductTitle } from '@/components/product/ProductTitle'
 
-const ProductDetailsScreen = ({ route }: ProductDetailsScreenProps) => {
+const ProductDetailsScreen = ({
+  route,
+}: ProductDetailsScreenProps | SearchProductDetailsScreenProps) => {
   const { productId } = route.params
 
   const productData = useMemo(() => getProductById(productId), [productId])

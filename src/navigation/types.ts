@@ -32,6 +32,11 @@ export type CartStackParamList = {
   CheckoutSuccess: undefined
 }
 
+export type SearchStackParamList = {
+  SearchResults: { searchTerm: string }
+  SearchProductDetails: { productId: string }
+}
+
 export type ProfileStackParamList = {
   Profile: undefined
   AddNewCard: undefined
@@ -46,7 +51,7 @@ export type MainTabParamList = {
   HomeStack: NavigatorScreenParams<HomeStackParamList> | undefined
   CategoryStack: NavigatorScreenParams<CategoryStackParamList> | undefined
   CartStack: NavigatorScreenParams<CartStackParamList> | undefined
-  SearchResults: { searchTerm: string }
+  SearchStack: NavigatorScreenParams<SearchStackParamList> | undefined
   ProfileStack: NavigatorScreenParams<ProfileStackParamList> | undefined
 }
 
@@ -97,8 +102,12 @@ export type CheckoutSuccessScreenProps = NativeStackScreenProps<
 
 // Pesquisa
 export type SearchResultsScreenProps = NativeStackScreenProps<
-  MainTabParamList,
+  SearchStackParamList,
   'SearchResults'
+>
+export type SearchProductDetailsScreenProps = NativeStackScreenProps<
+  SearchStackParamList,
+  'SearchProductDetails'
 >
 
 // Perfil

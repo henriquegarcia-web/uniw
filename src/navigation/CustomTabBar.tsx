@@ -107,7 +107,7 @@ const getIconName = (routeName: string): keyof typeof Feather.glyphMap => {
   switch (routeName) {
     case 'HomeStack':
       return 'home'
-    case 'SearchResults':
+    case 'SearchStack':
       return 'search'
     case 'CategoryStack':
       return 'grid'
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
     borderTopWidth: 1,
     borderColor: theme.colors.border,
-    paddingBottom: theme.spacing.sm, 
+    paddingBottom: theme.spacing.sm,
   },
   tabItem: {
     flex: 1,

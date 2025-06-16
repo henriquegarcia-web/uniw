@@ -14,18 +14,31 @@ import { MainTabParamList } from '@/navigation/types'
 
 interface ProductCardProps {
   product: IProduct
+  type: 'category' | 'search'
 }
 
-export const ProductCard = ({ product }: ProductCardProps) => {
+export const ProductCard = ({ product, type }: ProductCardProps) => {
   const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>()
 
-  const displayImage = product.images[0]
+  const imageSource =
+    product?.images && product.images.length > 0
+      ? { uri: product.images[0] }
+      : require('@/assets/backgrounds/product-without-image-placeholder.png')
   const displayPrice = product.skus[0]?.price || 0
   const displayPromotionalPrice = product.skus[0]?.promotionalPrice || 0
 
   const handleSelectProduct = (productId: string) => {
-    navigation.navigate('CategoryStack', {
-      screen: 'ProductDetails',
+    if (type === 'category') {
+      navigation.navigate('CategoryStack', {
+        screen: 'ProductDetails',
+        params: {
+          productId: productId,
+        },
+      })
+      return
+    }
+    navigation.navigate('SearchStack', {
+      screen: 'SearchProductDetails',
       params: {
         productId: productId,
       },
@@ -43,7 +56,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       onPress={() => handleSelectProduct(product.id)}
     >
       <View style={styles.imageContainer}>
-        <Image source={{ uri: displayImage }} style={styles.image} />
+        <Image source={imageSource} style={styles.image} />
       </View>
 
       <View style={styles.content}>
