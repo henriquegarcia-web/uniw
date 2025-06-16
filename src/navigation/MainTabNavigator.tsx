@@ -6,12 +6,12 @@ import { MainTabParamList } from './types'
 
 import { HomeStack } from './HomeStack'
 import { CartStack } from './CartStack'
-import { SettingsStack } from './SettingsStack'
-import WishlistScreen from '@/screens/WishlistScreen'
+import { ProfileStack } from './ProfileStack'
 
 import { CustomTabBar } from './CustomTabBar'
 import { Header } from '@/components/Header'
 import { CategoryStack } from './CategoryStack'
+import SearchResultsScreen from '@/screens/SearchResultsScreen'
 
 const Tab = createBottomTabNavigator<MainTabParamList>()
 
@@ -35,17 +35,17 @@ export function MainTabNavigator() {
         options={{ title: 'Carrinho' }}
       />
       <Tab.Screen
-        name="Wishlist"
-        component={WishlistScreen}
+        name="SearchResults"
+        component={SearchResultsScreen}
         options={{
-          title: 'Desejos',
+          title: 'Pesquisa',
           headerShown: true,
           header: () => <Header variant="main" />,
         }}
       />
       <Tab.Screen
-        name="SettingsStack"
-        component={SettingsStack}
+        name="ProfileStack"
+        component={ProfileStack}
         options={{ title: 'Perfil' }}
       />
     </Tab.Navigator>

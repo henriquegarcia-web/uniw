@@ -10,7 +10,6 @@ import { Header } from '@/components/Header'
 import CategoryDetailsScreen from '@/screens/CategoryDetailsScreen'
 import CategoryListScreen from '@/screens/CategoryListScreen'
 import { getCategoryById } from '@/utils/mockGetters'
-import SearchResultsScreen from '@/screens/SearchResultsScreen'
 
 const Stack = createNativeStackNavigator<CategoryStackParamList>()
 
@@ -47,21 +46,6 @@ export function CategoryStack() {
           headerShown: true,
           header: () => <Header variant="back-cart" />,
         }}
-      />
-      <Stack.Screen
-        name="SearchResults"
-        component={SearchResultsScreen}
-        options={{
-          headerShown: true,
-          header: () => <Header variant="main" />,
-        }}
-        // options={({ route }) => {
-        //   const { searchTerm } = route.params
-        //   return {
-        //     headerShown: true,
-        //     header: () => <Header variant="back-title" title={`"${searchTerm}"`} />,
-        //   }
-        // }}
       />
     </Stack.Navigator>
   )

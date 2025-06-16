@@ -42,6 +42,11 @@ export const ListingHeader = ({
     currentFilters.badges || [],
   )
 
+  const isFilterActive =
+    (currentFilters.minPrice != null && currentFilters.minPrice > 0) ||
+    (currentFilters.maxPrice != null && currentFilters.maxPrice > 0) ||
+    (currentFilters.badges != null && currentFilters.badges.length > 0)
+
   useEffect(() => {
     if (filterModalVisible) {
       setTempMinPrice(String(currentFilters.minPrice || ''))
@@ -92,6 +97,7 @@ export const ListingHeader = ({
           label="Filtros"
           iconName="filter"
           onPress={() => setFilterModalVisible(true)}
+          activeIndicator={isFilterActive}
         />
       </View>
 
@@ -134,7 +140,10 @@ export const ListingHeader = ({
         animationType="fade"
         onRequestClose={() => setFilterModalVisible(false)}
       >
-        <View style={styles.modalOverlay}>
+        <TouchableOpacity
+          style={styles.modalOverlay}
+          onPress={() => setFilterModalVisible(false)}
+        >
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Filtros</Text>
@@ -175,11 +184,15 @@ export const ListingHeader = ({
               </TouchableOpacity>
             ))}
 
-            <View style={{ marginTop: 20 }}>
-              <Button title="Aplicar Filtros" onPress={handleApplyFilters} />
+            <View style={{ marginTop: 20, height: 50 }}>
+              <Button
+                title="Aplicar Filtros"
+                onPress={handleApplyFilters}
+                style={{ flex: 1 }}
+              />
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
       </Modal>
     </View>
   )
@@ -270,9 +283,15 @@ const styles = StyleSheet.create({
 interface FilterButtonProps extends TouchableOpacityProps {
   label: string
   iconName?: FeatherIconName
+  activeIndicator?: boolean
 }
 
-export const FilterButton = ({ label, iconName, ...rest }: FilterButtonProps) => {
+export const FilterButton = ({
+  label,
+  iconName,
+  activeIndicator,
+  ...rest
+}: FilterButtonProps) => {
   return (
     <TouchableOpacity style={filterButtonStyles.button} activeOpacity={0.8} {...rest}>
       <Text style={filterButtonStyles.label}>{label}</Text>
@@ -287,12 +306,14 @@ export const FilterButton = ({ label, iconName, ...rest }: FilterButtonProps) =>
           ]}
         />
       )}
+      {activeIndicator && <View style={filterButtonStyles.activeFilterIndicator} />}
     </TouchableOpacity>
   )
 }
 
 const filterButtonStyles = StyleSheet.create({
   button: {
+    position: 'relative',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -312,5 +333,14 @@ const filterButtonStyles = StyleSheet.create({
   icon: {},
   iconRotated: {
     transform: 'rotate(90deg)',
+  },
+  activeFilterIndicator: {
+    position: 'absolute',
+    top: -1,
+    right: -4,
+    width: 8,
+    height: 8,
+    borderRadius: theme.borders.radius.circle,
+    backgroundColor: theme.colors.error,
   },
 })

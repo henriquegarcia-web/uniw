@@ -1,19 +1,20 @@
-// src/navigation/SettingsStack.tsx
+// src/navigation/ProfileStack.tsx
 
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import { SettingsStackParamList } from './types'
+import { ProfileStackParamList } from './types'
 
 import { Header } from '@/components/Header'
 import ProfileScreen from '@/screens/profile/ProfileScreen'
 import AddNewCardScreen from '@/screens/profile/AddNewCardScreen'
 import OrderHistoryScreen from '@/screens/profile/OrderHistoryScreen'
 import SettingsScreen from '@/screens/profile/SettingsScreen'
+import WishlistScreen from '@/screens/WishlistScreen'
 
-const Stack = createNativeStackNavigator<SettingsStackParamList>()
+const Stack = createNativeStackNavigator<ProfileStackParamList>()
 
-export function SettingsStack() {
+export function ProfileStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
@@ -53,6 +54,14 @@ export function SettingsStack() {
         options={{
           headerShown: true,
           header: () => <Header variant="back-title" title="Configurações" />,
+        }}
+      />
+      <Stack.Screen
+        name="Wishlist"
+        component={WishlistScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="back-title" title="Favoritos" />,
         }}
       />
     </Stack.Navigator>

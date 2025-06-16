@@ -35,17 +35,11 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
     const handleSearch = () => {
       if (!searchTerm || searchTerm.trim() === '') return
 
-      navigation.navigate('CategoryStack', {
-        screen: 'SearchResults',
-        params: {
-          searchTerm: searchTerm,
-        },
-      })
+      navigation.navigate('SearchResults')
     }
 
     const handleClearSearch = () => {
       clearSearch()
-      navigation.goBack()
     }
 
     return (

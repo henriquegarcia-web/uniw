@@ -56,12 +56,14 @@ const ProductDetailsScreen = ({ route }: ProductDetailsScreenProps) => {
             leftIcon="eye"
             variant="tertiary"
             onPress={() => {}}
+            style={{ flex: 1 }}
           />
           <Button
             title="Add para comparar"
             leftIcon="copy"
             variant="tertiary"
             onPress={() => {}}
+            style={{ flex: 1 }}
           />
         </View>
       </ScrollView>

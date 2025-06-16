@@ -3,23 +3,21 @@
 import { useState, useMemo } from 'react'
 import { IProduct, SortOption, FilterState } from '@/types/products'
 
-export const useProcessedProducts = (baseProducts: IProduct[]) => {
+export const useProcessedProducts = (baseProducts: IProduct[], searchTerm?: string) => {
   const [filters, setFilters] = useState<FilterState>({})
   const [sortOption, setSortOption] = useState<SortOption>('popularity')
-  const [searchTerm, setSearchTerm] = useState('')
 
   const processedProducts = useMemo(() => {
     let products = [...baseProducts]
 
-     if (searchTerm && searchTerm.trim() !== '') {
-      const lowercasedTerm = searchTerm.toLowerCase();
+    if (searchTerm && searchTerm.trim() !== '') {
+      const lowercasedTerm = searchTerm.toLowerCase()
       products = products.filter(
         (product) =>
           product.name.toLowerCase().includes(lowercasedTerm) ||
-          (product.caption &&
-            product.caption.toLowerCase().includes(lowercasedTerm)) ||
-          product.description.toLowerCase().includes(lowercasedTerm)
-      );
+          (product.caption && product.caption.toLowerCase().includes(lowercasedTerm)) ||
+          product.description.toLowerCase().includes(lowercasedTerm),
+      )
     }
 
     if (filters.minPrice) {
@@ -60,8 +58,6 @@ export const useProcessedProducts = (baseProducts: IProduct[]) => {
 
   return {
     processedProducts,
-    searchTerm,
-    setSearchTerm,
     filters,
     setFilters,
     sortOption,

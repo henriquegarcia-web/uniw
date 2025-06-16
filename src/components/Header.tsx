@@ -46,7 +46,7 @@ export const Header = ({
   }
   const onMenuPress = openMenu
   const onCartPress = () => navigation.navigate('CartStack', { screen: 'Cart' })
-  const onProfilePress = () => navigation.navigate('SettingsStack', { screen: 'Profile' })
+  const onProfilePress = () => navigation.navigate('ProfileStack', { screen: 'Profile' })
 
   const renderLeftComponent = () => {
     switch (variant) {

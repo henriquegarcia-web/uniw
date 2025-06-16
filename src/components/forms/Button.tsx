@@ -119,7 +119,6 @@ export const Button = ({
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       disabled={isButtonDisabled}
-      style={styles.pressable}
       {...rest}
     >
       <Animated.View
@@ -152,9 +151,6 @@ export const Button = ({
 }
 
 const styles = StyleSheet.create({
-  pressable: {
-    flex: 1,
-  },
   container: {
     flex: 1,
     height: 55,

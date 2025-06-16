@@ -107,11 +107,11 @@ const getIconName = (routeName: string): keyof typeof Feather.glyphMap => {
   switch (routeName) {
     case 'HomeStack':
       return 'home'
-    case 'Wishlist':
-      return 'heart'
+    case 'SearchResults':
+      return 'search'
     case 'CategoryStack':
       return 'grid'
-    case 'SettingsStack':
+    case 'ProfileStack':
       return 'user'
     default:
       return 'circle'
@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
   svgBackground: {
     position: 'absolute',
     top: -20,
-
     backgroundColor: 'white',
   },
   tabBarInner: {
@@ -143,6 +142,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
     borderTopWidth: 1,
     borderColor: theme.colors.border,
+    paddingBottom: theme.spacing.sm, 
   },
   tabItem: {
     flex: 1,

@@ -23,7 +23,6 @@ export type CategoryStackParamList = {
   CategoryList: undefined
   CategoryDetails: { categoryId: string }
   ProductDetails: { productId: string }
-  SearchResults: { searchTerm: string }
 }
 
 export type CartStackParamList = {
@@ -33,21 +32,22 @@ export type CartStackParamList = {
   CheckoutSuccess: undefined
 }
 
-export type SettingsStackParamList = {
+export type ProfileStackParamList = {
   Profile: undefined
   AddNewCard: undefined
   OrderHistory: undefined
   Settings: undefined
+  Wishlist: undefined
 }
 
 // --- Navegador Principal (Tabs) ---
 
 export type MainTabParamList = {
   HomeStack: NavigatorScreenParams<HomeStackParamList> | undefined
-  Wishlist: undefined
   CategoryStack: NavigatorScreenParams<CategoryStackParamList> | undefined
   CartStack: NavigatorScreenParams<CartStackParamList> | undefined
-  SettingsStack: NavigatorScreenParams<SettingsStackParamList> | undefined
+  SearchResults: undefined
+  ProfileStack: NavigatorScreenParams<ProfileStackParamList> | undefined
 }
 
 // --- Tipos de Props para cada Tela ---
@@ -82,13 +82,6 @@ export type ProductDetailsScreenProps = NativeStackScreenProps<
   CategoryStackParamList,
   'ProductDetails'
 >
-export type SearchResultsScreenProps = NativeStackScreenProps<
-  CategoryStackParamList,
-  'SearchResults'
->
-
-// Desejos e Pesquisa (telas simples)
-export type WishlistScreenProps = NativeStackScreenProps<MainTabParamList, 'Wishlist'>
 
 // Carrinho
 export type CartScreenProps = NativeStackScreenProps<CartStackParamList, 'Cart'>
@@ -102,17 +95,27 @@ export type CheckoutSuccessScreenProps = NativeStackScreenProps<
   'CheckoutSuccess'
 >
 
+// Pesquisa
+export type SearchResultsScreenProps = NativeStackScreenProps<
+  MainTabParamList,
+  'SearchResults'
+>
+
 // Perfil
 export type SettingsScreenProps = NativeStackScreenProps<
-  SettingsStackParamList,
+  ProfileStackParamList,
   'Settings'
 >
-export type ProfileScreenProps = NativeStackScreenProps<SettingsStackParamList, 'Profile'>
+export type ProfileScreenProps = NativeStackScreenProps<ProfileStackParamList, 'Profile'>
 export type AddNewCardScreenProps = NativeStackScreenProps<
-  SettingsStackParamList,
+  ProfileStackParamList,
   'AddNewCard'
 >
 export type OrderHistoryScreenProps = NativeStackScreenProps<
-  SettingsStackParamList,
+  ProfileStackParamList,
   'OrderHistory'
+>
+export type WishlistScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'Wishlist'
 >

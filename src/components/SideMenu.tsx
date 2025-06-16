@@ -69,7 +69,7 @@ export const SideMenu = () => {
           <View style={styles.menuItems}>
             <TouchableOpacity
               style={styles.menuItem}
-              onPress={() => navigateAndClose('SettingsStack', { screen: 'Profile' })}
+              onPress={() => navigateAndClose('ProfileStack', { screen: 'Profile' })}
             >
               <Feather name="user" size={22} color={theme.colors.text} />
               <Text style={styles.menuItemText}>Meu Perfil</Text>
@@ -77,9 +77,15 @@ export const SideMenu = () => {
 
             <TouchableOpacity
               style={styles.menuItem}
-              onPress={() =>
-                navigateAndClose('SettingsStack', { screen: 'OrderHistory' })
-              }
+              onPress={() => navigateAndClose('ProfileStack', { screen: 'Wishlist' })}
+            >
+              <Feather name="heart" size={22} color={theme.colors.text} />
+              <Text style={styles.menuItemText}>Favoritos</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={() => navigateAndClose('ProfileStack', { screen: 'OrderHistory' })}
             >
               <Feather name="shopping-bag" size={22} color={theme.colors.text} />
               <Text style={styles.menuItemText}>Meus Pedidos</Text>
@@ -87,7 +93,7 @@ export const SideMenu = () => {
 
             <TouchableOpacity
               style={styles.menuItem}
-              onPress={() => navigateAndClose('SettingsStack', { screen: 'Settings' })}
+              onPress={() => navigateAndClose('ProfileStack', { screen: 'Settings' })}
             >
               <Feather name="settings" size={22} color={theme.colors.text} />
               <Text style={styles.menuItemText}>Configurações</Text>
