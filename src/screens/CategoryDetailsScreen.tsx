@@ -1,15 +1,15 @@
 // src/screens/CategoryDetailScreen.tsx
 
 import React, { useMemo } from 'react'
-import { StyleSheet, SafeAreaView, Text, ScrollView } from 'react-native'
+import { StyleSheet, SafeAreaView } from 'react-native'
 
 import type { CategoryDetailsScreenProps } from '@/navigation/types'
 import { theme } from '@/styles/theme'
 import { ProductList } from '@/components/product/ProductList'
-import { mockProducts } from '@/types/products'
 import { getCategoryById, getProductsByCategoryId } from '@/utils/mockGetters'
 import { ListingHeader } from '@/components/ListingHeader'
 import { useProcessedProducts } from '@/hooks/useProcessedProducts'
+import { ListEmptyMessage } from '@/components/ListEmptyMessage'
 
 const CategoryDetailsScreen = ({ navigation, route }: CategoryDetailsScreenProps) => {
   const { categoryId } = route.params
@@ -32,6 +32,9 @@ const CategoryDetailsScreen = ({ navigation, route }: CategoryDetailsScreenProps
       <ProductList
         type="category"
         products={processedProducts}
+        EmptyComponent={
+          <ListEmptyMessage message={`Nenhum produto encontrado para esta categoria`} />
+        }
         HeaderComponent={
           <ListingHeader
             title="Todos"

@@ -10,6 +10,7 @@ import { getProductsByIds } from '@/utils/mockGetters'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { ListingHeader } from '@/components/ListingHeader'
 import { useProcessedProducts } from '@/hooks/useProcessedProducts'
+import { ListEmptyMessage } from '@/components/ListEmptyMessage'
 
 const WishlistScreen = ({ navigation }: WishlistScreenProps) => {
   const { user } = useClientAuth()
@@ -27,6 +28,7 @@ const WishlistScreen = ({ navigation }: WishlistScreenProps) => {
       <ProductList
         type="wishlist"
         products={processedProducts}
+        EmptyComponent={<ListEmptyMessage message={`Nenhum produto em seus favoritos`} />}
         HeaderComponent={
           <ListingHeader
             title="Todos"

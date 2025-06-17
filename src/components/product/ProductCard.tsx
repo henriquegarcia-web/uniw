@@ -15,7 +15,7 @@ import { FavouriteButton } from './FavouriteButton'
 
 interface ProductCardProps {
   product: IProduct
-  type: 'category' | 'search' | 'wishlist'
+  type: 'category' | 'search' | 'wishlist' | 'home'
 }
 
 export const ProductCard = ({ product, type }: ProductCardProps) => {
@@ -29,7 +29,7 @@ export const ProductCard = ({ product, type }: ProductCardProps) => {
   const displayPromotionalPrice = product.skus[0]?.promotionalPrice || 0
 
   const handleSelectProduct = (productId: string) => {
-    if (type === 'category') {
+    if (type === 'category' || type === 'home') {
       navigation.navigate('CategoryStack', {
         screen: 'ProductDetails',
         params: {
@@ -67,19 +67,24 @@ export const ProductCard = ({ product, type }: ProductCardProps) => {
       </View>
 
       <View style={styles.content}>
-        <View>
+        <View style={styles.mainContent}>
           <Text style={styles.name} numberOfLines={2}>
             {product.name}
           </Text>
           <Text style={styles.caption} numberOfLines={1}>
             {product.caption}
           </Text>
-          <ProductPrice price={displayPrice} promotionalPrice={displayPromotionalPrice} />
+          <View style={styles.price}>
+            <ProductPrice
+              price={displayPrice}
+              promotionalPrice={displayPromotionalPrice}
+            />
+          </View>
         </View>
 
         <View style={styles.footer}>
           <ProductRating rating={product.rating} />
-          <FavouriteButton productId={product.id} />
+          {type !== 'home' && <FavouriteButton productId={product.id} />}
         </View>
       </View>
     </TouchableOpacity>
@@ -92,7 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
     borderRadius: theme.borders.radius.sm,
 
-    elevation: 3,
+    elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -113,23 +118,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: theme.spacing.sm,
   },
+  mainContent: {
+    rowGap: theme.spacing.xs,
+  },
   name: {
     fontFamily: theme.fonts.family.semiBold,
     fontSize: theme.fonts.size.lg,
     color: theme.colors.text,
-    marginBottom: theme.spacing.xs,
+    marginBottom: -4,
   },
   caption: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.xs,
     color: theme.colors.text_secondary,
-    marginBottom: theme.spacing.sm,
   },
   price: {
-    fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
-    marginBottom: theme.spacing.md,
+    marginVertical: theme.spacing.xs,
   },
   footer: {
     flexDirection: 'row',

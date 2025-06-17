@@ -17,7 +17,7 @@ export const FavouriteButton = ({ productId, large = false }: FavouriteButtonPro
 
   const isCurrentlyFavorite = isFavorite(productId)
 
-  const iconSize = large ? 32 : 22
+  const iconSize = large ? 32 : 18
   const iconName = isCurrentlyFavorite ? 'heart' : 'heart-o'
   const iconColor = isCurrentlyFavorite ? theme.colors.red : theme.colors.text_secondary
 

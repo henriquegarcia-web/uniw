@@ -108,17 +108,21 @@ export const EditableUserPicture = ({}: EditableUserPictureProps) => {
           style={styles.modalOverlay}
           onPress={() => setModalVisible(false)}
         >
-          <SafeAreaView style={styles.actionSheet}>
+          <SafeAreaView
+            style={[styles.actionSheet, { height: userHasPhoto ? 210 : 140 }]}
+          >
             <Button
               title={userHasPhoto ? 'Alterar foto de perfil' : 'Adicionar foto de perfil'}
               variant="primary"
               onPress={handlePickImage}
+              style={{ flex: 1, height: 100, width: '100%' }}
             />
             {userHasPhoto && (
               <Button
                 title="Remover foto"
                 variant="negative"
                 onPress={handleRemoveImage}
+                style={{ flex: 1, height: 50 }}
               />
             )}
             <Button
@@ -126,6 +130,7 @@ export const EditableUserPicture = ({}: EditableUserPictureProps) => {
               variant="secondary"
               onPress={() => setModalVisible(false)}
               disabled={isLoadingAuthFunctions}
+              style={{ flex: 1, height: 50 }}
             />
           </SafeAreaView>
         </TouchableOpacity>

@@ -16,6 +16,8 @@ export const ProductPrice = ({ price, promotionalPrice, large }: ProductPricePro
   const isOnSale = promotionalPrice && promotionalPrice < price
 
   const mainPriceSize = large ? theme.fonts.size['2xl'] : 20
+  const originalPriceSize = large ? theme.fonts.size.xl : theme.fonts.size.md
+  const discountSize = large ? theme.fonts.size.lg : theme.fonts.size.sm
 
   const calculateDiscount = () => {
     if (!isOnSale) return 0
@@ -27,7 +29,7 @@ export const ProductPrice = ({ price, promotionalPrice, large }: ProductPricePro
 
   if (isOnSale) {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { rowGap: large ? theme.spacing.xs : 0 }]}>
         <Text
           style={[
             styles.promotionalPrice,
@@ -37,8 +39,12 @@ export const ProductPrice = ({ price, promotionalPrice, large }: ProductPricePro
           {applyMask(promotionalPrice, 'currency')}
         </Text>
         <View style={styles.salePriceRow}>
-          <Text style={styles.originalPrice}>{applyMask(price, 'currency')}</Text>
-          <Text style={styles.discountText}>{discountPercentage}% OFF</Text>
+          <Text style={[styles.originalPrice, { fontSize: originalPriceSize }]}>
+            {applyMask(price, 'currency')}
+          </Text>
+          <Text style={[styles.discountText, { fontSize: discountSize }]}>
+            {discountPercentage}% OFF
+          </Text>
         </View>
       </View>
     )

@@ -9,11 +9,17 @@ import { theme } from '@/styles/theme'
 
 interface ProductListProps {
   products: IProduct[]
-  HeaderComponent: React.ReactElement
+  HeaderComponent?: React.ReactElement
+  EmptyComponent?: React.ReactElement
   type: 'category' | 'search' | 'wishlist'
 }
 
-export const ProductList = ({ products, HeaderComponent, type }: ProductListProps) => {
+export const ProductList = ({
+  products,
+  HeaderComponent,
+  EmptyComponent,
+  type,
+}: ProductListProps) => {
   const data = [...products]
   if (data.length % 2 !== 0) {
     data.push({ id: 'placeholder-item', empty: true } as any)
@@ -29,16 +35,17 @@ export const ProductList = ({ products, HeaderComponent, type }: ProductListProp
 
   return (
     <FlatList
-      ListHeaderComponent={HeaderComponent}
+      ListEmptyComponent={EmptyComponent ?? null}
+      ListHeaderComponent={HeaderComponent ?? null}
       data={data}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
       numColumns={2}
       contentContainerStyle={{
-        gap: theme.spacing.md,
-        paddingBottom: theme.spacing.lg,
+        gap: theme.spacing.sm,
+        paddingBottom: theme.spacing.xl,
       }}
-      columnWrapperStyle={{ gap: theme.spacing.md }}
+      columnWrapperStyle={{ gap: theme.spacing.sm }}
       style={styles.container}
       showsVerticalScrollIndicator={false}
     />

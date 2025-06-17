@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   container: {},
   listContentContainer: {
     columnGap: theme.spacing.sm,
-    paddingHorizontal: theme.spacing.md,
+    paddingHorizontal: theme.spacing.lg,
   },
   itemContainer: {
     alignItems: 'center',

@@ -20,6 +20,8 @@ import { ProductRating } from '@/components/product/ProductRating'
 import { ProductPrice } from '@/components/product/ProductPrice'
 import { ProductTitle } from '@/components/product/ProductTitle'
 import { ProductShipping } from '@/components/product/ProductShipping'
+import { ProductsBanner } from '@/components/banners/ProductsBanner'
+import { BannerCategory, BannerType, sampleProductIds } from '@/types/banners'
 
 const ProductDetailsScreen = ({
   route,
@@ -49,7 +51,7 @@ const ProductDetailsScreen = ({
         contentContainerStyle={styles.contentContainer}
         keyboardShouldPersistTaps="handled"
       >
-        <ProductImageCarousel images={productData.images} />
+        <ProductImageCarousel images={productData.images} type="productDetail" />
         <ProductTitle name={productData.name} caption={productData.caption} />
         <ProductRating rating={productData.rating} large />
         <View style={styles.priceContainer}>
@@ -98,6 +100,16 @@ const ProductDetailsScreen = ({
             style={{ flex: 1 }}
           />
         </View> */}
+
+        {/* <ProductsBanner
+          banner={{
+            id: 'banner-22sd',
+            category: BannerCategory.PRODUCTS,
+            type: BannerType.PRODUCT_SCROLL,
+            title: 'Novidades da Semana',
+            productIds: sampleProductIds.slice(0, 4),
+          }}
+        /> */}
       </ScrollView>
     </SafeAreaView>
   )

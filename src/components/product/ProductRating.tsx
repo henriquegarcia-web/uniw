@@ -50,7 +50,7 @@ export const ProductRating = ({ rating, large = false }: ProductRatingProps) => 
             <FontAwesome
               key={index}
               name={iconName}
-              size={large ? 16 : 14}
+              size={large ? 18 : 12}
               color={iconColor === 'active' ? theme.colors.waring : theme.colors.disabled}
               style={styles.star}
             />

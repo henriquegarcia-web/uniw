@@ -16,13 +16,16 @@ import { theme } from '@/styles/theme'
 
 interface ProductImageCarouselProps {
   images?: string[]
+  type: 'hero' | 'productDetail'
 }
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window')
 const ITEM_WIDTH = SCREEN_WIDTH - 2 * theme.spacing.lg
 const GAP_SIZE = theme.spacing.md
 
-export const ProductImageCarousel = ({ images }: ProductImageCarouselProps) => {
+export const ProductImageCarousel = ({ images, type }: ProductImageCarouselProps) => {
+  const bannerHeight = type === 'hero' ? 240 : ITEM_WIDTH
+
   const [activeIndex, setActiveIndex] = useState(0)
 
   const flatListRef = useRef<FlatList>(null)
@@ -64,7 +67,7 @@ export const ProductImageCarousel = ({ images }: ProductImageCarouselProps) => {
     )
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { height: bannerHeight }]}>
       <FlatList
         ref={flatListRef}
         data={images}
@@ -99,7 +102,7 @@ export const ProductImageCarousel = ({ images }: ProductImageCarouselProps) => {
         ))}
       </View>
 
-      {activeIndex > 0 && (
+      {type === 'productDetail' && activeIndex > 0 && (
         <TouchableOpacity
           style={[styles.navButton, styles.leftButton]}
           onPress={handlePrev}
@@ -108,7 +111,7 @@ export const ProductImageCarousel = ({ images }: ProductImageCarouselProps) => {
         </TouchableOpacity>
       )}
 
-      {activeIndex < images.length - 1 && (
+      {type === 'productDetail' && activeIndex < images.length - 1 && (
         <TouchableOpacity
           style={[styles.navButton, styles.rightButton]}
           onPress={handleNext}
@@ -123,7 +126,6 @@ export const ProductImageCarousel = ({ images }: ProductImageCarouselProps) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: ITEM_WIDTH,
     marginBottom: theme.spacing.sm,
   },
   noImage: {
