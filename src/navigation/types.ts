@@ -3,6 +3,14 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { NavigatorScreenParams } from '@react-navigation/native'
 
+// --- NAVEGADOR RAIZ (APP STACK) ---
+
+export type AppStackParamList = {
+  MainTabs: NavigatorScreenParams<MainTabParamList>
+  SearchResults: { searchTerm: string }
+  ProductDetails: { productId: string }
+}
+
 // --- Pilhas de Navegação (Stacks) ---
 
 export type OnboardingStackParamList = {
@@ -22,7 +30,6 @@ export type HomeStackParamList = {
 export type CategoryStackParamList = {
   CategoryList: undefined
   CategoryDetails: { categoryId: string }
-  ProductDetails: { productId: string }
 }
 
 export type CartStackParamList = {
@@ -32,18 +39,12 @@ export type CartStackParamList = {
   CheckoutSuccess: undefined
 }
 
-export type SearchStackParamList = {
-  SearchResults: { searchTerm: string }
-  SearchProductDetails: { productId: string }
-}
-
 export type ProfileStackParamList = {
   Profile: undefined
+  EditProfile: undefined
   AddNewCard: undefined
   OrderHistory: undefined
   Settings: undefined
-  Wishlist: undefined
-  WishlistedProductDetails: { productId: string }
 }
 
 // --- Navegador Principal (Tabs) ---
@@ -52,7 +53,7 @@ export type MainTabParamList = {
   HomeStack: NavigatorScreenParams<HomeStackParamList> | undefined
   CategoryStack: NavigatorScreenParams<CategoryStackParamList> | undefined
   CartStack: NavigatorScreenParams<CartStackParamList> | undefined
-  SearchStack: NavigatorScreenParams<SearchStackParamList> | undefined
+  Favoritos: undefined
   ProfileStack: NavigatorScreenParams<ProfileStackParamList> | undefined
 }
 
@@ -72,10 +73,20 @@ export type ForgotPasswordScreenProps = NativeStackScreenProps<
   'ForgotPassword'
 >
 
+export type SearchResultsScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'SearchResults'
+>
+
+export type ProductDetailsScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'ProductDetails'
+>
+
 // Home
 export type HomeScreenProps = NativeStackScreenProps<HomeStackParamList, 'Home'>
 
-// Desejos e Pesquisa (telas simples)
+// Produtos
 export type CategoryListScreenProps = NativeStackScreenProps<
   CategoryStackParamList,
   'CategoryList'
@@ -83,10 +94,6 @@ export type CategoryListScreenProps = NativeStackScreenProps<
 export type CategoryDetailsScreenProps = NativeStackScreenProps<
   CategoryStackParamList,
   'CategoryDetails'
->
-export type ProductDetailsScreenProps = NativeStackScreenProps<
-  CategoryStackParamList,
-  'ProductDetails'
 >
 
 // Carrinho
@@ -101,15 +108,8 @@ export type CheckoutSuccessScreenProps = NativeStackScreenProps<
   'CheckoutSuccess'
 >
 
-// Pesquisa
-export type SearchResultsScreenProps = NativeStackScreenProps<
-  SearchStackParamList,
-  'SearchResults'
->
-export type SearchProductDetailsScreenProps = NativeStackScreenProps<
-  SearchStackParamList,
-  'SearchProductDetails'
->
+// Desejos
+export type WishlistScreenProps = NativeStackScreenProps<MainTabParamList, 'Favoritos'>
 
 // Perfil
 export type SettingsScreenProps = NativeStackScreenProps<
@@ -117,6 +117,10 @@ export type SettingsScreenProps = NativeStackScreenProps<
   'Settings'
 >
 export type ProfileScreenProps = NativeStackScreenProps<ProfileStackParamList, 'Profile'>
+export type EditProfileScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'EditProfile'
+>
 export type AddNewCardScreenProps = NativeStackScreenProps<
   ProfileStackParamList,
   'AddNewCard'
@@ -124,12 +128,4 @@ export type AddNewCardScreenProps = NativeStackScreenProps<
 export type OrderHistoryScreenProps = NativeStackScreenProps<
   ProfileStackParamList,
   'OrderHistory'
->
-export type WishlistScreenProps = NativeStackScreenProps<
-  ProfileStackParamList,
-  'Wishlist'
->
-export type WishlistedProductDetailsScreenProps = NativeStackScreenProps<
-  ProfileStackParamList,
-  'WishlistedProductDetails'
 >

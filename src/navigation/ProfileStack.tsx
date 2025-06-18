@@ -10,8 +10,7 @@ import ProfileScreen from '@/screens/profile/ProfileScreen'
 import AddNewCardScreen from '@/screens/profile/AddNewCardScreen'
 import OrderHistoryScreen from '@/screens/profile/OrderHistoryScreen'
 import SettingsScreen from '@/screens/profile/SettingsScreen'
-import WishlistScreen from '@/screens/WishlistScreen'
-import ProductDetailsScreen from '@/screens/ProductDetailsScreen'
+import EditProfileScreen from '@/screens/profile/EditProfileScreen'
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>()
 
@@ -23,14 +22,15 @@ export function ProfileStack() {
         component={ProfileScreen}
         options={{
           headerShown: true,
-          header: ({ navigation }) => (
-            <Header
-              rightIconName="settings"
-              onRightIconPress={() => navigation.navigate('Settings')}
-              variant="back-title-action"
-              title="Perfil Usuário"
-            />
-          ),
+          header: () => <Header variant="profile" title="Perfil Usuário" />,
+        }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfileScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="back-profile" title="Perfil Usuário" />,
         }}
       />
       <Stack.Screen
@@ -38,7 +38,7 @@ export function ProfileStack() {
         component={AddNewCardScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-title" title="Novo Cartão" />,
+          header: () => <Header variant="back-profile" title="Novo Cartão" />,
         }}
       />
       <Stack.Screen
@@ -46,7 +46,7 @@ export function ProfileStack() {
         component={OrderHistoryScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-title" title="Histórico de Compras" />,
+          header: () => <Header variant="back-profile" title="Histórico de Compras" />,
         }}
       />
       <Stack.Screen
@@ -54,23 +54,7 @@ export function ProfileStack() {
         component={SettingsScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-title" title="Configurações" />,
-        }}
-      />
-      <Stack.Screen
-        name="Wishlist"
-        component={WishlistScreen}
-        options={{
-          headerShown: true,
-          header: () => <Header variant="back-title" title="Favoritos" />,
-        }}
-      />
-      <Stack.Screen
-        name="WishlistedProductDetails"
-        component={ProductDetailsScreen}
-        options={{
-          headerShown: true,
-          header: () => <Header variant="back-cart" />,
+          header: () => <Header variant="back-profile" title="Configurações" />,
         }}
       />
     </Stack.Navigator>

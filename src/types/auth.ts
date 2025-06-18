@@ -55,6 +55,30 @@ export const getStatusData = (status?: UserStatus): FormattedOption => {
   }
 }
 
+// ─── CLUBE STATUS ────────────────────────────────────────────────────────────
+
+export enum ClubStatus {
+  ATIVO = 'ativo',
+  CANCELADO = 'cancelado',
+  BLOQUEADO = 'bloqueado',
+  PENDENTE = 'pendente',
+}
+
+export const getClubStatusData = (status?: ClubStatus): FormattedOption => {
+  switch (status) {
+    case ClubStatus.ATIVO:
+      return { label: 'Ativo', color: '#2E8B57' }
+    case ClubStatus.CANCELADO:
+      return { label: 'Cancelado', color: '#808080' }
+    case ClubStatus.BLOQUEADO:
+      return { label: 'Bloqueado', color: '#FF4500' }
+    case ClubStatus.PENDENTE:
+      return { label: 'Pendente', color: '#FFA500' }
+    default:
+      return { label: 'Desconhecido', color: '#808080' }
+  }
+}
+
 // ─── PAYMENT TYPES ──────────────────────────────────────────────────────────
 
 export enum CardBrand {
@@ -109,6 +133,11 @@ export interface IBaseProfile {
     estado: string | null
   }
 
+  verificacoes: {
+    identidade: boolean
+    telefone: boolean
+  }
+
   authProviders: IAuthProviderData[]
 }
 
@@ -116,6 +145,12 @@ export interface IClienteProfile {
   favoritos: string[] | null
   historicoCompras: string[] | null
   historicoAgendamentos: string[] | null
+
+  clube: {
+    status: ClubStatus
+    aderidoEm: number | null
+    pontosFidelidade: number
+  }
 
   cartoesSalvos: ICreditCard[] | null
 }

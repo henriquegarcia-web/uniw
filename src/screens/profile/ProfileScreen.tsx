@@ -1,383 +1,350 @@
 // src/screens/ProfileScreen.tsx
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import {
   StyleSheet,
   SafeAreaView,
-  View,
-  ScrollView,
   Text,
-  Alert,
-  ActivityIndicator,
+  View,
+  Image,
+  TouchableOpacity,
 } from 'react-native'
 
-import { useForm, Controller, type FieldValues } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-
-import type { ProfileScreenProps } from '@/navigation/types'
+import type { AppStackParamList, ProfileScreenProps } from '@/navigation/types'
 import { theme } from '@/styles/theme'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
-import { updateProfileSchema, IBaseProfile } from '@/types/auth'
+import { AntDesign } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { UserTag } from '@/components/UserTag'
 
-// Importando todos os nossos componentes e serviços
-import { InputText } from '@/components/forms/InputText'
-import { Dropdown, DropdownItem } from '@/components/forms/Dropdown'
-import { Button } from '@/components/forms/Button'
-import { applyMask } from '@/utils/masks'
-import { viacepService } from '@/services/viacep'
-import { ibgeService, IBGEState, IBGECity } from '@/services/ibge'
-import { EditableUserPicture } from '@/components/forms/EditableUserPicture'
-import { EditableUserName } from '@/components/forms/EditableUserName'
-import { EditableUserPassword } from '@/components/forms/EditableUserPassword'
-import { useFocusEffect } from '@react-navigation/native'
+type AntDesignIconName = keyof typeof AntDesign.glyphMap
 
 const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
-  const { user, updateProfile, isLoadingAuthFunctions } = useClientAuth()
+  const { user } = useClientAuth()
 
-  const [states, setStates] = useState<DropdownItem[]>([])
-  const [cities, setCities] = useState<DropdownItem[]>([])
-  const [isLoadingCities, setIsLoadingCities] = useState(false)
-  const [isCepLoading, setIsCepLoading] = useState(false)
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isDirty },
-    setValue,
-    watch,
-    reset,
-  } = useForm({
-    resolver: yupResolver(updateProfileSchema),
-    mode: 'onBlur',
-  })
-
-  const watchedState = watch('endereco.estado')
-
-  useEffect(() => {
-    if (user) {
-      reset({
-        email: user.baseProfile.email,
-        cpf: applyMask(user.baseProfile.cpf, 'cpf'),
-        telefone: user.baseProfile?.telefone
-          ? applyMask(user.baseProfile?.telefone, 'phone')
-          : null,
-        endereco: {
-          cep: user.baseProfile?.endereco?.cep
-            ? applyMask(user.baseProfile.endereco.cep, 'cep')
-            : null,
-          rua: user.baseProfile?.endereco?.rua || null,
-          numero: user.baseProfile?.endereco?.numero || null,
-          bairro: user.baseProfile?.endereco?.bairro || null,
-          cidade: user.baseProfile?.endereco?.cidade || null,
-          estado: user.baseProfile?.endereco?.estado || null,
-        },
-      })
-    }
-  }, [user, reset])
-
-  useEffect(() => {
-    ibgeService.getStates().then((data) => {
-      const formattedStates = data.map((s: IBGEState) => ({
-        label: s.nome,
-        value: s.sigla,
-      }))
-      setStates(formattedStates)
-    })
-  }, [])
-
-  useEffect(() => {
-    if (watchedState) {
-      setIsLoadingCities(true)
-      ibgeService.getCitiesByState(watchedState).then((data) => {
-        const formattedCities = data.map((c: IBGECity) => ({
-          label: c.nome,
-          value: c.nome,
-        }))
-        setCities(formattedCities)
-        setIsLoadingCities(false)
-      })
-    } else {
-      setCities([])
-    }
-  }, [watchedState])
-
-  const handleCepBlur = async (cep: string) => {
-    if (cep?.length === 9) {
-      setIsCepLoading(true)
-      try {
-        const endereco = await viacepService.getAddressByCep(cep)
-        if (!endereco.erro) {
-          setValue('endereco.rua', endereco.logradouro, { shouldValidate: true })
-          setValue('endereco.bairro', endereco.bairro, { shouldValidate: true })
-          setValue('endereco.estado', endereco.uf, { shouldValidate: true })
-          setValue('endereco.cidade', endereco.localidade, { shouldValidate: true })
-        }
-      } catch (error) {
-        console.error(error)
-      } finally {
-        setIsCepLoading(false)
-      }
-    }
-  }
-
-  const handleUpdateProfile = async (data: FieldValues) => {
-    try {
-      const dataToUpdate: Partial<IBaseProfile> = {}
-
-      if (data.telefone) {
-        dataToUpdate.telefone = data.telefone.replace(/\D/g, '')
-      }
-
-      if (data.endereco) {
-        const cleanAddress = { ...data.endereco }
-        if (cleanAddress.cep) {
-          cleanAddress.cep = cleanAddress.cep.replace(/\D/g, '')
-        }
-        dataToUpdate.endereco = cleanAddress
-      }
-
-      await updateProfile(dataToUpdate)
-
-      Alert.alert('Sucesso', 'Seu perfil foi atualizado.')
-    } catch (error) {
-      Alert.alert('Erro', 'Não foi possível atualizar seu perfil.')
-    }
-  }
-
-  useFocusEffect(
-    useCallback(() => {
-      return () => {
-        reset()
-      }
-    }, [reset]),
-  )
+  const userHasPhoto = !!user?.baseProfile?.foto
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.contentContainer}
-        keyboardShouldPersistTaps="handled"
-      >
-        <View style={styles.content}>
-          <View style={styles.mainFormGroup}>
-            <EditableUserPicture />
-            <EditableUserName />
-          </View>
-
-          <View style={styles.formGroup}>
-            <Text style={styles.formGroupTitle}>Detalhes Pessoais</Text>
-            <Controller
-              control={control}
-              name="email"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <InputText
-                  label="E-mail"
-                  placeholder="Digite seu e-mail"
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value || ''}
-                  editable={false}
-                  error={errors.email?.message}
-                />
-              )}
+    <SafeAreaView style={styles.container}>
+      <View style={styles.topContainer}>
+        <View style={styles.userPictureContainer}>
+          {userHasPhoto ? (
+            <Image source={{ uri: user.baseProfile.foto! }} style={styles.userPicture} />
+          ) : (
+            <Image
+              source={require('@/assets/images/avatar.jpg')}
+              style={styles.placeholder}
             />
-            <Controller
-              control={control}
-              name="cpf"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <InputText
-                  label="CPF"
-                  placeholder="CPF"
-                  onBlur={onBlur}
-                  onChangeText={(text) => onChange(applyMask(text, 'cpf'))}
-                  value={value || ''}
-                  editable={false}
-                  error={errors.cpf?.message}
-                />
-              )}
-            />
-            <EditableUserPassword />
-            <Controller
-              control={control}
-              name="telefone"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <InputText
-                  label="Telefone/Contato"
-                  placeholder="(00) 00000-0000"
-                  onBlur={onBlur}
-                  onChangeText={(text) => onChange(applyMask(text, 'phone'))}
-                  value={value || ''}
-                  keyboardType="phone-pad"
-                  maxLength={15}
-                  error={errors.telefone?.message}
-                />
-              )}
-            />
-          </View>
-
-          <View style={styles.formGroup}>
-            <Text style={styles.formGroupTitle}>Detalhes do Endereço</Text>
-            <View style={styles.cepContainer}>
-              <Controller
-                control={control}
-                name="endereco.cep"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <InputText
-                    label="CEP"
-                    placeholder="00000-000"
-                    onBlur={() => value && handleCepBlur(value)}
-                    onChangeText={(text) => onChange(applyMask(text, 'cep'))}
-                    value={value || ''}
-                    keyboardType="numeric"
-                    maxLength={9}
-                    error={errors.endereco?.cep?.message}
-                  />
-                )}
-              />
-              {isCepLoading && <ActivityIndicator style={styles.cepLoading} />}
-            </View>
-
-            <View style={styles.formGroupWrapper}>
-              <Controller
-                control={control}
-                name="endereco.rua"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <InputText
-                    label="Rua"
-                    placeholder="Ex: Rua das Flores"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value || ''}
-                    error={errors.endereco?.rua?.message}
-                  />
-                )}
-              />
-              <Controller
-                control={control}
-                name="endereco.numero"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <InputText
-                    label="Número"
-                    placeholder="Ex: 123"
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value || ''}
-                    error={errors.endereco?.numero?.message}
-                    width={30}
-                  />
-                )}
-              />
-            </View>
-
-            <Controller
-              control={control}
-              name="endereco.bairro"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <InputText
-                  label="Bairro"
-                  placeholder="Seu bairro"
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value || ''}
-                  error={errors.endereco?.bairro?.message}
-                />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="endereco.estado"
-              render={({ field: { onChange, value } }) => (
-                <Dropdown
-                  label="Estado"
-                  items={states}
-                  value={value}
-                  onValueChange={onChange}
-                  error={errors.endereco?.estado?.message}
-                  placeholder="Selecione seu estado"
-                />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="endereco.cidade"
-              render={({ field: { onChange, value } }) => (
-                <Dropdown
-                  label="Cidade"
-                  items={cities}
-                  value={value}
-                  onValueChange={onChange}
-                  error={errors.endereco?.cidade?.message}
-                  placeholder="Selecione sua cidade"
-                  disabled={!watchedState || isLoadingCities}
-                />
-              )}
-            />
-          </View>
-
-          <View style={styles.submitContainer}>
-            <Button
-              title="Salvar Alterações"
-              variant="primary"
-              onPress={handleSubmit(handleUpdateProfile)}
-              loading={isLoadingAuthFunctions}
-              disabled={!isDirty || isLoadingAuthFunctions}
-            />
-          </View>
+          )}
         </View>
-      </ScrollView>
+        <View style={styles.userMainInfos}>
+          <Text style={styles.userName}>{user?.baseProfile.nome}</Text>
+          <Text style={styles.userEmail}>{user?.baseProfile.email}</Text>
+        </View>
+      </View>
+      <View style={styles.mainContainer}>
+        <View style={styles.userBadges}>
+          <UserTag label="Membro do Clube" icon="Trophy" />
+          <UserTag label="Verificado" icon="Safety" />
+        </View>
+
+        <ProfileMenu sectionTitle="Principal" type="grid">
+          <ProfileNavigatorItem label="Ofertas" icon="rocket1" screen="" />
+          <ProfileNavigatorItem label="Histórico" icon="shoppingcart" screen="" />
+          <ProfileNavigatorItem label="Clube" icon="Trophy" screen="" />
+          <ProfileNavigatorItem label="Cupons" icon="tagso" screen="" />
+        </ProfileMenu>
+
+        <ProfileMenu sectionTitle="Mais atividades" type="list">
+          <ProfileMenuItem label="Comprar novamente" icon="retweet" screen="" />
+          <ProfileMenuItem label="Programa de fidelidade" icon="Trophy" screen="" />
+          <ProfileMenuItem label="Prêmios" icon="gift" screen="" />
+        </ProfileMenu>
+
+        <ProfileMenu sectionTitle="Suporte" type="list">
+          <ProfileMenuItem label="Venda na UNIW" icon="isv" screen="" />
+          <ProfileMenuItem label="Central de Ajuda" icon="customerservice" screen="" />
+          <ProfileMenuItem label="Sobre nós" icon="book" screen="" />
+        </ProfileMenu>
+      </View>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
+  container: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: theme.colors.secondary,
+    marginBottom: theme.spacing['4xl'],
   },
-  scrollView: {
-    flex: 1,
+  topContainer: {
+    position: 'relative',
+    height: 50,
+    justifyContent: 'flex-end',
+    paddingBottom: 12,
   },
-  contentContainer: {
-    flexGrow: 1,
-    padding: theme.spacing.lg,
-    paddingBottom: theme.spacing.xl,
+  userPictureContainer: {
+    position: 'absolute',
+    bottom: -50,
+    left: theme.spacing.lg,
+    zIndex: 100,
   },
-  content: {
-    paddingBottom: theme.spacing['4xl'],
-    rowGap: theme.spacing.lg,
+  userPicture: {
+    width: 100,
+    height: 100,
+    borderRadius: theme.borders.radius.circle,
   },
-  mainFormGroup: {
-    rowGap: theme.spacing.sm,
-    marginBottom: theme.spacing.xs,
+  placeholder: {
+    width: 100,
+    height: 100,
+    borderRadius: theme.borders.radius.circle,
   },
-  formGroup: {
-    rowGap: theme.spacing.md,
+  userMainInfos: {
+    rowGap: 2,
+    paddingLeft: 135,
   },
-  formGroupTitle: {
+  userName: {
     fontFamily: theme.fonts.family.semiBold,
     fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
-    marginBottom: theme.spacing.xs,
+    lineHeight: theme.fonts.size.xl,
+    color: theme.colors.text_contrast,
   },
-  formGroupWrapper: {
+  userEmail: {
+    fontFamily: theme.fonts.family.medium,
+    fontSize: theme.fonts.size.sm,
+    lineHeight: theme.fonts.size.md,
+    color: theme.colors.text_contrast,
+    opacity: 0.7,
+  },
+  mainContainer: {
     flex: 1,
-    width: '100%',
+    rowGap: theme.spacing.md,
+    paddingVertical: theme.spacing.md,
+    paddingHorizontal: theme.spacing.lg,
+    backgroundColor: theme.colors.surface,
+    borderTopLeftRadius: theme.borders.radius.md,
+    borderTopRightRadius: theme.borders.radius.md,
+  },
+  userBadges: {
+    height: 35,
     flexDirection: 'row',
-    columnGap: theme.spacing.md,
+    columnGap: theme.spacing.xs,
+    paddingLeft: 111,
+
+    // borderWidth: 1,
+    // borderColor: 'red',
   },
-  cepContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  profileMenuWraper: {
+    rowGap: theme.spacing.sm,
   },
-  cepLoading: {
-    marginLeft: theme.spacing.sm,
-  },
-  submitContainer: {
-    marginTop: theme.spacing.md,
+  profileMenuWraperTitle: {
+    fontFamily: theme.fonts.family.semiBold,
+    fontSize: theme.fonts.size.sm,
+    color: theme.colors.text_secondary,
   },
 })
 
 export default ProfileScreen
+
+// ==================================================================
+
+interface IProfileMenu {
+  type: 'list' | 'grid'
+  sectionTitle: string
+  children: React.ReactNode
+}
+
+export const ProfileMenu = ({ type, sectionTitle, children }: IProfileMenu) => {
+  return (
+    <View style={styles.profileMenuWraper}>
+      <Text style={styles.profileMenuWraperTitle}>{sectionTitle}</Text>
+      <View
+        style={
+          type === 'grid'
+            ? profileMenuStyles.gridContainer
+            : profileMenuStyles.listContainer
+        }
+      >
+        {children}
+      </View>
+    </View>
+  )
+}
+
+const profileMenuStyles = StyleSheet.create({
+  gridContainer: {
+    // borderWidth: 1,
+    // borderColor: 'red',
+
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: theme.spacing.md,
+  },
+
+  listContainer: {
+    // borderWidth: 1,
+    // borderColor: 'red',
+
+    gap: 6,
+  },
+})
+
+// ==================================
+
+interface ProfileNavigatorItemProps {
+  label: string
+  icon: AntDesignIconName
+  screen: string
+}
+
+export const ProfileNavigatorItem = ({
+  label,
+  icon,
+  screen,
+}: ProfileNavigatorItemProps) => {
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>()
+
+  const handleNavigate = () => {
+    // navigation.navigate('MainTabs', {
+    //   screen: 'ProfileStack',
+    //   params: {
+    //     screen: screen,
+    //   },
+    // })
+  }
+
+  return (
+    <TouchableOpacity
+      onPress={handleNavigate}
+      activeOpacity={0.7}
+      style={profileNavigatorItemStyles.navigatorItem}
+    >
+      {icon && (
+        <AntDesign
+          name={icon}
+          size={24}
+          color={theme.colors.text_secondary}
+          style={profileNavigatorItemStyles.navigatorItemIcon}
+        />
+      )}
+
+      <Text style={profileNavigatorItemStyles.navigatorItemLabel}>{label}</Text>
+    </TouchableOpacity>
+  )
+}
+
+const profileNavigatorItemStyles = StyleSheet.create({
+  navigatorItem: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    rowGap: 6,
+    paddingVertical: 14,
+    borderRadius: theme.borders.radius.xs,
+
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.background,
+  },
+  navigatorItemIcon: {},
+  navigatorItemLabel: {
+    fontFamily: theme.fonts.family.semiBold,
+    fontSize: theme.fonts.size.sm,
+    lineHeight: theme.fonts.size.md,
+    color: theme.colors.text_secondary,
+  },
+})
+
+// ==================================================================
+
+interface ProfileMenuItemProps {
+  label: string
+  icon?: AntDesignIconName
+  screen?: string
+  onPress?: () => void
+}
+
+export const ProfileMenuItem = ({
+  label,
+  icon,
+  screen,
+  onPress,
+}: ProfileMenuItemProps) => {
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>()
+
+  const handleNavigate = () => {
+    if (onPress) {
+      onPress()
+      return
+    }
+    // navigation.navigate('MainTabs', {
+    //   screen: 'ProfileStack',
+    //   params: {
+    //     screen: screen,
+    //   },
+    // })
+  }
+
+  return (
+    <TouchableOpacity
+      onPress={handleNavigate}
+      activeOpacity={0.7}
+      style={profileMenuItemStyles.menuItem}
+    >
+      {icon && (
+        <AntDesign
+          name={icon}
+          size={18}
+          color={theme.colors.text_secondary}
+          style={profileMenuItemStyles.menuItemIcon}
+        />
+      )}
+
+      <Text
+        style={[
+          profileMenuItemStyles.menuItemLabel,
+          onPress && profileMenuItemStyles.menuItemLabelExit,
+        ]}
+      >
+        {label}
+      </Text>
+
+      <AntDesign
+        name="right"
+        size={14}
+        color={theme.colors.text_tertiary}
+        style={profileMenuItemStyles.menuItemIconChevron}
+      />
+    </TouchableOpacity>
+  )
+}
+
+const profileMenuItemStyles = StyleSheet.create({
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    columnGap: 10,
+    height: 42,
+    paddingLeft: 14,
+    paddingRight: 10,
+    borderRadius: theme.borders.radius.xs,
+
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.background,
+  },
+  menuItemIcon: {},
+  menuItemLabel: {
+    fontFamily: theme.fonts.family.regular,
+    fontSize: theme.fonts.size.md,
+    lineHeight: theme.fonts.size.lg,
+    color: theme.colors.text_secondary,
+  },
+  menuItemLabelExit: {
+    color: theme.colors.error,
+  },
+  menuItemIconChevron: {
+    marginLeft: 'auto',
+  },
+})

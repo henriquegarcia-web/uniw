@@ -1,13 +1,9 @@
 // src/screens/ProductDetailScreen.tsx
 
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { StyleSheet, SafeAreaView, Text, ScrollView, View } from 'react-native'
 
-import type {
-  ProductDetailsScreenProps,
-  SearchProductDetailsScreenProps,
-  WishlistedProductDetailsScreenProps,
-} from '@/navigation/types'
+import type { ProductDetailsScreenProps } from '@/navigation/types'
 import { theme } from '@/styles/theme'
 import { ProductImageCarousel } from '@/components/product/ProductImageCarousel'
 import { ProductDetails } from '@/components/product/ProductDetails'
@@ -20,15 +16,8 @@ import { ProductRating } from '@/components/product/ProductRating'
 import { ProductPrice } from '@/components/product/ProductPrice'
 import { ProductTitle } from '@/components/product/ProductTitle'
 import { ProductShipping } from '@/components/product/ProductShipping'
-import { ProductsBanner } from '@/components/banners/ProductsBanner'
-import { BannerCategory, BannerType, sampleProductIds } from '@/types/banners'
 
-const ProductDetailsScreen = ({
-  route,
-}:
-  | ProductDetailsScreenProps
-  | SearchProductDetailsScreenProps
-  | WishlistedProductDetailsScreenProps) => {
+const ProductDetailsScreen = ({ route }: ProductDetailsScreenProps) => {
   const { productId } = route.params
 
   const productData = useMemo(() => getProductById(productId), [productId])

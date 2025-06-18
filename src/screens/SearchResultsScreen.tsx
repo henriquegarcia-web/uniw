@@ -10,12 +10,24 @@ import { mockProducts } from '@/types/products'
 import { useProcessedProducts } from '@/hooks/useProcessedProducts'
 import { ListingHeader } from '@/components/ListingHeader'
 import { ListEmptyMessage } from '@/components/ListEmptyMessage'
+import { useSearch } from '@/contexts/SearchProvider'
+import { useFocusEffect } from '@react-navigation/native'
 
 const SearchResultsScreen = ({ navigation, route }: SearchResultsScreenProps) => {
   const { searchTerm: submittedSearchTerm } = route.params || {}
 
   const { processedProducts, sortOption, setSortOption, filters, setFilters } =
     useProcessedProducts(mockProducts, submittedSearchTerm ?? '')
+
+  const { clearSearch } = useSearch()
+
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+        clearSearch()
+      }
+    }, [clearSearch]),
+  )
 
   return (
     <SafeAreaView style={styles.container}>

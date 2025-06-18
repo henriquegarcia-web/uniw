@@ -1,6 +1,6 @@
 // src/components/InputSearch.tsx
 
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef } from 'react'
 import {
   View,
   TextInput,
@@ -13,9 +13,9 @@ import {
 import { Feather } from '@expo/vector-icons'
 import { theme } from '@/styles/theme'
 import { useNavigation } from '@react-navigation/native'
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { MainTabParamList } from '@/navigation/types'
+import { AppStackParamList } from '@/navigation/types'
 import { useSearch } from '@/contexts/SearchProvider'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 interface InputSearchProps extends TextInputProps {
   error?: string | null
@@ -28,26 +28,25 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
     const hasError = !!error
     const borderColor = hasError ? theme.colors.error : theme.colors.border
 
-    const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>()
+    const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>()
 
     const { searchTerm, setSearchTerm, clearSearch } = useSearch()
 
     const handleSearch = () => {
       if (!searchTerm || searchTerm.trim() === '') return
 
-      navigation.navigate('SearchStack', {
-        screen: 'SearchResults',
-        params: { searchTerm },
+      navigation.navigate('SearchResults', {
+        searchTerm: searchTerm,
       })
     }
 
     const handleClearSearch = () => {
       clearSearch()
 
-      navigation.navigate('SearchStack', {
-        screen: 'SearchResults',
-        params: { searchTerm: '' },
-      })
+      // navigation.navigate('SearchStack', {
+      //   screen: 'SearchResults',
+      //   params: { searchTerm: '' },
+      // })
     }
 
     return (

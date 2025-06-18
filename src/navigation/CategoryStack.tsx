@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { CategoryStackParamList } from './types'
 
-import ProductDetailsScreen from '@/screens/ProductDetailsScreen'
 import { Header } from '@/components/Header'
 import CategoryDetailsScreen from '@/screens/CategoryDetailsScreen'
 import CategoryListScreen from '@/screens/CategoryListScreen'
@@ -24,7 +23,7 @@ export function CategoryStack() {
         component={CategoryListScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="main" />,
+          header: () => <Header variant="main-full" />,
         }}
       />
       <Stack.Screen
@@ -37,14 +36,6 @@ export function CategoryStack() {
             headerShown: true,
             header: () => <Header variant="back-title" title={category?.name} />,
           }
-        }}
-      />
-      <Stack.Screen
-        name="ProductDetails"
-        component={ProductDetailsScreen}
-        options={{
-          headerShown: true,
-          header: () => <Header variant="back-cart" />,
         }}
       />
     </Stack.Navigator>

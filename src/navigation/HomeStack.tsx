@@ -18,7 +18,7 @@ export function HomeStack() {
         component={HomeScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="main" />,
+          header: () => <Header variant="main-full" />,
         }}
       />
     </Stack.Navigator>

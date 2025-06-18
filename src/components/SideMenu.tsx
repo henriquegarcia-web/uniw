@@ -75,13 +75,13 @@ export const SideMenu = () => {
               <Text style={styles.menuItemText}>Meu Perfil</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.menuItem}
               onPress={() => navigateAndClose('ProfileStack', { screen: 'Wishlist' })}
             >
               <Feather name="heart" size={22} color={theme.colors.text} />
               <Text style={styles.menuItemText}>Favoritos</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <TouchableOpacity
               style={styles.menuItem}

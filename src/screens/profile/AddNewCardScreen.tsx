@@ -1,4 +1,4 @@
-// src/screens/ProfileScreen.tsx
+// src/screens/AddNewCardScreen.tsx
 
 import React from 'react'
 import { StyleSheet, SafeAreaView, Text } from 'react-native'

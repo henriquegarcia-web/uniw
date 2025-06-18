@@ -2,16 +2,15 @@
 
 import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Feather } from '@expo/vector-icons'
 
 import { theme } from '@/styles/theme'
 import { IProduct } from '@/types/products'
 import { ProductRating } from './ProductRating'
 import { ProductPrice } from './ProductPrice'
 import { useNavigation } from '@react-navigation/native'
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { MainTabParamList } from '@/navigation/types'
+import { AppStackParamList } from '@/navigation/types'
 import { FavouriteButton } from './FavouriteButton'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 interface ProductCardProps {
   product: IProduct
@@ -19,7 +18,7 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product, type }: ProductCardProps) => {
-  const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>()
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>()
 
   const imageSource =
     product?.images && product.images.length > 0
@@ -29,30 +28,8 @@ export const ProductCard = ({ product, type }: ProductCardProps) => {
   const displayPromotionalPrice = product.skus[0]?.promotionalPrice || 0
 
   const handleSelectProduct = (productId: string) => {
-    if (type === 'category' || type === 'home') {
-      navigation.navigate('CategoryStack', {
-        screen: 'ProductDetails',
-        params: {
-          productId: productId,
-        },
-      })
-      return
-    }
-    if (type === 'search') {
-      navigation.navigate('SearchStack', {
-        screen: 'SearchProductDetails',
-        params: {
-          productId: productId,
-        },
-      })
-      return
-    }
-
-    navigation.navigate('ProfileStack', {
-      screen: 'WishlistedProductDetails',
-      params: {
-        productId: productId,
-      },
+    navigation.navigate('ProductDetails', {
+      productId: productId,
     })
   }
 

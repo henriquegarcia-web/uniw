@@ -107,8 +107,8 @@ const getIconName = (routeName: string): keyof typeof Feather.glyphMap => {
   switch (routeName) {
     case 'HomeStack':
       return 'home'
-    case 'SearchStack':
-      return 'search'
+    case 'Favoritos':
+      return 'heart'
     case 'CategoryStack':
       return 'grid'
     case 'ProfileStack':

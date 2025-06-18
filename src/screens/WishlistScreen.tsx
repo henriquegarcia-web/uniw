@@ -31,7 +31,7 @@ const WishlistScreen = ({ navigation }: WishlistScreenProps) => {
         EmptyComponent={<ListEmptyMessage message={`Nenhum produto em seus favoritos`} />}
         HeaderComponent={
           <ListingHeader
-            title="Todos"
+            title="Meus favoritos"
             currentSort={sortOption}
             onSortChange={setSortOption}
             currentFilters={filters}

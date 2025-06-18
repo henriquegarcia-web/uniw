@@ -22,7 +22,14 @@ import {
 } from 'firebase/database'
 
 import { auth, database, storage } from './firebaseConfig'
-import { IUser, IBaseProfile, UserRole, UserStatus, AuthProvider } from '@/types/auth'
+import {
+  IUser,
+  IBaseProfile,
+  UserRole,
+  UserStatus,
+  AuthProvider,
+  ClubStatus,
+} from '@/types/auth'
 import {
   getDownloadURL,
   uploadBytes,
@@ -85,6 +92,10 @@ export async function signUp(
           cidade: null,
           estado: null,
         },
+        verificacoes: {
+          identidade: false,
+          telefone: false,
+        },
         authProviders: [
           {
             providerId: AuthProvider.EMAIL,
@@ -97,6 +108,11 @@ export async function signUp(
         favoritos: null,
         historicoCompras: null,
         historicoAgendamentos: null,
+        clube: {
+          status: ClubStatus.PENDENTE,
+          aderidoEm: null,
+          pontosFidelidade: 0,
+        },
         cartoesSalvos: null,
       },
       createdAt: now,
