@@ -1,4 +1,4 @@
-// src/screens/SettingsScreen.tsx
+// src/screens/profile/SettingsScreen.tsx
 
 import React from 'react'
 import { StyleSheet, SafeAreaView, ScrollView } from 'react-native'
@@ -16,28 +16,34 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
         keyboardShouldPersistTaps="handled"
       >
         <ProfileMenu sectionTitle="Minha conta" type="list">
-          <ProfileMenuItem label="Editar perfil" screen="" />
-          <ProfileMenuItem label="Alterar telefone" screen="" />
-          <ProfileMenuItem label="Alterar e-mail" screen="" />
-          <ProfileMenuItem label="Alterar senha" screen="" />
-          <ProfileMenuItem label="Meus endereços" screen="" />
-          <ProfileMenuItem label="Cartões" screen="" />
+          <ProfileMenuItem label="Editar perfil" screen="EditProfile" />
+          <ProfileMenuItem label="Alterar telefone" screen="ChangePhone" />
+          <ProfileMenuItem label="Alterar e-mail" screen="ChangeEmail" />
+          <ProfileMenuItem label="Alterar senha" screen="ChangePassword" />
+          <ProfileMenuItem label="Meus endereços" screen="MyAddresses" />
+          <ProfileMenuItem label="Cartões" screen="MyCards" />
         </ProfileMenu>
 
         <ProfileMenu sectionTitle="Definições" type="list">
-          <ProfileMenuItem label="Configurações de notificação" screen="" />
-          <ProfileMenuItem label="Idioma" screen="" />
+          <ProfileMenuItem
+            label="Configurações de notificação"
+            screen="NotificationsSettings"
+          />
+          <ProfileMenuItem label="Idioma" screen="ChangeLanguage" />
         </ProfileMenu>
 
         <ProfileMenu sectionTitle="Suporte" type="list">
-          <ProfileMenuItem label="Central de Ajuda" screen="" />
-          <ProfileMenuItem label="Políticas da UNIW" screen="" />
-          <ProfileMenuItem label="Feliz com a UNIW? Avalie-nos!" screen="" />
-          <ProfileMenuItem label="Sobre nós" screen="" />
-          <ProfileMenuItem label="Solicitar exclusão de conta" screen="" />
+          <ProfileMenuItem label="Central de Ajuda" appScreen="HelpCenter" />
+          <ProfileMenuItem label="Políticas da UNIW" appScreen="Policies" />
+          <ProfileMenuItem label="Feliz com a UNIW? Avalie-nos!" onPress={() => {}} />
+          <ProfileMenuItem label="Sobre nós" appScreen="AboutUs" />
+          <ProfileMenuItem
+            label="Solicitar exclusão de conta"
+            appScreen="DeleteAccount"
+          />
         </ProfileMenu>
 
-        <ProfileMenuItem label="Sair" onPress={() => {}} />
+        <ProfileMenuItem type="exit" label="Sair" onPress={() => {}} />
       </ScrollView>
     </SafeAreaView>
   )

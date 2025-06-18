@@ -122,6 +122,7 @@ export const Header = ({
       case 'back-profile':
       case 'back-title':
       case 'back-title-action':
+      case 'back-cart':
         return (
           <Text
             style={[

@@ -1,4 +1,4 @@
-// src/screens/EditProfileScreen.tsx
+// src/screens/profile/EditProfileScreen.tsx
 
 import React, { useCallback, useEffect, useState } from 'react'
 import {

@@ -1,4 +1,4 @@
-// src/screens/ProfileScreen.tsx
+// src/screens/profile/ProfileScreen.tsx
 
 import React from 'react'
 import {
@@ -10,7 +10,11 @@ import {
   TouchableOpacity,
 } from 'react-native'
 
-import type { AppStackParamList, ProfileScreenProps } from '@/navigation/types'
+import type {
+  AppStackParamList,
+  ProfileScreenProps,
+  ProfileStackParamList,
+} from '@/navigation/types'
 import { theme } from '@/styles/theme'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { AntDesign } from '@expo/vector-icons'
@@ -50,22 +54,42 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
         </View>
 
         <ProfileMenu sectionTitle="Principal" type="grid">
-          <ProfileNavigatorItem label="Ofertas" icon="rocket1" screen="" />
-          <ProfileNavigatorItem label="Histórico" icon="shoppingcart" screen="" />
-          <ProfileNavigatorItem label="Clube" icon="Trophy" screen="" />
-          <ProfileNavigatorItem label="Cupons" icon="tagso" screen="" />
+          <ProfileNavigatorItem label="Ofertas" icon="rocket1" appScreen="DailyOffers" />
+          <ProfileNavigatorItem
+            label="Histórico"
+            icon="shoppingcart"
+            screen="OrderHistory"
+          />
+          <ProfileNavigatorItem label="Clube" icon="Trophy" screen="Club" />
+          <ProfileNavigatorItem label="Cupons" icon="tagso" screen="Coupons" />
         </ProfileMenu>
 
         <ProfileMenu sectionTitle="Mais atividades" type="list">
-          <ProfileMenuItem label="Comprar novamente" icon="retweet" screen="" />
-          <ProfileMenuItem label="Programa de fidelidade" icon="Trophy" screen="" />
-          <ProfileMenuItem label="Prêmios" icon="gift" screen="" />
+          <ProfileMenuItem
+            label="Comprar novamente"
+            icon="retweet"
+            screen="OrderHistory"
+          />
+          <ProfileMenuItem
+            label="Programa de fidelidade"
+            icon="Trophy"
+            screen="LoyaltyProgram"
+          />
+          <ProfileMenuItem label="Prêmios" icon="gift" screen="Awards" />
         </ProfileMenu>
 
         <ProfileMenu sectionTitle="Suporte" type="list">
-          <ProfileMenuItem label="Venda na UNIW" icon="isv" screen="" />
-          <ProfileMenuItem label="Central de Ajuda" icon="customerservice" screen="" />
-          <ProfileMenuItem label="Sobre nós" icon="book" screen="" />
+          <ProfileMenuItem
+            label="Venda na UNIW"
+            icon="isv"
+            appScreen="SaleAnnouncement"
+          />
+          <ProfileMenuItem
+            label="Central de Ajuda"
+            icon="customerservice"
+            appScreen="HelpCenter"
+          />
+          <ProfileMenuItem label="Sobre nós" icon="book" appScreen="AboutUs" />
         </ProfileMenu>
       </View>
     </SafeAreaView>
@@ -195,23 +219,31 @@ const profileMenuStyles = StyleSheet.create({
 interface ProfileNavigatorItemProps {
   label: string
   icon: AntDesignIconName
-  screen: string
+  screen?: keyof ProfileStackParamList
+  appScreen?: keyof AppStackParamList
+  onPress?: () => void
 }
 
 export const ProfileNavigatorItem = ({
   label,
   icon,
   screen,
+  appScreen,
+  onPress,
 }: ProfileNavigatorItemProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>()
 
   const handleNavigate = () => {
-    // navigation.navigate('MainTabs', {
-    //   screen: 'ProfileStack',
-    //   params: {
-    //     screen: screen,
-    //   },
-    // })
+    if (onPress) {
+      onPress()
+    } else if (appScreen) {
+      navigation.navigate(appScreen as any)
+    } else if (screen) {
+      navigation.navigate('MainTabs', {
+        screen: 'ProfileStack',
+        params: { screen: screen as any },
+      })
+    }
   }
 
   return (
@@ -259,16 +291,20 @@ const profileNavigatorItemStyles = StyleSheet.create({
 // ==================================================================
 
 interface ProfileMenuItemProps {
+  type?: 'default' | 'exit'
   label: string
   icon?: AntDesignIconName
-  screen?: string
+  screen?: keyof ProfileStackParamList
+  appScreen?: keyof AppStackParamList
   onPress?: () => void
 }
 
 export const ProfileMenuItem = ({
+  type = 'default',
   label,
   icon,
   screen,
+  appScreen,
   onPress,
 }: ProfileMenuItemProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>()
@@ -276,14 +312,14 @@ export const ProfileMenuItem = ({
   const handleNavigate = () => {
     if (onPress) {
       onPress()
-      return
+    } else if (appScreen) {
+      navigation.navigate(appScreen as any)
+    } else if (screen) {
+      navigation.navigate('MainTabs', {
+        screen: 'ProfileStack',
+        params: { screen: screen as any },
+      })
     }
-    // navigation.navigate('MainTabs', {
-    //   screen: 'ProfileStack',
-    //   params: {
-    //     screen: screen,
-    //   },
-    // })
   }
 
   return (
@@ -304,7 +340,7 @@ export const ProfileMenuItem = ({
       <Text
         style={[
           profileMenuItemStyles.menuItemLabel,
-          onPress && profileMenuItemStyles.menuItemLabelExit,
+          type === 'exit' && profileMenuItemStyles.menuItemLabelExit,
         ]}
       >
         {label}

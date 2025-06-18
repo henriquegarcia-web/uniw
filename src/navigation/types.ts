@@ -9,6 +9,12 @@ export type AppStackParamList = {
   MainTabs: NavigatorScreenParams<MainTabParamList>
   SearchResults: { searchTerm: string }
   ProductDetails: { productId: string }
+  DailyOffers: undefined
+  AboutUs: undefined
+  DeleteAccount: undefined
+  Policies: undefined
+  HelpCenter: undefined
+  SaleAnnouncement: undefined
 }
 
 // --- Pilhas de Navegação (Stacks) ---
@@ -44,6 +50,17 @@ export type ProfileStackParamList = {
   EditProfile: undefined
   AddNewCard: undefined
   OrderHistory: undefined
+  Awards: undefined
+  ChangeEmail: undefined
+  ChangeLanguage: undefined
+  ChangePassword: undefined
+  ChangePhone: undefined
+  Club: undefined
+  Coupons: undefined
+  LoyaltyProgram: undefined
+  MyAddresses: undefined
+  MyCards: undefined
+  NotificationsSettings: undefined
   Settings: undefined
 }
 
@@ -73,6 +90,8 @@ export type ForgotPasswordScreenProps = NativeStackScreenProps<
   'ForgotPassword'
 >
 
+// ==========================
+
 export type SearchResultsScreenProps = NativeStackScreenProps<
   AppStackParamList,
   'SearchResults'
@@ -82,6 +101,27 @@ export type ProductDetailsScreenProps = NativeStackScreenProps<
   AppStackParamList,
   'ProductDetails'
 >
+
+export type DailyOffersScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'DailyOffers'
+>
+export type AboutUsScreenProps = NativeStackScreenProps<AppStackParamList, 'AboutUs'>
+export type DeleteAccountScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'DeleteAccount'
+>
+export type PoliciesScreenProps = NativeStackScreenProps<AppStackParamList, 'Policies'>
+export type HelpCenterScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'HelpCenter'
+>
+export type SaleAnnouncementScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'SaleAnnouncement'
+>
+
+// ==========================
 
 // Home
 export type HomeScreenProps = NativeStackScreenProps<HomeStackParamList, 'Home'>
@@ -128,4 +168,36 @@ export type AddNewCardScreenProps = NativeStackScreenProps<
 export type OrderHistoryScreenProps = NativeStackScreenProps<
   ProfileStackParamList,
   'OrderHistory'
+>
+export type AwardsScreenProps = NativeStackScreenProps<ProfileStackParamList, 'Awards'>
+export type ChangeEmailScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'ChangeEmail'
+>
+export type ChangeLanguageScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'ChangeLanguage'
+>
+export type ChangePasswordScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'ChangePassword'
+>
+export type ChangePhoneScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'ChangePhone'
+>
+export type ClubScreenProps = NativeStackScreenProps<ProfileStackParamList, 'Club'>
+export type CouponsScreenProps = NativeStackScreenProps<ProfileStackParamList, 'Coupons'>
+export type LoyaltyProgramScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'LoyaltyProgram'
+>
+export type MyAddressesScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'MyAddresses'
+>
+export type MyCardsScreenProps = NativeStackScreenProps<ProfileStackParamList, 'MyCards'>
+export type NotificationsSettingsScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'NotificationsSettings'
 >

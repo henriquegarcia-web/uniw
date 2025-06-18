@@ -1,12 +1,12 @@
-// src/screens/profile/AddNewCardScreen.tsx
+// src/screens/profile/AwardsScreen.tsx
 
 import React from 'react'
 import { StyleSheet, SafeAreaView, Text } from 'react-native'
 
-import type { AddNewCardScreenProps } from '@/navigation/types'
+import type { AwardsScreenProps } from '@/navigation/types'
 import { theme } from '@/styles/theme'
 
-const AddNewCardScreen = ({ navigation }: AddNewCardScreenProps) => {
+const AwardsScreen = ({ navigation }: AwardsScreenProps) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text>Tela de Adicionar Novo Cartão</Text>
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 })
-export default AddNewCardScreen
+export default AwardsScreen
