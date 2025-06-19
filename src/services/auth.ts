@@ -108,10 +108,10 @@ export async function signUp(
         favoritos: null,
         historicoCompras: null,
         historicoAgendamentos: null,
-        clube: {
-          status: ClubStatus.PENDENTE,
-          aderidoEm: null,
-          pontosFidelidade: 0,
+        clube: null,
+        fidelidade: {
+          pointsBalance: 0,
+          pointsHistory: [],
         },
         cartoesSalvos: null,
       },

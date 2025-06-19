@@ -50,18 +50,22 @@ export type ProfileStackParamList = {
   EditProfile: undefined
   AddNewCard: undefined
   OrderHistory: undefined
+  OrderDetails: { orderId: string }
   Awards: undefined
   ChangeEmail: undefined
   ChangeLanguage: undefined
   ChangePassword: undefined
   ChangePhone: undefined
   Club: undefined
-  Coupons: undefined
+  ClubSignature: undefined
   LoyaltyProgram: undefined
   MyAddresses: undefined
   MyCards: undefined
   NotificationsSettings: undefined
   Settings: undefined
+  Notifications: undefined
+  ChatsList: undefined
+  Chat: { chatId: string }
 }
 
 // --- Navegador Principal (Tabs) ---
@@ -169,6 +173,10 @@ export type OrderHistoryScreenProps = NativeStackScreenProps<
   ProfileStackParamList,
   'OrderHistory'
 >
+export type OrderDetailsScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'OrderDetails'
+>
 export type AwardsScreenProps = NativeStackScreenProps<ProfileStackParamList, 'Awards'>
 export type ChangeEmailScreenProps = NativeStackScreenProps<
   ProfileStackParamList,
@@ -187,7 +195,10 @@ export type ChangePhoneScreenProps = NativeStackScreenProps<
   'ChangePhone'
 >
 export type ClubScreenProps = NativeStackScreenProps<ProfileStackParamList, 'Club'>
-export type CouponsScreenProps = NativeStackScreenProps<ProfileStackParamList, 'Coupons'>
+export type ClubSignatureScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'ClubSignature'
+>
 export type LoyaltyProgramScreenProps = NativeStackScreenProps<
   ProfileStackParamList,
   'LoyaltyProgram'
@@ -201,3 +212,12 @@ export type NotificationsSettingsScreenProps = NativeStackScreenProps<
   ProfileStackParamList,
   'NotificationsSettings'
 >
+export type NotificationsScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'Notifications'
+>
+export type ChatsListScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'ChatsList'
+>
+export type ChatScreenProps = NativeStackScreenProps<ProfileStackParamList, 'Chat'>

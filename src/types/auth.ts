@@ -55,7 +55,7 @@ export const getStatusData = (status?: UserStatus): FormattedOption => {
   }
 }
 
-// ─── CLUBE STATUS ────────────────────────────────────────────────────────────
+// ─── CLUBE TYPES ────────────────────────────────────────────────────────────
 
 export enum ClubStatus {
   ATIVO = 'ativo',
@@ -77,6 +77,38 @@ export const getClubStatusData = (status?: ClubStatus): FormattedOption => {
     default:
       return { label: 'Desconhecido', color: '#808080' }
   }
+}
+
+export interface ISubscriptionDetails {
+  planType: 'monthly' | 'annual'
+  nextBillingDate: number
+  paymentHistory: {
+    invoiceId: string
+    date: number
+    amount: number
+    status: 'succeeded' | 'failed'
+  }[]
+}
+
+export interface IClub {
+  status: ClubStatus
+  memberSince: number
+  subscription: ISubscriptionDetails
+}
+
+// ─── LOYALTY TYPES ────────────────────────────────────────────────────────────
+
+export interface IPointTransaction {
+  id: string
+  type: 'earned' | 'spent'
+  amount: number
+  description: string
+  date: number
+}
+
+export interface ILoyalty {
+  pointsBalance: number
+  pointsHistory: IPointTransaction[]
 }
 
 // ─── PAYMENT TYPES ──────────────────────────────────────────────────────────
@@ -123,6 +155,25 @@ export enum OrderStatus {
   DELIVERED = 'delivered', // Entregue
   CANCELED = 'canceled', // Cancelado
   REFUNDED = 'refunded', // Reembolsado
+}
+
+export const getOrderStatusData = (status?: OrderStatus): FormattedOption => {
+  switch (status) {
+    case OrderStatus.PENDING:
+      return { label: 'Pendente', color: '#2E8B57' }
+    case OrderStatus.PROCESSING:
+      return { label: 'Em separação', color: '#808080' }
+    case OrderStatus.SHIPPED:
+      return { label: 'Enviado', color: '#FF4500' }
+    case OrderStatus.DELIVERED:
+      return { label: 'Entregue', color: '#FFA500' }
+    case OrderStatus.CANCELED:
+      return { label: 'Cancelado', color: '#FFA500' }
+    case OrderStatus.REFUNDED:
+      return { label: 'Reembolsado', color: '#FFA500' }
+    default:
+      return { label: 'Desconhecido', color: '#808080' }
+  }
 }
 
 export interface IOrderItem {
@@ -207,11 +258,8 @@ export interface IClienteProfile {
   historicoCompras: string[] | null
   historicoAgendamentos: string[] | null
 
-  clube: {
-    status: ClubStatus
-    aderidoEm: number | null
-    pontosFidelidade: number
-  }
+  clube: IClub | null
+  fidelidade: ILoyalty
 
   cartoesSalvos: ICreditCard[] | null
 }
@@ -389,6 +437,162 @@ export const mockPurchaseHistory: IPurchaseOrder[] = [
   },
   {
     id: 'order-002',
+    userId: 'user-123',
+    orderNumber: '#1002-2025',
+    createdAt: new Date('2025-06-15T18:00:00').getTime(),
+    status: OrderStatus.PROCESSING,
+    items: [
+      {
+        productId: 'prod-10',
+        productName: 'Eau de Parfum "La Nuit"',
+        imageUrl: 'https://picsum.photos/seed/perfume1/800/800',
+        skuId: 'sku-10-50',
+        attributes: { Tamanho: '50ml' },
+        quantity: 1,
+        priceAtPurchase: 380.0,
+      },
+    ],
+    payment: {
+      method: 'pix',
+    },
+    shipping: {
+      address: {
+        cep: '59000-000',
+        rua: 'Avenida da Praia',
+        numero: '100',
+        bairro: 'Ponta Negra',
+        cidade: 'Natal',
+        estado: 'RN',
+      },
+      shippingMethod: 'Retirada no Local',
+      shippingCost: 0,
+    },
+    summary: {
+      subtotal: 380.0,
+      shippingCost: 0,
+      discountAmount: 0,
+      totalAmount: 380.0,
+    },
+  },
+  {
+    id: 'order-0302',
+    userId: 'user-123',
+    orderNumber: '#1002-2025',
+    createdAt: new Date('2025-06-15T18:00:00').getTime(),
+    status: OrderStatus.PROCESSING,
+    items: [
+      {
+        productId: 'prod-10',
+        productName: 'Eau de Parfum "La Nuit"',
+        imageUrl: 'https://picsum.photos/seed/perfume1/800/800',
+        skuId: 'sku-10-50',
+        attributes: { Tamanho: '50ml' },
+        quantity: 1,
+        priceAtPurchase: 380.0,
+      },
+    ],
+    payment: {
+      method: 'pix',
+    },
+    shipping: {
+      address: {
+        cep: '59000-000',
+        rua: 'Avenida da Praia',
+        numero: '100',
+        bairro: 'Ponta Negra',
+        cidade: 'Natal',
+        estado: 'RN',
+      },
+      shippingMethod: 'Retirada no Local',
+      shippingCost: 0,
+    },
+    summary: {
+      subtotal: 380.0,
+      shippingCost: 0,
+      discountAmount: 0,
+      totalAmount: 380.0,
+    },
+  },
+  {
+    id: 'order-0202',
+    userId: 'user-123',
+    orderNumber: '#1002-2025',
+    createdAt: new Date('2025-06-15T18:00:00').getTime(),
+    status: OrderStatus.PROCESSING,
+    items: [
+      {
+        productId: 'prod-10',
+        productName: 'Eau de Parfum "La Nuit"',
+        imageUrl: 'https://picsum.photos/seed/perfume1/800/800',
+        skuId: 'sku-10-50',
+        attributes: { Tamanho: '50ml' },
+        quantity: 1,
+        priceAtPurchase: 380.0,
+      },
+    ],
+    payment: {
+      method: 'pix',
+    },
+    shipping: {
+      address: {
+        cep: '59000-000',
+        rua: 'Avenida da Praia',
+        numero: '100',
+        bairro: 'Ponta Negra',
+        cidade: 'Natal',
+        estado: 'RN',
+      },
+      shippingMethod: 'Retirada no Local',
+      shippingCost: 0,
+    },
+    summary: {
+      subtotal: 380.0,
+      shippingCost: 0,
+      discountAmount: 0,
+      totalAmount: 380.0,
+    },
+  },
+  {
+    id: 'order-02402',
+    userId: 'user-123',
+    orderNumber: '#1002-2025',
+    createdAt: new Date('2025-06-15T18:00:00').getTime(),
+    status: OrderStatus.PROCESSING,
+    items: [
+      {
+        productId: 'prod-10',
+        productName: 'Eau de Parfum "La Nuit"',
+        imageUrl: 'https://picsum.photos/seed/perfume1/800/800',
+        skuId: 'sku-10-50',
+        attributes: { Tamanho: '50ml' },
+        quantity: 1,
+        priceAtPurchase: 380.0,
+      },
+    ],
+    payment: {
+      method: 'pix',
+    },
+    shipping: {
+      address: {
+        cep: '59000-000',
+        rua: 'Avenida da Praia',
+        numero: '100',
+        bairro: 'Ponta Negra',
+        cidade: 'Natal',
+        estado: 'RN',
+      },
+      shippingMethod: 'Retirada no Local',
+      shippingCost: 0,
+    },
+    summary: {
+      subtotal: 380.0,
+      shippingCost: 0,
+      discountAmount: 0,
+      totalAmount: 380.0,
+    },
+  },
+  {
+    id: 'order-02023',
     userId: 'user-123',
     orderNumber: '#1002-2025',
     createdAt: new Date('2025-06-15T18:00:00').getTime(),

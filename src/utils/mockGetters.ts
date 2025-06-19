@@ -1,5 +1,6 @@
 // src/utils/mockGetters.ts
 
+import { IPurchaseOrder, mockPurchaseHistory } from '@/types/auth'
 import {
   IProduct,
   IProductCategory,
@@ -36,4 +37,11 @@ export function getProductsByIds(productIds?: string[]): IProduct[] {
   }
 
   return mockProducts.filter((product) => productIds.includes(product.id))
+}
+
+export function getOrderById(orderId: string): IPurchaseOrder | undefined {
+  if (!orderId) {
+    return undefined
+  }
+  return mockPurchaseHistory.find((order) => order.id === orderId)
 }

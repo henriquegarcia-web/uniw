@@ -43,7 +43,7 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           />
         </ProfileMenu>
 
-        <ProfileMenuItem type="exit" label="Sair" onPress={() => {}} />
+        <ProfileMenuItem type="negative" label="Sair" onPress={() => {}} />
       </ScrollView>
     </SafeAreaView>
   )

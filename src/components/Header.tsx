@@ -10,14 +10,15 @@ import {
   SafeAreaView,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { Ionicons } from '@expo/vector-icons'
+import { Feather } from '@expo/vector-icons'
 
 import { theme } from '@/styles/theme'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { MainTabParamList } from '@/navigation/types'
+import { AppStackParamList, MainTabParamList } from '@/navigation/types'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { useMenu } from '@/contexts/MenuProvider'
 import { InputSearch } from './forms/InputSearch'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
 type HeaderVariant =
   | 'main'
@@ -28,12 +29,12 @@ type HeaderVariant =
   | 'profile'
   | 'back-profile'
 
-type IoniconsIconName = keyof typeof Ionicons.glyphMap
+type FeatherIconName = keyof typeof Feather.glyphMap
 
 export interface HeaderProps {
   variant: HeaderVariant
   title?: string
-  rightIconName?: IoniconsIconName
+  rightIconName?: FeatherIconName
   onRightIconPress?: () => void
 }
 
@@ -43,7 +44,7 @@ export const Header = ({
   rightIconName,
   onRightIconPress,
 }: HeaderProps) => {
-  const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>()
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>()
 
   const { user } = useClientAuth()
   const { openMenu } = useMenu()
@@ -56,15 +57,50 @@ export const Header = ({
     ? require('@/assets/uniw_logo_constrast.png')
     : require('@/assets/uniw_logo.png')
 
+  const onMenuPress = openMenu
   const handleBackPress = () => {
     navigation.goBack()
   }
-  const onMenuPress = openMenu
-  const onChatsPress = () => {}
-  const onSettingsPress = () =>
-    navigation.navigate('ProfileStack', { screen: 'Settings' })
-  const onCartPress = () => navigation.navigate('CartStack', { screen: 'Cart' })
-  const onProfilePress = () => navigation.navigate('ProfileStack', { screen: 'Profile' })
+  const onNotificationsPress = () => {
+    navigation.navigate('MainTabs', {
+      screen: 'ProfileStack',
+      params: {
+        screen: 'Notifications',
+      },
+    })
+  }
+  const onChatsPress = () => {
+    navigation.navigate('MainTabs', {
+      screen: 'ProfileStack',
+      params: {
+        screen: 'ChatsList',
+      },
+    })
+  }
+  const onSettingsPress = () => {
+    navigation.navigate('MainTabs', {
+      screen: 'ProfileStack',
+      params: {
+        screen: 'Settings',
+      },
+    })
+  }
+  const onCartPress = () => {
+    navigation.navigate('MainTabs', {
+      screen: 'CartStack',
+      params: {
+        screen: 'Cart',
+      },
+    })
+  }
+  const onProfilePress = () => {
+    navigation.navigate('MainTabs', {
+      screen: 'ProfileStack',
+      params: {
+        screen: 'Profile',
+      },
+    })
+  }
 
   const renderLeftComponent = () => {
     switch (variant) {
@@ -72,7 +108,7 @@ export const Header = ({
       case 'main-full':
         return (
           <TouchableOpacity onPress={onMenuPress} style={styles.iconButtonLeft}>
-            <Ionicons
+            <Feather
               name="menu"
               size={32}
               color={
@@ -87,8 +123,8 @@ export const Header = ({
       case 'back-title-action':
         return (
           <TouchableOpacity onPress={handleBackPress} style={styles.iconButtonLeft}>
-            <Ionicons
-              name="chevron-back"
+            <Feather
+              name="chevron-left"
               size={26}
               color={isVariantProfile ? theme.colors.text_contrast : theme.colors.text}
             />
@@ -97,12 +133,14 @@ export const Header = ({
       case 'profile':
         return (
           <>
-            <TouchableOpacity onPress={onCartPress} style={styles.cartButton}>
-              <Ionicons
-                name="cart-outline"
-                size={isVariantProfile ? 30 : 20}
-                color={theme.colors.background}
-                style={{ marginTop: 1, marginRight: 1 }}
+            <TouchableOpacity
+              onPress={onNotificationsPress}
+              style={styles.iconButtonLeft}
+            >
+              <Feather
+                name="bell"
+                size={26}
+                color={isVariantProfile ? theme.colors.text_contrast : theme.colors.text}
               />
             </TouchableOpacity>
             <View style={styles.placeholder} />
@@ -159,8 +197,8 @@ export const Header = ({
       case 'back-cart':
         return (
           <TouchableOpacity onPress={onCartPress} style={styles.cartButton}>
-            <Ionicons
-              name="cart-outline"
+            <Feather
+              name="shopping-cart"
               size={isVariantProfile ? 26 : 20}
               color={theme.colors.background}
               style={{ marginTop: 1, marginRight: 1 }}
@@ -171,7 +209,7 @@ export const Header = ({
         if (rightIconName && onRightIconPress) {
           return (
             <TouchableOpacity onPress={onRightIconPress} style={styles.iconButtonRight}>
-              <Ionicons name={rightIconName} size={26} color={theme.colors.text} />
+              <Feather name={rightIconName} size={26} color={theme.colors.text} />
             </TouchableOpacity>
           )
         }
@@ -180,16 +218,16 @@ export const Header = ({
         return (
           <>
             <TouchableOpacity onPress={onChatsPress} style={styles.iconButtonRight}>
-              <Ionicons
-                name="chatbubbles-outline"
+              <Feather
+                name="message-circle"
                 size={26}
                 color={isVariantProfile ? theme.colors.text_contrast : theme.colors.text}
               />
             </TouchableOpacity>
             <TouchableOpacity onPress={onSettingsPress} style={styles.iconButtonRight}>
-              <Ionicons
-                name="settings-outline"
-                size={26}
+              <Feather
+                name="settings"
+                size={24}
                 color={isVariantProfile ? theme.colors.text_contrast : theme.colors.text}
               />
             </TouchableOpacity>

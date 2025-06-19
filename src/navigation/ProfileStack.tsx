@@ -17,11 +17,15 @@ import ChangeLanguageScreen from '@/screens/profile/ChangeLanguageScreen'
 import ChangePasswordScreen from '@/screens/profile/ChangePasswordScreen'
 import ChangePhoneScreen from '@/screens/profile/ChangePhoneScreen'
 import ClubScreen from '@/screens/profile/ClubScreen'
-import CouponsScreen from '@/screens/profile/CouponsScreen'
 import LoyaltyProgramScreen from '@/screens/profile/LoyaltyProgramScreen'
 import MyAddressesScreen from '@/screens/profile/MyAddressesScreen'
 import MyCardsScreen from '@/screens/profile/MyCardsScreen'
 import NotificationsSettingsScreen from '@/screens/profile/NotificationsSettingsScreen'
+import OrderDetailsScreen from '@/screens/profile/OrderDetailsScreen'
+import NotificationsScreen from '@/screens/profile/NotificationsScreen'
+import ChatScreen from '@/screens/profile/ChatScreen'
+import ChatsListScreen from '@/screens/profile/ChatsListScreen'
+import ClubSignatureScreen from '@/screens/profile/ClubSignatureScreen'
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>()
 
@@ -68,7 +72,14 @@ export function ProfileStack() {
           header: () => <Header variant="back-profile" title="Histórico de Compras" />,
         }}
       />
-
+      <Stack.Screen
+        name="OrderDetails"
+        component={OrderDetailsScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="back-profile" title="Detalhes da Compra" />,
+        }}
+      />
       <Stack.Screen
         name="Awards"
         component={AwardsScreen}
@@ -82,7 +93,7 @@ export function ProfileStack() {
         component={ChangeEmailScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-profile" title="Alterar e-mail" />,
+          header: () => <Header variant="back-profile" title="Alterar E-mail" />,
         }}
       />
       <Stack.Screen
@@ -90,7 +101,7 @@ export function ProfileStack() {
         component={ChangeLanguageScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-profile" title="Alterar idioma" />,
+          header: () => <Header variant="back-profile" title="Alterar Idioma" />,
         }}
       />
       <Stack.Screen
@@ -98,7 +109,7 @@ export function ProfileStack() {
         component={ChangePasswordScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-profile" title="Alterar senha" />,
+          header: () => <Header variant="back-profile" title="Alterar Senha" />,
         }}
       />
       <Stack.Screen
@@ -106,7 +117,7 @@ export function ProfileStack() {
         component={ChangePhoneScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-profile" title="Alterar telefone" />,
+          header: () => <Header variant="back-profile" title="Alterar Telefone" />,
         }}
       />
       <Stack.Screen
@@ -118,11 +129,11 @@ export function ProfileStack() {
         }}
       />
       <Stack.Screen
-        name="Coupons"
-        component={CouponsScreen}
+        name="ClubSignature"
+        component={ClubSignatureScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-profile" title="Cupons" />,
+          header: () => <Header variant="back-profile" title="Assinar Clube" />,
         }}
       />
       <Stack.Screen
@@ -130,7 +141,7 @@ export function ProfileStack() {
         component={LoyaltyProgramScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-profile" title="Programa de fidelidade" />,
+          header: () => <Header variant="back-profile" title="Fidelidade" />,
         }}
       />
       <Stack.Screen
@@ -138,7 +149,7 @@ export function ProfileStack() {
         component={MyAddressesScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-profile" title="Meu endereços" />,
+          header: () => <Header variant="back-profile" title="Meu Endereços" />,
         }}
       />
       <Stack.Screen
@@ -146,7 +157,7 @@ export function ProfileStack() {
         component={MyCardsScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-profile" title="Meus cartões" />,
+          header: () => <Header variant="back-profile" title="Meus Cartões" />,
         }}
       />
       <Stack.Screen
@@ -154,7 +165,31 @@ export function ProfileStack() {
         component={NotificationsSettingsScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-profile" title="Configurar notificações" />,
+          header: () => <Header variant="back-profile" title="Configurar Notificações" />,
+        }}
+      />
+      <Stack.Screen
+        name="Notifications"
+        component={NotificationsScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="back-profile" title="Notificações" />,
+        }}
+      />
+      <Stack.Screen
+        name="ChatsList"
+        component={ChatsListScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="back-profile" title="Conversas" />,
+        }}
+      />
+      <Stack.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="back-profile" title="Conversa" />,
         }}
       />
     </Stack.Navigator>

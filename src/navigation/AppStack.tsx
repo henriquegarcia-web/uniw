@@ -65,7 +65,7 @@ export function AppStack() {
         component={DeleteAccountScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-title" title="Deletar conta" />,
+          header: () => <Header variant="back-title" title="Deletar Conta" />,
         }}
       />
       <Stack.Screen
@@ -81,7 +81,7 @@ export function AppStack() {
         component={HelpCenterScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-title" title="Central de ajuda" />,
+          header: () => <Header variant="back-title" title="Central de Ajuda" />,
         }}
       />
       <Stack.Screen

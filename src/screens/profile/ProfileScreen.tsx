@@ -17,12 +17,13 @@ import type {
 } from '@/navigation/types'
 import { theme } from '@/styles/theme'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
-import { AntDesign } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { UserTag } from '@/components/UserTag'
+import { ProfileHeader } from '@/components/ProfileHeader'
 
-type AntDesignIconName = keyof typeof AntDesign.glyphMap
+type MaterialCommunityIconsIconName = keyof typeof MaterialCommunityIcons.glyphMap
 
 const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
   const { user } = useClientAuth()
@@ -49,47 +50,51 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
       </View>
       <View style={styles.mainContainer}>
         <View style={styles.userBadges}>
-          <UserTag label="Membro do Clube" icon="Trophy" />
-          <UserTag label="Verificado" icon="Safety" />
+          <UserTag label="Membro do Clube" icon="crown-outline" />
+          <UserTag label="Verificado" icon="shield-check-outline" />
         </View>
 
         <ProfileMenu sectionTitle="Principal" type="grid">
-          <ProfileNavigatorItem label="Ofertas" icon="rocket1" appScreen="DailyOffers" />
           <ProfileNavigatorItem
-            label="Histórico"
-            icon="shoppingcart"
-            screen="OrderHistory"
+            label="Ofertas"
+            icon="tag-outline"
+            appScreen="DailyOffers"
           />
-          <ProfileNavigatorItem label="Clube" icon="Trophy" screen="Club" />
-          <ProfileNavigatorItem label="Cupons" icon="tagso" screen="Coupons" />
+          <ProfileNavigatorItem label="Histórico" icon="history" screen="OrderHistory" />
+          <ProfileNavigatorItem label="Clube" icon="crown-outline" screen="Club" />
+          <ProfileNavigatorItem
+            label="Cupons"
+            icon="ticket-percent-outline"
+            screen="LoyaltyProgram"
+          />
         </ProfileMenu>
 
         <ProfileMenu sectionTitle="Mais atividades" type="list">
           <ProfileMenuItem
             label="Comprar novamente"
-            icon="retweet"
+            icon="repeat"
             screen="OrderHistory"
           />
           <ProfileMenuItem
             label="Programa de fidelidade"
-            icon="Trophy"
+            icon="handshake-outline"
             screen="LoyaltyProgram"
           />
-          <ProfileMenuItem label="Prêmios" icon="gift" screen="Awards" />
+          <ProfileMenuItem label="Prêmios" icon="gift-outline" screen="Awards" />
         </ProfileMenu>
 
         <ProfileMenu sectionTitle="Suporte" type="list">
           <ProfileMenuItem
             label="Venda na UNIW"
-            icon="isv"
+            icon="storefront-outline"
             appScreen="SaleAnnouncement"
           />
           <ProfileMenuItem
-            label="Central de Ajuda"
-            icon="customerservice"
+            label="Central de ajuda"
+            icon="headset"
             appScreen="HelpCenter"
           />
-          <ProfileMenuItem label="Sobre nós" icon="book" appScreen="AboutUs" />
+          <ProfileMenuItem label="Sobre nós" icon="domain" appScreen="AboutUs" />
         </ProfileMenu>
       </View>
     </SafeAreaView>
@@ -151,21 +156,14 @@ const styles = StyleSheet.create({
     borderTopRightRadius: theme.borders.radius.md,
   },
   userBadges: {
-    height: 35,
+    height: 40,
     flexDirection: 'row',
     columnGap: theme.spacing.xs,
     paddingLeft: 111,
+    marginTop: -5,
 
     // borderWidth: 1,
     // borderColor: 'red',
-  },
-  profileMenuWraper: {
-    rowGap: theme.spacing.sm,
-  },
-  profileMenuWraperTitle: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_secondary,
   },
 })
 
@@ -181,8 +179,8 @@ interface IProfileMenu {
 
 export const ProfileMenu = ({ type, sectionTitle, children }: IProfileMenu) => {
   return (
-    <View style={styles.profileMenuWraper}>
-      <Text style={styles.profileMenuWraperTitle}>{sectionTitle}</Text>
+    <View style={profileMenuStyles.profileMenuWraper}>
+      <ProfileHeader title={sectionTitle} />
       <View
         style={
           type === 'grid'
@@ -197,6 +195,7 @@ export const ProfileMenu = ({ type, sectionTitle, children }: IProfileMenu) => {
 }
 
 const profileMenuStyles = StyleSheet.create({
+  profileMenuWraper: {},
   gridContainer: {
     // borderWidth: 1,
     // borderColor: 'red',
@@ -218,7 +217,7 @@ const profileMenuStyles = StyleSheet.create({
 
 interface ProfileNavigatorItemProps {
   label: string
-  icon: AntDesignIconName
+  icon: MaterialCommunityIconsIconName
   screen?: keyof ProfileStackParamList
   appScreen?: keyof AppStackParamList
   onPress?: () => void
@@ -253,7 +252,7 @@ export const ProfileNavigatorItem = ({
       style={profileNavigatorItemStyles.navigatorItem}
     >
       {icon && (
-        <AntDesign
+        <MaterialCommunityIcons
           name={icon}
           size={24}
           color={theme.colors.text_secondary}
@@ -291,9 +290,9 @@ const profileNavigatorItemStyles = StyleSheet.create({
 // ==================================================================
 
 interface ProfileMenuItemProps {
-  type?: 'default' | 'exit'
+  type?: 'default' | 'negative'
   label: string
-  icon?: AntDesignIconName
+  icon?: MaterialCommunityIconsIconName
   screen?: keyof ProfileStackParamList
   appScreen?: keyof AppStackParamList
   onPress?: () => void
@@ -329,28 +328,34 @@ export const ProfileMenuItem = ({
       style={profileMenuItemStyles.menuItem}
     >
       {icon && (
-        <AntDesign
+        <MaterialCommunityIcons
           name={icon}
           size={18}
           color={theme.colors.text_secondary}
-          style={profileMenuItemStyles.menuItemIcon}
+          style={[
+            profileMenuItemStyles.menuItemIcon,
+            type === 'negative' && profileMenuItemStyles.menuItemLabelExit,
+          ]}
         />
       )}
 
       <Text
         style={[
           profileMenuItemStyles.menuItemLabel,
-          type === 'exit' && profileMenuItemStyles.menuItemLabelExit,
+          type === 'negative' && profileMenuItemStyles.menuItemLabelExit,
         ]}
       >
         {label}
       </Text>
 
-      <AntDesign
-        name="right"
-        size={14}
+      <MaterialCommunityIcons
+        name="chevron-right"
+        size={20}
         color={theme.colors.text_tertiary}
-        style={profileMenuItemStyles.menuItemIconChevron}
+        style={[
+          profileMenuItemStyles.menuItemIconChevron,
+          type === 'negative' && profileMenuItemStyles.menuItemLabelExit,
+        ]}
       />
     </TouchableOpacity>
   )
@@ -363,7 +368,7 @@ const profileMenuItemStyles = StyleSheet.create({
     columnGap: 10,
     height: 42,
     paddingLeft: 14,
-    paddingRight: 10,
+    paddingRight: 8,
     borderRadius: theme.borders.radius.xs,
 
     borderWidth: 1,

@@ -4,20 +4,20 @@ import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
 import { theme } from '@/styles/theme'
-import { AntDesign } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-type AntDesignIconName = keyof typeof AntDesign.glyphMap
+type MaterialCommunityIconsIconName = keyof typeof MaterialCommunityIcons.glyphMap
 
 interface UserTagProps {
   label: string
-  icon?: AntDesignIconName
+  icon?: MaterialCommunityIconsIconName
 }
 
 export const UserTag = ({ label, icon }: UserTagProps) => {
   return (
     <View style={styles.container}>
       {icon && (
-        <AntDesign
+        <MaterialCommunityIcons
           name={icon}
           size={16}
           color={theme.colors.text_secondary}
