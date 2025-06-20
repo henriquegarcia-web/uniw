@@ -4,7 +4,13 @@ import * as yup from 'yup'
 
 import { FormattedOption } from './global'
 import { isCpfInUse, isEmailInUse } from '@/services/auth'
-import { isValidCep, isValidCpf, isValidPhone } from '@/utils/validators'
+import {
+  isValidCep,
+  isValidCpf,
+  isValidCreditCard,
+  isValidExpiryDate,
+  isValidPhone,
+} from '@/utils/validators'
 import { CouponStatus, IRedeemedCoupon } from './rewards'
 import { INotification } from './notifications'
 
@@ -127,6 +133,7 @@ export enum CardBrand {
 
 export interface ICreditCard {
   id: string
+  token: string
   last4: string
   brand: CardBrand
   expiryMonth: number
@@ -229,6 +236,20 @@ export interface IPurchaseOrder {
   }
 }
 
+// ─── NOTIFICATION TYPES ─────────────────────────────────────────────────────
+
+export interface INotificationChannelSettings {
+  push: boolean
+  email: boolean
+  whatsapp: boolean
+}
+
+export interface INotificationSettings {
+  promotions: INotificationChannelSettings
+  orderUpdates: INotificationChannelSettings
+  announcements: INotificationChannelSettings
+}
+
 // ─── USER TYPES ─────────────────────────────────────────────────────────────
 
 export interface IBaseProfile {
@@ -265,6 +286,7 @@ export interface IClienteProfile {
   fidelidade: ILoyalty
 
   notifications: INotification[] | null
+  notificationsSettings: INotificationSettings
 
   cartoesSalvos: ICreditCard[] | null
 }
@@ -383,6 +405,32 @@ export const updateProfileSchema = yup.object({
       estado: yup.string().nullable(),
     })
     .nullable(),
+})
+
+export const addCardSchema = yup.object({
+  cardNumber: yup
+    .string()
+    .required('O número do cartão é obrigatório.')
+    .test(
+      'is-valid-credit-card',
+      'O número do cartão é inválido',
+      (value) => !value || isValidCreditCard(value),
+    )
+    .label('Número do Cartão'),
+  cardHolderName: yup
+    .string()
+    .required('O nome do titular é obrigatório.')
+    .label('Nome no Cartão'),
+  expiryDate: yup
+    .string()
+    .required('A data de validade é obrigatória.')
+    .test(
+      'is-valid-expiry',
+      'Data de validade inválida ou expirada',
+      (value) => !value || isValidExpiryDate(value),
+    )
+    .label('Validade'),
+  isDefault: yup.boolean(),
 })
 
 // ─── MOCKS ──────────────────────────────────────────────────────────────────

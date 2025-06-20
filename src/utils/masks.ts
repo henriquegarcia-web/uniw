@@ -2,7 +2,13 @@
 
 // ─── Tipagens ───────────────────────────────────────────────────────────────
 
-export type SupportedMask = 'currency' | 'cep' | 'cpf' | 'phone' | 'expiryDate'
+export type SupportedMask =
+  | 'currency'
+  | 'cep'
+  | 'cpf'
+  | 'phone'
+  | 'expiryDate'
+  | 'cardNumber'
 
 type MaskInput = {
   currency: number | string
@@ -10,6 +16,7 @@ type MaskInput = {
   cpf: string
   phone: string
   expiryDate: string
+  cardNumber: string
 }
 
 type MaskReturn = {
@@ -18,6 +25,7 @@ type MaskReturn = {
   cpf: string
   phone: string
   expiryDate: string
+  cardNumber: string
 }
 
 type MaskHandlers = {
@@ -81,6 +89,15 @@ const maskHandlers: MaskHandlers = {
       .replace(/\D/g, '')
       .replace(/(\d{2})(\d)/, '$1/$2')
       .slice(0, 5)
+  },
+
+  // Formata string como 0000 0000 0000 0000
+  cardNumber: (value) => {
+    if (!value) return ''
+    return value
+      .replace(/\D/g, '')
+      .slice(0, 16)
+      .replace(/(\d{4})(?=\d)/g, '$1 ')
   },
 }
 

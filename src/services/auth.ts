@@ -30,6 +30,7 @@ import {
   UserStatus,
   AuthProvider,
   ClubStatus,
+  INotificationSettings,
 } from '@/types/auth'
 import {
   getDownloadURL,
@@ -116,6 +117,23 @@ export async function signUp(
           coupons: null,
         },
         notifications: null,
+        notificationsSettings: {
+          promotions: {
+            push: false,
+            email: false,
+            whatsapp: false,
+          },
+          orderUpdates: {
+            push: false,
+            email: false,
+            whatsapp: false,
+          },
+          announcements: {
+            push: false,
+            email: false,
+            whatsapp: false,
+          },
+        },
         cartoesSalvos: null,
       },
       createdAt: now,

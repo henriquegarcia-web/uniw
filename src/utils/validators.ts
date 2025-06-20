@@ -91,3 +91,34 @@ export function isValidExpiryDate(expiryDate: string): boolean {
 
   return true
 }
+
+// ─── Validador de Num. de Cartão de Crédito ─────────────────────────────────
+
+export function isValidCreditCard(cardNumber: string): boolean {
+  if (!cardNumber) return false
+
+  const cleanedCardNumber = cardNumber.replace(/\D/g, '')
+
+  if (cleanedCardNumber.length < 13 || cleanedCardNumber.length > 19) {
+    return false
+  }
+
+  let sum = 0
+  let isSecondDigit = false
+
+  for (let i = cleanedCardNumber.length - 1; i >= 0; i--) {
+    let digit = parseInt(cleanedCardNumber.charAt(i), 10)
+
+    if (isSecondDigit) {
+      digit *= 2
+      if (digit > 9) {
+        digit -= 9
+      }
+    }
+
+    sum += digit
+    isSecondDigit = !isSecondDigit
+  }
+
+  return sum % 10 === 0
+}

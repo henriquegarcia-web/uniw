@@ -38,6 +38,7 @@ type AuthContextData = {
   reauthenticate(password: string): Promise<void>
   changePassword(newPassword: string): Promise<void>
   deleteUserAccount(password: string): Promise<void>
+
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -256,6 +257,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setIsLoadingAuthFunctions(false)
     }
   }
+
+  
 
   const clearAuthError = () => setErrorAuth(null)
 

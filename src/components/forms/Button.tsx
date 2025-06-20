@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 
 import { theme } from '@/styles/theme'
-import { Feather } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const variantStyles = {
   primary: {
@@ -71,13 +71,13 @@ const variantStyles = {
 }
 
 type ButtonVariant = keyof typeof variantStyles
-type FeatherIconName = keyof typeof Feather.glyphMap
+type MaterialCommunityIconsIcon = keyof typeof MaterialCommunityIcons.glyphMap
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string
   variant?: ButtonVariant
   loading?: boolean
-  leftIcon?: FeatherIconName
+  leftIcon?: MaterialCommunityIconsIcon
 }
 
 export const Button = ({
@@ -134,7 +134,7 @@ export const Button = ({
         ) : (
           <>
             {leftIcon && (
-              <Feather
+              <MaterialCommunityIcons
                 name={leftIcon}
                 size={20}
                 color={theme.colors.text_secondary}

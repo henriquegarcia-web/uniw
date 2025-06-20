@@ -55,7 +55,7 @@ const ClubScreen = ({ navigation }: ClubScreenProps) => {
 
   const clubInfo = user?.clienteProfile?.clube
   const loyaltyInfo = user?.clienteProfile?.fidelidade
-  const isMember = !!clubInfo && clubInfo.status === ClubStatus.BLOQUEADO
+  const isMember = !!clubInfo && clubInfo.status === ClubStatus.ATIVO
 
   const paymentHistory = [
     { id: '1', date: '15 de Junho, 2025', amount: 30.0 },
@@ -129,7 +129,7 @@ const ClubScreen = ({ navigation }: ClubScreenProps) => {
                   <Text style={styles.paymentMethodText}>Nenhum cartão selecionado</Text>
                 )}
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('MyCards')}>
                 <Text style={styles.changeButtonText}>Trocar</Text>
               </TouchableOpacity>
             </View>

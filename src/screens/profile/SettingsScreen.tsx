@@ -21,7 +21,7 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           <ProfileMenuItem label="Alterar e-mail" screen="ChangeEmail" />
           <ProfileMenuItem label="Alterar senha" screen="ChangePassword" />
           <ProfileMenuItem label="Meus endereços" screen="MyAddresses" />
-          <ProfileMenuItem label="Cartões" screen="MyCards" />
+          <ProfileMenuItem label="Cartões salvos" screen="MyCards" />
         </ProfileMenu>
 
         <ProfileMenu sectionTitle="Definições" type="list">
@@ -29,7 +29,7 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
             label="Configurações de notificação"
             screen="NotificationsSettings"
           />
-          <ProfileMenuItem label="Idioma" screen="ChangeLanguage" />
+          {/* <ProfileMenuItem label="Idioma" screen="ChangeLanguage" /> */}
         </ProfileMenu>
 
         <ProfileMenu sectionTitle="Suporte" type="list">

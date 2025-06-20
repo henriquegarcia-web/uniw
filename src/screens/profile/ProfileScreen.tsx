@@ -90,7 +90,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
             appScreen="SaleAnnouncement"
           />
           <ProfileMenuItem
-            label="Central de ajuda"
+            label="Central de Ajuda"
             icon="headset"
             appScreen="HelpCenter"
           />
