@@ -9,6 +9,7 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
   updatePassword,
+  deleteUser,
 } from 'firebase/auth'
 import {
   ref,
@@ -111,8 +112,10 @@ export async function signUp(
         clube: null,
         fidelidade: {
           pointsBalance: 0,
-          pointsHistory: [],
+          pointsHistory: null,
+          coupons: null,
         },
+        notifications: null,
         cartoesSalvos: null,
       },
       createdAt: now,
@@ -299,5 +302,28 @@ export async function changePassword(newPassword: string): Promise<void> {
   } catch (error: any) {
     console.error('Erro ao alterar a senha:', error)
     throw new Error('Não foi possível alterar a senha.')
+  }
+}
+
+export async function deleteUserAccount(currentPassword: string): Promise<void> {
+  const user = auth.currentUser
+  if (!user || !user.email) {
+    throw new Error('Nenhum usuário autenticado para excluir.')
+  }
+
+  try {
+    const credential = EmailAuthProvider.credential(user.email, currentPassword)
+    await reauthenticateWithCredential(user, credential)
+
+    const userDbRef = ref(database, `users/${user.uid}`)
+    await set(userDbRef, null)
+
+    await deleteUser(user)
+  } catch (error: any) {
+    console.error('Erro ao excluir a conta:', error.message)
+    if (error.code === 'auth/wrong-password') {
+      throw new Error('A senha está incorreta. Não foi possível excluir a conta.')
+    }
+    throw new Error('Ocorreu um erro e não foi possível excluir sua conta.')
   }
 }

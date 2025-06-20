@@ -27,7 +27,7 @@ export function MainTabNavigator() {
       <Tab.Screen
         name="CategoryStack"
         component={CategoryStack}
-        options={{ title: 'Produtos' }}
+        options={{ title: 'Categorias' }}
       />
       <Tab.Screen
         name="CartStack"

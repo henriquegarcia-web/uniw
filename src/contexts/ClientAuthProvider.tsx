@@ -37,6 +37,7 @@ type AuthContextData = {
   removeUserProfilePicture(): Promise<void>
   reauthenticate(password: string): Promise<void>
   changePassword(newPassword: string): Promise<void>
+  deleteUserAccount(password: string): Promise<void>
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -243,6 +244,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }
 
+  const deleteUserAccount = async (password: string) => {
+    setIsLoadingAuthFunctions(true)
+    setErrorAuth(null)
+    try {
+      await authService.deleteUserAccount(password)
+    } catch (error: any) {
+      setErrorAuth(error.message)
+      throw error
+    } finally {
+      setIsLoadingAuthFunctions(false)
+    }
+  }
+
   const clearAuthError = () => setErrorAuth(null)
 
   return (
@@ -268,6 +282,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         reauthenticate,
         changePassword,
         resetPassword,
+        deleteUserAccount,
       }}
     >
       {children}

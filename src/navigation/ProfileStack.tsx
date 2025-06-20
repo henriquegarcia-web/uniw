@@ -26,6 +26,8 @@ import NotificationsScreen from '@/screens/profile/NotificationsScreen'
 import ChatScreen from '@/screens/profile/ChatScreen'
 import ChatsListScreen from '@/screens/profile/ChatsListScreen'
 import ClubSignatureScreen from '@/screens/profile/ClubSignatureScreen'
+import CouponsScreen from '@/screens/profile/CouponsScreen'
+import NotificationDetailsScreen from '@/screens/profile/NotificationDetailsScreen'
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>()
 
@@ -145,6 +147,14 @@ export function ProfileStack() {
         }}
       />
       <Stack.Screen
+        name="Coupons"
+        component={CouponsScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="back-profile" title="Cupons de Desconto" />,
+        }}
+      />
+      <Stack.Screen
         name="MyAddresses"
         component={MyAddressesScreen}
         options={{
@@ -174,6 +184,14 @@ export function ProfileStack() {
         options={{
           headerShown: true,
           header: () => <Header variant="back-profile" title="Notificações" />,
+        }}
+      />
+      <Stack.Screen
+        name="NotificationDetails"
+        component={NotificationDetailsScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="back-profile" title="Notificação" />,
         }}
       />
       <Stack.Screen

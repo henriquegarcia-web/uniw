@@ -65,14 +65,14 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
           <ProfileNavigatorItem
             label="Cupons"
             icon="ticket-percent-outline"
-            screen="LoyaltyProgram"
+            screen="Coupons"
           />
         </ProfileMenu>
 
         <ProfileMenu sectionTitle="Mais atividades" type="list">
           <ProfileMenuItem
             label="Comprar novamente"
-            icon="repeat"
+            icon="cart-plus"
             screen="OrderHistory"
           />
           <ProfileMenuItem
@@ -80,7 +80,7 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
             icon="handshake-outline"
             screen="LoyaltyProgram"
           />
-          <ProfileMenuItem label="Prêmios" icon="gift-outline" screen="Awards" />
+          {/* <ProfileMenuItem label="Prêmios" icon="gift-outline" screen="Awards" /> */}
         </ProfileMenu>
 
         <ProfileMenu sectionTitle="Suporte" type="list">

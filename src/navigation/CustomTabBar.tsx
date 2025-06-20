@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
-import { Feather } from '@expo/vector-icons'
+import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 // import { Svg, Path } from 'react-native-svg'
 
 import { theme } from '@/styles/theme'
@@ -77,9 +77,9 @@ export const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarPro
 
           return (
             <TouchableOpacity key={route.key} style={styles.tabItem} onPress={onPress}>
-              <Feather
+              <MaterialCommunityIcons
                 name={iconName}
-                size={24}
+                size={iconName === 'home-outline' ? 26 : 24}
                 color={isFocused ? theme.colors.secondary : theme.colors.text_secondary}
               />
               <Text
@@ -103,16 +103,16 @@ export const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarPro
 }
 
 // Função auxiliar para mapear nomes de rota para nomes de ícones
-const getIconName = (routeName: string): keyof typeof Feather.glyphMap => {
+const getIconName = (routeName: string): keyof typeof MaterialCommunityIcons.glyphMap => {
   switch (routeName) {
     case 'HomeStack':
-      return 'home'
+      return 'home-outline'
     case 'Favoritos':
-      return 'heart'
+      return 'heart-outline'
     case 'CategoryStack':
-      return 'grid'
+      return 'view-grid-outline'
     case 'ProfileStack':
-      return 'user'
+      return 'account-circle-outline'
     default:
       return 'circle'
   }

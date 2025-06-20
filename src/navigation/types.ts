@@ -59,11 +59,13 @@ export type ProfileStackParamList = {
   Club: undefined
   ClubSignature: undefined
   LoyaltyProgram: undefined
+  Coupons: undefined
   MyAddresses: undefined
   MyCards: undefined
   NotificationsSettings: undefined
   Settings: undefined
   Notifications: undefined
+  NotificationDetails: { notificationId: string }
   ChatsList: undefined
   Chat: { chatId: string }
 }
@@ -203,6 +205,7 @@ export type LoyaltyProgramScreenProps = NativeStackScreenProps<
   ProfileStackParamList,
   'LoyaltyProgram'
 >
+export type CouponsScreenProps = NativeStackScreenProps<ProfileStackParamList, 'Coupons'>
 export type MyAddressesScreenProps = NativeStackScreenProps<
   ProfileStackParamList,
   'MyAddresses'
@@ -215,6 +218,10 @@ export type NotificationsSettingsScreenProps = NativeStackScreenProps<
 export type NotificationsScreenProps = NativeStackScreenProps<
   ProfileStackParamList,
   'Notifications'
+>
+export type NotificationDetailsScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'NotificationDetails'
 >
 export type ChatsListScreenProps = NativeStackScreenProps<
   ProfileStackParamList,

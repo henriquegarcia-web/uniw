@@ -5,6 +5,8 @@ import * as yup from 'yup'
 import { FormattedOption } from './global'
 import { isCpfInUse, isEmailInUse } from '@/services/auth'
 import { isValidCep, isValidCpf, isValidPhone } from '@/utils/validators'
+import { CouponStatus, IRedeemedCoupon } from './rewards'
+import { INotification } from './notifications'
 
 // ─── USER ROLES ─────────────────────────────────────────────────────────────
 
@@ -108,7 +110,8 @@ export interface IPointTransaction {
 
 export interface ILoyalty {
   pointsBalance: number
-  pointsHistory: IPointTransaction[]
+  pointsHistory: IPointTransaction[] | null
+  coupons: IRedeemedCoupon[] | null
 }
 
 // ─── PAYMENT TYPES ──────────────────────────────────────────────────────────
@@ -260,6 +263,8 @@ export interface IClienteProfile {
 
   clube: IClub | null
   fidelidade: ILoyalty
+
+  notifications: INotification[] | null
 
   cartoesSalvos: ICreditCard[] | null
 }

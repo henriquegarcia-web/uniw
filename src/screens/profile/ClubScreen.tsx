@@ -185,7 +185,7 @@ const ClubScreen = ({ navigation }: ClubScreenProps) => {
             title="Assinar por R$ 30,00/mês"
             variant="primary"
             style={{
-              height: 40,
+              height: 45,
               marginTop: theme.spacing.md,
             }}
             onPress={() => navigation.navigate('ClubSignature')}

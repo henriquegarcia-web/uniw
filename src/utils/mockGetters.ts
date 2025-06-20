@@ -1,12 +1,14 @@
 // src/utils/mockGetters.ts
 
 import { IPurchaseOrder, mockPurchaseHistory } from '@/types/auth'
+import { INotification, mockNotifications } from '@/types/notifications'
 import {
   IProduct,
   IProductCategory,
   mockCategories,
   mockProducts,
 } from '@/types/products'
+import { ICoupon, IRedeemedCoupon, mockCoupons } from '@/types/rewards'
 
 export function getCategoryById(categoryId: string): IProductCategory | undefined {
   if (!categoryId) {
@@ -44,4 +46,19 @@ export function getOrderById(orderId: string): IPurchaseOrder | undefined {
     return undefined
   }
   return mockPurchaseHistory.find((order) => order.id === orderId)
+}
+
+export function getCouponsByIds(userCoupons?: IRedeemedCoupon[]): ICoupon[] {
+  if (!userCoupons || userCoupons.length === 0) {
+    return []
+  }
+  const couponIds = userCoupons.map((uc) => uc.couponId)
+  return mockCoupons.filter((coupon) => couponIds.includes(coupon.id))
+}
+
+export function getNotificationById(notificationId: string): INotification | undefined {
+  if (!notificationId) {
+    return undefined
+  }
+  return mockNotifications.find((notification) => notification.id === notificationId)
 }

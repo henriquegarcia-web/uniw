@@ -163,7 +163,13 @@ const OrderDetailsScreen = ({ navigation, route }: OrderDetailsScreenProps) => {
         <View style={styles.sectionContainer}>
           <ProfileHeader title="Ações" />
 
-          <Button title="Refazer esse pedido" onPress={handleReOrder} />
+          <Button
+            title="Refazer esse pedido"
+            style={{
+              height: 45,
+            }}
+            onPress={handleReOrder}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -10,11 +10,10 @@ import {
   SafeAreaView,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { Feather } from '@expo/vector-icons'
+import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { theme } from '@/styles/theme'
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { AppStackParamList, MainTabParamList } from '@/navigation/types'
+import { AppStackParamList } from '@/navigation/types'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { useMenu } from '@/contexts/MenuProvider'
 import { InputSearch } from './forms/InputSearch'
@@ -29,12 +28,13 @@ type HeaderVariant =
   | 'profile'
   | 'back-profile'
 
-type FeatherIconName = keyof typeof Feather.glyphMap
+type FeatherIcon = keyof typeof Feather.glyphMap
+type MaterialCommunityIconsIcon = keyof typeof MaterialCommunityIcons.glyphMap
 
 export interface HeaderProps {
   variant: HeaderVariant
   title?: string
-  rightIconName?: FeatherIconName
+  rightIconName?: MaterialCommunityIconsIcon
   onRightIconPress?: () => void
 }
 
@@ -108,7 +108,7 @@ export const Header = ({
       case 'main-full':
         return (
           <TouchableOpacity onPress={onMenuPress} style={styles.iconButtonLeft}>
-            <Feather
+            <MaterialCommunityIcons
               name="menu"
               size={32}
               color={
@@ -123,7 +123,7 @@ export const Header = ({
       case 'back-title-action':
         return (
           <TouchableOpacity onPress={handleBackPress} style={styles.iconButtonLeft}>
-            <Feather
+            <MaterialCommunityIcons
               name="chevron-left"
               size={26}
               color={isVariantProfile ? theme.colors.text_contrast : theme.colors.text}
@@ -137,8 +137,8 @@ export const Header = ({
               onPress={onNotificationsPress}
               style={styles.iconButtonLeft}
             >
-              <Feather
-                name="bell"
+              <MaterialCommunityIcons
+                name="bell-outline"
                 size={26}
                 color={isVariantProfile ? theme.colors.text_contrast : theme.colors.text}
               />
@@ -209,7 +209,11 @@ export const Header = ({
         if (rightIconName && onRightIconPress) {
           return (
             <TouchableOpacity onPress={onRightIconPress} style={styles.iconButtonRight}>
-              <Feather name={rightIconName} size={26} color={theme.colors.text} />
+              <MaterialCommunityIcons
+                name={rightIconName}
+                size={26}
+                color={theme.colors.text}
+              />
             </TouchableOpacity>
           )
         }
@@ -218,16 +222,16 @@ export const Header = ({
         return (
           <>
             <TouchableOpacity onPress={onChatsPress} style={styles.iconButtonRight}>
-              <Feather
-                name="message-circle"
+              <MaterialCommunityIcons
+                name="message-outline"
                 size={26}
                 color={isVariantProfile ? theme.colors.text_contrast : theme.colors.text}
               />
             </TouchableOpacity>
             <TouchableOpacity onPress={onSettingsPress} style={styles.iconButtonRight}>
-              <Feather
-                name="settings"
-                size={24}
+              <MaterialCommunityIcons
+                name="cog-outline"
+                size={26}
                 color={isVariantProfile ? theme.colors.text_contrast : theme.colors.text}
               />
             </TouchableOpacity>
