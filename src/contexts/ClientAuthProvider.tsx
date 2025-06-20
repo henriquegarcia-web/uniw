@@ -38,7 +38,16 @@ type AuthContextData = {
   reauthenticate(password: string): Promise<void>
   changePassword(newPassword: string): Promise<void>
   deleteUserAccount(password: string): Promise<void>
-
+  updateUserEmail(newEmail: string): Promise<void> 
+  startPhoneNumberVerification(
+    phoneNumber: string,
+    recaptchaVerifier: any,
+  ): Promise<string>
+  confirmPhoneNumberUpdate(
+    verificationId: string,
+    otpCode: string,
+    newPhone: string,
+  ): Promise<void>
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -164,7 +173,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setErrorAuth(null)
 
     try {
-      await authService.updateProfile(user.id, data)
+      // await authService.updateProfile(user.id, data)
     } catch (error: any) {
       setErrorAuth(error.message)
       throw error
@@ -258,7 +267,61 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }
 
-  
+  const updateUserEmail = async (newEmail: string) => {
+    if (!user) throw new Error('Usuário não autenticado.')
+    setIsLoadingAuthFunctions(true)
+    setErrorAuth(null)
+    try {
+      await authService.updateUserEmail(user.id, newEmail)
+    } catch (error: any) {
+      setErrorAuth(error.message)
+      throw error
+    } finally {
+      setIsLoadingAuthFunctions(false)
+    }
+  }
+
+  const startPhoneNumberVerification = async (
+    phoneNumber: string,
+    recaptchaVerifier: any,
+  ) => {
+    setIsLoadingAuthFunctions(true)
+    setErrorAuth(null)
+    try {
+      return await authService.startPhoneNumberVerification(
+        phoneNumber,
+        recaptchaVerifier,
+      )
+    } catch (error: any) {
+      setErrorAuth(error.message)
+      throw error
+    } finally {
+      setIsLoadingAuthFunctions(false)
+    }
+  }
+
+  const confirmPhoneNumberUpdate = async (
+    verificationId: string,
+    otpCode: string,
+    newPhone: string,
+  ) => {
+    if (!user) throw new Error('Usuário não autenticado.')
+    setIsLoadingAuthFunctions(true)
+    setErrorAuth(null)
+    try {
+      await authService.confirmPhoneNumberUpdate(
+        user.id,
+        verificationId,
+        otpCode,
+        newPhone,
+      )
+    } catch (error: any) {
+      setErrorAuth(error.message)
+      throw error
+    } finally {
+      setIsLoadingAuthFunctions(false)
+    }
+  }
 
   const clearAuthError = () => setErrorAuth(null)
 
@@ -286,6 +349,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         changePassword,
         resetPassword,
         deleteUserAccount,
+        updateUserEmail,
+        startPhoneNumberVerification, 
+        confirmPhoneNumberUpdate,
       }}
     >
       {children}

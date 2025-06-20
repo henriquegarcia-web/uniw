@@ -1,13 +1,14 @@
 // src/components/EditableUserName.tsx
 
 import React, { useState } from 'react'
-import { Text, StyleSheet, View, Alert, Modal } from 'react-native'
+import { Text, StyleSheet, View, Alert, TouchableOpacity } from 'react-native'
 
 import { theme } from '@/styles/theme'
 import { ButtonEdit } from './ButtonEdit'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { Button } from './Button'
 import { InputText } from './InputText'
+import { Modal } from '../Modal'
 
 interface EditableUserNameProps {}
 
@@ -48,37 +49,35 @@ export const EditableUserName = ({}: EditableUserNameProps) => {
       </View>
 
       <Modal
-        visible={modalVisible}
-        transparent={true}
-        animationType="fade"
-        onRequestClose={() => setModalVisible(false)}
+        variant="fade"
+        isVisible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        title="Alterar Nome"
       >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Alterar Nome</Text>
-            <InputText
-              placeholder="Digite seu novo nome"
-              value={newName}
-              onChangeText={setNewName}
-              autoCapitalize="words"
+        <View style={styles.modalContent}>
+          <InputText
+            label="Seu novo nome"
+            placeholder="Digite seu novo nome"
+            value={newName}
+            onChangeText={setNewName}
+            autoCapitalize="words"
+          />
+          <View style={styles.modalActions}>
+            <Button
+              title="Cancelar"
+              variant="secondary"
+              onPress={() => setModalVisible(false)}
+              disabled={isLoadingAuthFunctions}
+              style={{ flex: 1, height: 50 }}
             />
-            <View style={styles.modalActions}>
-              <Button
-                title="Cancelar"
-                variant="secondary"
-                onPress={() => setModalVisible(false)}
-                disabled={isLoadingAuthFunctions}
-                style={{ flex: 1 }}
-              />
-              <Button
-                title="Salvar"
-                variant="primary"
-                onPress={handleSubmit}
-                loading={isLoadingAuthFunctions}
-                disabled={isLoadingAuthFunctions}
-                style={{ flex: 1 }}
-              />
-            </View>
+            <Button
+              title="Salvar"
+              variant="primary"
+              onPress={handleSubmit}
+              loading={isLoadingAuthFunctions}
+              disabled={isLoadingAuthFunctions}
+              style={{ flex: 1, height: 50 }}
+            />
           </View>
         </View>
       </Modal>
@@ -88,7 +87,7 @@ export const EditableUserName = ({}: EditableUserNameProps) => {
 
 const styles = StyleSheet.create({
   nameContainer: {
-    alignItems: 'center',
+    flexDirection: 'row',
   },
   nameWrapper: {
     position: 'relative',
@@ -98,36 +97,19 @@ const styles = StyleSheet.create({
     fontSize: theme.fonts.size.md,
     lineHeight: theme.fonts.size.lg,
     borderRadius: theme.borders.radius.circle,
+    color: theme.colors.text_contrast,
   },
   nameEdit: {
     position: 'absolute',
     top: -10,
     right: -22,
   },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: theme.spacing.lg,
-  },
   modalContent: {
-    width: '100%',
-    height: 240,
-    backgroundColor: theme.colors.surface,
-    borderRadius: theme.borders.radius.md,
-    padding: theme.spacing.lg,
-  },
-  modalTitle: {
-    fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
-    marginBottom: theme.spacing.md,
-    textAlign: 'center',
+    rowGap: 10,
   },
   modalActions: {
     flexDirection: 'row',
-    marginTop: theme.spacing.lg,
+    marginTop: theme.spacing.md,
     gap: theme.spacing.md,
   },
 })

@@ -2,7 +2,7 @@
 
 import { get, ref, set, update } from 'firebase/database'
 import { database } from './firebaseConfig'
-import { ICreditCard, INotificationSettings } from '@/types/auth'
+import { IAddress, ICreditCard, INotificationSettings } from '@/types/auth'
 
 // ────────────── FAVORITOS
 
@@ -145,5 +145,81 @@ export async function setDefaultCreditCard(
   } catch (error: any) {
     console.error('Erro ao definir cartão padrão:', error.message)
     throw new Error('Não foi possível definir o cartão como padrão.')
+  }
+}
+
+// ────────────── ENDEREÇOS
+
+export async function addAddress(
+  userId: string,
+  addressData: Omit<IAddress, 'id'>,
+): Promise<void> {
+  try {
+    const addressesRef = ref(database, `/users/${userId}/clienteProfile/enderecosSalvos`)
+    const snapshot = await get(addressesRef)
+    const currentAddresses: IAddress[] = snapshot.val() || []
+
+    const isFirstAddress = currentAddresses.length === 0
+    const newAddress: IAddress = {
+      id: Date.now().toString(36), // Gera um ID único
+      ...addressData,
+      isDefault: addressData.isDefault || isFirstAddress,
+    }
+
+    if (newAddress.isDefault && !isFirstAddress) {
+      currentAddresses.forEach((address) => (address.isDefault = false))
+    }
+
+    const newAddressesList = [...currentAddresses, newAddress]
+    await set(addressesRef, newAddressesList)
+    await update(ref(database, `/users/${userId}`), { updatedAt: Date.now() })
+  } catch (error: any) {
+    console.error('Erro ao adicionar endereço:', error.message)
+    throw new Error('Não foi possível salvar o novo endereço.')
+  }
+}
+
+export async function removeAddress(userId: string, addressId: string): Promise<void> {
+  try {
+    const addressesRef = ref(database, `/users/${userId}/clienteProfile/enderecosSalvos`)
+    const snapshot = await get(addressesRef)
+    const currentAddresses: IAddress[] = snapshot.val() || []
+
+    const newAddressesList = currentAddresses.filter(
+      (address) => address.id !== addressId,
+    )
+
+    const removedAddress = currentAddresses.find((a) => a.id === addressId)
+    if (removedAddress?.isDefault && newAddressesList.length > 0) {
+      newAddressesList[0].isDefault = true
+    }
+
+    await set(addressesRef, newAddressesList)
+    await update(ref(database, `/users/${userId}`), { updatedAt: Date.now() })
+  } catch (error: any) {
+    console.error('Erro ao remover endereço:', error.message)
+    throw new Error('Não foi possível remover o endereço.')
+  }
+}
+
+export async function setDefaultAddress(
+  userId: string,
+  addressId: string,
+): Promise<void> {
+  try {
+    const addressesRef = ref(database, `/users/${userId}/clienteProfile/enderecosSalvos`)
+    const snapshot = await get(addressesRef)
+    const currentAddresses: IAddress[] = snapshot.val() || []
+
+    const newAddressesList = currentAddresses.map((address) => ({
+      ...address,
+      isDefault: address.id === addressId,
+    }))
+
+    await set(addressesRef, newAddressesList)
+    await update(ref(database, `/users/${userId}`), { updatedAt: Date.now() })
+  } catch (error: any) {
+    console.error('Erro ao definir endereço padrão:', error.message)
+    throw new Error('Não foi possível definir o endereço como padrão.')
   }
 }

@@ -11,7 +11,7 @@ import {
   isValidExpiryDate,
   isValidPhone,
 } from '@/utils/validators'
-import { CouponStatus, IRedeemedCoupon } from './rewards'
+import { IRedeemedCoupon } from './rewards'
 import { INotification } from './notifications'
 
 // ─── USER ROLES ─────────────────────────────────────────────────────────────
@@ -250,6 +250,21 @@ export interface INotificationSettings {
   announcements: INotificationChannelSettings
 }
 
+// ─── ADDRESS TYPES ──────────────────────────────────────────────────────────
+
+export interface IAddress {
+  id: string
+  nome: string // Ex: "Casa", "Trabalho"
+  cep: string
+  rua: string
+  numero: string
+  bairro: string
+  cidade: string
+  estado: string
+  complemento?: string
+  isDefault: boolean
+}
+
 // ─── USER TYPES ─────────────────────────────────────────────────────────────
 
 export interface IBaseProfile {
@@ -260,14 +275,6 @@ export interface IBaseProfile {
   foto: string | null
   telefone: string | null
   dataNascimento: number | null
-  endereco: {
-    cep: string | null
-    rua: string | null
-    numero: string | null
-    bairro: string | null
-    cidade: string | null
-    estado: string | null
-  }
 
   verificacoes: {
     identidade: boolean
@@ -289,6 +296,7 @@ export interface IClienteProfile {
   notificationsSettings: INotificationSettings
 
   cartoesSalvos: ICreditCard[] | null
+  enderecosSalvos: IAddress[] | null
 }
 
 export interface IUser {
@@ -380,6 +388,41 @@ export const changePasswordSchema = yup.object({
     .required('Confirme sua nova senha.'),
 })
 
+export const changeEmailSchema = yup.object({
+  newEmail: yup
+    .string()
+    .email('Por favor, insira um e-mail válido.')
+    .required('O campo de novo e-mail é obrigatório.')
+    .test(
+      'is-email-unique',
+      'Este e-mail já está em uso por outra conta.',
+      async (value) => {
+        if (!value) return true
+        const isTaken = await isEmailInUse(value)
+        return !isTaken
+      },
+    ),
+  currentPassword: yup
+    .string()
+    .min(6, 'A senha deve ter no mínimo 6 caracteres.')
+    .required('Sua senha atual é obrigatória para alterar o e-mail.'),
+})
+
+export const changePhoneSchema = yup.object({
+  newPhone: yup
+    .string()
+    .required('O novo número de telefone é obrigatório.')
+    .test(
+      'is-valid-phone',
+      'Por favor, insira um número de telefone válido com DDD.',
+      (value) => !value || isValidPhone(value),
+    ),
+  currentPassword: yup
+    .string()
+    .min(6, 'A senha deve ter no mínimo 6 caracteres.')
+    .required('Sua senha atual é obrigatória para alterar o telefone.'),
+})
+
 export const updateProfileSchema = yup.object({
   email: yup.string().nullable(),
   cpf: yup.string().nullable(),
@@ -430,6 +473,21 @@ export const addCardSchema = yup.object({
       (value) => !value || isValidExpiryDate(value),
     )
     .label('Validade'),
+  isDefault: yup.boolean(),
+})
+
+export const addAddressSchema = yup.object({
+  nome: yup.string().required('O nome de identificação é obrigatório.'),
+  cep: yup
+    .string()
+    .required('O CEP é obrigatório.')
+    .test('is-valid-cep', 'CEP inválido', (value) => !value || isValidCep(value)),
+  rua: yup.string().required('A rua é obrigatória.'),
+  numero: yup.string().required('O número é obrigatório.'),
+  bairro: yup.string().required('O bairro é obrigatório.'),
+  estado: yup.string().required('O estado é obrigatório.'),
+  cidade: yup.string().required('A cidade é obrigatória.'),
+  complemento: yup.string(),
   isDefault: yup.boolean(),
 })
 

@@ -61,6 +61,7 @@ export type ProfileStackParamList = {
   LoyaltyProgram: undefined
   Coupons: undefined
   MyAddresses: undefined
+  AddNewAddress: undefined
   MyCards: undefined
   NotificationsSettings: undefined
   Settings: undefined
@@ -209,6 +210,10 @@ export type CouponsScreenProps = NativeStackScreenProps<ProfileStackParamList, '
 export type MyAddressesScreenProps = NativeStackScreenProps<
   ProfileStackParamList,
   'MyAddresses'
+>
+export type AddNewAddressScreenProps = NativeStackScreenProps<
+  ProfileStackParamList,
+  'AddNewAddress'
 >
 export type MyCardsScreenProps = NativeStackScreenProps<ProfileStackParamList, 'MyCards'>
 export type NotificationsSettingsScreenProps = NativeStackScreenProps<

@@ -16,7 +16,7 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
         keyboardShouldPersistTaps="handled"
       >
         <ProfileMenu sectionTitle="Minha conta" type="list">
-          <ProfileMenuItem label="Editar perfil" screen="EditProfile" />
+          {/* <ProfileMenuItem label="Editar perfil" screen="EditProfile" /> */}
           <ProfileMenuItem label="Alterar telefone" screen="ChangePhone" />
           <ProfileMenuItem label="Alterar e-mail" screen="ChangeEmail" />
           <ProfileMenuItem label="Alterar senha" screen="ChangePassword" />

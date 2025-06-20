@@ -28,6 +28,7 @@ import ChatsListScreen from '@/screens/profile/ChatsListScreen'
 import ClubSignatureScreen from '@/screens/profile/ClubSignatureScreen'
 import CouponsScreen from '@/screens/profile/CouponsScreen'
 import NotificationDetailsScreen from '@/screens/profile/NotificationDetailsScreen'
+import AddNewAddressScreen from '@/screens/profile/AddNewAddressScreen'
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>()
 
@@ -160,6 +161,14 @@ export function ProfileStack() {
         options={{
           headerShown: true,
           header: () => <Header variant="back-profile" title="Meu Endereços" />,
+        }}
+      />
+      <Stack.Screen
+        name="AddNewAddress"
+        component={AddNewAddressScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="back-profile" title="Novo Endereço" />,
         }}
       />
       <Stack.Screen

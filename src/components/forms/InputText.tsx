@@ -76,7 +76,7 @@ export const InputText = forwardRef<TextInput, InputTextProps>(
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
   },
   label: {
     marginBottom: theme.spacing.sm,

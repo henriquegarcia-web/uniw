@@ -22,6 +22,8 @@ import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { UserTag } from '@/components/UserTag'
 import { ProfileHeader } from '@/components/ProfileHeader'
+import { EditableUserPicture } from '@/components/forms/EditableUserPicture'
+import { EditableUserName } from '@/components/forms/EditableUserName'
 
 type MaterialCommunityIconsIconName = keyof typeof MaterialCommunityIcons.glyphMap
 
@@ -34,17 +36,20 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>
         <View style={styles.userPictureContainer}>
-          {userHasPhoto ? (
+          <EditableUserPicture />
+
+          {/* {userHasPhoto ? (
             <Image source={{ uri: user.baseProfile.foto! }} style={styles.userPicture} />
           ) : (
             <Image
               source={require('@/assets/images/avatar.jpg')}
               style={styles.placeholder}
             />
-          )}
+          )} */}
         </View>
         <View style={styles.userMainInfos}>
-          <Text style={styles.userName}>{user?.baseProfile.nome}</Text>
+          <EditableUserName />
+          {/* <Text style={styles.userName}>{user?.baseProfile.nome}</Text> */}
           <Text style={styles.userEmail}>{user?.baseProfile.email}</Text>
         </View>
       </View>
@@ -132,12 +137,6 @@ const styles = StyleSheet.create({
   userMainInfos: {
     rowGap: 2,
     paddingLeft: 135,
-  },
-  userName: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.lg,
-    lineHeight: theme.fonts.size.xl,
-    color: theme.colors.text_contrast,
   },
   userEmail: {
     fontFamily: theme.fonts.family.medium,

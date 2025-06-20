@@ -3,7 +3,7 @@
 import React, { createContext, useContext, ReactNode, useState } from 'react'
 import * as profileService from '@/services/profile'
 import { useClientAuth } from './ClientAuthProvider'
-import { ICreditCard, INotificationSettings } from '@/types/auth'
+import { IAddress, ICreditCard, INotificationSettings } from '@/types/auth'
 
 interface ProfileContextData {
   isProfileLoading: boolean
@@ -15,6 +15,9 @@ interface ProfileContextData {
   addCreditCard(cardData: Omit<ICreditCard, 'id' | 'token'>): Promise<void>
   removeCreditCard(cardId: string): Promise<void>
   setDefaultCreditCard(cardId: string): Promise<void>
+  addAddress(addressData: Omit<IAddress, 'id'>): Promise<void>
+  removeAddress(addressId: string): Promise<void>
+  setDefaultAddress(addressId: string): Promise<void>
 }
 
 const ProfileContext = createContext<ProfileContextData>({} as ProfileContextData)
@@ -88,6 +91,36 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
+  const addAddress = async (addressData: Omit<IAddress, 'id'>) => {
+    if (!user) throw new Error('Usuário não autenticado.')
+    setIsProfileLoading(true)
+    try {
+      await profileService.addAddress(user.id, addressData)
+    } finally {
+      setIsProfileLoading(false)
+    }
+  }
+
+  const removeAddress = async (addressId: string) => {
+    if (!user) throw new Error('Usuário não autenticado.')
+    setIsProfileLoading(true)
+    try {
+      await profileService.removeAddress(user.id, addressId)
+    } finally {
+      setIsProfileLoading(false)
+    }
+  }
+
+  const setDefaultAddress = async (addressId: string) => {
+    if (!user) throw new Error('Usuário não autenticado.')
+    setIsProfileLoading(true)
+    try {
+      await profileService.setDefaultAddress(user.id, addressId)
+    } finally {
+      setIsProfileLoading(false)
+    }
+  }
+
   return (
     <ProfileContext.Provider
       value={{
@@ -100,6 +133,9 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
         addCreditCard,
         removeCreditCard,
         setDefaultCreditCard,
+        addAddress,
+        removeAddress,
+        setDefaultAddress,
       }}
     >
       {children}

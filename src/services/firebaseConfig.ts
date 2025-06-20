@@ -6,7 +6,7 @@ import { initializeAuth, getReactNativePersistence } from 'firebase/auth'
 import { getDatabase } from 'firebase/database'
 import { getStorage } from 'firebase/storage'
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: Constants.expoConfig?.extra?.firebaseApiKey,
   authDomain: Constants.expoConfig?.extra?.firebaseAuthDomain,
   databaseURL: Constants.expoConfig?.extra?.firebaseDatabaseURL,

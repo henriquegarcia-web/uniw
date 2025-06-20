@@ -32,129 +32,129 @@ import { EditableUserPassword } from '@/components/forms/EditableUserPassword'
 import { useFocusEffect } from '@react-navigation/native'
 
 const EditProfileScreen = ({ navigation }: EditProfileScreenProps) => {
-  const { user, updateProfile, isLoadingAuthFunctions } = useClientAuth()
+  // const { user, updateProfile, isLoadingAuthFunctions } = useClientAuth()
 
-  const [states, setStates] = useState<DropdownItem[]>([])
-  const [cities, setCities] = useState<DropdownItem[]>([])
-  const [isLoadingCities, setIsLoadingCities] = useState(false)
-  const [isCepLoading, setIsCepLoading] = useState(false)
+  // const [states, setStates] = useState<DropdownItem[]>([])
+  // const [cities, setCities] = useState<DropdownItem[]>([])
+  // const [isLoadingCities, setIsLoadingCities] = useState(false)
+  // const [isCepLoading, setIsCepLoading] = useState(false)
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isDirty },
-    setValue,
-    watch,
-    reset,
-  } = useForm({
-    resolver: yupResolver(updateProfileSchema),
-    mode: 'onBlur',
-  })
+  // const {
+  //   control,
+  //   handleSubmit,
+  //   formState: { errors, isDirty },
+  //   setValue,
+  //   watch,
+  //   reset,
+  // } = useForm({
+  //   resolver: yupResolver(updateProfileSchema),
+  //   mode: 'onBlur',
+  // })
 
-  const watchedState = watch('endereco.estado')
+  // const watchedState = watch('endereco.estado')
 
-  useEffect(() => {
-    if (user) {
-      reset({
-        email: user.baseProfile.email,
-        cpf: applyMask(user.baseProfile.cpf, 'cpf'),
-        telefone: user.baseProfile?.telefone
-          ? applyMask(user.baseProfile?.telefone, 'phone')
-          : null,
-        endereco: {
-          cep: user.baseProfile?.endereco?.cep
-            ? applyMask(user.baseProfile.endereco.cep, 'cep')
-            : null,
-          rua: user.baseProfile?.endereco?.rua || null,
-          numero: user.baseProfile?.endereco?.numero || null,
-          bairro: user.baseProfile?.endereco?.bairro || null,
-          cidade: user.baseProfile?.endereco?.cidade || null,
-          estado: user.baseProfile?.endereco?.estado || null,
-        },
-      })
-    }
-  }, [user, reset])
+  // useEffect(() => {
+  //   if (user) {
+  //     reset({
+  //       email: user.baseProfile.email,
+  //       cpf: applyMask(user.baseProfile.cpf, 'cpf'),
+  //       telefone: user.baseProfile?.telefone
+  //         ? applyMask(user.baseProfile?.telefone, 'phone')
+  //         : null,
+  //       endereco: {
+  //         cep: user.baseProfile?.endereco?.cep
+  //           ? applyMask(user.baseProfile.endereco.cep, 'cep')
+  //           : null,
+  //         rua: user.baseProfile?.endereco?.rua || null,
+  //         numero: user.baseProfile?.endereco?.numero || null,
+  //         bairro: user.baseProfile?.endereco?.bairro || null,
+  //         cidade: user.baseProfile?.endereco?.cidade || null,
+  //         estado: user.baseProfile?.endereco?.estado || null,
+  //       },
+  //     })
+  //   }
+  // }, [user, reset])
 
-  useEffect(() => {
-    ibgeService.getStates().then((data) => {
-      const formattedStates = data.map((s: IBGEState) => ({
-        label: s.nome,
-        value: s.sigla,
-      }))
-      setStates(formattedStates)
-    })
-  }, [])
+  // useEffect(() => {
+  //   ibgeService.getStates().then((data) => {
+  //     const formattedStates = data.map((s: IBGEState) => ({
+  //       label: s.nome,
+  //       value: s.sigla,
+  //     }))
+  //     setStates(formattedStates)
+  //   })
+  // }, [])
 
-  useEffect(() => {
-    if (watchedState) {
-      setIsLoadingCities(true)
-      ibgeService.getCitiesByState(watchedState).then((data) => {
-        const formattedCities = data.map((c: IBGECity) => ({
-          label: c.nome,
-          value: c.nome,
-        }))
-        setCities(formattedCities)
-        setIsLoadingCities(false)
-      })
-    } else {
-      setCities([])
-    }
-  }, [watchedState])
+  // useEffect(() => {
+  //   if (watchedState) {
+  //     setIsLoadingCities(true)
+  //     ibgeService.getCitiesByState(watchedState).then((data) => {
+  //       const formattedCities = data.map((c: IBGECity) => ({
+  //         label: c.nome,
+  //         value: c.nome,
+  //       }))
+  //       setCities(formattedCities)
+  //       setIsLoadingCities(false)
+  //     })
+  //   } else {
+  //     setCities([])
+  //   }
+  // }, [watchedState])
 
-  const handleCepBlur = async (cep: string) => {
-    if (cep?.length === 9) {
-      setIsCepLoading(true)
-      try {
-        const endereco = await viacepService.getAddressByCep(cep)
-        if (!endereco.erro) {
-          setValue('endereco.rua', endereco.logradouro, { shouldValidate: true })
-          setValue('endereco.bairro', endereco.bairro, { shouldValidate: true })
-          setValue('endereco.estado', endereco.uf, { shouldValidate: true })
-          setValue('endereco.cidade', endereco.localidade, { shouldValidate: true })
-        }
-      } catch (error) {
-        console.error(error)
-      } finally {
-        setIsCepLoading(false)
-      }
-    }
-  }
+  // const handleCepBlur = async (cep: string) => {
+  //   if (cep?.length === 9) {
+  //     setIsCepLoading(true)
+  //     try {
+  //       const endereco = await viacepService.getAddressByCep(cep)
+  //       if (!endereco.erro) {
+  //         setValue('endereco.rua', endereco.logradouro, { shouldValidate: true })
+  //         setValue('endereco.bairro', endereco.bairro, { shouldValidate: true })
+  //         setValue('endereco.estado', endereco.uf, { shouldValidate: true })
+  //         setValue('endereco.cidade', endereco.localidade, { shouldValidate: true })
+  //       }
+  //     } catch (error) {
+  //       console.error(error)
+  //     } finally {
+  //       setIsCepLoading(false)
+  //     }
+  //   }
+  // }
 
-  const handleUpdateProfile = async (data: FieldValues) => {
-    try {
-      const dataToUpdate: Partial<IBaseProfile> = {}
+  // const handleUpdateProfile = async (data: FieldValues) => {
+  //   try {
+  //     const dataToUpdate: Partial<IBaseProfile> = {}
 
-      if (data.telefone) {
-        dataToUpdate.telefone = data.telefone.replace(/\D/g, '')
-      }
+  //     if (data.telefone) {
+  //       dataToUpdate.telefone = data.telefone.replace(/\D/g, '')
+  //     }
 
-      if (data.endereco) {
-        const cleanAddress = { ...data.endereco }
-        if (cleanAddress.cep) {
-          cleanAddress.cep = cleanAddress.cep.replace(/\D/g, '')
-        }
-        dataToUpdate.endereco = cleanAddress
-      }
+  //     if (data.endereco) {
+  //       const cleanAddress = { ...data.endereco }
+  //       if (cleanAddress.cep) {
+  //         cleanAddress.cep = cleanAddress.cep.replace(/\D/g, '')
+  //       }
+  //       dataToUpdate.endereco = cleanAddress
+  //     }
 
-      await updateProfile(dataToUpdate)
+  //     await updateProfile(dataToUpdate)
 
-      Alert.alert('Sucesso', 'Seu perfil foi atualizado.')
-    } catch (error) {
-      Alert.alert('Erro', 'Não foi possível atualizar seu perfil.')
-    }
-  }
+  //     Alert.alert('Sucesso', 'Seu perfil foi atualizado.')
+  //   } catch (error) {
+  //     Alert.alert('Erro', 'Não foi possível atualizar seu perfil.')
+  //   }
+  // }
 
-  useFocusEffect(
-    useCallback(() => {
-      return () => {
-        reset()
-      }
-    }, [reset]),
-  )
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     return () => {
+  //       reset()
+  //     }
+  //   }, [reset]),
+  // )
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView
+      {/* <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.contentContainer}
         keyboardShouldPersistTaps="handled"
@@ -327,7 +327,7 @@ const EditProfileScreen = ({ navigation }: EditProfileScreenProps) => {
             />
           </View>
         </View>
-      </ScrollView>
+      </ScrollView> */}
     </SafeAreaView>
   )
 }

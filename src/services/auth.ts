@@ -10,6 +10,10 @@ import {
   EmailAuthProvider,
   updatePassword,
   deleteUser,
+  updateEmail,
+  sendEmailVerification,
+  PhoneAuthProvider,
+  updatePhoneNumber,
 } from 'firebase/auth'
 import {
   ref,
@@ -86,14 +90,6 @@ export async function signUp(
         foto: null,
         telefone: null,
         dataNascimento: null,
-        endereco: {
-          cep: null,
-          rua: null,
-          numero: null,
-          bairro: null,
-          cidade: null,
-          estado: null,
-        },
         verificacoes: {
           identidade: false,
           telefone: false,
@@ -135,6 +131,7 @@ export async function signUp(
           },
         },
         cartoesSalvos: null,
+        enderecosSalvos: null,
       },
       createdAt: now,
       updatedAt: now,
@@ -187,35 +184,35 @@ export async function getFullUserData(userId: string): Promise<IUser | null> {
   }
 }
 
-export async function updateProfile(
-  userId: string,
-  data: Partial<Pick<IBaseProfile, 'telefone' | 'endereco'>>,
-): Promise<void> {
-  try {
-    if ('telefone' in data && data.telefone !== undefined) {
-      const telefoneRef = ref(database, `/users/${userId}/baseProfile/telefone`)
-      await set(telefoneRef, data.telefone)
-    }
+// export async function updateProfile(
+//   userId: string,
+//   data: Partial<Pick<IBaseProfile, 'telefone'> | 'enderecosSalvos'>,
+// ): Promise<void> {
+//   try {
+//     if ('telefone' in data && data.telefone !== undefined) {
+//       const telefoneRef = ref(database, `/users/${userId}/baseProfile/telefone`)
+//       await set(telefoneRef, data.telefone)
+//     }
 
-    if (data.endereco) {
-      for (const [key, value] of Object.entries(data.endereco)) {
-        if (value !== undefined) {
-          const enderecoFieldRef = ref(
-            database,
-            `/users/${userId}/baseProfile/endereco/${key}`,
-          )
-          await set(enderecoFieldRef, value)
-        }
-      }
-    }
+//     if (data.endereco) {
+//       for (const [key, value] of Object.entries(data.endereco)) {
+//         if (value !== undefined) {
+//           const enderecoFieldRef = ref(
+//             database,
+//             `/users/${userId}/baseProfile/endereco/${key}`,
+//           )
+//           await set(enderecoFieldRef, value)
+//         }
+//       }
+//     }
 
-    const updatedAtRef = ref(database, `/users/${userId}/updatedAt`)
-    await set(updatedAtRef, Date.now())
-  } catch (error: any) {
-    console.error('Erro ao atualizar o perfil:', error.message)
-    throw new Error('Não foi possível atualizar os dados do perfil.')
-  }
-}
+//     const updatedAtRef = ref(database, `/users/${userId}/updatedAt`)
+//     await set(updatedAtRef, Date.now())
+//   } catch (error: any) {
+//     console.error('Erro ao atualizar o perfil:', error.message)
+//     throw new Error('Não foi possível atualizar os dados do perfil.')
+//   }
+// }
 
 export async function updateUserName(userId: string, newName: string): Promise<void> {
   try {
@@ -343,5 +340,86 @@ export async function deleteUserAccount(currentPassword: string): Promise<void> 
       throw new Error('A senha está incorreta. Não foi possível excluir a conta.')
     }
     throw new Error('Ocorreu um erro e não foi possível excluir sua conta.')
+  }
+}
+
+export async function updateUserEmail(userId: string, newEmail: string): Promise<void> {
+  const user = auth.currentUser
+  if (!user) {
+    throw new Error('Nenhum usuário autenticado.')
+  }
+
+  try {
+    // 1. Atualiza o e-mail no Firebase Authentication
+    await updateEmail(user, newEmail)
+
+    // 2. Atualiza o e-mail no Realtime Database
+    const updates: { [key: string]: any } = {}
+    updates[`/users/${userId}/baseProfile/email`] = newEmail
+    updates[`/users/${userId}/updatedAt`] = Date.now()
+
+    await update(ref(database), updates)
+
+    // 3. Envia um e-mail de verificação para o novo endereço (boa prática)
+    await sendEmailVerification(user)
+  } catch (error: any) {
+    console.error('Erro ao atualizar e-mail:', error.message)
+    if (error.code === 'auth/email-already-in-use') {
+      throw new Error('Este e-mail já está em uso por outra conta.')
+    }
+    if (error.code === 'auth/requires-recent-login') {
+      throw new Error(
+        'Esta operação é sensível e requer autenticação recente. Por favor, faça login novamente.',
+      )
+    }
+    throw new Error('Não foi possível atualizar o e-mail.')
+  }
+}
+
+export async function startPhoneNumberVerification(
+  phoneNumber: string,
+  recaptchaVerifier: any,
+): Promise<string> {
+  try {
+    const phoneProvider = new PhoneAuthProvider(auth)
+    const verificationId = await phoneProvider.verifyPhoneNumber(
+      phoneNumber,
+      recaptchaVerifier,
+    )
+    return verificationId
+  } catch (error: any) {
+    console.error('Erro ao iniciar verificação de telefone:', error)
+    throw new Error('Não foi possível iniciar a verificação. Tente novamente.')
+  }
+}
+
+export async function confirmPhoneNumberUpdate(
+  userId: string,
+  verificationId: string,
+  otpCode: string,
+  newPhone: string,
+): Promise<void> {
+  const user = auth.currentUser
+  if (!user) {
+    throw new Error('Nenhum usuário autenticado.')
+  }
+
+  try {
+    const credential = PhoneAuthProvider.credential(verificationId, otpCode)
+    await updatePhoneNumber(user, credential)
+
+    // Se a atualização no Auth funcionou, atualiza no DB
+    const updates: { [key: string]: any } = {}
+    updates[`/users/${userId}/baseProfile/telefone`] = newPhone.replace('+55', '')
+    updates[`/users/${userId}/baseProfile/verificacoes/telefone`] = true
+    updates[`/users/${userId}/updatedAt`] = Date.now()
+
+    await update(ref(database), updates)
+  } catch (error: any) {
+    console.error('Erro ao confirmar o código OTP:', error)
+    if (error.code === 'auth/invalid-verification-code') {
+      throw new Error('O código de verificação é inválido.')
+    }
+    throw new Error('Não foi possível atualizar o número de telefone.')
   }
 }

@@ -1,22 +1,14 @@
 // src/components/EditableUserPicture.tsx
 
 import React, { useState } from 'react'
-import {
-  Alert,
-  Image,
-  Modal,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Alert, Image, StyleSheet, View } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 
 import { theme } from '@/styles/theme'
 import { ButtonEdit } from './ButtonEdit'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { Button } from './Button'
+import { Modal } from '../Modal'
 
 interface EditableUserPictureProps {}
 
@@ -99,41 +91,34 @@ export const EditableUserPicture = ({}: EditableUserPictureProps) => {
       </View>
 
       <Modal
-        visible={modalVisible}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={() => setModalVisible(false)}
+        variant="slide"
+        isVisible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        title={userHasPhoto ? 'Alterar foto de perfil' : 'Adicionar foto de perfil'}
       >
-        <TouchableOpacity
-          style={styles.modalOverlay}
-          onPress={() => setModalVisible(false)}
-        >
-          <SafeAreaView
-            style={[styles.actionSheet, { height: userHasPhoto ? 210 : 140 }]}
-          >
+        <View style={styles.modalContent}>
+          <Button
+            title="Escolher foto"
+            variant="primary"
+            onPress={handlePickImage}
+            style={{ height: 50 }}
+          />
+          {userHasPhoto && (
             <Button
-              title={userHasPhoto ? 'Alterar foto de perfil' : 'Adicionar foto de perfil'}
-              variant="primary"
-              onPress={handlePickImage}
-              style={{ flex: 1, height: 100, width: '100%' }}
+              title="Remover foto"
+              variant="negative"
+              onPress={handleRemoveImage}
+              style={{ height: 50 }}
             />
-            {userHasPhoto && (
-              <Button
-                title="Remover foto"
-                variant="negative"
-                onPress={handleRemoveImage}
-                style={{ flex: 1, height: 50 }}
-              />
-            )}
-            <Button
-              title="Cancelar"
-              variant="secondary"
-              onPress={() => setModalVisible(false)}
-              disabled={isLoadingAuthFunctions}
-              style={{ flex: 1, height: 50 }}
-            />
-          </SafeAreaView>
-        </TouchableOpacity>
+          )}
+          <Button
+            title="Cancelar"
+            variant="secondary"
+            onPress={() => setModalVisible(false)}
+            disabled={isLoadingAuthFunctions}
+            style={{ height: 50 }}
+          />
+        </View>
       </Modal>
     </View>
   )
@@ -161,36 +146,7 @@ const styles = StyleSheet.create({
     top: -2,
     right: -2,
   },
-  modalOverlay: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  actionSheet: {
+  modalContent: {
     rowGap: theme.spacing.sm,
-    backgroundColor: theme.colors.surface,
-    borderTopLeftRadius: theme.borders.radius.md,
-    borderTopRightRadius: theme.borders.radius.md,
-    padding: theme.spacing.md,
-  },
-  optionButton: {
-    backgroundColor: theme.colors.background,
-    borderRadius: theme.borders.radius.sm,
-    padding: theme.spacing.md,
-    alignItems: 'center',
-  },
-  cancelButton: {
-    marginTop: theme.spacing.xs,
-  },
-  optionText: {
-    fontSize: theme.fonts.size.lg,
-    color: theme.colors.secondary,
-    fontFamily: theme.fonts.family.medium,
-  },
-  destructiveText: {
-    color: theme.colors.error,
-  },
-  disabledOption: {
-    opacity: 0.5,
   },
 })
