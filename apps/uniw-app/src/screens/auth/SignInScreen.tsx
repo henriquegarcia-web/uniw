@@ -12,9 +12,8 @@ import {
 
 import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { signInSchema } from '@/types/auth'
 
-import type { SignInScreenProps } from '@uniw/shared-types'
+import { signInSchema, type SignInScreenProps } from '@uniw/shared-types'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { InputText } from '@/components/forms/InputText'

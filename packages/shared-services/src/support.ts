@@ -1,21 +1,22 @@
 // src/services/support.ts
 
 import { ref, set, get, update, push, child } from 'firebase/database'
-import { database } from './firebaseConfig'
 import {
   ISupportTicket,
   ISupportTicketMessage,
   TicketPriority,
   TicketStatus,
 } from '@uniw/shared-types'
-
-const ticketsRef = ref(database, 'supportTickets')
+import { getFirebaseDb } from '@uniw/shared-services'
 
 export async function createSupportTicket(
   userId: string,
   data: { subject: string; message: string; orderId?: string },
 ): Promise<string> {
   try {
+    const database = getFirebaseDb()
+    const ticketsRef = ref(database, 'supportTickets')
+
     const newTicketRef = push(ticketsRef) // Gera um ID único
     const ticketId = newTicketRef.key
 
@@ -48,7 +49,7 @@ export async function createSupportTicket(
     // Opcional: Manter uma referência de tickets no perfil do usuário
     const userTicketsRef = ref(
       database,
-      `users/${userId}/clienteProfile/supportTickets/${ticketId}`,
+      `users/${userId}/clientProfile/supportTickets/${ticketId}`,
     )
     await set(userTicketsRef, true)
 
@@ -65,6 +66,8 @@ export async function addMessageToTicket(
   author: 'user' | 'support' = 'user',
 ): Promise<void> {
   try {
+    const database = getFirebaseDb()
+
     const ticketMessagesRef = ref(database, `supportTickets/${ticketId}/messages`)
     const newMessageRef = push(ticketMessagesRef)
     const messageId = newMessageRef.key
@@ -93,8 +96,10 @@ export async function addMessageToTicket(
 
 export async function fetchUserTickets(userId: string): Promise<ISupportTicket[]> {
   try {
+    const database = getFirebaseDb()
+
     const userTicketsSnapshot = await get(
-      ref(database, `users/${userId}/clienteProfile/supportTickets`),
+      ref(database, `users/${userId}/clientProfile/supportTickets`),
     )
     if (!userTicketsSnapshot.exists()) return []
 

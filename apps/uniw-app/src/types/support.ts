@@ -1,6 +1,5 @@
 // src/types/support.ts
 
-import * as yup from 'yup'
 import {
   IHelpArticle,
   IHelpCategory,
@@ -8,17 +7,6 @@ import {
   TicketPriority,
   TicketStatus,
 } from '@uniw/shared-types'
-
-// --- ESQUEMA DE VALIDAÇÃO PARA FORMULÁRIO DE CONTATO ---
-
-export const contactSupportSchema = yup.object({
-  subject: yup.string().required('O assunto é obrigatório.'),
-  message: yup
-    .string()
-    .required('A mensagem é obrigatória.')
-    .min(20, 'Sua mensagem deve ter pelo menos 20 caracteres.'),
-  orderId: yup.string().optional(),
-})
 
 // --- DADOS MOCADOS ---
 

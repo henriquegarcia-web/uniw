@@ -3,13 +3,12 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import { CartStackParamList } from './types'
-
 import CartScreen from '@/screens/cart/CartScreen'
 import OrderSummaryScreen from '@/screens/cart/OrderSummaryScreen'
 import PaymentScreen from '@/screens/cart/PaymentScreen'
 import CheckoutSuccessScreen from '@/screens/cart/CheckoutSuccessScreen'
 import { Header } from '@/components/Header'
+import { CartStackParamList } from '@uniw/shared-types'
 
 const Stack = createNativeStackNavigator<CartStackParamList>()
 

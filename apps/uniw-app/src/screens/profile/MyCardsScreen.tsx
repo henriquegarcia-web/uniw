@@ -64,7 +64,7 @@ const MyCardsScreen = ({ navigation }: MyCardsScreenProps) => {
   const { user } = useClientAuth()
   const { removeCreditCard, setDefaultCreditCard, isProfileLoading } = useClientProfile()
 
-  const savedCards = user?.clienteProfile?.cartoesSalvos || []
+  const savedCards = user?.clientProfile?.cartoesSalvos || []
 
   const handleRemoveCard = (cardId: string) => {
     Alert.alert('Remover Cartão', 'Tem certeza que deseja remover este cartão?', [

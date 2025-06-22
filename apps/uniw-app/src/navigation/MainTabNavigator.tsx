@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { MainTabParamList } from './types'
 
 import { HomeStack } from './HomeStack'
 import { CartStack } from './CartStack'
@@ -12,6 +11,7 @@ import { CustomTabBar } from './CustomTabBar'
 import { CategoryStack } from './CategoryStack'
 import WishlistScreen from '@/screens/WishlistScreen'
 import { Header } from '@/components/Header'
+import { MainTabParamList } from '@uniw/shared-types'
 
 const Tab = createBottomTabNavigator<MainTabParamList>()
 

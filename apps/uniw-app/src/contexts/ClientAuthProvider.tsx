@@ -11,10 +11,10 @@ import React, {
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { onAuthStateChanged } from 'firebase/auth'
 
-import { auth, database } from '@/services/firebaseConfig'
-import * as authService from '@/services/auth'
+import * as services from '@uniw/shared-services'
 import { onValue, ref } from 'firebase/database'
 import { IBaseProfile, IUser } from '@uniw/shared-types'
+import { getFirebaseAuth, getFirebaseDb } from '@uniw/shared-services'
 
 type AuthContextData = {
   user: IUser | null
@@ -57,6 +57,9 @@ type AuthProviderProps = {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const auth = getFirebaseAuth()
+  const database = getFirebaseDb()
+
   const [user, setUser] = useState<IUser | null>(null)
 
   const [isLoadingAuth, setIsLoadingAuth] = useState(true)
@@ -121,7 +124,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsLoadingAuthFunctions(true)
     setErrorAuth(null)
     try {
-      await authService.signIn(email, password)
+      await services.clientSignIn(email, password)
     } catch (error: any) {
       setErrorAuth(error.message)
     } finally {
@@ -132,7 +135,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const signOut = async () => {
     setIsLoadingAuthFunctions(true)
     try {
-      await authService.logout()
+      await services.logout()
     } catch (error) {
     } finally {
       setIsLoadingAuthFunctions(false)
@@ -143,7 +146,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsLoadingAuthFunctions(true)
     setErrorAuth(null)
     try {
-      await authService.signUp(name, email, cpf, password)
+      await services.clientSignUp(name, email, cpf, password)
     } catch (error: any) {
       setErrorAuth(error.message)
     } finally {
@@ -155,7 +158,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsLoadingAuthFunctions(true)
     setErrorAuth(null)
     try {
-      await authService.resetPassword(email)
+      await services.resetPassword(email)
     } catch (error: any) {
       setErrorAuth(error.message)
       throw error
@@ -173,7 +176,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setErrorAuth(null)
 
     try {
-      // await authService.updateProfile(user.id, data)
+      // await services.updateProfile(user.id, data)
     } catch (error: any) {
       setErrorAuth(error.message)
       throw error
@@ -191,7 +194,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setErrorAuth(null)
 
     try {
-      await authService.updateUserName(user.id, newName)
+      await services.updateUserName(user.id, newName)
     } catch (error: any) {
       setErrorAuth(error.message)
       throw error
@@ -205,7 +208,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsLoadingAuthFunctions(true)
     setErrorAuth(null)
     try {
-      await authService.updateUserProfilePicture(user.id, imageUri)
+      await services.updateUserProfilePicture(user.id, imageUri)
     } catch (error: any) {
       setErrorAuth(error.message)
       throw error
@@ -219,7 +222,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsLoadingAuthFunctions(true)
     setErrorAuth(null)
     try {
-      await authService.removeUserProfilePicture(user.id, user.baseProfile.foto)
+      await services.removeUserProfilePicture(user.id, user.baseProfile.foto)
     } catch (error: any) {
       setErrorAuth(error.message)
       throw error
@@ -232,7 +235,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsLoadingAuthFunctions(true)
     setErrorAuth(null)
     try {
-      await authService.reauthenticate(password)
+      await services.reauthenticate(password)
     } catch (error: any) {
       setErrorAuth(error.message)
       throw error
@@ -245,7 +248,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsLoadingAuthFunctions(true)
     setErrorAuth(null)
     try {
-      await authService.changePassword(newPassword)
+      await services.changePassword(newPassword)
     } catch (error: any) {
       setErrorAuth(error.message)
       throw error
@@ -258,7 +261,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsLoadingAuthFunctions(true)
     setErrorAuth(null)
     try {
-      await authService.deleteUserAccount(password)
+      await services.clientDeleteUserAccount(password)
     } catch (error: any) {
       setErrorAuth(error.message)
       throw error
@@ -272,7 +275,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsLoadingAuthFunctions(true)
     setErrorAuth(null)
     try {
-      await authService.updateUserEmail(user.id, newEmail)
+      await services.updateUserEmail(user.id, newEmail)
     } catch (error: any) {
       setErrorAuth(error.message)
       throw error
@@ -288,10 +291,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsLoadingAuthFunctions(true)
     setErrorAuth(null)
     try {
-      return await authService.startPhoneNumberVerification(
-        phoneNumber,
-        recaptchaVerifier,
-      )
+      return await services.startPhoneNumberVerification(phoneNumber, recaptchaVerifier)
     } catch (error: any) {
       setErrorAuth(error.message)
       throw error
@@ -309,12 +309,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsLoadingAuthFunctions(true)
     setErrorAuth(null)
     try {
-      await authService.confirmPhoneNumberUpdate(
-        user.id,
-        verificationId,
-        otpCode,
-        newPhone,
-      )
+      await services.confirmPhoneNumberUpdate(user.id, verificationId, otpCode, newPhone)
     } catch (error: any) {
       setErrorAuth(error.message)
       throw error

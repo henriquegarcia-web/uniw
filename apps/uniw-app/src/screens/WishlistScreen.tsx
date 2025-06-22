@@ -16,8 +16,8 @@ const WishlistScreen = ({ navigation }: WishlistScreenProps) => {
   const { user } = useClientAuth()
 
   const favoriteProducts = useMemo(() => {
-    if (!user?.clienteProfile?.favoritos) return []
-    return getProductsByIds(user.clienteProfile.favoritos)
+    if (!user?.clientProfile?.favoritos) return []
+    return getProductsByIds(user.clientProfile.favoritos)
   }, [user])
 
   const { processedProducts, sortOption, setSortOption, filters, setFilters } =

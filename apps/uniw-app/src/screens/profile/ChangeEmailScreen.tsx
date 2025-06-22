@@ -15,10 +15,9 @@ import {
 import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import type { ChangeEmailScreenProps } from '@uniw/shared-types'
+import { changeEmailSchema, type ChangeEmailScreenProps } from '@uniw/shared-types'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
-import { changeEmailSchema } from '@/types/auth'
 import { InputText } from '@/components/forms/InputText'
 import { Button } from '@/components/forms/Button'
 import { ProfileHeader } from '@/components/ProfileHeader'

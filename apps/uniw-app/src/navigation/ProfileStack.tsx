@@ -3,8 +3,6 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import { ProfileStackParamList } from './types'
-
 import { Header } from '@/components/Header'
 import ProfileScreen from '@/screens/profile/ProfileScreen'
 import AddNewCardScreen from '@/screens/profile/AddNewCardScreen'
@@ -29,6 +27,7 @@ import ClubSignatureScreen from '@/screens/profile/ClubSignatureScreen'
 import CouponsScreen from '@/screens/profile/CouponsScreen'
 import NotificationDetailsScreen from '@/screens/profile/NotificationDetailsScreen'
 import AddNewAddressScreen from '@/screens/profile/AddNewAddressScreen'
+import { ProfileStackParamList } from '@uniw/shared-types'
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>()
 

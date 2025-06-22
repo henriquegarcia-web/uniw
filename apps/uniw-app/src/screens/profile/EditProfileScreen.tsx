@@ -22,7 +22,7 @@ import type {
 } from '@uniw/shared-types'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
-import { updateProfileSchema } from '@/types/auth'
+import { clientUpdateProfileSchema } from '@uniw/shared-types'
 
 // Importando todos os nossos componentes e serviços
 import { InputText } from '@/components/forms/InputText'
@@ -52,7 +52,7 @@ const EditProfileScreen = ({ navigation }: EditProfileScreenProps) => {
   //   watch,
   //   reset,
   // } = useForm({
-  //   resolver: yupResolver(updateProfileSchema),
+  //   resolver: yupResolver(clientUpdateProfileSchema),
   //   mode: 'onBlur',
   // })
 

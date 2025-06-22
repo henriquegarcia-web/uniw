@@ -1,8 +1,8 @@
 // src/srvices/profile.ts
 
 import { get, ref, set, update } from 'firebase/database'
-import { database } from './firebaseConfig'
 import { IAddress, ICreditCard, INotificationSettings } from '@uniw/shared-types'
+import { getFirebaseDb } from '@uniw/shared-services'
 
 // ────────────── FAVORITOS
 
@@ -11,7 +11,9 @@ export async function addFavoriteProduct(
   productId: string,
 ): Promise<void> {
   try {
-    const favoritesRef = ref(database, `/users/${userId}/clienteProfile/favoritos`)
+    const database = getFirebaseDb()
+
+    const favoritesRef = ref(database, `/users/${userId}/clientProfile/favoritos`)
     const snapshot = await get(favoritesRef)
     const currentFavorites: string[] = snapshot.val() || []
 
@@ -32,7 +34,9 @@ export async function removeFavoriteProduct(
   productId: string,
 ): Promise<void> {
   try {
-    const favoritesRef = ref(database, `/users/${userId}/clienteProfile/favoritos`)
+    const database = getFirebaseDb()
+
+    const favoritesRef = ref(database, `/users/${userId}/clientProfile/favoritos`)
     const snapshot = await get(favoritesRef)
     const currentFavorites: string[] = snapshot.val() || []
 
@@ -54,9 +58,11 @@ export async function updateNotificationSettings(
   settings: INotificationSettings,
 ): Promise<void> {
   try {
+    const database = getFirebaseDb()
+
     const settingsRef = ref(
       database,
-      `/users/${userId}/clienteProfile/notificationSettings`,
+      `/users/${userId}/clientProfile/notificationSettings`,
     )
     await set(settingsRef, settings)
 
@@ -76,7 +82,9 @@ export async function addCreditCard(
   cardData: Omit<ICreditCard, 'id' | 'token'>,
 ): Promise<void> {
   try {
-    const cardsRef = ref(database, `/users/${userId}/clienteProfile/cartoesSalvos`)
+    const database = getFirebaseDb()
+
+    const cardsRef = ref(database, `/users/${userId}/clientProfile/cartoesSalvos`)
     const snapshot = await get(cardsRef)
     const currentCards: ICreditCard[] = snapshot.val() || []
 
@@ -105,7 +113,9 @@ export async function addCreditCard(
 
 export async function removeCreditCard(userId: string, cardId: string): Promise<void> {
   try {
-    const cardsRef = ref(database, `/users/${userId}/clienteProfile/cartoesSalvos`)
+    const database = getFirebaseDb()
+
+    const cardsRef = ref(database, `/users/${userId}/clientProfile/cartoesSalvos`)
     const snapshot = await get(cardsRef)
     const currentCards: ICreditCard[] = snapshot.val() || []
 
@@ -113,7 +123,7 @@ export async function removeCreditCard(userId: string, cardId: string): Promise<
 
     // Se o cartão removido era o padrão, define o primeiro da lista como novo padrão (se houver)
     const removedCard = currentCards.find((c) => c.id === cardId)
-    if (removedCard?.isDefault && newCardsList.length > 0) {
+    if (removedCard?.isDefault && !!newCardsList[0] && newCardsList.length > 0) {
       newCardsList[0].isDefault = true
     }
 
@@ -130,7 +140,9 @@ export async function setDefaultCreditCard(
   cardId: string,
 ): Promise<void> {
   try {
-    const cardsRef = ref(database, `/users/${userId}/clienteProfile/cartoesSalvos`)
+    const database = getFirebaseDb()
+
+    const cardsRef = ref(database, `/users/${userId}/clientProfile/cartoesSalvos`)
     const snapshot = await get(cardsRef)
     const currentCards: ICreditCard[] = snapshot.val() || []
 
@@ -155,7 +167,9 @@ export async function addAddress(
   addressData: Omit<IAddress, 'id'>,
 ): Promise<void> {
   try {
-    const addressesRef = ref(database, `/users/${userId}/clienteProfile/enderecosSalvos`)
+    const database = getFirebaseDb()
+
+    const addressesRef = ref(database, `/users/${userId}/clientProfile/enderecosSalvos`)
     const snapshot = await get(addressesRef)
     const currentAddresses: IAddress[] = snapshot.val() || []
 
@@ -181,7 +195,9 @@ export async function addAddress(
 
 export async function removeAddress(userId: string, addressId: string): Promise<void> {
   try {
-    const addressesRef = ref(database, `/users/${userId}/clienteProfile/enderecosSalvos`)
+    const database = getFirebaseDb()
+
+    const addressesRef = ref(database, `/users/${userId}/clientProfile/enderecosSalvos`)
     const snapshot = await get(addressesRef)
     const currentAddresses: IAddress[] = snapshot.val() || []
 
@@ -190,7 +206,11 @@ export async function removeAddress(userId: string, addressId: string): Promise<
     )
 
     const removedAddress = currentAddresses.find((a) => a.id === addressId)
-    if (removedAddress?.isDefault && newAddressesList.length > 0) {
+    if (
+      removedAddress?.isDefault &&
+      !!newAddressesList[0] &&
+      newAddressesList.length > 0
+    ) {
       newAddressesList[0].isDefault = true
     }
 
@@ -207,7 +227,9 @@ export async function setDefaultAddress(
   addressId: string,
 ): Promise<void> {
   try {
-    const addressesRef = ref(database, `/users/${userId}/clienteProfile/enderecosSalvos`)
+    const database = getFirebaseDb()
+
+    const addressesRef = ref(database, `/users/${userId}/clientProfile/enderecosSalvos`)
     const snapshot = await get(addressesRef)
     const currentAddresses: IAddress[] = snapshot.val() || []
 

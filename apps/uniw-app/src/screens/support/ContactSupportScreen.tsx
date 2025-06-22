@@ -14,10 +14,9 @@ import {
 import { useForm, Controller, FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import type { ContactSupportScreenProps } from '@uniw/shared-types'
+import { ContactSupportScreenProps, contactSupportSchema } from '@uniw/shared-types'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useHelpCenter } from '@/contexts/HelpCenterProvider'
-import { contactSupportSchema } from '@/types/support'
 import { InputText } from '@/components/forms/InputText'
 import { Button } from '@/components/forms/Button'
 

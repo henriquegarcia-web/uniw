@@ -225,7 +225,7 @@ const myCouponCardStyles = StyleSheet.create({
 // --- Componente Principal da Tela ---
 const CouponsScreen = ({ navigation }: CouponsScreenProps) => {
   const { user } = useClientAuth()
-  // const loyaltyData = user?.clienteProfile?.fidelidade
+  // const loyaltyData = user?.clientProfile?.fidelidade
   const loyaltyData = {
     pointsBalance: 1200,
     pointsHistory: [],

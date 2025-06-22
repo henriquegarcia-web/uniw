@@ -1,12 +1,4 @@
-import { IProduct, IProductCategory, ProductBadge, SortOption } from '@uniw/shared-types'
-
-export const sortOptions: { label: string; value: SortOption }[] = [
-  { label: 'Populares', value: 'popularity' },
-  { label: 'Nome (A-Z)', value: 'name-asc' },
-  { label: 'Preço (Menor para o Maior)', value: 'price-asc' },
-  { label: 'Preço (Maior para o Menor)', value: 'price-desc' },
-  { label: 'Melhores Avaliações', value: 'rating-desc' },
-]
+import { IProduct, IProductCategory, ProductBadge } from '@uniw/shared-types'
 
 export const mockCategories: IProductCategory[] = [
   {

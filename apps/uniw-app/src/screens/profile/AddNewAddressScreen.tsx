@@ -14,15 +14,15 @@ import {
 import { useForm, Controller, FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import type {
-  AddNewAddressScreenProps,
-  IAddress,
-  IBGEState,
-  IBGECity,
+import {
+  type AddNewAddressScreenProps,
+  type IAddress,
+  type IBGEState,
+  type IBGECity,
+  addAddressSchema,
 } from '@uniw/shared-types'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientProfile } from '@/contexts/ClientProfileProvider'
-import { addAddressSchema } from '@/types/auth'
 import { applyMask } from '@uniw/shared-utils'
 import { viacepService } from '@/services/viacep'
 import { ibgeService } from '@/services/ibge'

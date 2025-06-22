@@ -12,17 +12,16 @@ import {
 
 import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { signUpSchema } from '@/types/auth'
 
-import type { SignUpScreenProps } from '@uniw/shared-types'
+import { clientSignUpSchema, type SignUpScreenProps } from '@uniw/shared-types'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { InputText } from '@/components/forms/InputText'
 import { Button } from '@/components/forms/Button'
 import { ButtonIcon } from '@/components/forms/ButtonIcon'
 import { SocialIcon } from '@/components/SocialIcon'
-import { isCpfInUse, isEmailInUse } from '@/services/auth'
 import { applyMask } from '@uniw/shared-utils'
+import { isCpfInUse, isEmailInUse } from '@uniw/shared-services'
 
 const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
   const { signUp, isLoadingAuthFunctions, isErrorAuth, errorAuth, clearAuthError } =
@@ -34,7 +33,7 @@ const SignUpScreen = ({ navigation }: SignUpScreenProps) => {
     formState: { errors },
     setError,
   } = useForm({
-    resolver: yupResolver(signUpSchema),
+    resolver: yupResolver(clientSignUpSchema),
     mode: 'onBlur',
     defaultValues: {
       nome: '',

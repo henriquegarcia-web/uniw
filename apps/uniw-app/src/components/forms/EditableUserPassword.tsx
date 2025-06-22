@@ -11,7 +11,7 @@ import { InputText } from './InputText'
 import { Button } from './Button'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { useFocusEffect } from '@react-navigation/native'
-import { changePasswordSchema } from '@/types/auth'
+import { changePasswordSchema } from '@uniw/shared-types'
 
 interface EditableUserPasswordProps {}
 

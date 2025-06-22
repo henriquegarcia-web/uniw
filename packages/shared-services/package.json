@@ -3,19 +3,25 @@
   "version": "1.0.0",
   "private": true,
   "main": "./dist/index.js",
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     }
   },
   "scripts": {
-    "build": "tsc",
-    "lint": "eslint . --max-warnings 0",
-    "check-types": "tsc --noEmit"
+    "build": "tsc --build",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "firebase": "^10.13.0"
   },
   "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@uniw/shared-types": "workspace:*",
+    "@uniw/shared-utils": "workspace:*",
     "typescript": "5.8.2"
   }
 }

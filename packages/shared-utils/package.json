@@ -11,11 +11,12 @@
     }
   },
   "scripts": {
-    "build": "tsc",
-    "lint": "eslint . --max-warnings 0",
-    "check-types": "tsc --noEmit"
+    "build": "tsc --build",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
   },
   "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
     "typescript": "5.8.2"
   }
 }

@@ -1,10 +1,9 @@
 // ─── Firebase Inicialização ───────────────────────────────────────────
-import { initializeApp, getApps, getApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
-import { getDatabase } from 'firebase/database'
+
+import { initializeFirebase, FirebaseConfig } from '@uniw/shared-services'
 
 // ─── Configuração com variáveis de ambiente ──────────────────────────
-const firebaseConfig = {
+export const firebaseConfig: FirebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
   databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
@@ -15,9 +14,4 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 }
 
-// ─── Inicialização segura (evita duplicação em dev) ─────────────────
-const app = getApps().length ? getApp() : initializeApp(firebaseConfig)
-
-// ─── Serviços exportados ─────────────────────────────────────────────
-export const auth = getAuth(app)
-export const db = getDatabase(app)
+initializeFirebase(firebaseConfig)

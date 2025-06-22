@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { AppStackParamList } from './types'
 
 import { MainTabNavigator } from './MainTabNavigator'
 import SearchResultsScreen from '@/screens/SearchResultsScreen'
@@ -20,6 +19,7 @@ import TicketHistoryScreen from '@/screens/support/TicketHistoryScreen'
 import ContactSupportScreen from '@/screens/support/ContactSupportScreen'
 import HelpTopicDetailsScreen from '@/screens/support/HelpTopicDetailsScreen'
 import { getHelpCategoryById } from '@/utils/mockGetters'
+import { AppStackParamList } from '@uniw/shared-types'
 
 const Stack = createNativeStackNavigator<AppStackParamList>()
 

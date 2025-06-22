@@ -35,7 +35,7 @@ const TransactionItem = ({ transaction }: { transaction: IPointTransaction }) =>
 
 const LoyaltyProgramScreen = ({ navigation }: LoyaltyProgramScreenProps) => {
   const { user } = useClientAuth()
-  const loyaltyData = user?.clienteProfile?.fidelidade
+  const loyaltyData = user?.clientProfile?.fidelidade
 
   // Renderiza uma mensagem se o usuário não tiver dados de fidelidade
   if (!loyaltyData) {

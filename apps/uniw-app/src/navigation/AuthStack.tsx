@@ -2,11 +2,11 @@
 
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { AuthStackParamList } from './types'
 
 import SignInScreen from '@/screens/auth/SignInScreen'
 import SignUpScreen from '@/screens/auth/SignUpScreen'
 import ForgotPasswordScreen from '@/screens/auth/ForgotPasswordScreen'
+import { AuthStackParamList } from '@uniw/shared-types'
 
 const Stack = createNativeStackNavigator<AuthStackParamList>()
 

@@ -1,4 +1,3 @@
-export * from './appSettings'
 export * from './users'
 export * from './banner'
 export * from './club'

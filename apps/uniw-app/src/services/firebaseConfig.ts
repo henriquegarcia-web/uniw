@@ -1,12 +1,10 @@
 import Constants from 'expo-constants'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { getReactNativePersistence } from 'firebase/auth'
 
-import { initializeApp, getApps, getApp } from 'firebase/app'
-import { initializeAuth, getReactNativePersistence } from 'firebase/auth'
-import { getDatabase } from 'firebase/database'
-import { getStorage } from 'firebase/storage'
+import { initializeFirebase, FirebaseConfig } from '@uniw/shared-services'
 
-export const firebaseConfig = {
+export const firebaseConfig: FirebaseConfig = {
   apiKey: Constants.expoConfig?.extra?.firebaseApiKey,
   authDomain: Constants.expoConfig?.extra?.firebaseAuthDomain,
   databaseURL: Constants.expoConfig?.extra?.firebaseDatabaseURL,
@@ -17,25 +15,6 @@ export const firebaseConfig = {
   measurementId: Constants.expoConfig?.extra?.firebaseMeasurementId,
 }
 
-// --- INICIALIZAÇÃO SEGURA E COM PERSISTÊNCIA ---
+const persistence = getReactNativePersistence(AsyncStorage)
 
-let app
-
-// Padrão Singleton: Verifica se o app já foi inicializado para evitar erros
-if (!getApps().length) {
-  app = initializeApp(firebaseConfig)
-} else {
-  app = getApp()
-}
-
-// Inicializa o Auth com persistência para React Native, exatamente como o erro sugere
-const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(AsyncStorage),
-})
-
-// Inicializa os outros serviços
-const database = getDatabase(app)
-const storage = getStorage(app)
-
-// Exporta as instâncias prontas para uso
-export { auth, database, storage }
+initializeFirebase(firebaseConfig, persistence)

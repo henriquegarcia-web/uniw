@@ -3,16 +3,16 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { setCookie, deleteCookie } from 'cookies-next'
-import { auth } from '@/libs/firebase' // Importe o 'auth' diretamente
 
-import {
-  loginUser,
-  logoutUser,
-  registerUser,
-  resetPassword,
-  getCurrentUser,
-} from '@/services/auth'
+// import {
+//   loginUser,
+//   logoutUser,
+//   registerUser,
+//   resetPassword,
+//   getCurrentUser,
+// } from '@/services/auth'
 import { UserRole } from '@uniw/shared-types'
+import { getFirebaseAuth } from '@uniw/shared-services'
 
 // ─── Tipagem do contexto ─────────────────────────────────────────────────────
 
@@ -31,6 +31,8 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | null>(null)
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  // const auth = getFirebaseAuth()
+
   const [user, setUser] = useState<any>(null)
   const [loading, setLoading] = useState(true) // Inicia como true para aguardar a verificação
   const [error, setError] = useState<string | null>(null)
@@ -41,29 +43,29 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [user])
 
   // Ouve o estado de autenticação do Firebase em tempo real
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (firebaseUser) => {
-      if (firebaseUser) {
-        // Usuário está logado, busca dados e define cookies
-        const userData = await getCurrentUser()
-        setUser(userData)
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged(async (firebaseUser) => {
+  //     if (firebaseUser) {
+  //       // Usuário está logado, busca dados e define cookies
+  //       // const userData = await getCurrentUser()
+  //       // setUser(userData)
 
-        // Sincroniza os cookies para o middleware
-        const token = await firebaseUser.getIdToken()
-        setCookie('token', token)
-        setCookie('role', userData.role)
-      } else {
-        // Usuário está deslogado, limpa o estado e os cookies
-        setUser(null)
-        deleteCookie('token')
-        deleteCookie('role')
-      }
-      setLoading(false)
-    })
+  //       // Sincroniza os cookies para o middleware
+  //       const token = await firebaseUser.getIdToken()
+  //       setCookie('token', token)
+  //       // setCookie('role', userData.role)
+  //     } else {
+  //       // Usuário está deslogado, limpa o estado e os cookies
+  //       setUser(null)
+  //       deleteCookie('token')
+  //       deleteCookie('role')
+  //     }
+  //     setLoading(false)
+  //   })
 
-    // Limpa o listener ao desmontar o componente
-    return () => unsubscribe()
-  }, [])
+  //   // Limpa o listener ao desmontar o componente
+  //   return () => unsubscribe()
+  // }, [])
 
   const login = async (email: string, password: string, role: UserRole) => {
     // Se já houver um usuário no estado, apenas redireciona
@@ -77,10 +79,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setError(null)
     try {
       // A função loginUser no serviço já cuidará de autenticar e definir o cookie inicial
-      const u = await loginUser({ email, password })
+      // const u = await loginUser({ email, password })
       // O listener onAuthStateChanged cuidará de atualizar o estado,
       // mas podemos setar aqui para uma resposta mais imediata na UI.
-      setUser(u)
+      // setUser(u)
       router.push(`/${role}/painel/inicio`)
     } catch {
       setError('Credenciais inválidas.')
@@ -93,8 +95,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setLoading(true)
     setError(null)
     try {
-      const u = await registerUser(data)
-      setUser(u)
+      // const u = await registerUser(data)
+      // setUser(u)
       router.push(`/${role}/painel/inicio`)
     } catch {
       setError('Erro ao registrar.')
@@ -105,7 +107,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = async (role: UserRole) => {
     // A função de logout no serviço já limpa os cookies
-    await logoutUser()
+    // await logoutUser()
     setUser(null)
     // O redirecionamento pode variar. Se houver múltiplas áreas de login,
     // talvez precise de uma lógica mais elaborada.
@@ -116,7 +118,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setLoading(true)
     setError(null)
     try {
-      await resetPassword(email)
+      // await resetPassword(email)
     } catch {
       setError('Erro ao enviar e-mail de recuperação.')
     } finally {

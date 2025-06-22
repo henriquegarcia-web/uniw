@@ -21,18 +21,18 @@ export enum UserRole {
 export const getRoleData = (role?: UserRole): FormattedOption => {
   switch (role) {
     case UserRole.CLIENTE:
-      return { label: 'Cliente', color: '#E67E22' }
+      return { label: 'Cliente', color: '#E67E22' };
     case UserRole.PARCEIRO:
-      return { label: 'Parceiro', color: '#C0392B' }
+      return { label: 'Parceiro', color: '#C0392B' };
     case UserRole.FORNECEDOR:
-      return { label: 'Prefeito', color: '#27AE60' }
+      return { label: 'Fornecedor', color: '#27AE60' }; 
     case UserRole.ADMINISTRADOR:
-      return { label: 'Vereador', color: '#F1C40F' }
+      return { label: 'Admin', color: '#F1C40F' }; 
 
     default:
-      return { label: 'Desconhecido', color: '#5D6D7E' }
+      return { label: 'Desconhecido', color: '#5D6D7E' };
   }
-}
+};
 
 // ─── USER STATUS ────────────────────────────────────────────────────────────
 

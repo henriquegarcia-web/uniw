@@ -15,7 +15,11 @@ import { UserRole } from '@uniw/shared-types'
 export default function SignInForm() {
   const { login, loading, error } = useAuth()
 
-  const form = useForm({
+  const {
+    values: formValues,
+    onSubmit,
+    getInputProps,
+  } = useForm({
     initialValues: {
       email: '',
       password: '',
@@ -28,24 +32,24 @@ export default function SignInForm() {
     },
   })
 
-  const onSubmit = (values: typeof form.values) => {
+  const handleLogin = (values: typeof formValues) => {
     login(values.email, values.password, UserRole.ADMINISTRADOR)
   }
 
   return (
-    <form className={styles.form} onSubmit={form.onSubmit(onSubmit)}>
+    <form className={styles.form} onSubmit={onSubmit(handleLogin)}>
       <TextInput
         label="E-mail"
         placeholder="Digite seu e-mail"
         withAsterisk
-        {...form.getInputProps('email')}
+        {...getInputProps('email')}
       />
 
       <PasswordInput
         label="Senha"
         placeholder="Digite sua senha"
         withAsterisk
-        {...form.getInputProps('password')}
+        {...getInputProps('password')}
       />
 
       {error && <p className={styles.form_error}>{error}</p>}

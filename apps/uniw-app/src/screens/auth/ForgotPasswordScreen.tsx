@@ -13,13 +13,12 @@ import {
 import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import type { ForgotPasswordScreenProps } from '@uniw/shared-types'
+import { forgotPasswordSchema, type ForgotPasswordScreenProps } from '@uniw/shared-types'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { InputText } from '@/components/forms/InputText'
 import { Button } from '@/components/forms/Button'
-import { forgotPasswordSchema } from '@/types/auth'
-import { isEmailInUse } from '@/services/auth'
+import { isEmailInUse } from '@uniw/shared-services'
 
 const ForgotPasswordScreen = ({ navigation }: ForgotPasswordScreenProps) => {
   const { resetPassword, isLoadingAuthFunctions } = useClientAuth()

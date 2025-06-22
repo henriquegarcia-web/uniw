@@ -3,10 +3,9 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import { HomeStackParamList } from './types'
-
 import HomeScreen from '@/screens/HomeScreen'
 import { Header } from '@/components/Header'
+import { HomeStackParamList } from '@uniw/shared-types'
 
 const Stack = createNativeStackNavigator<HomeStackParamList>()
 

@@ -59,35 +59,5 @@
     &__content {
       display: flex;
     }
-
-    &__navigtor {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      row-gap: var(--spacing-xs);
-      margin-top: var(--spacing-md);
-
-      a {
-        display: flex;
-        align-items: center;
-        column-gap: var(--spacing-xs);
-        font-size: var(--fonts-size-sm);
-        line-height: var(--fonts-height-tight);
-        font-weight: var(--fonts-weight-light);
-
-        color: var(--text-onBrand);
-
-        b {
-          font-weight: var(--fonts-weight-medium);
-        }
-
-        svg {
-          font-size: var(--fonts-size-lg);
-        }
-      }
-    }
   }
 }

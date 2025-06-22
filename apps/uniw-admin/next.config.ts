@@ -2,6 +2,9 @@ import path from 'path'
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverComponentsExternalPackages: ['@firebase/app', '@firebase/auth'],
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'src', 'styles')],
     additionalData: `
@@ -25,6 +28,7 @@ const nextConfig: NextConfig = {
     '@uniw/shared-types',
     '@uniw/shared-services',
     '@uniw/shared-utils',
+    '@uniw/shared-schemas',
   ],
 }
 

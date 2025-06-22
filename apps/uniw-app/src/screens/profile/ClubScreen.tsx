@@ -55,8 +55,8 @@ const BenefitItem = ({ title }: { title: string }) => (
 const ClubScreen = ({ navigation }: ClubScreenProps) => {
   const { user } = useClientAuth()
 
-  const clubInfo = user?.clienteProfile?.clube
-  const loyaltyInfo = user?.clienteProfile?.fidelidade
+  const clubInfo = user?.clientProfile?.clube
+  const loyaltyInfo = user?.clientProfile?.fidelidade
   const isMember = !!clubInfo && clubInfo.status === ClubStatus.ATIVO
 
   const paymentHistory = [
@@ -74,7 +74,7 @@ const ClubScreen = ({ navigation }: ClubScreenProps) => {
       ? new Date(clubInfo.memberSince).toLocaleDateString('pt-BR')
       : 'N/A'
 
-    const defaultCard = user?.clienteProfile?.cartoesSalvos?.find((c) => c.isDefault)
+    const defaultCard = user?.clientProfile?.cartoesSalvos?.find((c) => c.isDefault)
 
     return (
       <View style={styles.viewWrapper}>

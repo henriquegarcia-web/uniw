@@ -1,7 +1,7 @@
 // src/contexts/ClientProfileProvider.tsx
 
 import React, { createContext, useContext, ReactNode, useState } from 'react'
-import * as profileService from '@/services/profile'
+import * as services from '@uniw/shared-services'
 import { useClientAuth } from './ClientAuthProvider'
 import { IAddress, ICreditCard, INotificationSettings } from '@uniw/shared-types'
 
@@ -27,7 +27,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
 
   const [isProfileLoading, setIsProfileLoading] = useState(false)
 
-  const favorites = user?.clienteProfile?.favoritos || []
+  const favorites = user?.clientProfile?.favoritos || []
 
   const isFavorite = (productId: string): boolean => {
     return favorites.includes(productId)
@@ -36,14 +36,14 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
   const addFavorite = async (productId: string) => {
     if (!user) throw new Error('Usuário não autenticado.')
     setIsProfileLoading(true)
-    await profileService.addFavoriteProduct(user.id, productId)
+    await services.addFavoriteProduct(user.id, productId)
     setIsProfileLoading(false)
   }
 
   const removeFavorite = async (productId: string) => {
     if (!user) throw new Error('Usuário não autenticado.')
     setIsProfileLoading(true)
-    await profileService.removeFavoriteProduct(user.id, productId)
+    await services.removeFavoriteProduct(user.id, productId)
     setIsProfileLoading(false)
   }
 
@@ -53,7 +53,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     setIsProfileLoading(true)
 
     try {
-      await profileService.updateNotificationSettings(user.id, settings)
+      await services.updateNotificationSettings(user.id, settings)
     } catch (error: any) {
       throw error
     } finally {
@@ -65,7 +65,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     if (!user) throw new Error('Usuário não autenticado.')
     setIsProfileLoading(true)
     try {
-      await profileService.addCreditCard(user.id, cardData)
+      await services.addCreditCard(user.id, cardData)
     } finally {
       setIsProfileLoading(false)
     }
@@ -75,7 +75,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     if (!user) throw new Error('Usuário não autenticado.')
     setIsProfileLoading(true)
     try {
-      await profileService.removeCreditCard(user.id, cardId)
+      await services.removeCreditCard(user.id, cardId)
     } finally {
       setIsProfileLoading(false)
     }
@@ -85,7 +85,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     if (!user) throw new Error('Usuário não autenticado.')
     setIsProfileLoading(true)
     try {
-      await profileService.setDefaultCreditCard(user.id, cardId)
+      await services.setDefaultCreditCard(user.id, cardId)
     } finally {
       setIsProfileLoading(false)
     }
@@ -95,7 +95,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     if (!user) throw new Error('Usuário não autenticado.')
     setIsProfileLoading(true)
     try {
-      await profileService.addAddress(user.id, addressData)
+      await services.addAddress(user.id, addressData)
     } finally {
       setIsProfileLoading(false)
     }
@@ -105,7 +105,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     if (!user) throw new Error('Usuário não autenticado.')
     setIsProfileLoading(true)
     try {
-      await profileService.removeAddress(user.id, addressId)
+      await services.removeAddress(user.id, addressId)
     } finally {
       setIsProfileLoading(false)
     }
@@ -115,7 +115,7 @@ export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     if (!user) throw new Error('Usuário não autenticado.')
     setIsProfileLoading(true)
     try {
-      await profileService.setDefaultAddress(user.id, addressId)
+      await services.setDefaultAddress(user.id, addressId)
     } finally {
       setIsProfileLoading(false)
     }

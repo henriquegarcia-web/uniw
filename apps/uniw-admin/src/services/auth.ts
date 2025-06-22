@@ -1,184 +1,187 @@
-import { auth, db } from '@/libs/firebase'
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-  signOut,
-} from 'firebase/auth'
-import { ref, set, get } from 'firebase/database'
-import { setCookie, deleteCookie } from 'cookies-next'
+// import {
+//   createUserWithEmailAndPassword,
+//   signInWithEmailAndPassword,
+//   sendPasswordResetEmail,
+//   signOut,
+// } from 'firebase/auth'
+// import { ref, set, get } from 'firebase/database'
+// import { setCookie, deleteCookie } from 'cookies-next'
 
-import { UserRole, UserStatus, IBaseProfile } from '@uniw/shared-types'
+// import { UserRole, UserStatus, IBaseProfile } from '@uniw/shared-types'
+// import { getFirebaseAuth, getFirebaseDb } from '@uniw/shared-services'
 
-// ─── Tipagens ───────────────────────────────────────────────────────────────
+// const auth = getFirebaseAuth()
+// const db = getFirebaseDb()
 
-interface AuthCredentials {
-  email: string
-  password: string
-}
+// // ─── Tipagens ───────────────────────────────────────────────────────────────
 
-interface RegisterParceiro {
-  role: UserRole.PARCEIRO
-  nome: string
-  email: string
-  telefone: string
-  password: string
-  cpf: string
-  dataNascimento: number
-  nomeLoja: string
-  cnpjOuCpf: string
-  endereco: string
-}
+// interface AuthCredentials {
+//   email: string
+//   password: string
+// }
 
-interface RegisterFornecedor {
-  role: UserRole.FORNECEDOR
-  nome: string
-  email: string
-  telefone: string
-  password: string
-  cpf: string
-  dataNascimento: number
-  nomeEmpresa: string
-}
+// interface RegisterParceiro {
+//   role: UserRole.PARCEIRO
+//   nome: string
+//   email: string
+//   telefone: string
+//   password: string
+//   cpf: string
+//   dataNascimento: number
+//   nomeLoja: string
+//   cnpjOuCpf: string
+//   endereco: string
+// }
 
-// ─── Login ──────────────────────────────────────────────────────────────────
+// interface RegisterFornecedor {
+//   role: UserRole.FORNECEDOR
+//   nome: string
+//   email: string
+//   telefone: string
+//   password: string
+//   cpf: string
+//   dataNascimento: number
+//   nomeEmpresa: string
+// }
 
-export async function loginUser({ email, password }: AuthCredentials) {
-  const cred = await signInWithEmailAndPassword(auth, email, password)
-  const uid = cred.user.uid
-  const userBaseSnap = await get(ref(db, `usuarios/${uid}`))
+// // ─── Login ──────────────────────────────────────────────────────────────────
 
-  if (!userBaseSnap.exists()) throw new Error('Usuário base não encontrado')
+// export async function loginUser({ email, password }: AuthCredentials) {
+//   const cred = await signInWithEmailAndPassword(auth, email, password)
+//   const uid = cred.user.uid
+//   const userBaseSnap = await get(ref(db, `usuarios/${uid}`))
 
-  const baseUser = userBaseSnap.val()
-  const role = baseUser.role as UserRole
+//   if (!userBaseSnap.exists()) throw new Error('Usuário base não encontrado')
 
-  let extraData = {}
+//   const baseUser = userBaseSnap.val()
+//   const role = baseUser.role as UserRole
 
-  if (role === UserRole.PARCEIRO) {
-    const parceiroSnap = await get(ref(db, `parceiros/${uid}`))
-    extraData = parceiroSnap.exists() ? parceiroSnap.val() : {}
-  }
+//   let extraData = {}
 
-  if (role === UserRole.FORNECEDOR) {
-    const fornecedorSnap = await get(ref(db, `fornecedores/${uid}`))
-    extraData = fornecedorSnap.exists() ? fornecedorSnap.val() : {}
-  }
+//   if (role === UserRole.PARCEIRO) {
+//     const parceiroSnap = await get(ref(db, `parceiros/${uid}`))
+//     extraData = parceiroSnap.exists() ? parceiroSnap.val() : {}
+//   }
 
-  if (role === UserRole.ADMINISTRADOR) {
-    const adminSnap = await get(ref(db, `admins/${uid}`))
-    extraData = adminSnap.exists() ? adminSnap.val() : {}
-  }
+//   if (role === UserRole.FORNECEDOR) {
+//     const fornecedorSnap = await get(ref(db, `fornecedores/${uid}`))
+//     extraData = fornecedorSnap.exists() ? fornecedorSnap.val() : {}
+//   }
 
-  const token = await cred.user.getIdToken()
-  // Os cookies são necessários para o Middleware (que roda no servidor) validar a sessão.
-  setCookie('token', token)
-  setCookie('role', role)
+//   if (role === UserRole.ADMINISTRADOR) {
+//     const adminSnap = await get(ref(db, `admins/${uid}`))
+//     extraData = adminSnap.exists() ? adminSnap.val() : {}
+//   }
 
-  return {
-    ...baseUser,
-    ...extraData,
-  }
-}
+//   const token = await cred.user.getIdToken()
+//   // Os cookies são necessários para o Middleware (que roda no servidor) validar a sessão.
+//   setCookie('token', token)
+//   setCookie('role', role)
 
-// ─── Registrar Usuário ──────────────────────────────────────────────────────
+//   return {
+//     ...baseUser,
+//     ...extraData,
+//   }
+// }
 
-export async function registerUser(data: RegisterParceiro | RegisterFornecedor) {
-  // const { email, password, nome, telefone, cpf, dataNascimento, role } = data
-  // const cred = await createUserWithEmailAndPassword(auth, email, password)
-  // const uid = cred.user.uid
-  // const now = Date.now()
-  // const baseUser: IBaseProfile = {
-  //   id: uid,
-  //   nome,
-  //   email,
-  //   telefone,
-  //   cpf,
-  //   dataNascimento,
-  //   role,
-  //   status: UserStatus.PENDENTE,
-  //   createdAt: now,
-  //   updatedAt: now,
-  //   isActive: true,
-  // }
-  // await set(ref(db, `usuarios/${uid}`), baseUser)
-  // if (role === UserRole.PARCEIRO) {
-  //   const { nomeLoja, cnpjOuCpf, endereco } = data
-  //   await set(ref(db, `parceiros/${uid}`), {
-  //     id: uid,
-  //     lojaId: uid,
-  //     nomeLoja,
-  //     cnpjOuCpf,
-  //     endereco,
-  //     redesSociais: [],
-  //     colaboradores: [],
-  //     clientesCadastrados: [],
-  //     meiosPagamento: [],
-  //     aprovado: false,
-  //     faturamentoUltimos30Dias: 0,
-  //   })
-  // }
-  // if (role === UserRole.FORNECEDOR) {
-  //   const { nomeEmpresa } = data
-  //   await set(ref(db, `fornecedores/${uid}`), {
-  //     id: uid,
-  //     nomeEmpresa,
-  //     produtosCadastrados: [],
-  //     visibilidadePublica: true,
-  //     lojistasRelacionados: [],
-  //     sorteiosAtivos: [],
-  //   })
-  // }
-  // return await loginUser({ email, password })
-}
+// // ─── Registrar Usuário ──────────────────────────────────────────────────────
 
-// ─── Logout ─────────────────────────────────────────────────────────────────
+// export async function registerUser(data: RegisterParceiro | RegisterFornecedor) {
+//   // const { email, password, nome, telefone, cpf, dataNascimento, role } = data
+//   // const cred = await createUserWithEmailAndPassword(auth, email, password)
+//   // const uid = cred.user.uid
+//   // const now = Date.now()
+//   // const baseUser: IBaseProfile = {
+//   //   id: uid,
+//   //   nome,
+//   //   email,
+//   //   telefone,
+//   //   cpf,
+//   //   dataNascimento,
+//   //   role,
+//   //   status: UserStatus.PENDENTE,
+//   //   createdAt: now,
+//   //   updatedAt: now,
+//   //   isActive: true,
+//   // }
+//   // await set(ref(db, `usuarios/${uid}`), baseUser)
+//   // if (role === UserRole.PARCEIRO) {
+//   //   const { nomeLoja, cnpjOuCpf, endereco } = data
+//   //   await set(ref(db, `parceiros/${uid}`), {
+//   //     id: uid,
+//   //     lojaId: uid,
+//   //     nomeLoja,
+//   //     cnpjOuCpf,
+//   //     endereco,
+//   //     redesSociais: [],
+//   //     colaboradores: [],
+//   //     clientesCadastrados: [],
+//   //     meiosPagamento: [],
+//   //     aprovado: false,
+//   //     faturamentoUltimos30Dias: 0,
+//   //   })
+//   // }
+//   // if (role === UserRole.FORNECEDOR) {
+//   //   const { nomeEmpresa } = data
+//   //   await set(ref(db, `fornecedores/${uid}`), {
+//   //     id: uid,
+//   //     nomeEmpresa,
+//   //     produtosCadastrados: [],
+//   //     visibilidadePublica: true,
+//   //     lojistasRelacionados: [],
+//   //     sorteiosAtivos: [],
+//   //   })
+//   // }
+//   // return await loginUser({ email, password })
+// }
 
-export async function logoutUser() {
-  await signOut(auth)
-  // Limpa os cookies no logout para invalidar a sessão no servidor
-  deleteCookie('token')
-  deleteCookie('role')
-}
+// // ─── Logout ─────────────────────────────────────────────────────────────────
 
-// ─── Reset de Senha ─────────────────────────────────────────────────────────
+// export async function logoutUser() {
+//   await signOut(auth)
+//   // Limpa os cookies no logout para invalidar a sessão no servidor
+//   deleteCookie('token')
+//   deleteCookie('role')
+// }
 
-export async function resetPassword(email: string) {
-  await sendPasswordResetEmail(auth, email)
-}
+// // ─── Reset de Senha ─────────────────────────────────────────────────────────
 
-// ─── Obter Usuário Atual ────────────────────────────────────────────────────
+// export async function resetPassword(email: string) {
+//   await sendPasswordResetEmail(auth, email)
+// }
 
-export async function getCurrentUser() {
-  const user = auth.currentUser
-  if (!user) return null
+// // ─── Obter Usuário Atual ────────────────────────────────────────────────────
 
-  const uid = user.uid
-  const baseSnap = await get(ref(db, `usuarios/${uid}`))
-  if (!baseSnap.exists()) return null
+// export async function getCurrentUser() {
+//   const user = auth.currentUser
+//   if (!user) return null
 
-  const base = baseSnap.val()
-  const role = base.role as UserRole
+//   const uid = user.uid
+//   const baseSnap = await get(ref(db, `usuarios/${uid}`))
+//   if (!baseSnap.exists()) return null
 
-  let roleData = {}
+//   const base = baseSnap.val()
+//   const role = base.role as UserRole
 
-  if (role === UserRole.PARCEIRO) {
-    const snap = await get(ref(db, `parceiros/${uid}`))
-    roleData = snap.exists() ? snap.val() : {}
-  }
+//   let roleData = {}
 
-  if (role === UserRole.FORNECEDOR) {
-    const snap = await get(ref(db, `fornecedores/${uid}`))
-    roleData = snap.exists() ? snap.val() : {}
-  }
+//   if (role === UserRole.PARCEIRO) {
+//     const snap = await get(ref(db, `parceiros/${uid}`))
+//     roleData = snap.exists() ? snap.val() : {}
+//   }
 
-  if (role === UserRole.ADMINISTRADOR) {
-    const snap = await get(ref(db, `admins/${uid}`))
-    roleData = snap.exists() ? snap.val() : {}
-  }
+//   if (role === UserRole.FORNECEDOR) {
+//     const snap = await get(ref(db, `fornecedores/${uid}`))
+//     roleData = snap.exists() ? snap.val() : {}
+//   }
 
-  return {
-    ...base,
-    ...roleData,
-  }
-}
+//   if (role === UserRole.ADMINISTRADOR) {
+//     const snap = await get(ref(db, `admins/${uid}`))
+//     roleData = snap.exists() ? snap.val() : {}
+//   }
+
+//   return {
+//     ...base,
+//     ...roleData,
+//   }
+// }

@@ -69,7 +69,7 @@ const MyAddressesScreen = ({ navigation }: MyAddressesScreenProps) => {
   const { user } = useClientAuth()
   const { removeAddress, setDefaultAddress, isProfileLoading } = useClientProfile()
 
-  const savedAddresses = user?.clienteProfile?.enderecosSalvos || []
+  const savedAddresses = user?.clientProfile?.enderecosSalvos || []
 
   const handleRemoveAddress = (addressId: string) => {
     Alert.alert('Remover Endereço', 'Tem certeza que deseja remover este endereço?', [

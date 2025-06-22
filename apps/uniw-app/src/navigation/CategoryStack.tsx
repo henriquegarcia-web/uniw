@@ -3,12 +3,12 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import { CategoryStackParamList } from './types'
 
 import { Header } from '@/components/Header'
 import CategoryDetailsScreen from '@/screens/CategoryDetailsScreen'
 import CategoryListScreen from '@/screens/CategoryListScreen'
 import { getCategoryById } from '@/utils/mockGetters'
+import { CategoryStackParamList } from '@uniw/shared-types'
 
 const Stack = createNativeStackNavigator<CategoryStackParamList>()
 

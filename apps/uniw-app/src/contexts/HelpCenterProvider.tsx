@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, ReactNode, useState } from 'react'
 import { useClientAuth } from './ClientAuthProvider'
-import * as supportService from '@/services/support'
+import * as services from '@uniw/shared-services'
 import { ISupportTicket } from '@uniw/shared-types'
 
 interface HelpCenterContextData {
@@ -36,7 +36,7 @@ export const HelpCenterProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(true)
     setError(null)
     try {
-      await supportService.createSupportTicket(user.id, data)
+      await services.createSupportTicket(user.id, data)
       await loadUserTickets() // Recarrega a lista após o envio
     } catch (e) {
       setError(e)
@@ -51,7 +51,7 @@ export const HelpCenterProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(true)
     setError(null)
     try {
-      const userTickets = await supportService.fetchUserTickets(user.id)
+      const userTickets = await services.fetchUserTickets(user.id)
       setTickets(userTickets.sort((a, b) => b.updatedAt - a.updatedAt))
     } catch (e) {
       setError(e)

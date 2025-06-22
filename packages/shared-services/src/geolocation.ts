@@ -1,7 +1,5 @@
-// src/services/ibge.ts
-
 import axios from 'axios'
-import { IBGECity, IBGEState } from '@uniw/shared-types'
+import { IBGECity, IBGEState, IViaCepResponse } from '@uniw/shared-types'
 
 export const ibgeService = {
   async getStates(): Promise<IBGEState[]> {
@@ -27,6 +25,20 @@ export const ibgeService = {
     } catch (error) {
       console.error(`Erro ao buscar cidades para o estado ${stateSigla}:`, error)
       throw new Error('Não foi possível buscar a lista de cidades.')
+    }
+  },
+}
+
+export const viacepService = {
+  async getAddressByCep(cep: string): Promise<IViaCepResponse> {
+    try {
+      const cleanCep = cep.replace(/\D/g, '')
+      const response = await axios.get<IViaCepResponse>(
+        `https://viacep.com.br/ws/${cleanCep}/json/`,
+      )
+      return response.data
+    } catch (error) {
+      throw new Error('Erro ao buscar CEP')
     }
   },
 }

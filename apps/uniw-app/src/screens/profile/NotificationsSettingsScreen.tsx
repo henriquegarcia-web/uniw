@@ -37,8 +37,8 @@ const NotificationsSettingsScreen = ({
 
   // Efeito que carrega as configurações salvas do usuário no formulário
   useEffect(() => {
-    if (user?.clienteProfile?.notificationsSettings) {
-      reset(user.clienteProfile.notificationsSettings)
+    if (user?.clientProfile?.notificationsSettings) {
+      reset(user.clientProfile.notificationsSettings)
     }
   }, [user, reset])
 
