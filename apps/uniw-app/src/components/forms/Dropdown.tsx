@@ -11,7 +11,7 @@ import {
   SafeAreaView,
 } from 'react-native'
 import { Feather } from '@expo/vector-icons'
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 
 type FeatherIconName = keyof typeof Feather.glyphMap
 
@@ -51,7 +51,7 @@ export const Dropdown = ({
   }
 
   const hasError = !!error
-  const borderColor = hasError ? theme.colors.error : theme.colors.border
+  const borderColor = hasError ? colors.semantic.error : colors.ui.border
   const isDisabled = disabled
 
   return (
@@ -67,14 +67,14 @@ export const Dropdown = ({
           <Feather
             name={iconName}
             size={20}
-            color={theme.colors.text_secondary}
+            color={colors.text.secondary}
             style={styles.icon}
           />
         )}
         <Text style={[styles.inputText, !selectedItemLabel && styles.placeholderText]}>
           {selectedItemLabel || placeholder}
         </Text>
-        <Feather name="chevron-down" size={20} color={theme.colors.text_secondary} />
+        <Feather name="chevron-down" size={20} color={colors.text.secondary} />
       </TouchableOpacity>
 
       {hasError && <Text style={styles.errorText}>{error}</Text>}
@@ -115,42 +115,42 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   label: {
-    marginBottom: theme.spacing.sm,
-    fontFamily: theme.fonts.family.medium,
-    fontSize: theme.fonts.size.sm,
-    color: theme.colors.text,
+    marginBottom: themeApp.spacing.sm,
+    fontFamily: themeApp.fonts.family.medium,
+    fontSize: themeApp.fonts.size.sm,
+    color: colors.text.primary,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.colors.background,
-    borderRadius: theme.borders.radius.sm,
-    borderWidth: theme.borders.width.thin,
+    backgroundColor: colors.ui.background,
+    borderRadius: themeApp.borders.radius.sm,
+    borderWidth: themeApp.borders.width.thin,
     height: 50,
-    paddingHorizontal: theme.spacing.md,
+    paddingHorizontal: themeApp.spacing.md,
   },
   disabled: {
     backgroundColor: '#E9E9E9',
     opacity: 0.7,
   },
   icon: {
-    marginRight: theme.spacing.sm,
+    marginRight: themeApp.spacing.sm,
   },
   inputText: {
     flex: 1,
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.md,
-    color: theme.colors.text,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.md,
+    color: colors.text.primary,
   },
   placeholderText: {
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   errorText: {
-    marginTop: theme.spacing.xs,
-    marginLeft: theme.spacing.xs,
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.xs,
-    color: theme.colors.error,
+    marginTop: themeApp.spacing.xs,
+    marginLeft: themeApp.spacing.xs,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.xs,
+    color: colors.semantic.error,
   },
   // Estilos do Modal
   modalOverlay: {
@@ -163,18 +163,18 @@ const styles = StyleSheet.create({
   modalContent: {
     width: '100%',
     maxHeight: '60%',
-    backgroundColor: theme.colors.background,
-    borderRadius: theme.borders.radius.md,
+    backgroundColor: colors.ui.background,
+    borderRadius: themeApp.borders.radius.md,
     overflow: 'hidden',
   },
   optionItem: {
-    padding: theme.spacing.md,
+    padding: themeApp.spacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
+    borderBottomColor: colors.ui.border,
   },
   optionText: {
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.md,
-    color: theme.colors.text,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.md,
+    color: colors.text.primary,
   },
 })

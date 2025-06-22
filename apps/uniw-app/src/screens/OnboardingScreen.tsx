@@ -11,8 +11,8 @@ import {
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 
-import type { OnboardingScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { OnboardingScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { Button } from '@/components/forms/Button'
 
@@ -75,11 +75,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: theme.spacing.sm,
     fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size['2xl'],
-    color: theme.colors.background,
+    fontSize: theme.fonts.size.xxl,
+    color: colors.ui.background,
   },
   subtitle: {
-    color: theme.colors.background,
+    color: colors.ui.background,
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.sm,
     textAlign: 'center',

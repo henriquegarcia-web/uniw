@@ -65,7 +65,7 @@ export interface INotification {
 
 // ─── NOTIFICATION MOCK ──────────────────────────────────────────────────────
 
-export const mockNotifications: INotification[] = [
+const mockNotifications: INotification[] = [
   {
     id: 'notif-001',
     type: NotificationType.ORDER_UPDATE,

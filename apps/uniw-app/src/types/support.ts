@@ -1,78 +1,13 @@
 // src/types/support.ts
 
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 import * as yup from 'yup'
-import { theme } from '@/styles/theme'
-import { FormattedOption } from '@/types/global'
-
-type MaterialCommunityIconsIconName = keyof typeof MaterialCommunityIcons.glyphMap
-
-// --- TIPOS E ENUMS PARA ARTIGOS DA AJUDA ---
-
-export interface IHelpCategory {
-  id: string
-  name: string
-  description: string
-  icon: MaterialCommunityIconsIconName
-}
-
-export interface IHelpArticle {
-  id: string
-  categoryId: string
-  title: string
-  content: string // Conteúdo em Markdown para formatação rica
-  tags: string[] // Para a busca
-  popularity: number // Para ordenar os mais vistos
-}
-
-// --- TIPOS E ENUMS PARA TICKETS DE SUPORTE ---
-
-export enum TicketStatus {
-  OPEN = 'open',
-  IN_PROGRESS = 'in_progress',
-  RESOLVED = 'resolved',
-  CLOSED = 'closed',
-}
-
-export enum TicketPriority {
-  LOW = 'low',
-  MEDIUM = 'medium',
-  HIGH = 'high',
-}
-
-export const getTicketStatusData = (status?: TicketStatus): FormattedOption => {
-  switch (status) {
-    case TicketStatus.OPEN:
-      return { label: 'Aberto', color: theme.colors.success }
-    case TicketStatus.IN_PROGRESS:
-      return { label: 'Em Andamento', color: theme.colors.waring }
-    case TicketStatus.RESOLVED:
-      return { label: 'Resolvido', color: theme.colors.secondary }
-    case TicketStatus.CLOSED:
-      return { label: 'Fechado', color: theme.colors.text_tertiary }
-    default:
-      return { label: 'Desconhecido', color: '#808080' }
-  }
-}
-
-export interface ISupportTicketMessage {
-  id: string
-  author: 'user' | 'support'
-  content: string
-  createdAt: number
-}
-
-export interface ISupportTicket {
-  id: string
-  userId: string
-  subject: string
-  orderId?: string // Vinculado a um pedido específico, se houver
-  status: TicketStatus
-  priority: TicketPriority
-  createdAt: number
-  updatedAt: number
-  messages: ISupportTicketMessage[]
-}
+import {
+  IHelpArticle,
+  IHelpCategory,
+  ISupportTicket,
+  TicketPriority,
+  TicketStatus,
+} from '@uniw/shared-types'
 
 // --- ESQUEMA DE VALIDAÇÃO PARA FORMULÁRIO DE CONTATO ---
 

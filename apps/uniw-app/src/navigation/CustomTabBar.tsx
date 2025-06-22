@@ -4,8 +4,10 @@ import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 // import { Svg, Path } from 'react-native-svg'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
+
 import { CommonActions } from '@react-navigation/native'
+import { MaterialCommunityIconsIcon } from '@uniw/shared-types'
 
 const { width } = Dimensions.get('window')
 const TAB_BAR_HEIGHT = 75
@@ -23,12 +25,12 @@ export const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarPro
         onPress={() => navigation.navigate('CartStack')}
         activeOpacity={0.8}
       >
-        <Feather name="shopping-cart" size={26} color={theme.colors.background} />
+        <Feather name="shopping-cart" size={26} color={colors.ui.background} />
       </TouchableOpacity>
 
       {/* Fundo da TabBar com SVG
       <Svg width={width} height={SVG_HEIGHT} style={styles.svgBackground}>
-        <Path d={d} fill={theme.colors.background} stroke={theme.colors.border} />
+        <Path d={d} fill={colors.ui.background} stroke={colors.ui.border} />
       </Svg> */}
 
       {/* Container dos ícones */}
@@ -80,15 +82,13 @@ export const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarPro
               <MaterialCommunityIcons
                 name={iconName}
                 size={iconName === 'home-outline' ? 26 : 24}
-                color={isFocused ? theme.colors.secondary : theme.colors.text_secondary}
+                color={isFocused ? colors.text.secondary : colors.text.secondary}
               />
               <Text
                 style={[
                   styles.tabLabel,
                   {
-                    color: isFocused
-                      ? theme.colors.secondary
-                      : theme.colors.text_secondary,
+                    color: isFocused ? colors.text.secondary : colors.text.secondary,
                   },
                 ]}
               >
@@ -103,7 +103,7 @@ export const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarPro
 }
 
 // Função auxiliar para mapear nomes de rota para nomes de ícones
-const getIconName = (routeName: string): keyof typeof MaterialCommunityIcons.glyphMap => {
+const getIconName = (routeName: string): MaterialCommunityIconsIcon => {
   switch (routeName) {
     case 'HomeStack':
       return 'home-outline'
@@ -139,10 +139,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderTopWidth: 1,
-    borderColor: theme.colors.border,
-    paddingBottom: theme.spacing.sm,
+    borderColor: colors.ui.border,
+    paddingBottom: themeApp.spacing.sm,
   },
   tabItem: {
     flex: 1,
@@ -150,8 +150,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tabLabel: {
-    fontFamily: theme.fonts.family.medium,
-    fontSize: theme.fonts.size.xs,
+    fontFamily: themeApp.fonts.family.medium,
+    fontSize: themeApp.fonts.size.xs,
     marginTop: 4,
   },
   centerButton: {
@@ -159,11 +159,11 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: colors.brand.secondary,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 10,
-    shadowColor: theme.colors.secondary,
+    shadowColor: colors.brand.secondary,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 4,

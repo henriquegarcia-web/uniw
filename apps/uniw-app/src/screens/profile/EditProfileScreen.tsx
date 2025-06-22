@@ -14,18 +14,23 @@ import {
 import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import type { EditProfileScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type {
+  EditProfileScreenProps,
+  IBGEState,
+  IBGECity,
+  IBaseProfile,
+} from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
-import { updateProfileSchema, IBaseProfile } from '@/types/auth'
+import { updateProfileSchema } from '@/types/auth'
 
 // Importando todos os nossos componentes e serviços
 import { InputText } from '@/components/forms/InputText'
 import { Dropdown, DropdownItem } from '@/components/forms/Dropdown'
 import { Button } from '@/components/forms/Button'
-import { applyMask } from '@/utils/masks'
+import { applyMask } from '@uniw/shared-utils'
 import { viacepService } from '@/services/viacep'
-import { ibgeService, IBGEState, IBGECity } from '@/services/ibge'
+import { ibgeService } from '@/services/ibge'
 import { EditableUserPicture } from '@/components/forms/EditableUserPicture'
 import { EditableUserName } from '@/components/forms/EditableUserName'
 import { EditableUserPassword } from '@/components/forms/EditableUserPassword'
@@ -335,7 +340,7 @@ const EditProfileScreen = ({ navigation }: EditProfileScreenProps) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: colors.ui.surface,
   },
   scrollView: {
     flex: 1,
@@ -346,7 +351,7 @@ const styles = StyleSheet.create({
     paddingBottom: theme.spacing.xl,
   },
   content: {
-    paddingBottom: theme.spacing['4xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
     rowGap: theme.spacing.lg,
   },
   mainFormGroup: {
@@ -359,7 +364,7 @@ const styles = StyleSheet.create({
   formGroupTitle: {
     fontFamily: theme.fonts.family.semiBold,
     fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
+    color: colors.text.primary,
     marginBottom: theme.spacing.xs,
   },
   formGroupWrapper: {

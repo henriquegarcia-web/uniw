@@ -11,8 +11,8 @@ import {
 } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import type { HelpTopicDetailsScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { HelpTopicDetailsScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { getHelpArticlesByCategoryId, getHelpCategoryById } from '@/utils/mockGetters'
 import { ListEmptyMessage } from '@/components/ListEmptyMessage'
 
@@ -40,7 +40,7 @@ const HelpTopicDetailsScreen = ({ navigation, route }: HelpTopicDetailsScreenPro
             <MaterialCommunityIcons
               name={category.icon}
               size={40}
-              color={theme.colors.secondary}
+              color={colors.brand.secondary}
             />
             <Text style={styles.title}>{category.name}</Text>
             <Text style={styles.description}>{category.description}</Text>
@@ -57,7 +57,7 @@ const HelpTopicDetailsScreen = ({ navigation, route }: HelpTopicDetailsScreenPro
             <MaterialCommunityIcons
               name="chevron-right"
               size={22}
-              color={theme.colors.text_tertiary}
+              color={colors.text.tertiary}
             />
           </TouchableOpacity>
         )}
@@ -71,16 +71,19 @@ const HelpTopicDetailsScreen = ({ navigation, route }: HelpTopicDetailsScreenPro
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.colors.surface },
-  contentContainer: { padding: theme.spacing.lg, paddingBottom: theme.spacing['3xl'] },
+  container: { flex: 1, backgroundColor: colors.ui.surface },
+  contentContainer: {
+    padding: theme.spacing.lg,
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
+  },
   header: {
     padding: theme.spacing.md,
     marginBottom: theme.spacing.md,
     alignItems: 'center',
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderRadius: theme.borders.radius.sm,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   title: {
     fontFamily: theme.fonts.family.bold,
@@ -89,7 +92,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontFamily: theme.fonts.family.regular,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     marginTop: theme.spacing.xs,
     textAlign: 'center',
   },
@@ -97,12 +100,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     padding: theme.spacing.md,
     borderRadius: theme.borders.radius.sm,
     marginBottom: theme.spacing.xs,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   articleTitle: {
     flex: 1,

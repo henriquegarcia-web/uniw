@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 
 import { Feather } from '@expo/vector-icons'
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 
 type FeatherIconName = keyof typeof Feather.glyphMap
 
@@ -28,7 +28,7 @@ export const InputText = forwardRef<TextInput, InputTextProps>(
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
     const hasError = !!error
-    const borderColor = hasError ? theme.colors.error : theme.colors.border
+    const borderColor = hasError ? colors.semantic.error : colors.ui.border
 
     const togglePasswordVisibility = () => {
       setIsPasswordVisible((prevState) => !prevState)
@@ -43,7 +43,7 @@ export const InputText = forwardRef<TextInput, InputTextProps>(
             <Feather
               name={iconName}
               size={20}
-              color={theme.colors.text_secondary}
+              color={colors.text.secondary}
               style={styles.icon}
             />
           )}
@@ -51,7 +51,7 @@ export const InputText = forwardRef<TextInput, InputTextProps>(
           <TextInput
             ref={ref}
             style={styles.input}
-            placeholderTextColor={theme.colors.text_secondary}
+            placeholderTextColor={colors.text.secondary}
             secureTextEntry={isPassword && !isPasswordVisible}
             {...rest}
           />
@@ -61,7 +61,7 @@ export const InputText = forwardRef<TextInput, InputTextProps>(
               <Feather
                 name={isPasswordVisible ? 'eye' : 'eye-off'}
                 size={20}
-                color={theme.colors.text_secondary}
+                color={colors.text.secondary}
                 // style={styles.icon}
               />
             </TouchableOpacity>
@@ -79,35 +79,35 @@ const styles = StyleSheet.create({
     // flex: 1,
   },
   label: {
-    marginBottom: theme.spacing.sm,
-    fontFamily: theme.fonts.family.medium,
-    fontSize: theme.fonts.size.sm,
-    color: theme.colors.text,
+    marginBottom: themeApp.spacing.sm,
+    fontFamily: themeApp.fonts.family.medium,
+    fontSize: themeApp.fonts.size.sm,
+    color: colors.text.primary,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: theme.borders.radius.sm,
-    borderWidth: theme.borders.width.thin,
-    paddingHorizontal: theme.spacing.md,
-    backgroundColor: theme.colors.background,
+    borderRadius: themeApp.borders.radius.sm,
+    borderWidth: themeApp.borders.width.thin,
+    paddingHorizontal: themeApp.spacing.md,
+    backgroundColor: colors.ui.background,
   },
   icon: {
-    marginRight: theme.spacing.sm,
+    marginRight: themeApp.spacing.sm,
   },
   input: {
     flex: 1,
     height: 50,
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.md,
-    color: theme.colors.text,
-    backgroundColor: theme.colors.background,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.md,
+    color: colors.text.primary,
+    backgroundColor: colors.ui.background,
   },
   errorText: {
-    marginTop: theme.spacing.xs,
-    marginLeft: theme.spacing.xs,
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.xs,
-    color: theme.colors.error,
+    marginTop: themeApp.spacing.xs,
+    marginLeft: themeApp.spacing.xs,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.xs,
+    color: colors.semantic.error,
   },
 })

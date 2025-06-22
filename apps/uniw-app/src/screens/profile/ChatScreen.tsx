@@ -3,8 +3,8 @@
 import React from 'react'
 import { StyleSheet, SafeAreaView, Text } from 'react-native'
 
-import type { ChatScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { ChatScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 
 const ChatScreen = ({ navigation }: ChatScreenProps) => {
   return (
@@ -16,8 +16,8 @@ const ChatScreen = ({ navigation }: ChatScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
-    marginBottom: theme.spacing['4xl'],
+    backgroundColor: colors.ui.surface,
+    marginBottom: theme.spacing.custom['botom-tab-height'],
     rowGap: theme.spacing.lg,
   },
 })

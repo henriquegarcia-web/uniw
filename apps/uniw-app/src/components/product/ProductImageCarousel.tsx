@@ -12,7 +12,7 @@ import {
 } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 
 interface ProductImageCarouselProps {
   images?: string[]
@@ -20,8 +20,8 @@ interface ProductImageCarouselProps {
 }
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window')
-const ITEM_WIDTH = SCREEN_WIDTH - 2 * theme.spacing.lg
-const GAP_SIZE = theme.spacing.md
+const ITEM_WIDTH = SCREEN_WIDTH - 2 * themeApp.spacing.lg
+const GAP_SIZE = themeApp.spacing.md
 
 export const ProductImageCarousel = ({ images, type }: ProductImageCarouselProps) => {
   const bannerHeight = type === 'hero' ? 240 : ITEM_WIDTH
@@ -107,7 +107,7 @@ export const ProductImageCarousel = ({ images, type }: ProductImageCarouselProps
           style={[styles.navButton, styles.leftButton]}
           onPress={handlePrev}
         >
-          <Feather name="chevron-left" size={22} color={theme.colors.text} />
+          <Feather name="chevron-left" size={22} color={colors.text.primary} />
         </TouchableOpacity>
       )}
 
@@ -116,7 +116,7 @@ export const ProductImageCarousel = ({ images, type }: ProductImageCarouselProps
           style={[styles.navButton, styles.rightButton]}
           onPress={handleNext}
         >
-          <Feather name="chevron-right" size={22} color={theme.colors.text} />
+          <Feather name="chevron-right" size={22} color={colors.text.primary} />
         </TouchableOpacity>
       )}
     </View>
@@ -126,14 +126,14 @@ export const ProductImageCarousel = ({ images, type }: ProductImageCarouselProps
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    marginBottom: theme.spacing.sm,
+    marginBottom: themeApp.spacing.sm,
   },
   noImage: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: theme.borders.radius.md,
+    borderRadius: themeApp.borders.radius.md,
     overflow: 'hidden',
-    backgroundColor: theme.colors.disabled,
+    backgroundColor: colors.ui.disabled,
   },
   noImageImage: {
     width: '100%',
@@ -146,9 +146,9 @@ const styles = StyleSheet.create({
   itemContainer: {
     width: ITEM_WIDTH,
     height: '100%',
-    borderRadius: theme.borders.radius.md,
+    borderRadius: themeApp.borders.radius.md,
     overflow: 'hidden',
-    backgroundColor: theme.colors.surface,
+    backgroundColor: colors.ui.surface,
   },
   image: {
     width: '100%',
@@ -159,21 +159,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: theme.spacing.sm,
-    marginTop: theme.spacing.md,
+    gap: themeApp.spacing.sm,
+    marginTop: themeApp.spacing.md,
   },
   dot: {
     width: 8,
     height: 8,
-    borderRadius: theme.borders.radius.circle,
+    borderRadius: themeApp.borders.radius.full,
   },
   activeDot: {
     width: 10,
     height: 10,
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: colors.brand.secondary,
   },
   inactiveDot: {
-    backgroundColor: theme.colors.disabled,
+    backgroundColor: colors.ui.disabled,
   },
 
   navButton: {
@@ -188,11 +188,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   leftButton: {
-    left: theme.spacing.md,
+    left: themeApp.spacing.md,
     paddingRight: 2,
   },
   rightButton: {
-    right: theme.spacing.md,
+    right: themeApp.spacing.md,
     paddingLeft: 2,
   },
 })

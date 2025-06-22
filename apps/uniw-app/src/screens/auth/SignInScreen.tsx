@@ -14,8 +14,8 @@ import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { signInSchema } from '@/types/auth'
 
-import type { SignInScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { SignInScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { InputText } from '@/components/forms/InputText'
 import { Button } from '@/components/forms/Button'
@@ -142,7 +142,7 @@ const SignInScreen = ({ navigation }: SignInScreenProps) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
   },
   scrollView: {
     flex: 1,
@@ -151,25 +151,25 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'space-between',
     padding: theme.spacing.lg,
-    paddingTop: theme.spacing['4xl'],
+    paddingTop: theme.spacing.custom['botom-tab-height'],
   },
   content: {
     rowGap: theme.spacing.md,
   },
   titleContainer: {
     rowGap: 10,
-    marginBottom: theme.spacing['4xl'],
+    marginBottom: theme.spacing.custom['botom-tab-height'],
   },
   title: {
     fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size['3xl'],
-    lineHeight: theme.fonts.size['3xl'],
-    color: theme.colors.text,
+    fontSize: theme.fonts.size.xxxl,
+    lineHeight: theme.fonts.size.xxxl,
+    color: colors.text.primary,
   },
   errorText: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.error,
+    color: colors.semantic.error,
   },
   forgotPasswordContainer: {
     alignSelf: 'flex-end',
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   forgotPasswordText: {
     fontFamily: theme.fonts.family.medium,
     fontSize: theme.fonts.size.sm,
-    color: theme.colors.secondary,
+    color: colors.brand.secondary,
   },
   submitContainer: {
     marginVertical: theme.spacing.xl,
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   dividerText: {
     marginHorizontal: theme.spacing.md,
     fontFamily: theme.fonts.family.regular,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   socialLoginContainer: {
     flexDirection: 'row',
@@ -207,12 +207,12 @@ const styles = StyleSheet.create({
   signUpText: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   signUpLink: {
     fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.secondary,
+    color: colors.brand.secondary,
     textDecorationLine: 'underline',
   },
 })

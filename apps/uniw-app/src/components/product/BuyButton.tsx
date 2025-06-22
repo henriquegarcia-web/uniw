@@ -3,7 +3,7 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
 type MaterialIconsIconName = keyof typeof MaterialIcons.glyphMap
@@ -22,8 +22,8 @@ export const BuyButton = ({ type, onPress }: BuyButtonProps) => {
       ? require('@/assets/backgrounds/button-secondary-background.png')
       : require('@/assets/backgrounds/button-primary-background.png')
 
-  const backgroundColor = type === 'buy' ? theme.colors.secondary : theme.colors.primary
-  const textColor = type === 'buy' ? theme.colors.text_contrast : theme.colors.text
+  const backgroundColor = type === 'buy' ? colors.brand.secondary : colors.brand.primary
+  const textColor = type === 'buy' ? colors.text.onBrand : colors.text.primary
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 50,
     height: 50,
-    borderRadius: theme.borders.radius.circle,
+    borderRadius: themeApp.borders.radius.full,
   },
   buyButtonImage: {
     position: 'absolute',
@@ -77,14 +77,14 @@ const styles = StyleSheet.create({
     height: 42,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingRight: theme.spacing.sm,
+    paddingRight: themeApp.spacing.sm,
     paddingLeft: 20,
     marginLeft: -20,
-    borderTopRightRadius: theme.borders.radius.xs,
-    borderBottomRightRadius: theme.borders.radius.xs,
+    borderTopRightRadius: themeApp.borders.radius.xs,
+    borderBottomRightRadius: themeApp.borders.radius.xs,
   },
   buyButtonLabel: {
-    fontFamily: theme.fonts.family.semiBold,
+    fontFamily: themeApp.fonts.family.semiBold,
     fontSize: 18,
   },
 })

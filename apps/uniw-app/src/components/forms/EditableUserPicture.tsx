@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Alert, Image, StyleSheet, View } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { ButtonEdit } from './ButtonEdit'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { Button } from './Button'
@@ -134,12 +134,12 @@ const styles = StyleSheet.create({
   avatar: {
     width: 100,
     height: 100,
-    borderRadius: theme.borders.radius.circle,
+    borderRadius: themeApp.borders.radius.full,
   },
   placeholder: {
     width: 100,
     height: 100,
-    borderRadius: theme.borders.radius.circle,
+    borderRadius: themeApp.borders.radius.full,
   },
   avatarEdit: {
     position: 'absolute',
@@ -147,6 +147,6 @@ const styles = StyleSheet.create({
     right: -2,
   },
   modalContent: {
-    rowGap: theme.spacing.sm,
+    rowGap: themeApp.spacing.sm,
   },
 })

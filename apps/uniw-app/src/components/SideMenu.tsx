@@ -15,9 +15,9 @@ import { Feather } from '@expo/vector-icons'
 
 import { useMenu } from '@/contexts/MenuProvider'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { navigate } from '@/services/navigation'
-import { MainTabParamList } from '@/navigation/types'
+import { MainTabParamList } from '@uniw/shared-types'
 
 const { width } = Dimensions.get('window')
 const MENU_WIDTH = width * 0.75
@@ -71,7 +71,7 @@ export const SideMenu = () => {
               style={styles.menuItem}
               onPress={() => navigateAndClose('ProfileStack', { screen: 'Profile' })}
             >
-              <Feather name="user" size={22} color={theme.colors.text} />
+              <Feather name="user" size={22} color={colors.text.primary} />
               <Text style={styles.menuItemText}>Meu Perfil</Text>
             </TouchableOpacity>
 
@@ -79,7 +79,7 @@ export const SideMenu = () => {
               style={styles.menuItem}
               onPress={() => navigateAndClose('ProfileStack', { screen: 'Wishlist' })}
             >
-              <Feather name="heart" size={22} color={theme.colors.text} />
+              <Feather name="heart" size={22} color={colors.text.primary} />
               <Text style={styles.menuItemText}>Favoritos</Text>
             </TouchableOpacity> */}
 
@@ -87,7 +87,7 @@ export const SideMenu = () => {
               style={styles.menuItem}
               onPress={() => navigateAndClose('ProfileStack', { screen: 'OrderHistory' })}
             >
-              <Feather name="shopping-bag" size={22} color={theme.colors.text} />
+              <Feather name="shopping-bag" size={22} color={colors.text.primary} />
               <Text style={styles.menuItemText}>Meus Pedidos</Text>
             </TouchableOpacity>
 
@@ -95,14 +95,16 @@ export const SideMenu = () => {
               style={styles.menuItem}
               onPress={() => navigateAndClose('ProfileStack', { screen: 'Settings' })}
             >
-              <Feather name="settings" size={22} color={theme.colors.text} />
+              <Feather name="settings" size={22} color={colors.text.primary} />
               <Text style={styles.menuItemText}>Configurações</Text>
             </TouchableOpacity>
           </View>
 
           <TouchableOpacity style={styles.logoutButton} onPress={handleSignOut}>
-            <Feather name="log-out" size={22} color={theme.colors.error} />
-            <Text style={[styles.menuItemText, { color: theme.colors.error }]}>Sair</Text>
+            <Feather name="log-out" size={22} color={colors.semantic.error} />
+            <Text style={[styles.menuItemText, { color: colors.semantic.error }]}>
+              Sair
+            </Text>
           </TouchableOpacity>
         </SafeAreaView>
       </Animated.View>
@@ -125,8 +127,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     width: MENU_WIDTH,
-    backgroundColor: theme.colors.background,
-    paddingTop: theme.spacing['phone-default-header'],
+    backgroundColor: colors.ui.background,
+    paddingTop: themeApp.spacing.custom['phone-default-header'],
   },
   menuWrapper: {
     flex: 1,
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
+    borderBottomColor: colors.ui.border,
   },
   logo: {
     height: 40,
@@ -144,23 +146,23 @@ const styles = StyleSheet.create({
   },
   menuItems: {
     flex: 1,
-    padding: theme.spacing.lg,
+    padding: themeApp.spacing.lg,
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: theme.spacing.md,
+    paddingVertical: themeApp.spacing.md,
   },
   menuItemText: {
-    fontFamily: theme.fonts.family.medium,
-    fontSize: theme.fonts.size.md,
-    marginLeft: theme.spacing.md,
+    fontFamily: themeApp.fonts.family.medium,
+    fontSize: themeApp.fonts.size.md,
+    marginLeft: themeApp.spacing.md,
   },
   logoutButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: theme.spacing.lg,
+    padding: themeApp.spacing.lg,
     borderTopWidth: 1,
-    borderTopColor: theme.colors.border,
+    borderTopColor: colors.ui.border,
   },
 })

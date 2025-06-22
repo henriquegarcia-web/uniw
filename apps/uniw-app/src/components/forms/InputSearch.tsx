@@ -11,9 +11,9 @@ import {
 } from 'react-native'
 
 import { Feather } from '@expo/vector-icons'
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { useNavigation } from '@react-navigation/native'
-import { AppStackParamList } from '@/navigation/types'
+import { AppStackParamList } from '@uniw/shared-types'
 import { useSearch } from '@/contexts/SearchProvider'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
@@ -26,7 +26,7 @@ interface InputSearchProps extends TextInputProps {
 export const InputSearch = forwardRef<TextInput, InputSearchProps>(
   ({ error, width, onVoicePress, ...rest }, ref) => {
     const hasError = !!error
-    const borderColor = hasError ? theme.colors.error : theme.colors.border
+    const borderColor = hasError ? colors.semantic.error : colors.ui.border
 
     const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>()
 
@@ -55,7 +55,7 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
           <Feather
             name="search"
             size={20}
-            color={theme.colors.text_secondary}
+            color={colors.text.secondary}
             style={styles.icon}
           />
 
@@ -63,7 +63,7 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
             ref={ref}
             style={styles.input}
             placeholder="Pesquisar produto"
-            placeholderTextColor={theme.colors.text_secondary}
+            placeholderTextColor={colors.text.secondary}
             value={searchTerm}
             onChangeText={setSearchTerm}
             onSubmitEditing={() => handleSearch()}
@@ -73,13 +73,13 @@ export const InputSearch = forwardRef<TextInput, InputSearchProps>(
 
           {searchTerm && searchTerm.trim() !== '' && (
             <TouchableOpacity onPress={handleClearSearch}>
-              <Feather name="x-circle" size={20} color={theme.colors.text_secondary} />
+              <Feather name="x-circle" size={20} color={colors.text.secondary} />
             </TouchableOpacity>
           )}
 
           {onVoicePress && (!searchTerm || searchTerm.trim() === '') && (
             <TouchableOpacity onPress={onVoicePress}>
-              <Feather name="mic" size={20} color={theme.colors.text_secondary} />
+              <Feather name="mic" size={20} color={colors.text.secondary} />
             </TouchableOpacity>
           )}
         </View>
@@ -97,28 +97,28 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: theme.borders.radius.sm,
-    paddingHorizontal: theme.spacing.md,
-    backgroundColor: theme.colors.background,
-    borderWidth: theme.borders.width.thin,
-    borderColor: theme.colors.border,
+    borderRadius: themeApp.borders.radius.sm,
+    paddingHorizontal: themeApp.spacing.md,
+    backgroundColor: colors.ui.background,
+    borderWidth: themeApp.borders.width.thin,
+    borderColor: colors.ui.border,
   },
   icon: {
-    marginRight: theme.spacing.sm,
+    marginRight: themeApp.spacing.sm,
   },
   input: {
     flex: 1,
     height: 40,
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.md,
-    color: theme.colors.text,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.md,
+    color: colors.text.primary,
     marginTop: 2,
   },
   errorText: {
-    marginTop: theme.spacing.xs,
-    marginLeft: theme.spacing.xs,
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.xs,
-    color: theme.colors.error,
+    marginTop: themeApp.spacing.xs,
+    marginLeft: themeApp.spacing.xs,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.xs,
+    color: colors.semantic.error,
   },
 })

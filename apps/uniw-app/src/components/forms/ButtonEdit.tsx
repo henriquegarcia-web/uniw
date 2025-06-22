@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import Feather from '@expo/vector-icons/Feather'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 
 interface ButtonEditProps extends TouchableOpacityProps {
   size?: 'sm' | 'md'
@@ -76,9 +76,9 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: theme.borders.radius.circle,
-    backgroundColor: theme.colors.secondary,
-    borderColor: theme.colors.background,
+    borderRadius: themeApp.borders.radius.full,
+    backgroundColor: colors.brand.secondary,
+    // borderColor: colors.ui.background,
   },
   disabled: {
     opacity: 0.5,

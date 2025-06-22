@@ -12,8 +12,8 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 
-import { theme } from '@/styles/theme'
-import { AppStackParamList } from '@/navigation/types'
+import { themeApp, colors } from '@uniw/shared-constants'
+import { AppStackParamList, MaterialCommunityIconsIcon } from '@uniw/shared-types'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { useMenu } from '@/contexts/MenuProvider'
 import { InputSearch } from './forms/InputSearch'
@@ -27,9 +27,6 @@ type HeaderVariant =
   | 'back-title-action'
   | 'profile'
   | 'back-profile'
-
-type FeatherIcon = keyof typeof Feather.glyphMap
-type MaterialCommunityIconsIcon = keyof typeof MaterialCommunityIcons.glyphMap
 
 export interface HeaderProps {
   variant: HeaderVariant
@@ -52,7 +49,7 @@ export const Header = ({
   const userHasPhoto = !!user?.baseProfile?.foto
   const isVariantProfile = variant === 'profile' || variant === 'back-profile'
 
-  const backgroundColor = isVariantProfile ? theme.colors.secondary : theme.colors.surface
+  const backgroundColor = isVariantProfile ? colors.brand.secondary : colors.ui.surface
   const logoImage = isVariantProfile
     ? require('@/assets/uniw_logo_constrast.png')
     : require('@/assets/uniw_logo.png')
@@ -111,9 +108,7 @@ export const Header = ({
             <MaterialCommunityIcons
               name="menu"
               size={32}
-              color={
-                isVariantProfile ? theme.colors.text_contrast : theme.colors.secondary
-              }
+              color={isVariantProfile ? colors.text.onBrand : colors.brand.secondary}
             />
           </TouchableOpacity>
         )
@@ -126,7 +121,7 @@ export const Header = ({
             <MaterialCommunityIcons
               name="chevron-left"
               size={26}
-              color={isVariantProfile ? theme.colors.text_contrast : theme.colors.text}
+              color={isVariantProfile ? colors.text.onBrand : colors.text.primary}
             />
           </TouchableOpacity>
         )
@@ -140,7 +135,7 @@ export const Header = ({
               <MaterialCommunityIcons
                 name="bell-outline"
                 size={26}
-                color={isVariantProfile ? theme.colors.text_contrast : theme.colors.text}
+                color={isVariantProfile ? colors.text.onBrand : colors.text.primary}
               />
             </TouchableOpacity>
             <View style={styles.placeholder} />
@@ -166,7 +161,7 @@ export const Header = ({
             style={[
               styles.title,
               {
-                color: isVariantProfile ? theme.colors.text_contrast : theme.colors.text,
+                color: isVariantProfile ? colors.text.onBrand : colors.text.primary,
               },
             ]}
           >
@@ -200,7 +195,7 @@ export const Header = ({
             <Feather
               name="shopping-cart"
               size={isVariantProfile ? 26 : 20}
-              color={theme.colors.background}
+              color={colors.ui.background}
               style={{ marginTop: 1, marginRight: 1 }}
             />
           </TouchableOpacity>
@@ -212,7 +207,7 @@ export const Header = ({
               <MaterialCommunityIcons
                 name={rightIconName}
                 size={26}
-                color={theme.colors.text}
+                color={colors.text.primary}
               />
             </TouchableOpacity>
           )
@@ -225,14 +220,14 @@ export const Header = ({
               <MaterialCommunityIcons
                 name="message-outline"
                 size={26}
-                color={isVariantProfile ? theme.colors.text_contrast : theme.colors.text}
+                color={isVariantProfile ? colors.text.onBrand : colors.text.primary}
               />
             </TouchableOpacity>
             <TouchableOpacity onPress={onSettingsPress} style={styles.iconButtonRight}>
               <MaterialCommunityIcons
                 name="cog-outline"
                 size={26}
-                color={isVariantProfile ? theme.colors.text_contrast : theme.colors.text}
+                color={isVariantProfile ? colors.text.onBrand : colors.text.primary}
               />
             </TouchableOpacity>
           </>
@@ -262,14 +257,14 @@ export const Header = ({
 
 const styles = StyleSheet.create({
   safeArea: {
-    paddingTop: theme.spacing['phone-default-header'],
+    paddingTop: themeApp.spacing.custom['phone-default-header'],
   },
   container: {
     height: 70,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: theme.spacing.lg,
+    paddingHorizontal: themeApp.spacing.lg,
   },
   sideComponent: {
     flexDirection: 'row',
@@ -282,12 +277,12 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     height: 50,
-    paddingHorizontal: theme.spacing.lg,
+    paddingHorizontal: themeApp.spacing.lg,
   },
   title: {
-    fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size.lg,
-    lineHeight: theme.fonts.size.xl,
+    fontFamily: themeApp.fonts.family.bold,
+    fontSize: themeApp.fonts.size.lg,
+    lineHeight: themeApp.fonts.size.xl,
   },
   logo: {
     height: 40,
@@ -296,15 +291,15 @@ const styles = StyleSheet.create({
   avatar: {
     height: 36,
     width: 36,
-    borderRadius: theme.borders.radius.circle,
+    borderRadius: themeApp.borders.radius.full,
   },
   avatarPlaceholder: {
     height: 36,
     width: 36,
-    borderRadius: theme.borders.radius.circle,
+    borderRadius: themeApp.borders.radius.full,
   },
   cartButton: {
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: colors.brand.secondary,
     width: 40,
     height: 40,
     borderRadius: 20,

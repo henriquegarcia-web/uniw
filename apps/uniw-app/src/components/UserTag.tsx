@@ -3,14 +3,13 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-
-type MaterialCommunityIconsIconName = keyof typeof MaterialCommunityIcons.glyphMap
+import { MaterialCommunityIconsIcon } from '@uniw/shared-types'
 
 interface UserTagProps {
   label: string
-  icon?: MaterialCommunityIconsIconName
+  icon?: MaterialCommunityIconsIcon
 }
 
 export const UserTag = ({ label, icon }: UserTagProps) => {
@@ -20,7 +19,7 @@ export const UserTag = ({ label, icon }: UserTagProps) => {
         <MaterialCommunityIcons
           name={icon}
           size={16}
-          color={theme.colors.text_secondary}
+          color={colors.text.secondary}
           style={styles.icon}
         />
       )}
@@ -35,18 +34,18 @@ const styles = StyleSheet.create({
     maxHeight: 28,
     flexDirection: 'row',
     alignItems: 'center',
-    columnGap: theme.spacing.xs,
-    paddingVertical: theme.spacing.xs,
-    paddingHorizontal: theme.spacing.sm,
-    borderRadius: theme.borders.radius.xs,
+    columnGap: themeApp.spacing.xs,
+    paddingVertical: themeApp.spacing.xs,
+    paddingHorizontal: themeApp.spacing.sm,
+    borderRadius: themeApp.borders.radius.xs,
     borderWidth: 1,
-    borderColor: theme.colors.text_secondary,
+    borderColor: colors.text.secondary,
   },
   label: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.xs,
-    lineHeight: theme.fonts.size.xs,
-    color: theme.colors.text_secondary,
+    fontFamily: themeApp.fonts.family.semiBold,
+    fontSize: themeApp.fonts.size.xs,
+    lineHeight: themeApp.fonts.size.xs,
+    color: colors.text.secondary,
   },
   icon: {},
 })

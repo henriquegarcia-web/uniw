@@ -3,8 +3,8 @@
 import React, { useMemo } from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native'
 
-import type { WishlistScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { WishlistScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { ProductList } from '@/components/product/ProductList'
 import { getProductsByIds } from '@/utils/mockGetters'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
@@ -45,8 +45,8 @@ const WishlistScreen = ({ navigation }: WishlistScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
-    marginBottom: theme.spacing['4xl'],
+    backgroundColor: colors.ui.surface,
+    marginBottom: theme.spacing.custom['botom-tab-height'],
     paddingVertical: theme.spacing.md,
     rowGap: theme.spacing.lg,
   },

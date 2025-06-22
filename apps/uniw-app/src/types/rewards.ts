@@ -1,35 +1,10 @@
-export enum CouponType {
-  PERCENTAGE = 'percentage',
-  FIXED_AMOUNT = 'fixed_amount',
-  FREE_SHIPPING = 'free_shipping',
-}
-
-export enum CouponStatus {
-  AVALIABLE = 'avaliable',
-  UNAVALIABLE = 'unavaliable',
-}
-
-export enum RedeemedCouponStatus {
-  AVALIABLE = 'avaliable',
-  USED = 'used',
-}
-
-export interface ICoupon {
-  id: string
-  code: string
-  title: string
-  description: string
-  costInPoints: number
-  type: CouponType
-  discountValue: number
-  status: CouponStatus
-}
-
-export interface IRedeemedCoupon {
-  id: string
-  couponId: string
-  status: RedeemedCouponStatus
-}
+import {
+  CouponStatus,
+  CouponType,
+  ICoupon,
+  IRedeemedCoupon,
+  RedeemedCouponStatus,
+} from '@uniw/shared-types'
 
 export const mockCoupons: ICoupon[] = [
   {

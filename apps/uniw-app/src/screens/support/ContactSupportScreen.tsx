@@ -14,8 +14,8 @@ import {
 import { useForm, Controller, FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import type { ContactSupportScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { ContactSupportScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useHelpCenter } from '@/contexts/HelpCenterProvider'
 import { contactSupportSchema } from '@/types/support'
 import { InputText } from '@/components/forms/InputText'
@@ -125,7 +125,7 @@ const ContactSupportScreen = ({ navigation, route }: ContactSupportScreenProps) 
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.colors.surface },
+  container: { flex: 1, backgroundColor: colors.ui.surface },
   contentContainer: { padding: theme.spacing.lg, gap: theme.spacing.md },
   title: {
     fontFamily: theme.fonts.family.bold,
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: theme.fonts.family.regular,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     marginBottom: theme.spacing.md,
   },
 })

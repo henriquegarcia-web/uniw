@@ -3,11 +3,11 @@
 import React from 'react'
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
 
-import { theme } from '@/styles/theme'
-import type { IProductCategory } from '@/types/products'
+import { themeApp, colors } from '@uniw/shared-constants'
+import type { IProductCategory } from '@uniw/shared-types'
 import { useNavigation } from '@react-navigation/native'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
-import { MainTabParamList } from '@/navigation/types'
+import { MainTabParamList } from '@uniw/shared-types'
 
 interface CategoriesNavigatorProps {
   categories: IProductCategory[]
@@ -53,12 +53,12 @@ export const CategoriesNavigator = ({ categories }: CategoriesNavigatorProps) =>
 const styles = StyleSheet.create({
   container: {},
   listContentContainer: {
-    columnGap: theme.spacing.sm,
-    paddingHorizontal: theme.spacing.lg,
+    columnGap: themeApp.spacing.sm,
+    paddingHorizontal: themeApp.spacing.lg,
   },
   itemContainer: {
     alignItems: 'center',
-    rowGap: theme.spacing.sm,
+    rowGap: themeApp.spacing.sm,
   },
   image: {
     width: 64,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   label: {
     width: 80,
     textAlign: 'center',
-    fontFamily: theme.fonts.family.medium,
-    fontSize: theme.fonts.size.sm,
+    fontFamily: themeApp.fonts.family.medium,
+    fontSize: themeApp.fonts.size.sm,
   },
 })

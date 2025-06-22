@@ -3,8 +3,8 @@
 import React from 'react'
 import { StyleSheet, SafeAreaView, Text } from 'react-native'
 
-import type { ClubSignatureScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { ClubSignatureScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 
 const ClubSignatureScreen = ({ navigation }: ClubSignatureScreenProps) => {
   return (
@@ -16,7 +16,7 @@ const ClubSignatureScreen = ({ navigation }: ClubSignatureScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -3,7 +3,7 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacityProps, View, Text } from 'react-native'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 
 interface SectionHeaderProps extends TouchableOpacityProps {
   title?: string
@@ -24,14 +24,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: theme.spacing.sm,
+    marginBottom: themeApp.spacing.sm,
 
     // borderWidth: 1,
     // borderColor: 'red',
   },
   title: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.xl,
+    fontFamily: themeApp.fonts.family.semiBold,
+    fontSize: themeApp.fonts.size.xl,
     paddingTop: 2,
   },
 })

@@ -11,13 +11,15 @@ import {
   ActivityIndicator,
 } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import type { TicketHistoryScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useHelpCenter } from '@/contexts/HelpCenterProvider'
-import { getTicketStatusData, ISupportTicket } from '@/types/support'
 import { ListEmptyMessage } from '@/components/ListEmptyMessage'
+import {
+  TicketHistoryScreenProps,
+  getTicketStatusData,
+  ISupportTicket,
+} from '@uniw/shared-types'
 
 const TicketItem = ({
   ticket,
@@ -57,7 +59,7 @@ const TicketHistoryScreen = ({ navigation }: TicketHistoryScreenProps) => {
   if (isLoading) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator size="large" color={theme.colors.secondary} />
+        <ActivityIndicator size="large" color={colors.brand.secondary} />
       </View>
     )
   }
@@ -83,18 +85,18 @@ const TicketHistoryScreen = ({ navigation }: TicketHistoryScreenProps) => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.colors.surface },
+  container: { flex: 1, backgroundColor: colors.ui.surface },
   contentContainer: { padding: theme.spacing.lg },
   centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   ticketItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     padding: theme.spacing.md,
     borderRadius: theme.borders.radius.sm,
     marginBottom: theme.spacing.sm,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   statusIndicator: {
     width: 8,
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
   ticketUpdate: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   ticketStatus: {
     fontFamily: theme.fonts.family.semiBold,

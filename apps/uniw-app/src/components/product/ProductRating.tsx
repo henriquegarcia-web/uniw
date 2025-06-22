@@ -4,8 +4,8 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 
-import { theme } from '@/styles/theme'
-import { IProductRating } from '@/types/products'
+import { themeApp, colors } from '@uniw/shared-constants'
+import { IProductRating } from '@uniw/shared-types'
 
 interface ProductRatingProps {
   rating?: IProductRating
@@ -51,7 +51,9 @@ export const ProductRating = ({ rating, large = false }: ProductRatingProps) => 
               key={index}
               name={iconName}
               size={large ? 18 : 12}
-              color={iconColor === 'active' ? theme.colors.waring : theme.colors.disabled}
+              color={
+                iconColor === 'active' ? colors.semantic.warning : colors.ui.disabled
+              }
               style={styles.star}
             />
           )
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    columnGap: theme.spacing.xs,
+    columnGap: themeApp.spacing.xs,
   },
   starsContainer: {
     flexDirection: 'row',
@@ -75,9 +77,9 @@ const styles = StyleSheet.create({
     marginRight: 2,
   },
   reviewsText: {
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.sm,
-    lineHeight: theme.fonts.size.sm,
-    color: theme.colors.text_tertiary,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.sm,
+    lineHeight: themeApp.fonts.size.sm,
+    color: colors.text.tertiary,
   },
 })

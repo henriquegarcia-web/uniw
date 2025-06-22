@@ -11,8 +11,8 @@ import {
 } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 
-import type { HelpArticleDetailsScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { HelpArticleDetailsScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { getHelpArticleById } from '@/utils/mockGetters'
 
 const HelpArticleDetailsScreen = ({ route }: HelpArticleDetailsScreenProps) => {
@@ -47,14 +47,14 @@ const HelpArticleDetailsScreen = ({ route }: HelpArticleDetailsScreenProps) => {
               <Text style={styles.feedbackQuestion}>Este artigo foi útil?</Text>
               <View style={styles.feedbackButtons}>
                 <TouchableOpacity style={styles.button} onPress={handleFeedback}>
-                  <Feather name="thumbs-up" size={20} color={theme.colors.success} />
-                  <Text style={[styles.buttonText, { color: theme.colors.success }]}>
+                  <Feather name="thumbs-up" size={20} color={colors.semantic.success} />
+                  <Text style={[styles.buttonText, { color: colors.semantic.success }]}>
                     Sim
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={handleFeedback}>
-                  <Feather name="thumbs-down" size={20} color={theme.colors.error} />
-                  <Text style={[styles.buttonText, { color: theme.colors.error }]}>
+                  <Feather name="thumbs-down" size={20} color={colors.semantic.error} />
+                  <Text style={[styles.buttonText, { color: colors.semantic.error }]}>
                     Não
                   </Text>
                 </TouchableOpacity>
@@ -68,8 +68,11 @@ const HelpArticleDetailsScreen = ({ route }: HelpArticleDetailsScreenProps) => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.colors.surface },
-  contentContainer: { padding: theme.spacing.lg, paddingBottom: theme.spacing['3xl'] },
+  container: { flex: 1, backgroundColor: colors.ui.surface },
+  contentContainer: {
+    padding: theme.spacing.lg,
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
+  },
   errorText: { textAlign: 'center', marginTop: 50 },
   title: {
     fontFamily: theme.fonts.family.bold,
@@ -80,13 +83,13 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
     lineHeight: 24,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   feedbackContainer: {
     marginTop: theme.spacing.xl,
     paddingTop: theme.spacing.lg,
     borderTopWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
     alignItems: 'center',
   },
   feedbackQuestion: {
@@ -102,13 +105,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.md,
     paddingVertical: theme.spacing.sm,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
     borderRadius: theme.borders.radius.sm,
   },
   buttonText: { fontFamily: theme.fonts.family.medium },
   feedbackThanks: {
     fontFamily: theme.fonts.family.semiBold,
-    color: theme.colors.success,
+    color: colors.semantic.success,
   },
 })
 

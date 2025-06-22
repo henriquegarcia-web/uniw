@@ -3,8 +3,8 @@
 import React from 'react'
 import { StyleSheet, SafeAreaView, Text, View, ScrollView } from 'react-native'
 
-import type { PoliciesScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { PoliciesScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { ProfileHeader } from '@/components/ProfileHeader' // Reutilizando o header de seção
 
 const PoliciesScreen = ({ navigation }: PoliciesScreenProps) => {
@@ -83,7 +83,7 @@ const PoliciesScreen = ({ navigation }: PoliciesScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: colors.ui.surface,
   },
   scrollView: {
     flex: 1,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: theme.spacing.lg,
     paddingTop: theme.spacing.sm,
-    paddingBottom: theme.spacing['3xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
   },
   header: {
     marginBottom: theme.spacing.lg,
@@ -99,14 +99,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size['2xl'],
-    color: theme.colors.text,
+    fontSize: theme.fonts.size.xxl,
+    color: colors.text.primary,
     textAlign: 'center',
   },
   lastUpdated: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     marginTop: theme.spacing.xs,
   },
   section: {
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   paragraph: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     lineHeight: 24, // Melhora a legibilidade de textos longos
     textAlign: 'justify',
   },

@@ -13,8 +13,8 @@ import {
 } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 
-import type { AboutUsScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { AboutUsScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { ProfileHeader } from '@/components/ProfileHeader'
 
 // Subcomponente para cada item de "Nossos Valores"
@@ -29,7 +29,7 @@ const ValueItem = ({
 }) => (
   <View style={styles.valueItem}>
     <View style={styles.valueIconContainer}>
-      <Feather name={icon} size={24} color={theme.colors.secondary} />
+      <Feather name={icon} size={24} color={colors.brand.secondary} />
     </View>
     <View style={styles.valueTextContainer}>
       <Text style={styles.valueTitle}>{title}</Text>
@@ -102,7 +102,7 @@ const AboutUsScreen = ({ navigation }: AboutUsScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: colors.ui.surface,
   },
   scrollView: {
     flex: 1,
@@ -110,16 +110,16 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: theme.spacing.lg,
     paddingTop: theme.spacing.sm,
-    paddingBottom: theme.spacing['3xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
   },
   header: {
     alignItems: 'center',
     marginBottom: theme.spacing.xl,
     padding: theme.spacing.md,
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderRadius: theme.borders.radius.sm,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   logo: {
     width: 120,
@@ -130,13 +130,13 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.xl,
     textAlign: 'center',
-    color: theme.colors.text,
+    color: colors.text.primary,
   },
   subtitle: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
     textAlign: 'center',
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     marginTop: theme.spacing.sm,
   },
   section: {
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
     lineHeight: 24,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     marginBottom: theme.spacing.md,
   },
   valueItem: {
@@ -158,12 +158,12 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: theme.spacing.md,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   valueTextContainer: {
     flex: 1,
@@ -171,12 +171,12 @@ const styles = StyleSheet.create({
   valueTitle: {
     fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
+    color: colors.text.primary,
   },
   valueDescription: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     marginTop: 2,
   },
 })

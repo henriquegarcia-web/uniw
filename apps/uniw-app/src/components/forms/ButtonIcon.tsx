@@ -3,7 +3,7 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet, TouchableOpacityProps } from 'react-native'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 
 interface ButtonIconProps extends TouchableOpacityProps {
   children: React.ReactNode
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 56,
     height: 56,
-    borderRadius: theme.borders.radius.circle,
+    borderRadius: themeApp.borders.radius.full,
     borderWidth: 1,
     borderColor: '#B667A5',
     backgroundColor: '#FCF3F6',

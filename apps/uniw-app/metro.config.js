@@ -16,10 +16,22 @@ config.resolver.nodeModulesPaths = [
   path.resolve(projectRoot, 'node_modules'),
   path.resolve(workspaceRoot, 'node_modules'),
 ]
-// 3. Force Metro to resolve (sub)dependencies only from the `nodeModulesPaths`
+
 config.resolver.disableHierarchicalLookup = true
 
 config.resolver.unstable_enablePackageExports = false
 config.resolver.unstable_enableSymlinks = false
+
+const monorepoPackages = {
+  '@uniw/shared-constants': path.resolve(workspaceRoot, 'packages/shared-constants'),
+  '@uniw/shared-services': path.resolve(workspaceRoot, 'packages/shared-services'),
+  '@uniw/shared-types': path.resolve(workspaceRoot, 'packages/shared-types'),
+  '@uniw/shared-utils': path.resolve(workspaceRoot, 'packages/shared-utils'),
+}
+
+config.resolver.extraNodeModules = {
+  ...config.resolver.extraNodeModules,
+  ...monorepoPackages,
+}
 
 module.exports = config

@@ -1,7 +1,7 @@
 // src/hooks/useProcessedProducts.ts
 
 import { useState, useMemo } from 'react'
-import { IProduct, SortOption, FilterState } from '@/types/products'
+import { FilterState, IProduct, SortOption } from '@uniw/shared-types'
 
 export const useProcessedProducts = (baseProducts: IProduct[], searchTerm?: string) => {
   const [filters, setFilters] = useState<FilterState>({})

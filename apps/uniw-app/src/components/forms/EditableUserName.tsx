@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { Text, StyleSheet, View, Alert, TouchableOpacity } from 'react-native'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { ButtonEdit } from './ButtonEdit'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { Button } from './Button'
@@ -93,11 +93,11 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   name: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.md,
-    lineHeight: theme.fonts.size.lg,
-    borderRadius: theme.borders.radius.circle,
-    color: theme.colors.text_contrast,
+    fontFamily: themeApp.fonts.family.semiBold,
+    fontSize: themeApp.fonts.size.md,
+    lineHeight: themeApp.fonts.size.lg,
+    borderRadius: themeApp.borders.radius.full,
+    color: colors.text.onBrand,
   },
   nameEdit: {
     position: 'absolute',
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   modalActions: {
     flexDirection: 'row',
-    marginTop: theme.spacing.md,
-    gap: theme.spacing.md,
+    marginTop: themeApp.spacing.md,
+    gap: themeApp.spacing.md,
   },
 })

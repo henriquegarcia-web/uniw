@@ -6,12 +6,12 @@ import {
   IProductBanner,
   IProductFeaturedBanner,
   IProductListBanner,
-} from '@/types/banners'
+} from '@uniw/shared-types'
 import { getProductById, getProductsByIds } from '@/utils/mockGetters'
 import { Dimensions, FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import { ProductList } from '../product/ProductList'
 import { ProductCard } from '../product/ProductCard'
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { SectionHeader } from '../SectionHeader'
 import { CtaButton } from '../forms/CtaButton'
 
@@ -49,8 +49,8 @@ export const ProductGrid = ({ data }: { data: IProductListBanner }) => {
 // ================================================================
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window')
-const GAP_SIZE = theme.spacing.sm
-const USABLE_WIDTH = SCREEN_WIDTH - theme.spacing.lg * 2 - GAP_SIZE
+const GAP_SIZE = themeApp.spacing.sm
+const USABLE_WIDTH = SCREEN_WIDTH - themeApp.spacing.lg * 2 - GAP_SIZE
 const CARD_WIDTH = USABLE_WIDTH / 2.5
 
 export const ProductScroll = ({ data }: { data: IProductListBanner }) => {
@@ -86,11 +86,11 @@ export const ProductScroll = ({ data }: { data: IProductListBanner }) => {
 const productScrollStyles = StyleSheet.create({
   container: {},
   listHeader: {
-    paddingLeft: theme.spacing.lg,
+    paddingLeft: themeApp.spacing.lg,
   },
   listContent: {
-    paddingHorizontal: theme.spacing.lg,
-    paddingVertical: theme.spacing.sm,
+    paddingHorizontal: themeApp.spacing.lg,
+    paddingVertical: themeApp.spacing.sm,
   },
   cardContainer: {
     width: CARD_WIDTH,
@@ -120,18 +120,18 @@ export const ProductFeatured = ({ data }: { data: IProductFeaturedBanner }) => {
 const productFeaturedStyles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    columnGap: theme.spacing.md,
+    columnGap: themeApp.spacing.md,
     backgroundColor: '#E9E9E9',
-    marginHorizontal: theme.spacing.lg,
-    paddingVertical: theme.spacing.lg,
-    paddingHorizontal: theme.spacing.md,
+    marginHorizontal: themeApp.spacing.lg,
+    paddingVertical: themeApp.spacing.lg,
+    paddingHorizontal: themeApp.spacing.md,
     borderLeftWidth: 5,
-    borderLeftColor: theme.colors.success,
+    borderLeftColor: colors.semantic.success,
   },
   mediaImage: {
     width: 120,
     height: 120,
-    borderRadius: theme.borders.radius.sm,
+    borderRadius: themeApp.borders.radius.sm,
   },
   productDetails: {
     flex: 1,
@@ -139,15 +139,15 @@ const productFeaturedStyles = StyleSheet.create({
   },
   productName: {
     textAlign: 'right',
-    fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size.xl,
-    color: theme.colors.text,
+    fontFamily: themeApp.fonts.family.bold,
+    fontSize: themeApp.fonts.size.xl,
+    color: colors.text.primary,
   },
   legend: {
     textAlign: 'right',
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.md,
-    color: theme.colors.text,
-    marginBottom: theme.spacing.sm,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.md,
+    color: colors.text.primary,
+    marginBottom: themeApp.spacing.sm,
   },
 })

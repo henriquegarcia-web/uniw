@@ -12,8 +12,8 @@ import {
 } from 'react-native'
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 
-import type { SaleAnnouncementScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { SaleAnnouncementScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { Button } from '@/components/forms/Button'
 
 // Subcomponente para cada passo da instrução
@@ -57,7 +57,7 @@ const SaleAnnouncementScreen = ({ navigation }: SaleAnnouncementScreenProps) => 
           <MaterialCommunityIcons
             name="storefront-outline"
             size={50}
-            color={theme.colors.secondary}
+            color={colors.brand.secondary}
           />
           <Text style={styles.title}>Venda na UNIW e Expanda seu Negócio</Text>
           <Text style={styles.subtitle}>
@@ -90,19 +90,19 @@ const SaleAnnouncementScreen = ({ navigation }: SaleAnnouncementScreenProps) => 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Principais Vantagens</Text>
           <View style={styles.benefitItem}>
-            <Feather name="users" size={20} color={theme.colors.primary} />
+            <Feather name="users" size={20} color={colors.brand.primary} />
             <Text style={styles.benefitText}>
               Visibilidade para uma nova base de clientes.
             </Text>
           </View>
           <View style={styles.benefitItem}>
-            <Feather name="calendar" size={20} color={theme.colors.primary} />
+            <Feather name="calendar" size={20} color={colors.brand.primary} />
             <Text style={styles.benefitText}>
               Sistema completo de agendamento online.
             </Text>
           </View>
           <View style={styles.benefitItem}>
-            <Feather name="dollar-sign" size={20} color={theme.colors.primary} />
+            <Feather name="dollar-sign" size={20} color={colors.brand.primary} />
             <Text style={styles.benefitText}>
               Ferramentas de gestão financeira e de estoque.
             </Text>
@@ -128,14 +128,14 @@ const SaleAnnouncementScreen = ({ navigation }: SaleAnnouncementScreenProps) => 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: colors.ui.surface,
   },
   scrollView: {
     flex: 1,
   },
   contentContainer: {
     padding: theme.spacing.lg,
-    paddingBottom: theme.spacing['3xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
   },
   header: {
     alignItems: 'center',
@@ -143,16 +143,16 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size['2xl'],
+    fontSize: theme.fonts.size.xxl,
     textAlign: 'center',
     marginTop: theme.spacing.md,
-    color: theme.colors.text,
+    color: colors.text.primary,
   },
   subtitle: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
     textAlign: 'center',
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     marginTop: theme.spacing.sm,
   },
   section: {
@@ -169,21 +169,21 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.sm,
     padding: theme.spacing.md,
     borderRadius: theme.borders.radius.sm,
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   stepNumberCircle: {
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: colors.brand.secondary,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: theme.spacing.md,
   },
   stepNumberText: {
-    color: theme.colors.text_contrast,
+    color: colors.text.onBrand,
     fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.lg,
     marginTop: 1.5,
@@ -199,18 +199,18 @@ const styles = StyleSheet.create({
   },
   stepDescription: {
     fontFamily: theme.fonts.family.regular,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     fontSize: theme.fonts.size.md,
   },
   benefitItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     padding: theme.spacing.md,
     borderRadius: theme.borders.radius.sm,
     marginBottom: theme.spacing.sm,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   benefitText: {
     flex: 1,
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   ctaFooterText: {
     textAlign: 'center',
     marginTop: theme.spacing.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     fontSize: theme.fonts.size.sm,
   },
 })

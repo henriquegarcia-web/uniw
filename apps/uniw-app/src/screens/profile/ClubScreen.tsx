@@ -11,16 +11,18 @@ import {
 } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import type { ClubScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
-import { ClubStatus, getClubStatusData } from '@/types/auth'
+import {
+  ClubStatus,
+  getClubStatusData,
+  ClubScreenProps,
+  MaterialCommunityIconsIcon,
+} from '@uniw/shared-types'
 import { Button } from '@/components/forms/Button'
-import { applyMask } from '@/utils/masks'
+import { applyMask } from '@uniw/shared-utils'
 import { ProfileHeader } from '@/components/ProfileHeader'
 import { ProfileMenu, ProfileMenuItem } from './ProfileScreen'
-
-type MaterialCommunityIconsIconName = keyof typeof MaterialCommunityIcons.glyphMap
 
 // Componente de Card de Benefício
 const BenefitCard = ({
@@ -28,12 +30,12 @@ const BenefitCard = ({
   title,
   description,
 }: {
-  icon: MaterialCommunityIconsIconName
+  icon: MaterialCommunityIconsIcon
   title: string
   description: string
 }) => (
   <View style={styles.benefitCard}>
-    <MaterialCommunityIcons name={icon} size={28} color={theme.colors.secondary} />
+    <MaterialCommunityIcons name={icon} size={28} color={colors.brand.secondary} />
     <Text style={styles.benefitTitle}>{title}</Text>
     <Text style={styles.benefitDescription}>{description}</Text>
   </View>
@@ -44,7 +46,7 @@ const BenefitItem = ({ title }: { title: string }) => (
     <MaterialCommunityIcons
       name="checkbox-marked-circle-outline"
       size={16}
-      color={theme.colors.primary}
+      color={colors.brand.primary}
     />
     <Text style={styles.benefitItemText}>{title}</Text>
   </View>
@@ -111,7 +113,7 @@ const ClubScreen = ({ navigation }: ClubScreenProps) => {
               <MaterialCommunityIcons
                 name="credit-card"
                 size={24}
-                color={theme.colors.text_secondary}
+                color={colors.text.secondary}
               />
               <View style={styles.paymentMethodDetails}>
                 {defaultCard ? (
@@ -175,7 +177,7 @@ const ClubScreen = ({ navigation }: ClubScreenProps) => {
           <MaterialCommunityIcons
             name="crown-outline"
             size={60}
-            color={theme.colors.secondary}
+            color={colors.brand.secondary}
           />
           <Text style={styles.ctaTitle}>Faça Parte do Clube UNIW!</Text>
           <Text style={styles.ctaDescription}>
@@ -231,15 +233,15 @@ const ClubScreen = ({ navigation }: ClubScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: theme.spacing['4xl'],
-    backgroundColor: theme.colors.surface,
+    marginBottom: theme.spacing.custom['botom-tab-height'],
+    backgroundColor: colors.ui.surface,
   },
   scrollView: {
     flex: 1,
   },
   contentContainer: {
     padding: theme.spacing.lg,
-    paddingBottom: theme.spacing['3xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
   },
   viewWrapper: {
     rowGap: theme.spacing.md,
@@ -247,11 +249,11 @@ const styles = StyleSheet.create({
   viewContainer: {},
   card: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderRadius: theme.borders.radius.sm,
     padding: theme.spacing.lg,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   statusCard: {
     // gap: theme.spacing.md,
@@ -269,35 +271,35 @@ const styles = StyleSheet.create({
   statusBadge: {
     paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: theme.borders.radius.circle,
+    borderRadius: theme.borders.radius.full,
   },
   statusBadgeText: {
-    color: theme.colors.text_contrast,
+    color: colors.text.onBrand,
     fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.xs,
   },
   memberSinceText: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     marginBottom: theme.spacing.sm,
   },
   pointsContainer: {
     alignItems: 'center',
     padding: theme.spacing.md,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: colors.ui.surface,
     borderRadius: theme.borders.radius.sm,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   pointsValue: {
     fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size['3xl'],
-    color: theme.colors.primary,
+    fontSize: theme.fonts.size.xxxl,
+    color: colors.brand.primary,
   },
   pointsLabel: {
     fontFamily: theme.fonts.family.medium,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   ctaCard: {
     alignItems: 'center',
@@ -307,26 +309,26 @@ const styles = StyleSheet.create({
   ctaTitle: {
     fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.xl,
-    lineHeight: theme.fonts.size['2xl'],
+    lineHeight: theme.fonts.size.xxl,
     textAlign: 'center',
   },
   ctaDescription: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     textAlign: 'center',
   },
   benefitsWrapper: {
     rowGap: theme.spacing.sm,
   },
   benefitCard: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderRadius: theme.borders.radius.sm,
     paddingHorizontal: theme.spacing.md,
     paddingVertical: theme.spacing.lg,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   benefitTitle: {
     fontFamily: theme.fonts.family.semiBold,
@@ -336,7 +338,7 @@ const styles = StyleSheet.create({
   benefitDescription: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     textAlign: 'center',
     marginTop: theme.spacing.xs,
   },
@@ -345,7 +347,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: theme.spacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
+    borderBottomColor: colors.ui.border,
   },
   paymentMethodDetails: {
     flex: 1,
@@ -357,12 +359,12 @@ const styles = StyleSheet.create({
   },
   nextBillingText: {
     fontFamily: theme.fonts.family.regular,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     fontSize: theme.fonts.size.sm,
   },
   changeButtonText: {
     fontFamily: theme.fonts.family.bold,
-    color: theme.colors.secondary,
+    color: colors.brand.secondary,
     fontSize: theme.fonts.size.md,
   },
   historyContainer: {
@@ -371,7 +373,7 @@ const styles = StyleSheet.create({
   historyTitle: {
     fontFamily: theme.fonts.family.semiBold,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   historyItem: {
     flexDirection: 'row',
@@ -380,16 +382,16 @@ const styles = StyleSheet.create({
   },
   historyDate: {
     fontFamily: theme.fonts.family.regular,
-    color: theme.colors.text,
+    color: colors.text.primary,
   },
   historyAmount: {
     fontFamily: theme.fonts.family.medium,
-    color: theme.colors.text,
+    color: colors.text.primary,
   },
   planDetailsContainer: {
     paddingTop: theme.spacing.md,
     borderTopWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   planInfoRow: {
     flexDirection: 'row',
@@ -398,15 +400,15 @@ const styles = StyleSheet.create({
   },
   planInfoLabel: {
     fontFamily: theme.fonts.family.regular,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   planInfoValue: {
     fontFamily: theme.fonts.family.semiBold,
-    color: theme.colors.text,
+    color: colors.text.primary,
   },
   divider: {
     height: 1,
-    backgroundColor: theme.colors.border,
+    backgroundColor: colors.ui.border,
     marginVertical: theme.spacing.md,
   },
   benefitsTitle: {
@@ -422,7 +424,7 @@ const styles = StyleSheet.create({
   benefitItemText: {
     fontFamily: theme.fonts.family.regular,
     marginLeft: 6,
-    color: theme.colors.text,
+    color: colors.text.primary,
   },
 })
 

@@ -4,7 +4,7 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import OnboardingScreen from '@/screens/OnboardingScreen'
-import { OnboardingStackParamList } from '@/navigation/types'
+import { OnboardingStackParamList } from '@uniw/shared-types'
 
 const Stack = createNativeStackNavigator<OnboardingStackParamList>()
 

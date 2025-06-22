@@ -3,7 +3,7 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacityProps, View, Text } from 'react-native'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 
 interface ProfileHeaderProps extends TouchableOpacityProps {
   size?: 'default' | 'large'
@@ -16,12 +16,12 @@ export const ProfileHeader = ({ size, title }: ProfileHeaderProps) => {
   const customStyles =
     size === 'large'
       ? {
-          fontSize: theme.fonts.size.lg,
-          color: theme.colors.text,
+          fontSize: themeApp.fonts.size.lg,
+          color: colors.text.primary,
         }
       : {
-          fontSize: theme.fonts.size.sm,
-          color: theme.colors.text_secondary,
+          fontSize: themeApp.fonts.size.sm,
+          color: colors.text.secondary,
         }
 
   return <Text style={[styles.profileHeaderTitle, customStyles]}>{title}</Text>
@@ -29,8 +29,8 @@ export const ProfileHeader = ({ size, title }: ProfileHeaderProps) => {
 
 const styles = StyleSheet.create({
   profileHeaderTitle: {
-    marginBottom: theme.spacing.sm,
+    marginBottom: themeApp.spacing.sm,
 
-    fontFamily: theme.fonts.family.semiBold,
+    fontFamily: themeApp.fonts.family.semiBold,
   },
 })

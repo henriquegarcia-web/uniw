@@ -3,7 +3,7 @@
 import React, { createContext, useContext, ReactNode, useState } from 'react'
 import * as profileService from '@/services/profile'
 import { useClientAuth } from './ClientAuthProvider'
-import { IAddress, ICreditCard, INotificationSettings } from '@/types/auth'
+import { IAddress, ICreditCard, INotificationSettings } from '@uniw/shared-types'
 
 interface ProfileContextData {
   isProfileLoading: boolean

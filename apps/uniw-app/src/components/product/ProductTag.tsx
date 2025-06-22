@@ -3,7 +3,7 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { Feather } from '@expo/vector-icons'
 
 type FeatherIconName = keyof typeof Feather.glyphMap
@@ -20,7 +20,7 @@ export const ProductTag = ({ label, leftIcon }: ProductTagProps) => {
         <Feather
           name={leftIcon}
           size={16}
-          color={theme.colors.text_tertiary}
+          color={colors.text.tertiary}
           style={styles.icon}
         />
       )}
@@ -34,18 +34,18 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    columnGap: theme.spacing.xs,
-    paddingVertical: theme.spacing.xs,
-    paddingHorizontal: theme.spacing.sm,
-    borderRadius: theme.borders.radius.xs,
+    columnGap: themeApp.spacing.xs,
+    paddingVertical: themeApp.spacing.xs,
+    paddingHorizontal: themeApp.spacing.sm,
+    borderRadius: themeApp.borders.radius.xs,
     borderWidth: 1,
-    borderColor: theme.colors.text_tertiary,
+    borderColor: colors.text.tertiary,
   },
   label: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.sm,
-    lineHeight: theme.fonts.size.sm,
-    color: theme.colors.text_tertiary,
+    fontFamily: themeApp.fonts.family.semiBold,
+    fontSize: themeApp.fonts.size.sm,
+    lineHeight: themeApp.fonts.size.sm,
+    color: colors.text.tertiary,
   },
   icon: {},
 })

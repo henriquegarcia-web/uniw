@@ -12,8 +12,8 @@ import {
 } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import type { HelpCenterScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { HelpCenterScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { InputSearch } from '@/components/forms/InputSearch'
 import { Button } from '@/components/forms/Button'
 import { getHelpArticles, getHelpCategories } from '@/utils/mockGetters'
@@ -57,7 +57,7 @@ const HelpCenterScreen = ({ navigation }: HelpCenterScreenProps) => {
                 <MaterialCommunityIcons
                   name={category.icon}
                   size={28}
-                  color={theme.colors.secondary}
+                  color={colors.brand.secondary}
                 />
                 <Text style={styles.categoryName}>{category.name}</Text>
               </TouchableOpacity>
@@ -79,7 +79,7 @@ const HelpCenterScreen = ({ navigation }: HelpCenterScreenProps) => {
               <MaterialCommunityIcons
                 name="chevron-right"
                 size={22}
-                color={theme.colors.text_tertiary}
+                color={colors.text.tertiary}
               />
             </TouchableOpacity>
           ))}
@@ -106,8 +106,11 @@ const HelpCenterScreen = ({ navigation }: HelpCenterScreenProps) => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.colors.surface },
-  contentContainer: { padding: theme.spacing.lg, paddingBottom: theme.spacing['3xl'] },
+  container: { flex: 1, backgroundColor: colors.ui.surface },
+  contentContainer: {
+    padding: theme.spacing.lg,
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
+  },
   header: { marginBottom: theme.spacing.lg, alignItems: 'center' },
   title: {
     fontFamily: theme.fonts.family.bold,
@@ -122,13 +125,13 @@ const styles = StyleSheet.create({
   },
   categoryCard: {
     width: '48%',
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     padding: theme.spacing.md,
     borderRadius: theme.borders.radius.sm,
     alignItems: 'center',
     marginBottom: theme.spacing.sm,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   categoryName: {
     fontFamily: theme.fonts.family.semiBold,
@@ -139,12 +142,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     padding: theme.spacing.md,
     borderRadius: theme.borders.radius.sm,
     marginBottom: theme.spacing.xs,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   articleTitle: {
     flex: 1,
@@ -152,7 +155,7 @@ const styles = StyleSheet.create({
     fontSize: theme.fonts.size.md,
   },
   footer: { marginTop: theme.spacing.md, alignItems: 'center' },
-  footerText: { marginVertical: theme.spacing.md, color: theme.colors.text_secondary },
+  footerText: { marginVertical: theme.spacing.md, color: colors.text.secondary },
 })
 
 export default HelpCenterScreen

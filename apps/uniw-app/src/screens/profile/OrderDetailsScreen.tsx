@@ -11,11 +11,15 @@ import {
   TouchableOpacity,
 } from 'react-native'
 
-import type { AppStackParamList, OrderDetailsScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import {
+  AppStackParamList,
+  IOrderItem,
+  OrderDetailsScreenProps,
+  getOrderStatusData,
+} from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { getOrderById } from '@/utils/mockGetters'
-import { applyMask } from '@/utils/masks'
-import { getOrderStatusData } from '@/types/auth'
+import { applyMask } from '@uniw/shared-utils'
 import { ProfileHeader } from '@/components/ProfileHeader'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Button } from '@/components/forms/Button'
@@ -74,7 +78,7 @@ const OrderDetailsScreen = ({ navigation, route }: OrderDetailsScreenProps) => {
           <ProfileHeader title="Itens do Pedido" />
 
           <View style={styles.section}>
-            {orderData.items.map((item, index) => {
+            {orderData.items.map((item: IOrderItem, index: number) => {
               const isNotLastOne =
                 index + 1 < orderData.items.length && index + 1 !== orderData.items.length
               return (
@@ -178,15 +182,15 @@ const OrderDetailsScreen = ({ navigation, route }: OrderDetailsScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: theme.spacing['4xl'],
-    backgroundColor: theme.colors.surface,
+    marginBottom: theme.spacing.custom['botom-tab-height'],
+    backgroundColor: colors.ui.surface,
   },
   scrollView: {
     flex: 1,
   },
   contentContainer: {
     padding: theme.spacing.lg,
-    paddingBottom: theme.spacing['3xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
     rowGap: theme.spacing.md,
   },
   errorText: {
@@ -196,10 +200,10 @@ const styles = StyleSheet.create({
   sectionContainer: {},
   section: {
     padding: theme.spacing.md,
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderRadius: theme.borders.radius.sm,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   header: {
     flexDirection: 'row',
@@ -213,7 +217,7 @@ const styles = StyleSheet.create({
   orderDate: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     marginTop: 2,
   },
   statusBadge: {
@@ -224,12 +228,12 @@ const styles = StyleSheet.create({
   statusText: {
     fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.xs,
-    color: theme.colors.text_contrast,
+    color: colors.text.onBrand,
   },
   itemContainer: {
     flexDirection: 'row',
     // borderWidth: 1,
-    borderBottomColor: theme.colors.border,
+    borderBottomColor: colors.ui.border,
   },
   itemImage: {
     width: 60,
@@ -246,7 +250,7 @@ const styles = StyleSheet.create({
   },
   itemAttributes: {
     fontSize: theme.fonts.size.xs,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   itemQuantity: {
     fontSize: theme.fonts.size.sm,
@@ -263,17 +267,17 @@ const styles = StyleSheet.create({
   },
   summaryLabel: {
     fontFamily: theme.fonts.family.regular,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   summaryValue: {
     fontFamily: theme.fonts.family.medium,
   },
   discountValue: {
-    color: theme.colors.primary,
+    color: colors.brand.primary,
   },
   totalRow: {
     borderTopWidth: 1,
-    borderTopColor: theme.colors.border,
+    borderTopColor: colors.ui.border,
     marginTop: theme.spacing.sm,
     paddingTop: theme.spacing.sm,
   },

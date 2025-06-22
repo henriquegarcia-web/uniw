@@ -1,7 +1,7 @@
 // src/hooks/useProductVariations.ts
 
 import { useState, useEffect, useMemo, useCallback } from 'react'
-import type { IProduct, IProductSKU, IVariationType } from '@/types/products'
+import { IProduct, IProductSKU } from '@uniw/shared-types'
 
 interface UseProductVariationsReturn {
   selectedSku: IProductSKU | undefined

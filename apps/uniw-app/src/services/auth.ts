@@ -28,20 +28,12 @@ import {
 
 import { auth, database, storage } from './firebaseConfig'
 import {
-  IUser,
-  IBaseProfile,
-  UserRole,
-  UserStatus,
-  AuthProvider,
-  ClubStatus,
-  INotificationSettings,
-} from '@/types/auth'
-import {
   getDownloadURL,
   uploadBytes,
   ref as storageRef,
   deleteObject,
 } from 'firebase/storage'
+import { AuthProvider, IUser, UserRole, UserStatus } from '@uniw/shared-types'
 
 export async function isEmailInUse(email: string): Promise<boolean> {
   try {

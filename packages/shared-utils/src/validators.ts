@@ -53,9 +53,16 @@ export function isValidName(name: string): boolean {
 // ─── Validador de Data de Nasc. ─────────────────────────────────────────────
 
 export function isValidBirthDate(dateStr: string): boolean {
-  if (!dateStr || !/^\d{2}\/\d{4}$/.test(dateStr)) return false
+  // CORREÇÃO 1: A RegEx foi ajustada para validar o formato DD/MM/YYYY.
+  if (!dateStr || !/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)) return false
 
   const [day, month, year] = dateStr.split('/').map(Number)
+
+  // CORREÇÃO 2: Adicionada uma verificação para garantir que day, month e year não são undefined.
+  // Isso satisfaz o TypeScript e torna a função mais segura.
+  if (day === undefined || month === undefined || year === undefined) {
+    return false
+  }
 
   const date = new Date(year, month - 1, day)
 
@@ -170,8 +177,11 @@ export function isValidExpiryDate(expiryDate: string): boolean {
   }
 
   const [monthStr, yearStr] = expiryDate.split('/')
-  const month = parseInt(monthStr, 10)
-  const year = parseInt(`20${yearStr}`, 10)
+  // Adicionado '|| '0'' para fornecer um valor padrão e garantir que o tipo é string.
+  // Isso também garante que a validação falhará se o valor for inesperado.
+  const month = parseInt(monthStr || '0', 10)
+  const year = parseInt(`20${yearStr || '0'}`, 10)
+
   if (month < 1 || month > 12) {
     return false
   }

@@ -3,7 +3,7 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 
 interface ListEmptyMessageProps {
   message: string
@@ -19,11 +19,11 @@ export const ListEmptyMessage = ({ message }: ListEmptyMessageProps) => {
 
 const styles = StyleSheet.create({
   emptyContainer: {
-    padding: theme.spacing.md,
+    padding: themeApp.spacing.md,
   },
   emptyMessage: {
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.md,
-    color: theme.colors.text,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.md,
+    color: colors.text.primary,
   },
 })

@@ -5,9 +5,9 @@ import { database } from './firebaseConfig'
 import {
   ISupportTicket,
   ISupportTicketMessage,
-  TicketStatus,
   TicketPriority,
-} from '@/types/support'
+  TicketStatus,
+} from '@uniw/shared-types'
 
 const ticketsRef = ref(database, 'supportTickets')
 

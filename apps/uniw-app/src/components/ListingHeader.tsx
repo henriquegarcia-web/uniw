@@ -11,9 +11,9 @@ import {
 } from 'react-native'
 import { Feather, Octicons } from '@expo/vector-icons'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { Button } from './forms/Button'
-import { FilterState, ProductBadge, SortOption, sortOptions } from '@/types/products'
+import { FilterState, ProductBadge, SortOption, sortOptions } from '@uniw/shared-types'
 import { InputText } from './forms/InputText'
 
 type FeatherIconName = keyof typeof Octicons.glyphMap
@@ -178,7 +178,7 @@ export const ListingHeader = ({
                 <Feather
                   name={tempBadges.includes(badge) ? 'check-square' : 'square'}
                   size={24}
-                  color={theme.colors.secondary}
+                  color={colors.brand.secondary}
                 />
                 <Text style={styles.checkboxLabel}>{badge.replace('_', ' ')}</Text>
               </TouchableOpacity>
@@ -205,13 +205,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.xl,
+    fontFamily: themeApp.fonts.family.semiBold,
+    fontSize: themeApp.fonts.size.xl,
     paddingTop: 2,
   },
   buttonsContainer: {
     flexDirection: 'row',
-    columnGap: theme.spacing.sm,
+    columnGap: themeApp.spacing.sm,
   },
   modalOverlay: {
     flex: 1,
@@ -222,58 +222,58 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: '100%',
-    backgroundColor: theme.colors.background,
-    borderRadius: theme.borders.radius.md,
-    padding: theme.spacing.lg,
+    backgroundColor: colors.ui.background,
+    borderRadius: themeApp.borders.radius.md,
+    padding: themeApp.spacing.lg,
   },
   optionButton: {
-    paddingVertical: theme.spacing.md,
+    paddingVertical: themeApp.spacing.md,
   },
   optionText: {
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.lg,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.lg,
   },
   selectedOptionText: {
-    fontFamily: theme.fonts.family.bold,
-    color: theme.colors.secondary,
+    fontFamily: themeApp.fonts.family.bold,
+    color: colors.brand.secondary,
   },
   modalHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: theme.spacing.lg,
+    marginBottom: themeApp.spacing.lg,
   },
   modalTitle: {
-    fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size.xl,
+    fontFamily: themeApp.fonts.family.bold,
+    fontSize: themeApp.fonts.size.xl,
     textAlign: 'center',
     flex: 1,
   },
   clearButtonText: {
-    fontFamily: theme.fonts.family.medium,
-    color: theme.colors.secondary,
-    fontSize: theme.fonts.size.md,
+    fontFamily: themeApp.fonts.family.medium,
+    color: colors.brand.secondary,
+    fontSize: themeApp.fonts.size.md,
   },
   filterSectionTitle: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
-    marginTop: theme.spacing.md,
-    marginBottom: theme.spacing.sm,
+    fontFamily: themeApp.fonts.family.semiBold,
+    fontSize: themeApp.fonts.size.lg,
+    color: colors.text.primary,
+    marginTop: themeApp.spacing.md,
+    marginBottom: themeApp.spacing.sm,
   },
   priceRangeContainer: {
     flexDirection: 'row',
-    gap: theme.spacing.md,
+    gap: themeApp.spacing.md,
   },
   checkboxContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: theme.spacing.sm,
+    paddingVertical: themeApp.spacing.sm,
   },
   checkboxLabel: {
-    marginLeft: theme.spacing.sm,
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.md,
+    marginLeft: themeApp.spacing.sm,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.md,
     textTransform: 'capitalize',
   },
 })
@@ -299,7 +299,7 @@ export const FilterButton = ({
         <Octicons
           name={iconName}
           size={16}
-          color={theme.colors.text_secondary}
+          color={colors.text.secondary}
           style={[
             filterButtonStyles.icon,
             iconName === 'arrow-switch' && filterButtonStyles.iconRotated,
@@ -317,18 +317,18 @@ const filterButtonStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    columnGap: theme.spacing.sm,
+    columnGap: themeApp.spacing.sm,
     height: 30,
-    paddingHorizontal: theme.spacing.sm,
-    borderRadius: theme.borders.radius.sm,
-    backgroundColor: theme.colors.background,
+    paddingHorizontal: themeApp.spacing.sm,
+    borderRadius: themeApp.borders.radius.sm,
+    backgroundColor: colors.ui.background,
 
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   label: {
-    fontFamily: theme.fonts.family.medium,
-    fontSize: theme.fonts.size.sm,
+    fontFamily: themeApp.fonts.family.medium,
+    fontSize: themeApp.fonts.size.sm,
   },
   icon: {},
   iconRotated: {
@@ -340,7 +340,7 @@ const filterButtonStyles = StyleSheet.create({
     right: -4,
     width: 8,
     height: 8,
-    borderRadius: theme.borders.radius.circle,
-    backgroundColor: theme.colors.error,
+    borderRadius: themeApp.borders.radius.full,
+    backgroundColor: colors.semantic.error,
   },
 })

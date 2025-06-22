@@ -15,8 +15,8 @@ import {
 import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import type { ChangeEmailScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { ChangeEmailScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { changeEmailSchema } from '@/types/auth'
 import { InputText } from '@/components/forms/InputText'
@@ -146,7 +146,7 @@ const ChangeEmailScreen = ({ navigation }: ChangeEmailScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: colors.ui.surface,
   },
   contentContainer: {
     flexGrow: 1,
@@ -157,13 +157,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size['2xl'],
-    color: theme.colors.text,
+    fontSize: theme.fonts.size.xxl,
+    color: colors.text.primary,
   },
   subtitle: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     marginTop: theme.spacing.xs,
     lineHeight: 22,
   },

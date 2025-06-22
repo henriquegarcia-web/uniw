@@ -4,13 +4,15 @@ import React, { useEffect } from 'react'
 import { StyleSheet, SafeAreaView, Text, View, ScrollView, Alert } from 'react-native'
 import { useForm, Controller, FieldValues } from 'react-hook-form'
 
-import type { NotificationsSettingsScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type {
+  NotificationsSettingsScreenProps,
+  INotificationSettings,
+} from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { Switch } from '@/components/forms/Switch'
 import { ProfileHeader } from '@/components/ProfileHeader'
 import { Button } from '@/components/forms/Button'
-import { INotificationSettings } from '@/types/auth'
 import { useClientProfile } from '@/contexts/ClientProfileProvider'
 
 const NotificationsSettingsScreen = ({
@@ -150,11 +152,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: 75,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: colors.ui.surface,
   },
   contentContainer: {
     padding: theme.spacing.lg,
-    paddingBottom: theme.spacing['3xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
   },
   section: {
     marginBottom: theme.spacing.md,
@@ -166,9 +168,9 @@ const styles = StyleSheet.create({
     paddingTop: theme.spacing.md,
     paddingBottom: theme.spacing.lg,
     paddingHorizontal: theme.spacing.lg,
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderTopWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
 })
 export default NotificationsSettingsScreen

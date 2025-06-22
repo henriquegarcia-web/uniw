@@ -14,13 +14,18 @@ import {
 import { useForm, Controller, FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import type { AddNewAddressScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type {
+  AddNewAddressScreenProps,
+  IAddress,
+  IBGEState,
+  IBGECity,
+} from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientProfile } from '@/contexts/ClientProfileProvider'
-import { IAddress, addAddressSchema } from '@/types/auth'
-import { applyMask } from '@/utils/masks'
+import { addAddressSchema } from '@/types/auth'
+import { applyMask } from '@uniw/shared-utils'
 import { viacepService } from '@/services/viacep'
-import { ibgeService, IBGEState, IBGECity } from '@/services/ibge'
+import { ibgeService } from '@/services/ibge'
 
 import { InputText } from '@/components/forms/InputText'
 import { Button } from '@/components/forms/Button'
@@ -274,12 +279,12 @@ const AddNewAddressScreen = ({ navigation }: AddNewAddressScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: theme.spacing['4xl'],
-    backgroundColor: theme.colors.background,
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
+    backgroundColor: colors.ui.background,
   },
   contentContainer: {
     padding: theme.spacing.lg,
-    paddingBottom: theme.spacing['3xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
     gap: theme.spacing.md,
   },
   row: {

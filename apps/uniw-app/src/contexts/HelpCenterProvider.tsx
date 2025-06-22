@@ -3,7 +3,7 @@
 import React, { createContext, useContext, ReactNode, useState } from 'react'
 import { useClientAuth } from './ClientAuthProvider'
 import * as supportService from '@/services/support'
-import { ISupportTicket } from '@/types/support'
+import { ISupportTicket } from '@uniw/shared-types'
 
 interface HelpCenterContextData {
   isLoading: boolean

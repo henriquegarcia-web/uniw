@@ -2,7 +2,7 @@
 
 import { get, ref, set, update } from 'firebase/database'
 import { database } from './firebaseConfig'
-import { IAddress, ICreditCard, INotificationSettings } from '@/types/auth'
+import { IAddress, ICreditCard, INotificationSettings } from '@uniw/shared-types'
 
 // ────────────── FAVORITOS
 

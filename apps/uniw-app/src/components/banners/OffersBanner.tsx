@@ -9,11 +9,11 @@ import {
   IOfferCtaBanner,
   IOfferCtaWithBannerBanner,
   IOfferSimpleBanner,
-} from '@/types/banners'
+} from '@uniw/shared-types'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { ProductImageCarousel } from '../product/ProductImageCarousel'
 import { Feather } from '@expo/vector-icons'
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { CtaButton } from '../forms/CtaButton'
 
 const useCountdown = (endDate: number) => {
@@ -66,7 +66,7 @@ export const OffersBanner = ({ banner }: OffersBannerProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: theme.spacing.lg,
+    paddingHorizontal: themeApp.spacing.lg,
   },
 })
 
@@ -113,8 +113,8 @@ export const OfferCta = ({
 
 const offerCtaStyles = StyleSheet.create({
   container: {
-    borderRadius: theme.borders.radius.sm,
-    backgroundColor: theme.colors.secondary,
+    borderRadius: themeApp.borders.radius.sm,
+    backgroundColor: colors.brand.secondary,
     overflow: 'hidden',
   },
   bannerImage: {
@@ -125,21 +125,21 @@ const offerCtaStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: theme.spacing.md,
+    padding: themeApp.spacing.md,
   },
   textContainer: {
     flex: 1,
   },
   title: {
-    fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size.xl,
-    color: theme.colors.text_contrast,
+    fontFamily: themeApp.fonts.family.bold,
+    fontSize: themeApp.fonts.size.xl,
+    color: colors.text.onBrand,
   },
   countdown: {
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_contrast,
-    marginTop: theme.spacing.xs,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.sm,
+    color: colors.text.onBrand,
+    marginTop: themeApp.spacing.xs,
   },
 })
 
@@ -161,28 +161,28 @@ const offerSimpleStyles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    columnGap: theme.spacing.lg,
-    backgroundColor: theme.colors.secondary,
-    borderRadius: theme.borders.radius.sm,
-    padding: theme.spacing.md,
+    columnGap: themeApp.spacing.lg,
+    backgroundColor: colors.brand.secondary,
+    borderRadius: themeApp.borders.radius.sm,
+    padding: themeApp.spacing.md,
   },
   image: {
     width: 80,
     height: 80,
-    borderRadius: theme.borders.radius.sm,
+    borderRadius: themeApp.borders.radius.sm,
   },
   textContainer: {
     flex: 1,
   },
   title: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.xl,
-    color: theme.colors.text_contrast,
+    fontFamily: themeApp.fonts.family.semiBold,
+    fontSize: themeApp.fonts.size.xl,
+    color: colors.text.onBrand,
   },
   subtitle: {
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.md,
-    color: theme.colors.text_contrast,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.md,
+    color: colors.text.onBrand,
   },
 })
 
@@ -199,7 +199,7 @@ export const OfferAdvertisement = ({ data }: { data: IOfferAdvertisementBanner }
         />
         <View style={offerAdvertisementStyles.ctaContainer}>
           <Text style={offerAdvertisementStyles.ctaText}>{data.cta.label}</Text>
-          <Feather name="arrow-right" size={18} color={theme.colors.text} />
+          <Feather name="arrow-right" size={18} color={colors.text.primary} />
         </View>
       </TouchableOpacity>
     </View>
@@ -209,32 +209,32 @@ export const OfferAdvertisement = ({ data }: { data: IOfferAdvertisementBanner }
 const offerAdvertisementStyles = StyleSheet.create({
   container: {},
   sponsoredText: {
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_secondary,
-    marginBottom: theme.spacing.sm,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.sm,
+    color: colors.text.secondary,
+    marginBottom: themeApp.spacing.sm,
   },
   mainContent: {
     borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: theme.borders.radius.sm,
-    backgroundColor: theme.colors.background,
+    borderColor: colors.ui.border,
+    borderRadius: themeApp.borders.radius.sm,
+    backgroundColor: colors.ui.background,
   },
   mediaImage: {
     width: '100%',
     height: 180,
-    borderTopLeftRadius: theme.borders.radius.sm,
-    borderTopRightRadius: theme.borders.radius.sm,
+    borderTopLeftRadius: themeApp.borders.radius.sm,
+    borderTopRightRadius: themeApp.borders.radius.sm,
   },
   ctaContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: theme.spacing.md,
+    padding: themeApp.spacing.md,
   },
   ctaText: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
+    fontFamily: themeApp.fonts.family.semiBold,
+    fontSize: themeApp.fonts.size.lg,
+    color: colors.text.primary,
   },
 })

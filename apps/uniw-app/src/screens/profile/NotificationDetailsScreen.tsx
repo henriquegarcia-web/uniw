@@ -6,12 +6,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
-import type {
+import {
   NotificationDetailsScreenProps,
   AppStackParamList,
-} from '@/navigation/types'
-import { theme } from '@/styles/theme'
-import { getNotificationTypeData } from '@/types/notifications'
+  getNotificationTypeData,
+} from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { Button } from '@/components/forms/Button'
 import { getNotificationById } from '@/utils/mockGetters'
 
@@ -76,7 +76,7 @@ const NotificationDetailsScreen = ({ route }: NotificationDetailsScreenProps) =>
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
   },
   contentContainer: {
     padding: theme.spacing.lg,
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: theme.spacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
+    borderBottomColor: colors.ui.border,
   },
   iconContainer: {
     width: 60,
@@ -110,13 +110,13 @@ const styles = StyleSheet.create({
   date: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   content: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
     lineHeight: 24,
-    color: theme.colors.text,
+    color: colors.text.primary,
     marginTop: theme.spacing.lg,
 
     // borderWidth: 1,

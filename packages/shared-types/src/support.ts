@@ -82,7 +82,7 @@ export interface ISupportTicket {
 
 // --- DADOS MOCADOS ---
 
-export const mockHelpCategories: IHelpCategory[] = [
+const mockHelpCategories: IHelpCategory[] = [
   {
     id: 'cat-help-1',
     name: 'Pedidos e Entregas',
@@ -115,7 +115,7 @@ export const mockHelpCategories: IHelpCategory[] = [
   },
 ]
 
-export const mockHelpArticles: IHelpArticle[] = [
+const mockHelpArticles: IHelpArticle[] = [
   {
     id: 'art-1',
     categoryId: 'cat-help-1',
@@ -154,7 +154,7 @@ export const mockHelpArticles: IHelpArticle[] = [
   },
 ]
 
-export const mockSupportTickets: ISupportTicket[] = [
+const mockSupportTickets: ISupportTicket[] = [
   {
     id: 'ticket-1',
     userId: 'user-123', // ID do usuário logado

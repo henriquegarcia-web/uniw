@@ -3,8 +3,8 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
-import { theme } from '@/styles/theme'
-import { getProductBadge, ProductBadge } from '@/types/products'
+import { themeApp, colors } from '@uniw/shared-constants'
+import { getProductBadge, ProductBadge } from '@uniw/shared-types'
 import { ProductTag } from './ProductTag'
 
 interface ProductDetailsProps {
@@ -33,22 +33,22 @@ export const ProductDetails = ({ description, badges }: ProductDetailsProps) => 
 
 const styles = StyleSheet.create({
   container: {
-    rowGap: theme.spacing.sm,
+    rowGap: themeApp.spacing.sm,
   },
   detailsContainer: {},
   detailsTitle: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
+    fontFamily: themeApp.fonts.family.semiBold,
+    fontSize: themeApp.fonts.size.lg,
+    color: colors.text.primary,
   },
   detailsText: {
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.md,
-    color: theme.colors.text,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.md,
+    color: colors.text.primary,
   },
   badgesWrapper: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: theme.spacing.sm,
+    gap: themeApp.spacing.sm,
   },
 })

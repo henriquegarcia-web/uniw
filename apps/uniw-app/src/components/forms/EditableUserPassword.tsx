@@ -6,7 +6,7 @@ import { Alert, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-na
 import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { changePasswordSchema } from '@/types/auth'
 import { InputText } from './InputText'
 import { Button } from './Button'
@@ -167,16 +167,16 @@ export const EditableUserPassword = ({}: EditableUserPasswordProps) => {
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    rowGap: theme.spacing.sm,
+    rowGap: themeApp.spacing.sm,
   },
   toggleChangeMode: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
   changeModeLabel: {
-    fontFamily: theme.fonts.family.medium,
-    fontSize: theme.fonts.size.sm,
-    color: theme.colors.error,
+    fontFamily: themeApp.fonts.family.medium,
+    fontSize: themeApp.fonts.size.sm,
+    color: colors.semantic.error,
     textDecorationLine: 'underline',
   },
   modalOverlay: {
@@ -184,25 +184,25 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: theme.spacing.lg,
+    padding: themeApp.spacing.lg,
   },
   modalContent: {
     width: '100%',
     height: 320,
-    backgroundColor: theme.colors.surface,
-    borderRadius: theme.borders.radius.md,
-    padding: theme.spacing.lg,
+    backgroundColor: colors.ui.surface,
+    borderRadius: themeApp.borders.radius.md,
+    padding: themeApp.spacing.lg,
   },
   modalTitle: {
-    fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
-    marginBottom: theme.spacing.md,
+    fontFamily: themeApp.fonts.family.bold,
+    fontSize: themeApp.fonts.size.lg,
+    color: colors.text.primary,
+    marginBottom: themeApp.spacing.md,
     textAlign: 'center',
   },
   modalActions: {
     flexDirection: 'row',
-    marginTop: theme.spacing.lg,
-    gap: theme.spacing.md,
+    marginTop: themeApp.spacing.lg,
+    gap: themeApp.spacing.md,
   },
 })

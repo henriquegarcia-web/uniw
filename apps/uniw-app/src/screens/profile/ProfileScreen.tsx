@@ -12,10 +12,11 @@ import {
 
 import type {
   AppStackParamList,
+  MaterialCommunityIconsIcon,
   ProfileScreenProps,
   ProfileStackParamList,
-} from '@/navigation/types'
-import { theme } from '@/styles/theme'
+} from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
@@ -24,8 +25,6 @@ import { UserTag } from '@/components/UserTag'
 import { ProfileHeader } from '@/components/ProfileHeader'
 import { EditableUserPicture } from '@/components/forms/EditableUserPicture'
 import { EditableUserName } from '@/components/forms/EditableUserName'
-
-type MaterialCommunityIconsIconName = keyof typeof MaterialCommunityIcons.glyphMap
 
 const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
   const { user } = useClientAuth()
@@ -109,8 +108,8 @@ const ProfileScreen = ({ navigation }: ProfileScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.secondary,
-    marginBottom: theme.spacing['4xl'],
+    backgroundColor: colors.brand.secondary,
+    marginBottom: theme.spacing.custom['botom-tab-height'],
   },
   topContainer: {
     position: 'relative',
@@ -127,12 +126,12 @@ const styles = StyleSheet.create({
   userPicture: {
     width: 100,
     height: 100,
-    borderRadius: theme.borders.radius.circle,
+    borderRadius: theme.borders.radius.full,
   },
   placeholder: {
     width: 100,
     height: 100,
-    borderRadius: theme.borders.radius.circle,
+    borderRadius: theme.borders.radius.full,
   },
   userMainInfos: {
     rowGap: 2,
@@ -142,7 +141,7 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.family.medium,
     fontSize: theme.fonts.size.sm,
     lineHeight: theme.fonts.size.md,
-    color: theme.colors.text_contrast,
+    color: colors.text.onBrand,
     opacity: 0.7,
   },
   mainContainer: {
@@ -150,7 +149,7 @@ const styles = StyleSheet.create({
     rowGap: theme.spacing.md,
     paddingVertical: theme.spacing.md,
     paddingHorizontal: theme.spacing.lg,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: colors.ui.surface,
     borderTopLeftRadius: theme.borders.radius.md,
     borderTopRightRadius: theme.borders.radius.md,
   },
@@ -216,7 +215,7 @@ const profileMenuStyles = StyleSheet.create({
 
 interface ProfileNavigatorItemProps {
   label: string
-  icon: MaterialCommunityIconsIconName
+  icon: MaterialCommunityIconsIcon
   screen?: keyof ProfileStackParamList
   appScreen?: keyof AppStackParamList
   onPress?: () => void
@@ -254,7 +253,7 @@ export const ProfileNavigatorItem = ({
         <MaterialCommunityIcons
           name={icon}
           size={24}
-          color={theme.colors.text_secondary}
+          color={colors.text.secondary}
           style={profileNavigatorItemStyles.navigatorItemIcon}
         />
       )}
@@ -274,15 +273,15 @@ const profileNavigatorItemStyles = StyleSheet.create({
     borderRadius: theme.borders.radius.xs,
 
     borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.background,
+    borderColor: colors.ui.border,
+    backgroundColor: colors.ui.background,
   },
   navigatorItemIcon: {},
   navigatorItemLabel: {
     fontFamily: theme.fonts.family.semiBold,
     fontSize: theme.fonts.size.sm,
     lineHeight: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
 })
 
@@ -291,7 +290,7 @@ const profileNavigatorItemStyles = StyleSheet.create({
 interface ProfileMenuItemProps {
   type?: 'default' | 'negative'
   label: string
-  icon?: MaterialCommunityIconsIconName
+  icon?: MaterialCommunityIconsIcon
   screen?: keyof ProfileStackParamList
   appScreen?: keyof AppStackParamList
   onPress?: () => void
@@ -330,7 +329,7 @@ export const ProfileMenuItem = ({
         <MaterialCommunityIcons
           name={icon}
           size={18}
-          color={theme.colors.text_secondary}
+          color={colors.text.secondary}
           style={[
             profileMenuItemStyles.menuItemIcon,
             type === 'negative' && profileMenuItemStyles.menuItemLabelExit,
@@ -350,7 +349,7 @@ export const ProfileMenuItem = ({
       <MaterialCommunityIcons
         name="chevron-right"
         size={20}
-        color={theme.colors.text_tertiary}
+        color={colors.text.tertiary}
         style={[
           profileMenuItemStyles.menuItemIconChevron,
           type === 'negative' && profileMenuItemStyles.menuItemLabelExit,
@@ -371,18 +370,18 @@ const profileMenuItemStyles = StyleSheet.create({
     borderRadius: theme.borders.radius.xs,
 
     borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.background,
+    borderColor: colors.ui.border,
+    backgroundColor: colors.ui.background,
   },
   menuItemIcon: {},
   menuItemLabel: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
     lineHeight: theme.fonts.size.lg,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   menuItemLabelExit: {
-    color: theme.colors.error,
+    color: colors.semantic.error,
   },
   menuItemIconChevron: {
     marginLeft: 'auto',

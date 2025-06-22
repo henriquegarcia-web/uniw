@@ -15,11 +15,11 @@ import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import type { AddNewCardScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import { AddNewCardScreenProps, ICreditCard, ICardBrand } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientProfile } from '@/contexts/ClientProfileProvider'
-import { addCardSchema, CardBrand, ICreditCard } from '@/types/auth'
-import { applyMask } from '@/utils/masks'
+import { addCardSchema } from '@/types/auth'
+import { applyMask } from '@uniw/shared-utils'
 
 import { InputText } from '@/components/forms/InputText'
 import { Switch } from '@/components/forms/Switch'
@@ -80,11 +80,11 @@ const AddNewCardScreen = ({ navigation }: AddNewCardScreenProps) => {
   ])
 
   // Função para detectar a bandeira do cartão (simplificada)
-  const detectCardBrand = (number: string): CardBrand => {
-    if (number.startsWith('4')) return CardBrand.VISA
-    if (number.startsWith('5')) return CardBrand.MASTERCARD
-    if (number.startsWith('3')) return CardBrand.AMEX
-    return CardBrand.UNKNOWN
+  const detectCardBrand = (number: string): ICardBrand => {
+    if (number.startsWith('4')) return ICardBrand.VISA
+    if (number.startsWith('5')) return ICardBrand.MASTERCARD
+    if (number.startsWith('3')) return ICardBrand.AMEX
+    return ICardBrand.UNKNOWN
   }
 
   const handleSaveCard = async (data: FieldValues) => {
@@ -205,13 +205,13 @@ const AddNewCardScreen = ({ navigation }: AddNewCardScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
   },
   contentContainer: {
     padding: theme.spacing.lg,
   },
   cardPreview: {
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: colors.brand.secondary,
     borderRadius: theme.borders.radius.sm,
     padding: theme.spacing.lg,
     marginBottom: theme.spacing.lg,
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   cardNumberPreview: {
     fontFamily: theme.fonts.family.semiBold,
     fontSize: theme.fonts.size.xl,
-    color: theme.colors.text_contrast,
+    color: colors.text.onBrand,
     letterSpacing: 2,
   },
   cardDetailsPreview: {
@@ -234,13 +234,13 @@ const styles = StyleSheet.create({
   cardLabelPreview: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.xs,
-    color: theme.colors.text_contrast,
+    color: colors.text.onBrand,
     opacity: 0.7,
   },
   cardValuePreview: {
     fontFamily: theme.fonts.family.medium,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_contrast,
+    color: colors.text.onBrand,
     textTransform: 'uppercase',
   },
   formContainer: {

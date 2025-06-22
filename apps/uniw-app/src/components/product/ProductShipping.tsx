@@ -3,9 +3,9 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { Feather } from '@expo/vector-icons'
-import { IShippingDetails } from '@/types/products'
+import { IShippingDetails } from '@uniw/shared-types'
 
 type FeatherIconName = keyof typeof Feather.glyphMap
 
@@ -31,23 +31,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    rowGap: theme.spacing.xs,
-    paddingHorizontal: theme.spacing.md,
-    paddingVertical: theme.spacing.md,
-    marginBottom: theme.spacing.md,
-    borderRadius: theme.borders.radius.xs,
-    backgroundColor: theme.colors.secondary,
+    rowGap: themeApp.spacing.xs,
+    paddingHorizontal: themeApp.spacing.md,
+    paddingVertical: themeApp.spacing.md,
+    marginBottom: themeApp.spacing.md,
+    borderRadius: themeApp.borders.radius.xs,
+    backgroundColor: colors.brand.secondary,
   },
   deliveryBannerTopText: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.lg,
-    lineHeight: theme.fonts.size.lg,
-    color: theme.colors.text_contrast,
+    fontFamily: themeApp.fonts.family.semiBold,
+    fontSize: themeApp.fonts.size.lg,
+    lineHeight: themeApp.fonts.size.lg,
+    color: colors.text.onBrand,
   },
   deliveryBannerBottomText: {
-    fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size.lg,
-    lineHeight: theme.fonts.size.lg,
-    color: theme.colors.text_contrast,
+    fontFamily: themeApp.fonts.family.bold,
+    fontSize: themeApp.fonts.size.lg,
+    lineHeight: themeApp.fonts.size.lg,
+    color: colors.text.onBrand,
   },
 })

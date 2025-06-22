@@ -3,8 +3,8 @@
 import React from 'react'
 import { StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 
-import type { SettingsScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { SettingsScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { ProfileMenu, ProfileMenuItem } from './ProfileScreen'
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
@@ -51,8 +51,8 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
-    marginBottom: theme.spacing['4xl'],
+    backgroundColor: colors.ui.surface,
+    marginBottom: theme.spacing.custom['botom-tab-height'],
     paddingVertical: theme.spacing.md,
     rowGap: theme.spacing.lg,
   },

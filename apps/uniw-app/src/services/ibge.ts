@@ -1,17 +1,7 @@
 // src/services/ibge.ts
 
 import axios from 'axios'
-
-export interface IBGEState {
-  id: number
-  sigla: string
-  nome: string
-}
-
-export interface IBGECity {
-  id: number
-  nome: string
-}
+import { IBGECity, IBGEState } from '@uniw/shared-types'
 
 export const ibgeService = {
   async getStates(): Promise<IBGEState[]> {

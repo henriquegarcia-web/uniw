@@ -12,11 +12,10 @@ import {
 } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import type { MyAddressesScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { MyAddressesScreenProps, IAddress } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { useClientProfile } from '@/contexts/ClientProfileProvider'
-import { IAddress } from '@/types/auth'
 import { Button } from '@/components/forms/Button'
 import { ProfileHeader } from '@/components/ProfileHeader'
 
@@ -37,7 +36,7 @@ const AddressItem = ({
         <MaterialCommunityIcons
           name="map-marker-outline"
           size={26}
-          color={theme.colors.secondary}
+          color={colors.brand.secondary}
         />
         <Text style={styles.cardTitle}>{address.nome}</Text>
       </View>
@@ -119,24 +118,24 @@ const MyAddressesScreen = ({ navigation }: MyAddressesScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: theme.spacing['4xl'],
-    backgroundColor: theme.colors.surface,
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
+    backgroundColor: colors.ui.surface,
   },
   contentContainer: {
     padding: theme.spacing.lg,
-    paddingBottom: theme.spacing['3xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
   },
   card: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderRadius: theme.borders.radius.sm,
     padding: theme.spacing.md,
     marginBottom: theme.spacing.sm,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   defaultCard: {
     position: 'relative',
-    borderColor: theme.colors.secondary,
+    borderColor: colors.brand.secondary,
     borderWidth: 2,
     overflow: 'hidden',
   },
@@ -155,7 +154,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -1,
     right: -1,
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: colors.brand.secondary,
     color: 'white',
     paddingHorizontal: 14,
     paddingVertical: 6,
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
   addressText: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     lineHeight: 22,
   },
   cardFooter: {
@@ -178,7 +177,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: theme.spacing.sm,
     borderTopWidth: 1,
-    borderTopColor: theme.colors.border,
+    borderTopColor: colors.ui.border,
     paddingTop: theme.spacing.sm,
   },
   cardActions: {
@@ -188,10 +187,10 @@ const styles = StyleSheet.create({
   actionText: {
     fontFamily: theme.fonts.family.semiBold,
     fontSize: theme.fonts.size.sm,
-    color: theme.colors.secondary,
+    color: colors.brand.secondary,
   },
   removeText: {
-    color: theme.colors.red,
+    color: colors.ecommerce.sale,
   },
   headerContainer: {
     rowGap: theme.spacing.md,
@@ -204,7 +203,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     textAlign: 'center',
   },
 })

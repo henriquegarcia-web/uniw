@@ -11,10 +11,14 @@ import {
   FlatList,
 } from 'react-native'
 
-import type { OrderHistoryScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
-import { getOrderStatusData, IPurchaseOrder, mockPurchaseHistory } from '@/types/auth'
-import { applyMask } from '@/utils/masks'
+import {
+  OrderHistoryScreenProps,
+  getOrderStatusData,
+  IPurchaseOrder,
+} from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
+import { mockPurchaseHistory } from '@/types/auth'
+import { applyMask } from '@uniw/shared-utils'
 import { ProfileHeader } from '@/components/ProfileHeader'
 
 const OrderHistoryScreen = ({ navigation }: OrderHistoryScreenProps) => {
@@ -54,13 +58,13 @@ const OrderHistoryScreen = ({ navigation }: OrderHistoryScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: theme.spacing['4xl'],
+    marginBottom: theme.spacing.custom['botom-tab-height'],
     rowGap: theme.spacing.lg,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: colors.ui.surface,
   },
   contentContainer: {
     padding: theme.spacing.lg,
-    paddingBottom: theme.spacing['3xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
   },
   emptyContainer: {
     flex: 1,
@@ -71,7 +75,7 @@ const styles = StyleSheet.create({
   emptyText: {
     fontFamily: theme.fonts.family.medium,
     fontSize: theme.fonts.size.lg,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     textAlign: 'center',
   },
 })
@@ -155,11 +159,11 @@ export const OrderHistoryCard = ({
 
 const orderHistoryCardstyles = StyleSheet.create({
   card: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderRadius: theme.borders.radius.sm,
     padding: theme.spacing.md,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
     // elevation: 2,
     // shadowColor: '#000',
     // shadowOffset: { width: 0, height: 2 },
@@ -171,18 +175,18 @@ const orderHistoryCardstyles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
+    borderBottomColor: colors.ui.border,
     paddingBottom: theme.spacing.sm,
   },
   orderNumber: {
     fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.secondary,
+    color: colors.brand.secondary,
   },
   orderDate: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.xs,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   statusBadge: {
     paddingHorizontal: theme.spacing.sm,
@@ -192,7 +196,7 @@ const orderHistoryCardstyles = StyleSheet.create({
   statusText: {
     fontFamily: theme.fonts.family.semiBold,
     fontSize: theme.fonts.size.xs,
-    color: theme.colors.text_contrast,
+    color: colors.text.onBrand,
   },
   content: {
     flexDirection: 'row',
@@ -215,24 +219,24 @@ const orderHistoryCardstyles = StyleSheet.create({
   moreItemsText: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   footer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderTopWidth: 1,
-    borderTopColor: theme.colors.border,
+    borderTopColor: colors.ui.border,
     paddingTop: theme.spacing.sm,
   },
   totalLabel: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   totalValue: {
     fontFamily: theme.fonts.family.semiBold,
     fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
+    color: colors.text.primary,
   },
 })

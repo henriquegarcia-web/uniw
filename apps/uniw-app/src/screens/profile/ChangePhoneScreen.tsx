@@ -15,12 +15,12 @@ import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha'
 
-import type { ChangePhoneScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { ChangePhoneScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { firebaseConfig } from '@/services/firebaseConfig'
 import { changePhoneSchema } from '@/types/auth'
-import { applyMask } from '@/utils/masks'
+import { applyMask } from '@uniw/shared-utils'
 import { InputText } from '@/components/forms/InputText'
 import { Button } from '@/components/forms/Button'
 import { ProfileHeader } from '@/components/ProfileHeader'
@@ -232,26 +232,26 @@ const ChangePhoneScreen = ({ navigation }: ChangePhoneScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: theme.spacing['4xl'],
-    backgroundColor: theme.colors.surface,
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
+    backgroundColor: colors.ui.surface,
   },
   contentContainer: {
     flexGrow: 1,
     padding: theme.spacing.lg,
-    paddingBottom: theme.spacing['3xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
   },
   header: {
     marginBottom: theme.spacing.lg,
   },
   title: {
     fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size['2xl'],
-    color: theme.colors.text,
+    fontSize: theme.fonts.size.xxl,
+    color: colors.text.primary,
   },
   subtitle: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     marginTop: theme.spacing.xs,
     lineHeight: 22,
   },

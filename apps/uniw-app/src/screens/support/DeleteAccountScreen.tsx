@@ -4,8 +4,8 @@ import React, { useState } from 'react'
 import { StyleSheet, SafeAreaView, Text, View, ScrollView, Alert } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 
-import type { DeleteAccountScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { DeleteAccountScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { Button } from '@/components/forms/Button'
 import { InputText } from '@/components/forms/InputText'
@@ -13,7 +13,7 @@ import { InputText } from '@/components/forms/InputText'
 // Subcomponente para cada item da lista de alertas
 const WarningItem = ({ text }: { text: string }) => (
   <View style={styles.warningItem}>
-    <Feather name="chevrons-right" size={16} color={theme.colors.text_secondary} />
+    <Feather name="chevrons-right" size={16} color={colors.text.secondary} />
     <Text style={styles.warningText}>{text}</Text>
   </View>
 )
@@ -63,7 +63,7 @@ const DeleteAccountScreen = ({ navigation }: DeleteAccountScreenProps) => {
         contentContainerStyle={styles.contentContainer}
       >
         <View style={styles.header}>
-          <Feather name="alert-triangle" size={40} color={theme.colors.error} />
+          <Feather name="alert-triangle" size={40} color={colors.semantic.error} />
           <Text style={styles.title}>Excluir sua Conta</Text>
         </View>
 
@@ -110,7 +110,7 @@ const DeleteAccountScreen = ({ navigation }: DeleteAccountScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: colors.ui.surface,
   },
   scrollView: {
     flex: 1,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: theme.spacing.lg,
     paddingTop: theme.spacing.sm,
-    paddingBottom: theme.spacing['3xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
   },
   header: {
     alignItems: 'center',
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     fontSize: theme.fonts.size.lg,
     textAlign: 'center',
     marginTop: theme.spacing.sm,
-    color: theme.colors.error,
+    color: colors.semantic.error,
   },
   warningSection: {
     marginBottom: theme.spacing.lg,
@@ -140,14 +140,14 @@ const styles = StyleSheet.create({
   paragraph: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     lineHeight: 22,
     marginBottom: theme.spacing.lg,
   },
   subtitle: {
     fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
+    color: colors.text.primary,
     marginBottom: theme.spacing.md,
   },
   warningItem: {
@@ -160,16 +160,16 @@ const styles = StyleSheet.create({
     marginLeft: theme.spacing.sm,
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   confirmationSection: {
     marginBottom: theme.spacing.xl,
   },
   // deleteButton: {
-  //   backgroundColor: theme.colors.error,
+  //   backgroundColor: colors.semantic.error,
   // },
   // deleteButtonText: {
-  //   color: theme.colors.text_contrast,
+  //   color: colors.text.onBrand,
   // },
 })
 

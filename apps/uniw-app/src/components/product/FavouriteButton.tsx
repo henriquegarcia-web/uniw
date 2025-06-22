@@ -3,7 +3,7 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { FontAwesome } from '@expo/vector-icons'
 import { useClientProfile } from '@/contexts/ClientProfileProvider'
 
@@ -19,7 +19,7 @@ export const FavouriteButton = ({ productId, large = false }: FavouriteButtonPro
 
   const iconSize = large ? 32 : 18
   const iconName = isCurrentlyFavorite ? 'heart' : 'heart-o'
-  const iconColor = isCurrentlyFavorite ? theme.colors.red : theme.colors.text_secondary
+  const iconColor = isCurrentlyFavorite ? colors.ecommerce.sale : colors.text.secondary
 
   const handleFavorite = () => {
     if (isCurrentlyFavorite) {

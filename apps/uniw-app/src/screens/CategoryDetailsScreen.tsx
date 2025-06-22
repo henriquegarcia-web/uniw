@@ -3,8 +3,8 @@
 import React, { useMemo } from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native'
 
-import type { CategoryDetailsScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { CategoryDetailsScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { ProductList } from '@/components/product/ProductList'
 import { getCategoryById, getProductsByCategoryId } from '@/utils/mockGetters'
 import { ListingHeader } from '@/components/ListingHeader'
@@ -51,8 +51,8 @@ const CategoryDetailsScreen = ({ navigation, route }: CategoryDetailsScreenProps
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
-    marginBottom: theme.spacing['4xl'],
+    backgroundColor: colors.ui.surface,
+    marginBottom: theme.spacing.custom['botom-tab-height'],
     paddingVertical: theme.spacing.sm,
     rowGap: theme.spacing.lg,
   },

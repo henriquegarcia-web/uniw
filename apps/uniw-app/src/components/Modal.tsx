@@ -11,7 +11,7 @@ import {
   SafeAreaView,
 } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 
 interface ModalProps {
   variant: 'fade' | 'slide'
@@ -43,7 +43,7 @@ export const Modal = ({ variant, isVisible, onClose, title, children }: ModalPro
                     <MaterialCommunityIcons
                       name="close"
                       size={24}
-                      color={theme.colors.text_secondary}
+                      color={colors.text.secondary}
                     />
                   </TouchableOpacity>
                 </View>
@@ -62,7 +62,7 @@ export const Modal = ({ variant, isVisible, onClose, title, children }: ModalPro
                 <MaterialCommunityIcons
                   name="close"
                   size={24}
-                  color={theme.colors.text_secondary}
+                  color={colors.text.secondary}
                 />
               </TouchableOpacity>
             </View>
@@ -88,9 +88,9 @@ const styles = StyleSheet.create({
   },
   modalFadeContainer: {
     width: '90%',
-    backgroundColor: theme.colors.surface,
-    borderRadius: theme.borders.radius.sm,
-    padding: theme.spacing.lg,
+    backgroundColor: colors.ui.surface,
+    borderRadius: themeApp.borders.radius.sm,
+    padding: themeApp.spacing.lg,
     elevation: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
@@ -105,11 +105,11 @@ const styles = StyleSheet.create({
   },
   modalSlideContainer: {
     // flex: 1,
-    rowGap: theme.spacing.sm,
-    backgroundColor: theme.colors.surface,
-    borderTopLeftRadius: theme.borders.radius.md,
-    borderTopRightRadius: theme.borders.radius.md,
-    padding: theme.spacing.md,
+    rowGap: themeApp.spacing.sm,
+    backgroundColor: colors.ui.surface,
+    borderTopLeftRadius: themeApp.borders.radius.md,
+    borderTopRightRadius: themeApp.borders.radius.md,
+    padding: themeApp.spacing.md,
   },
   // COMMON
   modalHeader: {
@@ -117,15 +117,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
-    paddingBottom: theme.spacing.md,
-    marginBottom: theme.spacing.md,
+    borderBottomColor: colors.ui.border,
+    paddingBottom: themeApp.spacing.md,
+    marginBottom: themeApp.spacing.md,
   },
   modalHeaderTitle: {
     flex: 1,
-    fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
+    fontFamily: themeApp.fonts.family.bold,
+    fontSize: themeApp.fonts.size.lg,
+    color: colors.text.primary,
   },
   modalHeaderCloseButton: {
     padding: 4,

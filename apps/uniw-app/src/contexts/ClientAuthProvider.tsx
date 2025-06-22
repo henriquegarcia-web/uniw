@@ -13,8 +13,8 @@ import { onAuthStateChanged } from 'firebase/auth'
 
 import { auth, database } from '@/services/firebaseConfig'
 import * as authService from '@/services/auth'
-import { IBaseProfile, IUser } from '@/types/auth'
 import { onValue, ref } from 'firebase/database'
+import { IBaseProfile, IUser } from '@uniw/shared-types'
 
 type AuthContextData = {
   user: IUser | null
@@ -38,7 +38,7 @@ type AuthContextData = {
   reauthenticate(password: string): Promise<void>
   changePassword(newPassword: string): Promise<void>
   deleteUserAccount(password: string): Promise<void>
-  updateUserEmail(newEmail: string): Promise<void> 
+  updateUserEmail(newEmail: string): Promise<void>
   startPhoneNumberVerification(
     phoneNumber: string,
     recaptchaVerifier: any,
@@ -350,7 +350,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         resetPassword,
         deleteUserAccount,
         updateUserEmail,
-        startPhoneNumberVerification, 
+        startPhoneNumberVerification,
         confirmPhoneNumberUpdate,
       }}
     >

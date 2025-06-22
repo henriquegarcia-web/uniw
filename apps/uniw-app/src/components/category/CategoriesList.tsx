@@ -6,9 +6,9 @@ import { useNavigation } from '@react-navigation/native'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 
 import { CategoryCard } from './CategoryCard'
-import { IProductCategory } from '@/types/products'
-import { MainTabParamList } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import { IProductCategory } from '@uniw/shared-types'
+import { MainTabParamList } from '@uniw/shared-types'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { SectionHeader } from '../SectionHeader'
 
 interface CategoryListProps {
@@ -35,10 +35,10 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
       keyExtractor={(item) => item.id}
       numColumns={2}
       contentContainerStyle={{
-        gap: theme.spacing.sm,
-        paddingBottom: theme.spacing.lg,
+        gap: themeApp.spacing.sm,
+        paddingBottom: themeApp.spacing.lg,
       }}
-      columnWrapperStyle={{ gap: theme.spacing.sm }}
+      columnWrapperStyle={{ gap: themeApp.spacing.sm }}
       style={styles.container}
       showsVerticalScrollIndicator={false}
     />
@@ -48,6 +48,6 @@ export const CategoryList = ({ categories }: CategoryListProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: theme.spacing.lg,
+    paddingHorizontal: themeApp.spacing.lg,
   },
 })

@@ -4,7 +4,7 @@ import React from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native'
 
 import { globalStyles } from '@/styles/global'
-import { theme } from '@/styles/theme'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 
 const SplashScreen = () => {
   return <SafeAreaView style={styles.safeArea}></SafeAreaView>
@@ -13,7 +13,7 @@ const SplashScreen = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
   },
 })
 

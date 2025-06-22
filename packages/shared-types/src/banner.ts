@@ -113,9 +113,9 @@ export function isProductListBanner(banner: IBanner): banner is IProductListBann
 
 // ─── BANNER MOCK ──────────────────────────────────────────────────────────────
 
-export const sampleProductIds = ['prod-16', 'prod-17', 'prod-2', 'prod-22', 'prod-10']
+const sampleProductIds = ['prod-16', 'prod-17', 'prod-2', 'prod-22', 'prod-10']
 
-export const mockBanners: IBanner[] = [
+const mockBanners: IBanner[] = [
   {
     id: 'banner-1',
     category: BannerCategory.OFFERS,
@@ -174,7 +174,7 @@ export const mockBanners: IBanner[] = [
     type: BannerType.PRODUCT_FEATURED,
     title: 'Novidades da Semana',
     legend: 'essa é sua chance, aproveite!',
-    productId: sampleProductIds[3],
+    productId: sampleProductIds[3]!,
   },
 
   {

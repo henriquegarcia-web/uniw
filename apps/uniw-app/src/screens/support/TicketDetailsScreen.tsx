@@ -14,8 +14,8 @@ import {
 } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import type { TicketDetailsScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { TicketDetailsScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useHelpCenter } from '@/contexts/HelpCenterProvider'
 import { getTicketById, getTicketsByUserId } from '@/utils/mockGetters' // Usando getters para simplicidade
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
@@ -89,7 +89,7 @@ const TicketDetailsScreen = ({ route }: TicketDetailsScreenProps) => {
             <MaterialCommunityIcons
               name="send-circle"
               size={36}
-              color={theme.colors.secondary}
+              color={colors.brand.secondary}
             />
           </TouchableOpacity>
         </View>
@@ -99,15 +99,15 @@ const TicketDetailsScreen = ({ route }: TicketDetailsScreenProps) => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: theme.colors.surface },
+  container: { flex: 1, backgroundColor: colors.ui.surface },
   errorText: { textAlign: 'center', marginTop: 50 },
   subjectTitle: {
     fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.lg,
     padding: theme.spacing.md,
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderBottomWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   messagesContainer: { padding: theme.spacing.md, flexDirection: 'column-reverse' },
   messageBubble: {
@@ -117,20 +117,20 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.md,
   },
   userBubble: {
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: colors.brand.secondary,
     alignSelf: 'flex-end',
   },
   supportBubble: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     alignSelf: 'flex-start',
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
-  userText: { color: theme.colors.text_contrast },
-  supportText: { color: theme.colors.text },
+  userText: { color: colors.text.onBrand },
+  supportText: { color: colors.text.primary },
   messageDate: {
     fontSize: 10,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     alignSelf: 'flex-end',
     marginTop: theme.spacing.xs,
   },
@@ -139,15 +139,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: theme.spacing.sm,
     borderTopWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.background,
+    borderColor: colors.ui.border,
+    backgroundColor: colors.ui.background,
   },
   textInput: {
     flex: 1,
     minHeight: 40,
     maxHeight: 120,
-    backgroundColor: theme.colors.surface,
-    borderRadius: theme.borders.radius.circle,
+    backgroundColor: colors.ui.surface,
+    borderRadius: theme.borders.radius.full,
     paddingHorizontal: theme.spacing.md,
     paddingVertical: 10,
   },

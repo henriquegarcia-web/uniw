@@ -8,7 +8,7 @@ import {
   StyleSheet,
   SwitchProps as NativeSwitchProps,
 } from 'react-native'
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 
 interface SwitchProps extends NativeSwitchProps {
   label: string
@@ -29,9 +29,9 @@ export const Switch = ({
         {description && <Text style={styles.description}>{description}</Text>}
       </View>
       <NativeSwitch
-        trackColor={{ false: theme.colors.disabled, true: theme.colors.primary }}
-        thumbColor={value ? theme.colors.background : theme.colors.surface}
-        ios_backgroundColor={theme.colors.disabled}
+        trackColor={{ false: colors.ui.disabled, true: colors.brand.primary }}
+        thumbColor={value ? colors.ui.background : colors.ui.surface}
+        ios_backgroundColor={colors.ui.disabled}
         onValueChange={onValueChange}
         value={value}
         {...rest}
@@ -45,26 +45,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: theme.spacing.md,
-    backgroundColor: theme.colors.background,
-    paddingHorizontal: theme.spacing.md,
-    borderRadius: theme.borders.radius.sm,
+    paddingVertical: themeApp.spacing.md,
+    backgroundColor: colors.ui.background,
+    paddingHorizontal: themeApp.spacing.md,
+    borderRadius: themeApp.borders.radius.sm,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   textContainer: {
     flex: 1,
-    marginRight: theme.spacing.md,
+    marginRight: themeApp.spacing.md,
   },
   label: {
-    fontFamily: theme.fonts.family.medium,
-    fontSize: theme.fonts.size.md,
-    color: theme.colors.text,
+    fontFamily: themeApp.fonts.family.medium,
+    fontSize: themeApp.fonts.size.md,
+    color: colors.text.primary,
   },
   description: {
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_secondary,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.sm,
+    color: colors.text.secondary,
     marginTop: 2,
   },
 })

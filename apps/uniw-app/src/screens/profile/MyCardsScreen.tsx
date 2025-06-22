@@ -12,11 +12,10 @@ import {
 } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import type { MyCardsScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { MyCardsScreenProps, ICreditCard } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { useClientProfile } from '@/contexts/ClientProfileProvider'
-import { ICreditCard } from '@/types/auth'
 import { Button } from '@/components/forms/Button'
 import { ProfileHeader } from '@/components/ProfileHeader'
 
@@ -37,7 +36,7 @@ const CreditCardItem = ({
         <MaterialCommunityIcons
           name="credit-card-outline"
           size={26}
-          color={theme.colors.secondary}
+          color={colors.brand.secondary}
         />
         <Text style={styles.cardBrand}>{card.brand}</Text>
       </View>
@@ -114,24 +113,24 @@ const MyCardsScreen = ({ navigation }: MyCardsScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: theme.spacing['4xl'],
-    backgroundColor: theme.colors.surface,
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
+    backgroundColor: colors.ui.surface,
   },
   contentContainer: {
     padding: theme.spacing.lg,
-    paddingBottom: theme.spacing['3xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
   },
   card: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderRadius: theme.borders.radius.sm,
     padding: theme.spacing.md,
     marginBottom: theme.spacing.sm,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   defaultCard: {
     position: 'relative',
-    borderColor: theme.colors.secondary,
+    borderColor: colors.brand.secondary,
     borderWidth: 2,
     overflow: 'hidden',
   },
@@ -152,7 +151,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -1,
     right: -1,
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: colors.brand.secondary,
     color: 'white',
     paddingHorizontal: 14,
     paddingVertical: 6,
@@ -163,7 +162,7 @@ const styles = StyleSheet.create({
   cardNumber: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.lg,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     textAlign: 'center',
     letterSpacing: 2,
   },
@@ -176,7 +175,7 @@ const styles = StyleSheet.create({
   cardExpiry: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   cardActions: {
     flexDirection: 'row',
@@ -185,10 +184,10 @@ const styles = StyleSheet.create({
   actionText: {
     fontFamily: theme.fonts.family.semiBold,
     fontSize: theme.fonts.size.sm,
-    color: theme.colors.secondary,
+    color: colors.brand.secondary,
   },
   removeText: {
-    color: theme.colors.red,
+    color: colors.ecommerce.sale,
   },
   headerContainer: {
     rowGap: theme.spacing.md,
@@ -200,7 +199,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     textAlign: 'center',
   },
 })

@@ -3,12 +3,12 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 
-import { theme } from '@/styles/theme'
-import { IProduct } from '@/types/products'
+import { themeApp, colors } from '@uniw/shared-constants'
+import { IProduct } from '@uniw/shared-types'
 import { ProductRating } from './ProductRating'
 import { ProductPrice } from './ProductPrice'
 import { useNavigation } from '@react-navigation/native'
-import { AppStackParamList } from '@/navigation/types'
+import { AppStackParamList } from '@uniw/shared-types'
 import { FavouriteButton } from './FavouriteButton'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
@@ -71,8 +71,8 @@ export const ProductCard = ({ product, type }: ProductCardProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
-    borderRadius: theme.borders.radius.sm,
+    backgroundColor: colors.ui.background,
+    borderRadius: themeApp.borders.radius.sm,
 
     elevation: 2,
     shadowColor: '#000',
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: '100%',
     aspectRatio: 1,
-    borderRadius: theme.borders.radius.sm,
+    borderRadius: themeApp.borders.radius.sm,
     overflow: 'hidden',
   },
   image: {
@@ -93,24 +93,24 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'space-between',
-    padding: theme.spacing.sm,
+    padding: themeApp.spacing.sm,
   },
   mainContent: {
-    rowGap: theme.spacing.xs,
+    rowGap: themeApp.spacing.xs,
   },
   name: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
+    fontFamily: themeApp.fonts.family.semiBold,
+    fontSize: themeApp.fonts.size.lg,
+    color: colors.text.primary,
     marginBottom: -4,
   },
   caption: {
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.xs,
-    color: theme.colors.text_secondary,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.xs,
+    color: colors.text.secondary,
   },
   price: {
-    marginVertical: theme.spacing.xs,
+    marginVertical: themeApp.spacing.xs,
   },
   footer: {
     flexDirection: 'row',
@@ -122,9 +122,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   ratingText: {
-    marginLeft: theme.spacing.xs,
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_secondary,
+    marginLeft: themeApp.spacing.xs,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.sm,
+    color: colors.text.secondary,
   },
 })

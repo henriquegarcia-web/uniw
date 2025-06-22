@@ -4,8 +4,8 @@ import React from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 
 import { ProductCard } from './ProductCard'
-import { IProduct } from '@/types/products'
-import { theme } from '@/styles/theme'
+import { IProduct } from '@uniw/shared-types'
+import { themeApp, colors } from '@uniw/shared-constants'
 
 interface ProductListProps {
   products: IProduct[]
@@ -42,10 +42,10 @@ export const ProductList = ({
       keyExtractor={(item) => item.id}
       numColumns={2}
       contentContainerStyle={{
-        gap: theme.spacing.sm,
-        paddingBottom: theme.spacing.xl,
+        gap: themeApp.spacing.sm,
+        paddingBottom: themeApp.spacing.xl,
       }}
-      columnWrapperStyle={{ gap: theme.spacing.sm }}
+      columnWrapperStyle={{ gap: themeApp.spacing.sm }}
       style={styles.container}
       showsVerticalScrollIndicator={false}
     />
@@ -55,7 +55,7 @@ export const ProductList = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: theme.spacing.lg,
+    paddingHorizontal: themeApp.spacing.lg,
   },
   itemInvisible: {
     flex: 1,

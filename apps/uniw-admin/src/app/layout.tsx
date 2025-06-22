@@ -50,7 +50,8 @@ export default function RootLayout({
         /> */}
       </head>
       <body
-        className={`${roboto.variable} ${lora.variable} ${allVariables as React.CSSProperties} antialiased`}
+        className={`${roboto.variable} ${lora.variable} antialiased`}
+        style={allVariables}
       >
         <MantineProvider>{children}</MantineProvider>
       </body>

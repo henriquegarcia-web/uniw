@@ -11,13 +11,13 @@ import {
 } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import type { NotificationsScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
 import {
-  mockNotifications,
+  NotificationsScreenProps,
   INotification,
   getNotificationTypeData,
-} from '@/types/notifications'
+} from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
+import { mockNotifications } from '@/types/notifications'
 import { ProfileHeader } from '@/components/ProfileHeader'
 
 // --- Subcomponente para cada item da lista ---
@@ -95,8 +95,8 @@ const NotificationsScreen = ({ navigation }: NotificationsScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: theme.spacing['4xl'],
-    backgroundColor: theme.colors.surface,
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
+    backgroundColor: colors.ui.surface,
   },
   contentContainer: {
     padding: theme.spacing.lg,
@@ -108,9 +108,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: theme.spacing.xs,
     borderRadius: theme.borders.radius.sm,
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   unreadItem: {
     backgroundColor: '#F7F4FF', // Um fundo sutil para não lidas
@@ -133,19 +133,19 @@ const styles = StyleSheet.create({
   body: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     marginTop: 2,
   },
   unreadIndicator: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: colors.brand.secondary,
     marginLeft: theme.spacing.md,
   },
   separator: {
     height: 1,
-    backgroundColor: theme.colors.border,
+    backgroundColor: colors.ui.border,
     marginLeft: theme.spacing.lg + 44 + theme.spacing.md, // Alinha com o texto
   },
   emptyContainer: {
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: theme.fonts.size.lg,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
 })
 

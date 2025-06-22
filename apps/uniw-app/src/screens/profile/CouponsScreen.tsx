@@ -13,16 +13,15 @@ import {
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import * as Clipboard from 'expo-clipboard'
 
-import type { CouponsScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
-import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import {
+  CouponsScreenProps,
   ICoupon,
   IRedeemedCoupon,
-  mockCoupons,
-  mockRedeemedCoupons,
   RedeemedCouponStatus,
-} from '@/types/rewards'
+} from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
+import { useClientAuth } from '@/contexts/ClientAuthProvider'
+import { mockCoupons, mockRedeemedCoupons } from '@/types/rewards'
 import { Button } from '@/components/forms/Button'
 import { ProfileHeader } from '@/components/ProfileHeader'
 
@@ -44,13 +43,13 @@ const CouponCard = ({
 
   const couponCardStyles = {
     container: {
-      borderLeftColor: canRedeem ? theme.colors.secondary : theme.colors.disabled,
+      borderLeftColor: canRedeem ? colors.brand.secondary : colors.ui.disabled,
     },
     mainText: {
-      color: canRedeem ? theme.colors.text : theme.colors.text_tertiary,
+      color: canRedeem ? colors.text.primary : colors.text.tertiary,
     },
     text: {
-      color: canRedeem ? theme.colors.secondary : theme.colors.disabled,
+      color: canRedeem ? colors.brand.secondary : colors.ui.disabled,
     },
   }
 
@@ -147,7 +146,7 @@ const MyCouponCard = ({
             <MaterialCommunityIcons
               name="content-copy"
               size={18}
-              color={theme.colors.text_tertiary}
+              color={colors.text.tertiary}
             />
           </TouchableOpacity>
         </View>
@@ -158,61 +157,61 @@ const MyCouponCard = ({
 
 const myCouponCardStyles = StyleSheet.create({
   container: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderRadius: theme.borders.radius.sm,
     padding: theme.spacing.md,
     marginBottom: theme.spacing.sm,
     borderWidth: 1,
-    borderTopColor: theme.colors.border,
-    borderRightColor: theme.colors.border,
-    borderBottomColor: theme.colors.border,
+    borderTopColor: colors.ui.border,
+    borderRightColor: colors.ui.border,
+    borderBottomColor: colors.ui.border,
     borderLeftWidth: 4,
-    borderLeftColor: theme.colors.secondary,
+    borderLeftColor: colors.brand.secondary,
   },
   title: {
     fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.success,
+    color: colors.semantic.success,
   },
   description: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     marginVertical: theme.spacing.sm,
   },
   footer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: theme.colors.surface,
+    backgroundColor: colors.ui.surface,
     paddingVertical: theme.spacing.sm,
     paddingLeft: theme.spacing.md,
     paddingRight: theme.spacing.sm,
     borderRadius: theme.borders.radius.xs,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   codeLabel: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.xs,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   codeText: {
     fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
+    color: colors.text.primary,
     flex: 1,
     marginLeft: theme.spacing.sm,
   },
   usedContainer: {
-    backgroundColor: theme.colors.surface,
-    borderColor: theme.colors.disabled,
+    backgroundColor: colors.ui.surface,
+    borderColor: colors.ui.disabled,
   },
   usedLabel: {
     position: 'absolute',
     top: 0,
     right: 0,
-    backgroundColor: theme.colors.text_secondary,
+    backgroundColor: colors.text.secondary,
     color: 'white',
     paddingHorizontal: 12,
     paddingVertical: 4,
@@ -278,7 +277,7 @@ const CouponsScreen = ({ navigation }: CouponsScreenProps) => {
                 <MaterialCommunityIcons
                   name="star-circle"
                   size={22}
-                  color={theme.colors.text_contrast}
+                  color={colors.text.onBrand}
                   style={{
                     marginBottom: 1,
                   }}
@@ -329,15 +328,15 @@ const CouponsScreen = ({ navigation }: CouponsScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: theme.spacing['4xl'],
-    backgroundColor: theme.colors.surface,
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
+    backgroundColor: colors.ui.surface,
   },
   contentContainer: {
     padding: theme.spacing.lg,
-    paddingBottom: theme.spacing['3xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
   },
   pointsHeader: {
-    backgroundColor: theme.colors.secondary,
+    backgroundColor: colors.brand.secondary,
     borderRadius: theme.borders.radius.sm,
     padding: theme.spacing.lg,
     alignItems: 'center',
@@ -351,30 +350,30 @@ const styles = StyleSheet.create({
   pointsHeaderText: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_contrast,
+    color: colors.text.onBrand,
     opacity: 0.8,
   },
   pointsHeaderValue: {
     fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size['2xl'],
-    color: theme.colors.text_contrast,
+    fontSize: theme.fonts.size.xxl,
+    color: colors.text.onBrand,
     marginVertical: theme.spacing.xs,
   },
   pointsHeaderLink: {
     fontFamily: theme.fonts.family.bold,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_contrast,
+    color: colors.text.onBrand,
     textDecorationLine: 'underline',
   },
   card: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderRadius: theme.borders.radius.sm,
     padding: theme.spacing.md,
     marginBottom: theme.spacing.sm,
     borderWidth: 1,
-    borderTopColor: theme.colors.border,
-    borderRightColor: theme.colors.border,
-    borderBottomColor: theme.colors.border,
+    borderTopColor: colors.ui.border,
+    borderRightColor: colors.ui.border,
+    borderBottomColor: colors.ui.border,
     borderLeftWidth: 4,
   },
   cardHeader: {
@@ -397,7 +396,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderTopWidth: 1,
-    borderTopColor: theme.colors.border,
+    borderTopColor: colors.ui.border,
     paddingTop: theme.spacing.sm,
   },
   pointsCostContainer: {
@@ -417,7 +416,7 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.family.semiBold,
     fontSize: theme.fonts.size.xs,
     lineHeight: theme.fonts.size.lg,
-    color: theme.colors.error,
+    color: colors.semantic.error,
     opacity: 0.6,
   },
   emptyContainer: {
@@ -427,7 +426,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: theme.fonts.size.lg,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   footerContainer: {
     marginTop: theme.spacing.sm,
@@ -438,7 +437,7 @@ const styles = StyleSheet.create({
   },
   emptyHistoryText: {
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
     textAlign: 'center',
   },
   disabledCard: {

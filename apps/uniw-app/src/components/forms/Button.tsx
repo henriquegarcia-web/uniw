@@ -10,68 +10,68 @@ import {
   Animated,
 } from 'react-native'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialCommunityIconsIcon } from '@uniw/shared-types'
 
 const variantStyles = {
   primary: {
     container: {
-      backgroundColor: theme.colors.buttonPrimary,
+      backgroundColor: colors.brand.primary,
     },
     text: {
-      fontSize: theme.fonts.size.lg,
-      color: theme.colors.text_contrast,
-      fontFamily: theme.fonts.family.semiBold,
+      fontSize: themeApp.fonts.size.lg,
+      color: colors.text.onBrand,
+      fontFamily: themeApp.fonts.family.semiBold,
     },
     icon: {
-      color: theme.colors.text_contrast,
+      color: colors.text.onBrand,
     },
   },
   secondary: {
     container: {
-      backgroundColor: theme.colors.buttonSecondary,
+      backgroundColor: colors.brand.secondary,
     },
     text: {
-      fontSize: theme.fonts.size.lg,
-      color: theme.colors.buttonPrimary,
-      fontFamily: theme.fonts.family.bold,
+      fontSize: themeApp.fonts.size.lg,
+      color: colors.brand.primary,
+      fontFamily: themeApp.fonts.family.bold,
     },
     icon: {
-      color: theme.colors.buttonPrimary,
+      color: colors.brand.primary,
     },
   },
   tertiary: {
     container: {
-      backgroundColor: theme.colors.buttonSecondary,
+      backgroundColor: colors.brand.secondary,
       borderWidth: 1,
-      borderColor: theme.colors.border,
+      borderColor: colors.ui.border,
     },
     text: {
-      fontSize: theme.fonts.size.md,
-      color: theme.colors.text,
-      fontFamily: theme.fonts.family.semiBold,
+      fontSize: themeApp.fonts.size.md,
+      color: colors.text.primary,
+      fontFamily: themeApp.fonts.family.semiBold,
     },
     icon: {
-      color: theme.colors.text,
+      color: colors.text.primary,
     },
   },
   negative: {
     container: {
-      backgroundColor: theme.colors.buttonSecondary,
+      backgroundColor: colors.brand.secondary,
     },
     text: {
-      fontSize: theme.fonts.size.lg,
-      color: theme.colors.error,
-      fontFamily: theme.fonts.family.semiBold,
+      fontSize: themeApp.fonts.size.lg,
+      color: colors.semantic.error,
+      fontFamily: themeApp.fonts.family.semiBold,
     },
     icon: {
-      color: theme.colors.error,
+      color: colors.semantic.error,
     },
   },
 }
 
 type ButtonVariant = keyof typeof variantStyles
-type MaterialCommunityIconsIcon = keyof typeof MaterialCommunityIcons.glyphMap
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string
@@ -130,14 +130,14 @@ export const Button = ({
         ]}
       >
         {loading ? (
-          <ActivityIndicator color={theme.colors.background} />
+          <ActivityIndicator color={colors.ui.background} />
         ) : (
           <>
             {leftIcon && (
               <MaterialCommunityIcons
                 name={leftIcon}
                 size={20}
-                color={theme.colors.text_secondary}
+                color={colors.text.secondary}
                 style={[styles.icon, currentVariant.icon]}
               />
             )}
@@ -154,12 +154,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: 55,
-    paddingHorizontal: theme.spacing.md,
-    borderRadius: theme.borders.radius.xs,
+    paddingHorizontal: themeApp.spacing.md,
+    borderRadius: themeApp.borders.radius.xs,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    columnGap: theme.spacing.sm,
+    columnGap: themeApp.spacing.sm,
   },
   text: {},
   icon: {},

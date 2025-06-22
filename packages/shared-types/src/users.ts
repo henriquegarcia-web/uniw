@@ -1,5 +1,7 @@
 import { IClub } from './club'
 import { ILoyalty } from './loyalty'
+import { INotification, INotificationSettings } from './notification'
+import { ICreditCard } from './payment'
 import { FormattedOption } from './shared'
 
 // ─── USER ROLES ─────────────────────────────────────────────────────────────
@@ -64,6 +66,21 @@ export interface IAuthProviderData {
   providerId: AuthProvider
   uid: string
   email: string | null
+}
+
+// ─── ADDRESS TYPES ──────────────────────────────────────────────────────────
+
+export interface IAddress {
+  id: string
+  nome: string // Ex: "Casa", "Trabalho"
+  cep: string
+  rua: string
+  numero: string
+  bairro: string
+  cidade: string
+  estado: string
+  complemento?: string
+  isDefault: boolean
 }
 
 // ─── USER TYPES ─────────────────────────────────────────────────────────────

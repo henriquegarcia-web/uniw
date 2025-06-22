@@ -3,8 +3,8 @@
 import React, { useMemo } from 'react'
 import { StyleSheet, SafeAreaView, Text, ScrollView, View } from 'react-native'
 
-import type { ProductDetailsScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { ProductDetailsScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { ProductImageCarousel } from '@/components/product/ProductImageCarousel'
 import { ProductDetails } from '@/components/product/ProductDetails'
 import { FavouriteButton } from '@/components/product/FavouriteButton'
@@ -106,8 +106,8 @@ const ProductDetailsScreen = ({ route }: ProductDetailsScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
-    marginBottom: theme.spacing['4xl'],
+    backgroundColor: colors.ui.surface,
+    marginBottom: theme.spacing.custom['botom-tab-height'],
     paddingVertical: theme.spacing.sm,
     rowGap: theme.spacing.lg,
   },

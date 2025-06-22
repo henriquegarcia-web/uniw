@@ -4,10 +4,9 @@ import React from 'react'
 import { StyleSheet, SafeAreaView, Text, View, ScrollView, FlatList } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import type { LoyaltyProgramScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { LoyaltyProgramScreenProps, IPointTransaction } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
-import { IPointTransaction } from '@/types/auth'
 import { ProfileHeader } from '@/components/ProfileHeader'
 import { Button } from '@/components/forms/Button'
 
@@ -15,7 +14,7 @@ import { Button } from '@/components/forms/Button'
 const TransactionItem = ({ transaction }: { transaction: IPointTransaction }) => {
   const isEarned = transaction.type === 'earned'
   const icon = isEarned ? 'arrow-up-circle' : 'arrow-down-circle'
-  const color = isEarned ? theme.colors.primary : theme.colors.error
+  const color = isEarned ? colors.brand.primary : colors.semantic.error
   const sign = isEarned ? '+' : '-'
 
   return (
@@ -62,7 +61,7 @@ const LoyaltyProgramScreen = ({ navigation }: LoyaltyProgramScreenProps) => {
                 <MaterialCommunityIcons
                   name="star-circle"
                   size={22}
-                  color={theme.colors.secondary}
+                  color={colors.brand.secondary}
                   style={{
                     marginBottom: 1,
                   }}
@@ -120,25 +119,25 @@ const LoyaltyProgramScreen = ({ navigation }: LoyaltyProgramScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: colors.ui.surface,
   },
   contentContainer: {
     padding: theme.spacing.lg,
-    paddingBottom: theme.spacing['3xl'],
+    paddingBottom: theme.spacing.custom['botom-tab-height'],
   },
   card: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     borderRadius: theme.borders.radius.sm,
     padding: theme.spacing.lg,
     alignItems: 'center',
     marginBottom: theme.spacing.md,
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: colors.ui.border,
   },
   pointsLabel: {
     fontFamily: theme.fonts.family.medium,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   pointsContainer: {
     flexDirection: 'row',
@@ -147,14 +146,14 @@ const styles = StyleSheet.create({
   },
   pointsValue: {
     fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size['3xl'],
-    color: theme.colors.secondary,
+    fontSize: theme.fonts.size.xxxl,
+    color: colors.brand.secondary,
     marginLeft: theme.spacing.sm,
   },
   pointsSubtitle: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   infoCard: {
     alignItems: 'flex-start',
@@ -171,7 +170,7 @@ const styles = StyleSheet.create({
   transactionItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.ui.background,
     padding: theme.spacing.md,
     borderRadius: theme.borders.radius.sm,
     marginBottom: theme.spacing.sm,
@@ -187,7 +186,7 @@ const styles = StyleSheet.create({
   transactionDate: {
     fontFamily: theme.fonts.family.regular,
     fontSize: theme.fonts.size.sm,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   transactionAmount: {
     fontFamily: theme.fonts.family.bold,
@@ -200,7 +199,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: theme.fonts.size.lg,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
   emptyHistory: {
     padding: theme.spacing.lg,
@@ -208,7 +207,7 @@ const styles = StyleSheet.create({
   },
   emptyHistoryText: {
     fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    color: colors.text.secondary,
   },
 })
 

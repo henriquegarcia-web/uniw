@@ -3,8 +3,8 @@
 import React from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native'
 
-import type { SearchResultsScreenProps } from '@/navigation/types'
-import { theme } from '@/styles/theme'
+import type { SearchResultsScreenProps } from '@uniw/shared-types'
+import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { ProductList } from '@/components/product/ProductList'
 import { mockProducts } from '@/types/products'
 import { useProcessedProducts } from '@/hooks/useProcessedProducts'
@@ -55,8 +55,8 @@ const SearchResultsScreen = ({ navigation, route }: SearchResultsScreenProps) =>
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
-    marginBottom: theme.spacing['4xl'],
+    backgroundColor: colors.ui.surface,
+    marginBottom: theme.spacing.custom['botom-tab-height'],
     paddingVertical: theme.spacing.md,
     rowGap: theme.spacing.lg,
   },

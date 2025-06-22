@@ -3,8 +3,8 @@
 import React from 'react'
 import { Text, StyleSheet, TouchableOpacity, ImageBackground, View } from 'react-native'
 
-import { theme } from '@/styles/theme'
-import { IProductCategory } from '@/types/products'
+import { themeApp, colors } from '@uniw/shared-constants'
+import { IProductCategory } from '@uniw/shared-types'
 
 interface CategoryCardProps {
   category: IProductCategory
@@ -48,19 +48,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageStyle: {
-    borderRadius: theme.borders.radius.sm,
+    borderRadius: themeApp.borders.radius.sm,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    borderRadius: theme.borders.radius.sm,
+    borderRadius: themeApp.borders.radius.sm,
     justifyContent: 'center',
     alignItems: 'center',
   },
   name: {
-    fontFamily: theme.fonts.family.bold,
-    fontSize: theme.fonts.size.lg,
-    color: theme.colors.background,
+    fontFamily: themeApp.fonts.family.bold,
+    fontSize: themeApp.fonts.size.lg,
+    color: colors.ui.background,
     textTransform: 'uppercase',
     textAlign: 'center',
   },

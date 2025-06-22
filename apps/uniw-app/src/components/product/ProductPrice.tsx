@@ -3,8 +3,8 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
-import { theme } from '@/styles/theme'
-import { applyMask } from '@/utils/masks'
+import { themeApp, colors } from '@uniw/shared-constants'
+import { applyMask } from '@uniw/shared-utils'
 
 interface ProductPriceProps {
   price: number
@@ -15,9 +15,9 @@ interface ProductPriceProps {
 export const ProductPrice = ({ price, promotionalPrice, large }: ProductPriceProps) => {
   const isOnSale = promotionalPrice && promotionalPrice < price
 
-  const mainPriceSize = large ? theme.fonts.size['2xl'] : 20
-  const originalPriceSize = large ? theme.fonts.size.xl : theme.fonts.size.md
-  const discountSize = large ? theme.fonts.size.lg : theme.fonts.size.sm
+  const mainPriceSize = large ? themeApp.fonts.size.xxl : 20
+  const originalPriceSize = large ? themeApp.fonts.size.xl : themeApp.fonts.size.md
+  const discountSize = large ? themeApp.fonts.size.lg : themeApp.fonts.size.sm
 
   const calculateDiscount = () => {
     if (!isOnSale) return 0
@@ -29,7 +29,7 @@ export const ProductPrice = ({ price, promotionalPrice, large }: ProductPricePro
 
   if (isOnSale) {
     return (
-      <View style={[styles.container, { rowGap: large ? theme.spacing.xs : 0 }]}>
+      <View style={[styles.container, { rowGap: large ? themeApp.spacing.xs : 0 }]}>
         <Text
           style={[
             styles.promotionalPrice,
@@ -71,25 +71,25 @@ const styles = StyleSheet.create({
   salePriceRow: {
     flexDirection: 'row',
     alignItems: 'baseline',
-    gap: theme.spacing.xs,
+    gap: themeApp.spacing.xs,
   },
   promotionalPrice: {
-    fontFamily: theme.fonts.family.bold,
-    color: theme.colors.text,
+    fontFamily: themeApp.fonts.family.bold,
+    color: colors.text.primary,
   },
   originalPrice: {
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.md,
-    color: theme.colors.text_tertiary,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.md,
+    color: colors.text.tertiary,
     textDecorationLine: 'line-through',
   },
   discountText: {
-    fontFamily: theme.fonts.family.regular,
-    fontSize: theme.fonts.size.sm,
-    color: theme.colors.secondary,
+    fontFamily: themeApp.fonts.family.regular,
+    fontSize: themeApp.fonts.size.sm,
+    color: colors.brand.secondary,
   },
   regularPrice: {
-    fontFamily: theme.fonts.family.bold,
-    color: theme.colors.text,
+    fontFamily: themeApp.fonts.family.bold,
+    color: colors.text.primary,
   },
 })

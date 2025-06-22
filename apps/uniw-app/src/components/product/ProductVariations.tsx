@@ -3,8 +3,8 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 
-import { theme } from '@/styles/theme'
-import type { IVariationType } from '@/types/products'
+import { themeApp, colors } from '@uniw/shared-constants'
+import type { IVariationType } from '@uniw/shared-types'
 
 interface ProductVariationsProps {
   variationTypes: IVariationType[]
@@ -72,46 +72,46 @@ export const ProductVariations = ({
 
 const styles = StyleSheet.create({
   container: {
-    rowGap: theme.spacing.md,
+    rowGap: themeApp.spacing.md,
   },
   variationGroup: {},
   variationName: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.lg,
-    color: theme.colors.text,
-    marginBottom: theme.spacing.sm,
+    fontFamily: themeApp.fonts.family.semiBold,
+    fontSize: themeApp.fonts.size.lg,
+    color: colors.text.primary,
+    marginBottom: themeApp.spacing.sm,
   },
   selectedOptionLabel: {
-    fontFamily: theme.fonts.family.bold,
+    fontFamily: themeApp.fonts.family.bold,
   },
   optionsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: theme.spacing.md,
+    gap: themeApp.spacing.md,
   },
   optionButton: {
     borderWidth: 2,
-    borderColor: theme.colors.secondary,
-    borderRadius: theme.borders.radius.xs,
-    paddingVertical: theme.spacing.sm,
-    paddingHorizontal: theme.spacing.md,
+    borderColor: colors.brand.secondary,
+    borderRadius: themeApp.borders.radius.xs,
+    paddingVertical: themeApp.spacing.sm,
+    paddingHorizontal: themeApp.spacing.md,
     alignItems: 'center',
     justifyContent: 'center',
   },
   optionSelected: {
-    backgroundColor: theme.colors.secondary,
-    borderColor: theme.colors.secondary,
+    backgroundColor: colors.brand.secondary,
+    borderColor: colors.brand.secondary,
   },
   optionDisabled: {
-    borderColor: theme.colors.disabled,
-    backgroundColor: theme.colors.surface,
+    borderColor: colors.ui.disabled,
+    backgroundColor: colors.ui.surface,
   },
   optionText: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.md,
-    color: theme.colors.text_secondary,
+    fontFamily: themeApp.fonts.family.semiBold,
+    fontSize: themeApp.fonts.size.md,
+    color: colors.text.secondary,
   },
   optionTextSelected: {
-    color: theme.colors.background,
+    color: colors.ui.background,
   },
 })

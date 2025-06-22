@@ -114,7 +114,7 @@ export const sortOptions: { label: string; value: SortOption }[] = [
   { label: 'Melhores Avaliações', value: 'rating-desc' },
 ]
 
-export const mockCategories: IProductCategory[] = [
+const mockCategories: IProductCategory[] = [
   {
     id: 'cat-1',
     name: 'Maquiagem',
@@ -157,7 +157,7 @@ export const mockCategories: IProductCategory[] = [
   },
 ]
 
-export const mockProducts: IProduct[] = [
+const mockProducts: IProduct[] = [
   // --- MAQUIAGEM (5 Produtos) ---
   {
     id: 'prod-1',

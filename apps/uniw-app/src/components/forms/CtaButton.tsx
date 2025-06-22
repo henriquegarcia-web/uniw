@@ -10,32 +10,32 @@ import {
   Animated,
 } from 'react-native'
 
-import { theme } from '@/styles/theme'
+import { themeApp, colors } from '@uniw/shared-constants'
 import { Feather } from '@expo/vector-icons'
 
 const variantStyles = {
   default: {
     container: {
       backgroundColor: 'transparent',
-      borderColor: theme.colors.text_contrast,
+      borderColor: colors.text.onBrand,
     },
     text: {
-      color: theme.colors.text_contrast,
+      color: colors.text.onBrand,
     },
     icon: {
-      color: theme.colors.text_contrast,
+      color: colors.text.onBrand,
     },
   },
   filled: {
     container: {
-      backgroundColor: theme.colors.secondary,
-      borderColor: theme.colors.secondary,
+      backgroundColor: colors.brand.secondary,
+      borderColor: colors.brand.secondary,
     },
     text: {
-      color: theme.colors.text_contrast,
+      color: colors.text.onBrand,
     },
     icon: {
-      color: theme.colors.text_contrast,
+      color: colors.text.onBrand,
     },
   },
 }
@@ -95,7 +95,7 @@ export const CtaButton = ({
         ]}
       >
         {loading ? (
-          <ActivityIndicator color={theme.colors.background} />
+          <ActivityIndicator color={colors.ui.background} />
         ) : (
           <>
             <Text style={[styles.text, currentVariant.text]}>{title}</Text>
@@ -111,17 +111,17 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    columnGap: theme.spacing.sm,
-    paddingVertical: theme.spacing.sm,
-    paddingLeft: theme.spacing.md,
-    paddingRight: theme.spacing.sm,
-    borderRadius: theme.borders.radius.xs,
+    columnGap: themeApp.spacing.sm,
+    paddingVertical: themeApp.spacing.sm,
+    paddingLeft: themeApp.spacing.md,
+    paddingRight: themeApp.spacing.sm,
+    borderRadius: themeApp.borders.radius.xs,
     borderWidth: 1,
   },
   text: {
-    fontFamily: theme.fonts.family.semiBold,
-    fontSize: theme.fonts.size.md,
-    color: theme.colors.text_contrast,
+    fontFamily: themeApp.fonts.family.semiBold,
+    fontSize: themeApp.fonts.size.md,
+    color: colors.text.onBrand,
   },
   icon: {},
   disabled: {
