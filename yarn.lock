@@ -3279,6 +3279,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@uniw/shared-types@workspace:packages/shared-types"
   dependencies:
+    "@react-navigation/native": "npm:^7.1.10"
+    "@react-navigation/native-stack": "npm:^7.3.14"
+    react: "npm:19.0.0"
+    react-native: "npm:0.79.3"
+    react-native-safe-area-context: "npm:5.4.0"
+    react-native-screens: "npm:~4.11.1"
     typescript: "npm:5.8.2"
   languageName: unknown
   linkType: soft

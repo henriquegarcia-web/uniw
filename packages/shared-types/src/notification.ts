@@ -1,5 +1,6 @@
 // ─── NOTIFICATION SETTIONS TYPES ────────────────────────────────────────────
 
+import { AppStackParamList } from './navigation'
 import { MaterialCommunityIconsIcon } from './shared'
 
 export interface INotificationChannelSettings {
@@ -33,7 +34,7 @@ export const getNotificationTypeData = (
 ): INotificationTypeData => {
   switch (type) {
     case NotificationType.ORDER_UPDATE:
-      return { icon: 'package-variant-closed', color: theme.colors.primary }
+      return { icon: 'package-variant-closed', color: '#eb9526' }
     case NotificationType.PROMOTION:
       return { icon: 'tag-outline', color: '#edd12d' }
     case NotificationType.REWARD:
