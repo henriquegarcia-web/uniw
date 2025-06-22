@@ -3,7 +3,7 @@
 import React from 'react'
 import { StyleSheet, SafeAreaView, FlatList } from 'react-native'
 
-import type { HomeScreenProps } from '@/navigation/types'
+import type { HomeScreenProps } from '@uniw/shared-types'
 import { theme } from '@/styles/theme'
 import { CategoriesNavigator } from '@/components/category/CategoriesNavigator'
 import { mockCategories } from '@/types/products'

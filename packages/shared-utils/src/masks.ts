@@ -1,5 +1,3 @@
-// src/utils/masks.ts
-
 // ─── Tipagens ───────────────────────────────────────────────────────────────
 
 export type SupportedMask =

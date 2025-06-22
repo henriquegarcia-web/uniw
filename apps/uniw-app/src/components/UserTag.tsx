@@ -6,8 +6,6 @@ import { View, StyleSheet, Text } from 'react-native'
 import { theme } from '@/styles/theme'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import type { User } from '@uniw/shared-types'
-
 type MaterialCommunityIconsIconName = keyof typeof MaterialCommunityIcons.glyphMap
 
 interface UserTagProps {
