@@ -30,6 +30,7 @@
     { "path": "../../packages/shared-constants" },
     { "path": "../../packages/shared-services" },
     { "path": "../../packages/shared-types" },
-    { "path": "../../packages/shared-utils" }
+    { "path": "../../packages/shared-utils" },
+    { "path": "../../packages/shared-schemas" }
   ]
 }

@@ -15,12 +15,13 @@ import {
 import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { changePasswordSchema, type ChangePasswordScreenProps } from '@uniw/shared-types'
+import { ChangePasswordScreenProps } from '@uniw/shared-types'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { InputText } from '@/components/forms/InputText'
 import { Button } from '@/components/forms/Button'
 import { ProfileHeader } from '@/components/ProfileHeader'
+import { changePasswordSchema } from '@uniw/shared-schemas'
 
 const ChangePasswordScreen = ({ navigation }: ChangePasswordScreenProps) => {
   const { reauthenticate, changePassword, isLoadingAuthFunctions } = useClientAuth()

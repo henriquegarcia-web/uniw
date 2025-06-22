@@ -13,6 +13,8 @@ export const signInSchema = yup.object({
     .required('O campo de senha é obrigatório.'),
 })
 
+export type SignInSchemaType = yup.InferType<typeof signInSchema>
+
 export const forgotPasswordSchema = yup.object({
   email: yup
     .string()
@@ -24,6 +26,8 @@ export const forgotPasswordSchema = yup.object({
       return !!isExists
     }),
 })
+
+export type ForgotPasswordSchemaType = yup.InferType<typeof forgotPasswordSchema>
 
 export const changePasswordSchema = yup.object({
   currentPassword: yup
@@ -39,6 +43,8 @@ export const changePasswordSchema = yup.object({
     .oneOf([yup.ref('newPassword')], 'As senhas devem ser iguais.')
     .required('Confirme sua nova senha.'),
 })
+
+export type ChangePasswordSchemaType = yup.InferType<typeof changePasswordSchema>
 
 export const changeEmailSchema = yup.object({
   newEmail: yup
@@ -60,6 +66,8 @@ export const changeEmailSchema = yup.object({
     .required('Sua senha atual é obrigatória para alterar o e-mail.'),
 })
 
+export type ChangeEmailSchemaType = yup.InferType<typeof changeEmailSchema>
+
 export const changePhoneSchema = yup.object({
   newPhone: yup
     .string()
@@ -74,6 +82,8 @@ export const changePhoneSchema = yup.object({
     .min(6, 'A senha deve ter no mínimo 6 caracteres.')
     .required('Sua senha atual é obrigatória para alterar o telefone.'),
 })
+
+export type ChangePhoneSchemaType = yup.InferType<typeof changePhoneSchema>
 
 export const addAddressSchema = yup.object({
   nome: yup.string().required('O nome de identificação é obrigatório.'),
@@ -90,7 +100,9 @@ export const addAddressSchema = yup.object({
   isDefault: yup.boolean(),
 })
 
-// =================================================== APP CLIENTE
+export type AddAddressSchemaType = yup.InferType<typeof addAddressSchema>
+
+// =================================================== APP (CLIENTE)
 
 export const clientSignUpSchema = yup.object({
   nome: yup.string().required('O campo de nome é obrigatório.'),
@@ -129,6 +141,8 @@ export const clientSignUpSchema = yup.object({
     .required('Confirme sua senha.'),
 })
 
+export type ClientSignUpSchemaType = yup.InferType<typeof clientSignUpSchema>
+
 export const clientUpdateProfileSchema = yup.object({
   email: yup.string().nullable(),
   cpf: yup.string().nullable(),
@@ -155,3 +169,27 @@ export const clientUpdateProfileSchema = yup.object({
     })
     .nullable(),
 })
+
+export type ClientUpdateProfileSchemaType = yup.InferType<
+  typeof clientUpdateProfileSchema
+>
+
+// =================================================== WEB (ADMIN, PARCEIRO E FORNECEDOR)
+
+export const adminSignUpSchema = yup.object({
+  email: yup.string().nullable(),
+})
+
+export type AdminSignUpSchemaType = yup.InferType<typeof adminSignUpSchema>
+
+export const partnerSignUpSchema = yup.object({
+  email: yup.string().nullable(),
+})
+
+export type PartnerSignUpSchemaType = yup.InferType<typeof partnerSignUpSchema>
+
+export const supplierSignUpSchema = yup.object({
+  email: yup.string().nullable(),
+})
+
+export type SupplierSignUpSchemaType = yup.InferType<typeof supplierSignUpSchema>

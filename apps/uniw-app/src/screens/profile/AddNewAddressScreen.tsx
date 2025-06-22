@@ -19,18 +19,17 @@ import {
   type IAddress,
   type IBGEState,
   type IBGECity,
-  addAddressSchema,
 } from '@uniw/shared-types'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientProfile } from '@/contexts/ClientProfileProvider'
 import { applyMask } from '@uniw/shared-utils'
-import { viacepService } from '@/services/viacep'
-import { ibgeService } from '@/services/ibge'
 
 import { InputText } from '@/components/forms/InputText'
 import { Button } from '@/components/forms/Button'
 import { Switch } from '@/components/forms/Switch'
 import { Dropdown, DropdownItem } from '@/components/forms/Dropdown'
+import { addAddressSchema } from '@uniw/shared-schemas'
+import { ibgeService, viacepService } from '@uniw/shared-services'
 
 const AddNewAddressScreen = ({ navigation }: AddNewAddressScreenProps) => {
   const { addAddress, isProfileLoading } = useClientProfile()

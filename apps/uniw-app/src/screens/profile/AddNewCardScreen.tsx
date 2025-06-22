@@ -15,12 +15,7 @@ import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import {
-  AddNewCardScreenProps,
-  ICreditCard,
-  ICardBrand,
-  addCardSchema,
-} from '@uniw/shared-types'
+import { AddNewCardScreenProps, ICreditCard, ICardBrand } from '@uniw/shared-types'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientProfile } from '@/contexts/ClientProfileProvider'
 import { applyMask } from '@uniw/shared-utils'
@@ -28,6 +23,7 @@ import { applyMask } from '@uniw/shared-utils'
 import { InputText } from '@/components/forms/InputText'
 import { Switch } from '@/components/forms/Switch'
 import { Button } from '@/components/forms/Button'
+import { addCardSchema } from '@uniw/shared-schemas'
 
 // Subcomponente para o preview do cartão
 const CardPreview = ({

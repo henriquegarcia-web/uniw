@@ -14,11 +14,12 @@ import {
 import { useForm, Controller, FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { ContactSupportScreenProps, contactSupportSchema } from '@uniw/shared-types'
+import { ContactSupportScreenProps } from '@uniw/shared-types'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useHelpCenter } from '@/contexts/HelpCenterProvider'
 import { InputText } from '@/components/forms/InputText'
 import { Button } from '@/components/forms/Button'
+import { contactSupportSchema } from '@uniw/shared-schemas'
 
 const ContactSupportScreen = ({ navigation, route }: ContactSupportScreenProps) => {
   const { orderId } = route.params

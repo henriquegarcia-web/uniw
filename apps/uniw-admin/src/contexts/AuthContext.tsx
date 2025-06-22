@@ -3,27 +3,20 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { setCookie, deleteCookie } from 'cookies-next'
+import * as services from '@uniw/shared-services'
 
-// import {
-//   loginUser,
-//   logoutUser,
-//   registerUser,
-//   resetPassword,
-//   getCurrentUser,
-// } from '@/services/auth'
-import { UserRole } from '@uniw/shared-types'
-import { getFirebaseAuth } from '@uniw/shared-services'
+import { IUser, UserRole } from '@uniw/shared-types'
+import { SignInSchemaType } from '@uniw/shared-schemas'
 
 // ─── Tipagem do contexto ─────────────────────────────────────────────────────
 
 interface AuthContextType {
-  user: any
-  loading: boolean
-  error: string | null
-  login: (email: string, password: string, role: UserRole) => Promise<void>
-  register: (data: any, role: UserRole) => Promise<void>
-  logout: (role: UserRole) => Promise<void>
-  sendReset: (email: string) => Promise<void>
+  user: IUser
+  isAuthLoading: boolean
+  authError: string | null
+  login: (data: SignInSchemaType) => Promise<void>
+  register: (data: any) => Promise<void>
+  logout: () => Promise<void>
 }
 
 // ─── Contexto ────────────────────────────────────────────────────────────────
@@ -31,12 +24,12 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | null>(null)
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter()
   // const auth = getFirebaseAuth()
 
   const [user, setUser] = useState<any>(null)
-  const [loading, setLoading] = useState(true) // Inicia como true para aguardar a verificação
-  const [error, setError] = useState<string | null>(null)
-  const router = useRouter()
+  const [isAuthLoading, setIsAuthLoading] = useState(true)
+  const [authError, setAuthError] = useState<string | null>(null)
 
   useEffect(() => {
     console.log(user)
@@ -60,75 +53,64 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   //       deleteCookie('token')
   //       deleteCookie('role')
   //     }
-  //     setLoading(false)
+  //     setIsAuthLoading(false)
   //   })
 
   //   // Limpa o listener ao desmontar o componente
   //   return () => unsubscribe()
   // }, [])
 
-  const login = async (email: string, password: string, role: UserRole) => {
-    // Se já houver um usuário no estado, apenas redireciona
+  const login = async (data: SignInSchemaType) => {
     if (user) {
       console.log('Usuário já logado. Redirecionando...')
-      router.push(`/${user.role}/painel/inicio`)
+      router.push(`/painel/inicio`)
       return
     }
 
-    setLoading(true)
-    setError(null)
+    setIsAuthLoading(true)
+    setAuthError(null)
     try {
-      // A função loginUser no serviço já cuidará de autenticar e definir o cookie inicial
-      // const u = await loginUser({ email, password })
-      // O listener onAuthStateChanged cuidará de atualizar o estado,
-      // mas podemos setar aqui para uma resposta mais imediata na UI.
-      // setUser(u)
-      router.push(`/${role}/painel/inicio`)
+      const u = await services.webLoginUser({
+        email: data.email,
+        password: data.password,
+        roleToValidate: UserRole.ADMINISTRADOR,
+      })
+      setUser(u.user)
+      setCookie('token', u.token)
+      setCookie('role', u.user.role)
+      router.push(`/painel/inicio`)
     } catch {
-      setError('Credenciais inválidas.')
+      setAuthError('Credenciais inválidas.')
     } finally {
-      setLoading(false)
+      setIsAuthLoading(false)
     }
   }
 
-  const register = async (data: any, role: UserRole) => {
-    setLoading(true)
-    setError(null)
+  const register = async (data: any) => {
+    setIsAuthLoading(true)
+    setAuthError(null)
     try {
-      // const u = await registerUser(data)
+      // const u = await services.registerUser(data)
       // setUser(u)
-      router.push(`/${role}/painel/inicio`)
+      // router.push(`/painel/inicio`)
     } catch {
-      setError('Erro ao registrar.')
+      setAuthError('Erro ao registrar.')
     } finally {
-      setLoading(false)
+      setIsAuthLoading(false)
     }
   }
 
-  const logout = async (role: UserRole) => {
-    // A função de logout no serviço já limpa os cookies
-    // await logoutUser()
+  const logout = async () => {
+    await services.logout()
     setUser(null)
-    // O redirecionamento pode variar. Se houver múltiplas áreas de login,
-    // talvez precise de uma lógica mais elaborada.
-    router.push(`/${role}/auth/entrar`)
-  }
-
-  const sendReset = async (email: string) => {
-    setLoading(true)
-    setError(null)
-    try {
-      // await resetPassword(email)
-    } catch {
-      setError('Erro ao enviar e-mail de recuperação.')
-    } finally {
-      setLoading(false)
-    }
+    deleteCookie('token')
+    deleteCookie('role')
+    router.push(`/auth/entrar`)
   }
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, error, login, register, logout, sendReset }}
+      value={{ user, isAuthLoading, authError, login, register, logout }}
     >
       {children}
     </AuthContext.Provider>

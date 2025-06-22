@@ -15,7 +15,7 @@ import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha'
 
-import { changePhoneSchema, type ChangePhoneScreenProps } from '@uniw/shared-types'
+import {  ChangePhoneScreenProps } from '@uniw/shared-types'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { firebaseConfig } from '@/services/firebaseConfig'
@@ -23,6 +23,7 @@ import { applyMask } from '@uniw/shared-utils'
 import { InputText } from '@/components/forms/InputText'
 import { Button } from '@/components/forms/Button'
 import { ProfileHeader } from '@/components/ProfileHeader'
+import { changePhoneSchema } from '@uniw/shared-schemas'
 
 const ChangePhoneScreen = ({ navigation }: ChangePhoneScreenProps) => {
   const {

@@ -4843,7 +4843,6 @@ __metadata:
   resolution: "@uniw/shared-schemas@workspace:packages/shared-schemas"
   dependencies:
     "@repo/typescript-config": "workspace:*"
-    "@uniw/shared-services": "workspace:*"
     "@uniw/shared-utils": "workspace:*"
     typescript: "npm:5.8.2"
     yup: "npm:^1.6.1"
@@ -4855,6 +4854,7 @@ __metadata:
   resolution: "@uniw/shared-services@workspace:packages/shared-services"
   dependencies:
     "@repo/typescript-config": "workspace:*"
+    "@uniw/shared-schemas": "workspace:*"
     "@uniw/shared-types": "workspace:*"
     "@uniw/shared-utils": "workspace:*"
     firebase: "npm:^10.13.0"
@@ -10659,7 +10659,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:^7.57.0":
+"react-hook-form@npm:^7.57.0, react-hook-form@npm:^7.58.1":
   version: 7.58.1
   resolution: "react-hook-form@npm:7.58.1"
   peerDependencies:
@@ -12541,6 +12541,7 @@ __metadata:
   resolution: "uniw-admin@workspace:apps/uniw-admin"
   dependencies:
     "@eslint/eslintrc": "npm:^3"
+    "@hookform/resolvers": "npm:^5.1.1"
     "@mantine/core": "npm:^8.0.2"
     "@mantine/dates": "npm:^8.0.2"
     "@mantine/form": "npm:^8.0.2"
@@ -12571,6 +12572,7 @@ __metadata:
     prettier: "npm:^3.5.3"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
+    react-hook-form: "npm:^7.58.1"
     react-icons: "npm:^5.5.0"
     sass: "npm:^1.89.1"
     typescript: "npm:^5"

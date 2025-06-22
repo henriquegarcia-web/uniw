@@ -22,15 +22,14 @@ import type {
 } from '@uniw/shared-types'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
-import { clientUpdateProfileSchema } from '@uniw/shared-types'
+import { clientUpdateProfileSchema } from '@uniw/shared-schemas'
 
 // Importando todos os nossos componentes e serviços
 import { InputText } from '@/components/forms/InputText'
 import { Dropdown, DropdownItem } from '@/components/forms/Dropdown'
 import { Button } from '@/components/forms/Button'
 import { applyMask } from '@uniw/shared-utils'
-import { viacepService } from '@/services/viacep'
-import { ibgeService } from '@/services/ibge'
+import { ibgeService, viacepService } from '@uniw/shared-services'
 import { EditableUserPicture } from '@/components/forms/EditableUserPicture'
 import { EditableUserName } from '@/components/forms/EditableUserName'
 import { EditableUserPassword } from '@/components/forms/EditableUserPassword'

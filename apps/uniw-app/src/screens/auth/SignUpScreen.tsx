@@ -13,7 +13,8 @@ import {
 import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { clientSignUpSchema, type SignUpScreenProps } from '@uniw/shared-types'
+import { SignUpScreenProps } from '@uniw/shared-types'
+import { clientSignUpSchema } from '@uniw/shared-schemas'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { InputText } from '@/components/forms/InputText'

@@ -27,6 +27,7 @@ const monorepoPackages = {
   '@uniw/shared-services': path.resolve(workspaceRoot, 'packages/shared-services'),
   '@uniw/shared-types': path.resolve(workspaceRoot, 'packages/shared-types'),
   '@uniw/shared-utils': path.resolve(workspaceRoot, 'packages/shared-utils'),
+  '@uniw/shared-schemas': path.resolve(workspaceRoot, 'packages/shared-schemas'),
 }
 
 config.resolver.extraNodeModules = {

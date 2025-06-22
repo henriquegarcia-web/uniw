@@ -1,3 +1,4 @@
+import { SignInSchemaType } from '@uniw/shared-schemas'
 import { AuthProvider, IUser, UserRole, UserStatus } from '@uniw/shared-types'
 import { getFirebaseAuth, getFirebaseDb, getFirebaseStorage } from './firebase'
 import {
@@ -168,7 +169,7 @@ export async function removeUserProfilePicture(
   }
 }
 
-// =================================================== CLIENTE
+// =================================================== APP (CLIENTE)
 
 export async function clientSignIn(
   email: string,
@@ -264,5 +265,37 @@ export async function clientSignUp(
     return newUser
   } catch (error: any) {
     throw new Error('Não foi possível registrar o usuário.')
+  }
+}
+
+// =================================================== WEB (ADMIN, PARCEIRO E FORNECEDOR)
+
+export type WebLoginPayload = SignInSchemaType & {
+  roleToValidate: UserRole
+}
+
+export async function webLoginUser({ email, password, roleToValidate }: WebLoginPayload) {
+  const auth = getFirebaseAuth()
+  const database = getFirebaseDb()
+
+  const cred = await signInWithEmailAndPassword(auth, email, password)
+  const uid = cred.user.uid
+  const userSnap = await get(ref(database, `users/${uid}`))
+
+  if (!userSnap.exists()) {
+    throw new Error('Usuário não encontrado no banco de dados.')
+  }
+
+  const user = userSnap.val() as IUser
+
+  if (user.role !== roleToValidate) {
+    throw new Error('Acesso negado.')
+  }
+
+  const token = await cred.user.getIdToken()
+
+  return {
+    user,
+    token,
   }
 }

@@ -16,7 +16,6 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@uniw/shared-services": "workspace:*",
     "@uniw/shared-utils": "workspace:*"
   },
   "devDependencies": {

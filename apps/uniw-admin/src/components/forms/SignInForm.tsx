@@ -5,56 +5,66 @@
 import styles from './forms.module.scss'
 
 import { TextInput, PasswordInput, Button } from '@mantine/core'
-import { useForm } from '@mantine/form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useAuth } from '@/contexts/AuthContext'
-import { UserRole } from '@uniw/shared-types'
+import { useForm, Controller } from 'react-hook-form'
+import { signInSchema, SignInSchemaType } from '@uniw/shared-schemas'
 
 // ─── Componente SignInForm ──────────────────────────────────────────────────
 
 export default function SignInForm() {
-  const { login, loading, error } = useAuth()
+  const { login, isAuthLoading, authError } = useAuth()
 
   const {
-    values: formValues,
-    onSubmit,
-    getInputProps,
-  } = useForm({
-    initialValues: {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignInSchemaType>({
+    resolver: yupResolver(signInSchema),
+    mode: 'onBlur',
+    defaultValues: {
       email: '',
       password: '',
     },
-
-    validate: {
-      email: (value) => (/^\S+@\S+\.\S+$/.test(value) ? null : 'E-mail inválido'),
-      password: (value) =>
-        value.length >= 6 ? null : 'A senha deve ter no mínimo 6 caracteres',
-    },
   })
 
-  const handleLogin = (values: typeof formValues) => {
-    login(values.email, values.password, UserRole.ADMINISTRADOR)
+  const handleLogin = (data: SignInSchemaType) => {
+    login({ email: data.email, password: data.password })
   }
 
   return (
-    <form className={styles.form} onSubmit={onSubmit(handleLogin)}>
-      <TextInput
-        label="E-mail"
-        placeholder="Digite seu e-mail"
-        withAsterisk
-        {...getInputProps('email')}
+    <form className={styles.form} onSubmit={handleSubmit(handleLogin)}>
+      <Controller
+        name="email"
+        control={control}
+        render={({ field }) => (
+          <TextInput
+            {...field}
+            label="E-mail"
+            placeholder="Digite seu e-mail"
+            withAsterisk
+            error={errors.email?.message}
+          />
+        )}
+      />
+      <Controller
+        name="password"
+        control={control}
+        render={({ field }) => (
+          <PasswordInput
+            {...field}
+            label="Senha"
+            placeholder="Digite sua senha"
+            withAsterisk
+            error={errors.password?.message}
+          />
+        )}
       />
 
-      <PasswordInput
-        label="Senha"
-        placeholder="Digite sua senha"
-        withAsterisk
-        {...getInputProps('password')}
-      />
+      {authError && <p className={styles.form_error}>{authError}</p>}
 
-      {error && <p className={styles.form_error}>{error}</p>}
-
-      <Button type="submit" fullWidth loading={loading}>
+      <Button type="submit" fullWidth loading={isAuthLoading || isSubmitting}>
         Entrar
       </Button>
     </form>
