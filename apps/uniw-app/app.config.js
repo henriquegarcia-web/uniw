@@ -9,6 +9,10 @@ export default {
     icon: './src/assets/uniw_logo.png',
     userInterfaceStyle: 'light',
     newArchEnabled: true,
+    updates: {
+      fallbackToCacheTimeout: 0,
+    },
+    assetBundlePatterns: ['**/*'],
     splash: {
       image: './src/assets/backgrounds/splash-background.png',
       resizeMode: 'cover',
@@ -28,7 +32,7 @@ export default {
     web: {
       favicon: './src/assets/favicon.png',
     },
-    plugins: ['expo-font', 'expo-dev-client'],
+    plugins: ['expo-font', 'expo-dev-client', '@react-native-firebase/app'],
     extra: {
       eas: {
         projectId: '812553f4-aa20-4fba-b088-aa0528af72b3',

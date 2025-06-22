@@ -8,6 +8,7 @@ import { MenuProvider } from '@/contexts/MenuProvider'
 import { SideMenu } from './components/SideMenu'
 import { SearchProvider } from './contexts/SearchProvider'
 import SplashScreen from './screens/SplashScreen'
+import { HelpCenterProvider } from './contexts/HelpCenterProvider'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,15 +29,17 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <ProfileProvider>
-        <MenuProvider>
-          <SearchProvider>
-            <StatusBar style="auto" />
-            <Routes />
-            <SideMenu />
-          </SearchProvider>
-        </MenuProvider>
-      </ProfileProvider>
+      <HelpCenterProvider>
+        <ProfileProvider>
+          <MenuProvider>
+            <SearchProvider>
+              <StatusBar style="auto" />
+              <Routes />
+              <SideMenu />
+            </SearchProvider>
+          </MenuProvider>
+        </ProfileProvider>
+      </HelpCenterProvider>
     </AuthProvider>
   )
 }

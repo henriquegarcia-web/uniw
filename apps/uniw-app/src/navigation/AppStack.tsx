@@ -14,6 +14,12 @@ import DeleteAccountScreen from '@/screens/support/DeleteAccountScreen'
 import PoliciesScreen from '@/screens/support/PoliciesScreen'
 import HelpCenterScreen from '@/screens/support/HelpCenterScreen'
 import SaleAnnouncementScreen from '@/screens/support/SaleAnnouncementScreen'
+import HelpArticleDetailsScreen from '@/screens/support/HelpArticleDetailsScreen'
+import TicketDetailsScreen from '@/screens/support/TicketDetailsScreen'
+import TicketHistoryScreen from '@/screens/support/TicketHistoryScreen'
+import ContactSupportScreen from '@/screens/support/ContactSupportScreen'
+import HelpTopicDetailsScreen from '@/screens/support/HelpTopicDetailsScreen'
+import { getHelpCategoryById } from '@/utils/mockGetters'
 
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
@@ -77,6 +83,15 @@ export function AppStack() {
         }}
       />
       <Stack.Screen
+        name="SaleAnnouncement"
+        component={SaleAnnouncementScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="back-title" title="Venda na UNIW" />,
+        }}
+      />
+
+      <Stack.Screen
         name="HelpCenter"
         component={HelpCenterScreen}
         options={{
@@ -85,11 +100,51 @@ export function AppStack() {
         }}
       />
       <Stack.Screen
-        name="SaleAnnouncement"
-        component={SaleAnnouncementScreen}
+        name="HelpTopicDetails"
+        component={HelpTopicDetailsScreen}
+        options={({ route }) => {
+          // Para esta tela, o ideal é ter um título dinâmico
+          // com o nome da categoria que o usuário selecionou.
+          // Ex: "Pedidos e Entregas", "Pagamentos", etc.
+          const category = getHelpCategoryById(route.params.categoryId)
+          return {
+            headerShown: true,
+            header: () => (
+              <Header variant="back-title" title={category?.name || 'Ajuda'} />
+            ),
+          }
+        }}
+      />
+      <Stack.Screen
+        name="HelpArticleDetails"
+        component={HelpArticleDetailsScreen}
         options={{
           headerShown: true,
-          header: () => <Header variant="back-title" title="Venda na UNIW" />,
+          header: () => <Header variant="back-title" title="Artigo da Ajuda" />,
+        }}
+      />
+      <Stack.Screen
+        name="ContactSupport"
+        component={ContactSupportScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="back-title" title="Fale Conosco" />,
+        }}
+      />
+      <Stack.Screen
+        name="TicketHistory"
+        component={TicketHistoryScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="back-title" title="Meus Chamados" />,
+        }}
+      />
+      <Stack.Screen
+        name="TicketDetails"
+        component={TicketDetailsScreen}
+        options={{
+          headerShown: true,
+          header: () => <Header variant="back-title" title="Detalhes do Chamado" />,
         }}
       />
     </Stack.Navigator>

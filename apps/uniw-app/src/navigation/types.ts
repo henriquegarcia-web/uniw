@@ -13,8 +13,14 @@ export type AppStackParamList = {
   AboutUs: undefined
   DeleteAccount: undefined
   Policies: undefined
-  HelpCenter: undefined
   SaleAnnouncement: undefined
+
+  HelpCenter: undefined
+  HelpTopicDetails: { categoryId: string }
+  HelpArticleDetails: { articleId: string }
+  ContactSupport: { orderId?: string } // orderId é opcional
+  TicketHistory: undefined
+  TicketDetails: { ticketId: string }
 }
 
 // --- Pilhas de Navegação (Stacks) ---
@@ -119,10 +125,6 @@ export type DeleteAccountScreenProps = NativeStackScreenProps<
   'DeleteAccount'
 >
 export type PoliciesScreenProps = NativeStackScreenProps<AppStackParamList, 'Policies'>
-export type HelpCenterScreenProps = NativeStackScreenProps<
-  AppStackParamList,
-  'HelpCenter'
->
 export type SaleAnnouncementScreenProps = NativeStackScreenProps<
   AppStackParamList,
   'SaleAnnouncement'
@@ -233,3 +235,28 @@ export type ChatsListScreenProps = NativeStackScreenProps<
   'ChatsList'
 >
 export type ChatScreenProps = NativeStackScreenProps<ProfileStackParamList, 'Chat'>
+
+export type HelpCenterScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'HelpCenter'
+>
+export type HelpTopicDetailsScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'HelpTopicDetails'
+>
+export type HelpArticleDetailsScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'HelpArticleDetails'
+>
+export type ContactSupportScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'ContactSupport'
+>
+export type TicketHistoryScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'TicketHistory'
+>
+export type TicketDetailsScreenProps = NativeStackScreenProps<
+  AppStackParamList,
+  'TicketDetails'
+>

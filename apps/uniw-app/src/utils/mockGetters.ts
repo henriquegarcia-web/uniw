@@ -1,5 +1,13 @@
 // src/utils/mockGetters.ts
 
+import {
+  IHelpArticle,
+  IHelpCategory,
+  ISupportTicket,
+  mockHelpArticles,
+  mockHelpCategories,
+  mockSupportTickets,
+} from '@/types/support'
 import { IPurchaseOrder, mockPurchaseHistory } from '@/types/auth'
 import { INotification, mockNotifications } from '@/types/notifications'
 import {
@@ -61,4 +69,46 @@ export function getNotificationById(notificationId: string): INotification | und
     return undefined
   }
   return mockNotifications.find((notification) => notification.id === notificationId)
+}
+
+export function getHelpCategories(): IHelpCategory[] {
+  return mockHelpCategories
+}
+
+export function getHelpCategoryById(categoryId: string): IHelpCategory | undefined {
+  return mockHelpCategories.find((category) => category.id === categoryId)
+}
+
+export function getHelpArticles(limit?: number): IHelpArticle[] {
+  const sortedByPopularity = [...mockHelpArticles].sort(
+    (a, b) => b.popularity - a.popularity,
+  )
+  return limit ? sortedByPopularity.slice(0, limit) : sortedByPopularity
+}
+
+export function getHelpArticlesByCategoryId(categoryId: string): IHelpArticle[] {
+  return mockHelpArticles.filter((article) => article.categoryId === categoryId)
+}
+
+export function getHelpArticleById(articleId: string): IHelpArticle | undefined {
+  return mockHelpArticles.find((article) => article.id === articleId)
+}
+
+export function searchHelpArticles(query: string): IHelpArticle[] {
+  if (!query) return []
+  const lowercasedQuery = query.toLowerCase()
+  return mockHelpArticles.filter(
+    (article) =>
+      article.title.toLowerCase().includes(lowercasedQuery) ||
+      article.content.toLowerCase().includes(lowercasedQuery) ||
+      article.tags.some((tag) => tag.includes(lowercasedQuery)),
+  )
+}
+
+export function getTicketsByUserId(userId: string): ISupportTicket[] {
+  return mockSupportTickets.filter((ticket) => ticket.userId === userId)
+}
+
+export function getTicketById(ticketId: string): ISupportTicket | undefined {
+  return mockSupportTickets.find((ticket) => ticket.id === ticketId)
 }

@@ -58,15 +58,15 @@ export const ButtonEdit = ({
         style={[
           styles.container,
           {
-            width: size === 'md' ? theme.spacing.xl : 20,
-            height: size === 'md' ? theme.spacing.xl : 20,
+            width: size === 'md' ? 30 : 20,
+            height: size === 'md' ? 30 : 20,
             borderWidth: size === 'md' ? 3 : 0,
           },
           isButtonEditDisabled && styles.disabled,
           animatedStyle,
         ]}
       >
-        <Feather name="edit-2" size={size === 'md' ? 16 : 14} color="white" />
+        <Feather name="edit-2" size={size === 'md' ? 14 : 14} color="white" />
       </Animated.View>
     </Pressable>
   )
