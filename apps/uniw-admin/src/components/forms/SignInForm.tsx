@@ -8,7 +8,7 @@ import { TextInput, PasswordInput, Button } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
 import { useAuth } from '@/contexts/AuthContext'
-import { UserRole } from '@/types/auth'
+import { UserRole } from '@uniw/shared-types'
 
 // ─── Componente SignInForm ──────────────────────────────────────────────────
 

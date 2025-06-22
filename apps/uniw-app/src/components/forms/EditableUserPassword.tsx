@@ -7,11 +7,11 @@ import { useForm, Controller, type FieldValues } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { themeApp, colors } from '@uniw/shared-constants'
-import { changePasswordSchema } from '@/types/auth'
 import { InputText } from './InputText'
 import { Button } from './Button'
 import { useClientAuth } from '@/contexts/ClientAuthProvider'
 import { useFocusEffect } from '@react-navigation/native'
+import { changePasswordSchema } from '@/types/auth'
 
 interface EditableUserPasswordProps {}
 

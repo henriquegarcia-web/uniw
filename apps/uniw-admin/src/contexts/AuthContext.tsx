@@ -12,7 +12,7 @@ import {
   resetPassword,
   getCurrentUser,
 } from '@/services/auth'
-import { UserRole } from '@/types/auth'
+import { UserRole } from '@uniw/shared-types'
 
 // ─── Tipagem do contexto ─────────────────────────────────────────────────────
 

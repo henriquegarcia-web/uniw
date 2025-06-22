@@ -1,6 +1,6 @@
 // ─── Busca de Dados de CEP via ViaCEP ──────────────────────────────────────
 
-import { IViaCepResponse } from '@/types/viacep'
+import { IViaCepResponse } from '@uniw/shared-types'
 
 /**
  * Realiza a consulta do endereço correspondente a um CEP usando a API ViaCEP.

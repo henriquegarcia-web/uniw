@@ -8,7 +8,7 @@ import {
 import { ref, set, get } from 'firebase/database'
 import { setCookie, deleteCookie } from 'cookies-next'
 
-import { UserRole, UserStatus, IBaseUser } from '@/types/auth'
+import { UserRole, UserStatus, IBaseProfile } from '@uniw/shared-types'
 
 // ─── Tipagens ───────────────────────────────────────────────────────────────
 
@@ -84,57 +84,52 @@ export async function loginUser({ email, password }: AuthCredentials) {
 // ─── Registrar Usuário ──────────────────────────────────────────────────────
 
 export async function registerUser(data: RegisterParceiro | RegisterFornecedor) {
-  const { email, password, nome, telefone, cpf, dataNascimento, role } = data
-  const cred = await createUserWithEmailAndPassword(auth, email, password)
-  const uid = cred.user.uid
-  const now = Date.now()
-
-  const baseUser: IBaseUser = {
-    id: uid,
-    nome,
-    email,
-    telefone,
-    cpf,
-    dataNascimento,
-    role,
-    status: UserStatus.PENDENTE,
-    createdAt: now,
-    updatedAt: now,
-    isActive: true,
-  }
-
-  await set(ref(db, `usuarios/${uid}`), baseUser)
-
-  if (role === UserRole.PARCEIRO) {
-    const { nomeLoja, cnpjOuCpf, endereco } = data
-    await set(ref(db, `parceiros/${uid}`), {
-      id: uid,
-      lojaId: uid,
-      nomeLoja,
-      cnpjOuCpf,
-      endereco,
-      redesSociais: [],
-      colaboradores: [],
-      clientesCadastrados: [],
-      meiosPagamento: [],
-      aprovado: false,
-      faturamentoUltimos30Dias: 0,
-    })
-  }
-
-  if (role === UserRole.FORNECEDOR) {
-    const { nomeEmpresa } = data
-    await set(ref(db, `fornecedores/${uid}`), {
-      id: uid,
-      nomeEmpresa,
-      produtosCadastrados: [],
-      visibilidadePublica: true,
-      lojistasRelacionados: [],
-      sorteiosAtivos: [],
-    })
-  }
-
-  return await loginUser({ email, password })
+  // const { email, password, nome, telefone, cpf, dataNascimento, role } = data
+  // const cred = await createUserWithEmailAndPassword(auth, email, password)
+  // const uid = cred.user.uid
+  // const now = Date.now()
+  // const baseUser: IBaseProfile = {
+  //   id: uid,
+  //   nome,
+  //   email,
+  //   telefone,
+  //   cpf,
+  //   dataNascimento,
+  //   role,
+  //   status: UserStatus.PENDENTE,
+  //   createdAt: now,
+  //   updatedAt: now,
+  //   isActive: true,
+  // }
+  // await set(ref(db, `usuarios/${uid}`), baseUser)
+  // if (role === UserRole.PARCEIRO) {
+  //   const { nomeLoja, cnpjOuCpf, endereco } = data
+  //   await set(ref(db, `parceiros/${uid}`), {
+  //     id: uid,
+  //     lojaId: uid,
+  //     nomeLoja,
+  //     cnpjOuCpf,
+  //     endereco,
+  //     redesSociais: [],
+  //     colaboradores: [],
+  //     clientesCadastrados: [],
+  //     meiosPagamento: [],
+  //     aprovado: false,
+  //     faturamentoUltimos30Dias: 0,
+  //   })
+  // }
+  // if (role === UserRole.FORNECEDOR) {
+  //   const { nomeEmpresa } = data
+  //   await set(ref(db, `fornecedores/${uid}`), {
+  //     id: uid,
+  //     nomeEmpresa,
+  //     produtosCadastrados: [],
+  //     visibilidadePublica: true,
+  //     lojistasRelacionados: [],
+  //     sorteiosAtivos: [],
+  //   })
+  // }
+  // return await loginUser({ email, password })
 }
 
 // ─── Logout ─────────────────────────────────────────────────────────────────

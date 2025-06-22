@@ -1,22 +1,22 @@
 // src/utils/mockGetters.ts
 
 import {
+  ICoupon,
   IHelpArticle,
   IHelpCategory,
-  ISupportTicket,
-  mockHelpArticles,
-  mockHelpCategories,
-  mockSupportTickets,
-} from '@/types/support'
-import { IPurchaseOrder, mockPurchaseHistory } from '@/types/auth'
-import { INotification, mockNotifications } from '@/types/notifications'
-import {
+  INotification,
   IProduct,
   IProductCategory,
-  mockCategories,
-  mockProducts,
-} from '@/types/products'
-import { ICoupon, IRedeemedCoupon, mockCoupons } from '@/types/rewards'
+  IPurchaseOrder,
+  IRedeemedCoupon,
+  ISupportTicket,
+} from '@uniw/shared-types'
+
+import { mockHelpArticles, mockHelpCategories, mockSupportTickets } from '@/types/support'
+import { mockPurchaseHistory } from '@/types/auth'
+import { mockNotifications } from '@/types/notifications'
+import { mockCategories, mockProducts } from '@/types/products'
+import { mockCoupons } from '@/types/rewards'
 
 export function getCategoryById(categoryId: string): IProductCategory | undefined {
   if (!categoryId) {

@@ -1,7 +1,12 @@
 import { IClub } from './club'
 import { ILoyalty } from './loyalty'
 import { INotification, INotificationSettings } from './notification'
-import { ICreditCard } from './payment'
+import {
+  IAcceptablePaymentMethods,
+  ICreditCard,
+  IPayoutConfig,
+  ISubscription,
+} from './payment'
 import { FormattedOption } from './shared'
 
 // ─── USER ROLES ─────────────────────────────────────────────────────────────
@@ -83,6 +88,31 @@ export interface IAddress {
   isDefault: boolean
 }
 
+// ─── SOCIAL MEDIA TYPES ─────────────────────────────────────────────────────
+
+export interface ISocialMedias {
+  instagram: string | null
+  facebook: string | null
+  x: string | null
+  youtube: string | null
+  tiktok: string | null
+  kwai: string | null
+  pinterest: string | null
+  threads: string | null
+  website: string | null
+  whatsapp: string | null
+}
+
+// ─── PARTNER TYPES ──────────────────────────────────────────────────────────
+
+export interface IBusinessHours {
+  [day: string]: {
+    // Ex: 'segunda', 'terca', 'sabado'
+    aberto: boolean
+    horarios: { inicio: string; fim: string }[] // Permite múltiplos turnos, ex: 08:00-12:00 e 14:00-18:00
+  }
+}
+
 // ─── USER TYPES ─────────────────────────────────────────────────────────────
 
 export interface IBaseProfile {
@@ -102,7 +132,7 @@ export interface IBaseProfile {
   authProviders: IAuthProviderData[]
 }
 
-export interface IClienteProfile {
+export interface IClientProfile {
   favoritos: string[] | null
   historicoCompras: string[] | null
   historicoAgendamentos: string[] | null
@@ -117,13 +147,80 @@ export interface IClienteProfile {
   enderecosSalvos: IAddress[] | null
 }
 
+export interface IPartnerProfile {
+  info: {
+    idLoja: string
+    nomeLoja: string
+    slug: string // URL amigável, ex: /loja/nome-da-loja
+    cnpjCpf: string
+    descricao: string
+    endereco: IAddress
+    redesSociais: ISocialMedias
+    horarioFuncionamento: IBusinessHours
+  }
+  config: {
+    meiosPagamento: IAcceptablePaymentMethods[]
+  }
+  financeiro: {
+    assinatura: ISubscription
+    configRepasse: IPayoutConfig
+    faturamentoMensal: number | null
+  }
+  equipe: {
+    colaboradores: {
+      userId: string
+      cargo: string
+      comissao: {
+        tipo: 'percentual' | 'fixo'
+        valor: number
+      }
+    }[]
+  } | null
+  status: {
+    aprovado: boolean // Se foi aprovado pelo ADM
+    online: boolean // Se a loja está visível para os clientes
+  }
+}
+
+export interface ISupplierProfile {
+  info: {
+    idEmpresa: string
+    nomeEmpresa: string
+    cnpj: string
+    endereco: IAddress
+  }
+  config: {
+    contaPublica: boolean // Se o catálogo é visível para todos ou só para parceiros conectados
+  }
+  financeiro: {
+    assinatura: ISubscription
+    configRepasse: IPayoutConfig
+  }
+  relacionamento: {
+    clientes: string[] | null // Array de partner IDs que compram deste fornecedor
+  }
+}
+
+export interface IAdminProfile {
+  permissoes: {
+    gerenciarUsuarios: boolean
+    gerenciarProdutos: boolean
+    gerenciarFinancas: boolean
+    verRelatorios: boolean
+    moderarConteudo: boolean
+  }
+}
+
 export interface IUser {
   id: string
   role: UserRole
   status: UserStatus
 
   baseProfile: IBaseProfile
-  clienteProfile: IClienteProfile | null
+  clientProfile: IClientProfile | null
+  partnerProfile: IPartnerProfile | null
+  providerProfile: ISupplierProfile | null
+  adminProfile: IAdminProfile | null
 
   createdAt: number
   updatedAt: number
