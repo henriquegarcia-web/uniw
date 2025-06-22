@@ -1,0 +1,21 @@
+.adminDashboard {
+   &_screen {
+    @include screen-fixed;
+  }
+
+  &_menu {
+    width: $wrapper-width;
+  }
+
+  &_content {
+    width: $wrapper-width;
+  }
+
+  &_header {
+    width: $wrapper-width;
+  }
+
+  &_viewContainer {
+    width: $wrapper-width;
+  }
+}
