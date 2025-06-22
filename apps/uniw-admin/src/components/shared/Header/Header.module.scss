@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  height: var(--header-height);
+  height: var(--spacing-custom-dashboard-header);
   padding: 0 1.5rem;
   background-color: #ffffff;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); // shadow-sm
@@ -14,7 +14,7 @@
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: var(--wrapper-width);
+    max-width: var(--spacing-wrapper);
   }
 
   &_logoContainer {

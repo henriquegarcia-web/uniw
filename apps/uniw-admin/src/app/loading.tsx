@@ -8,7 +8,7 @@ import { ImSpinner6 } from 'react-icons/im'
 
 export default function RootLoading() {
   return (
-    <div className="loading-screen">
+    <div className="">
       <ImSpinner6 />
     </div>
   )

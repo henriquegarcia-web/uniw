@@ -9,12 +9,12 @@
   }
 
   &_error {
-    margin-top: $spacing-sm;
+    margin-top: var(--spacing-sm);
 
-    font-size: $font-sm;
-    line-height: $font-sm;
-    font-weight: $font-medium;
+    font-size: var(--fonts-size-xs);
+    line-height: var(--fonts-height-tight);
+    font-weight: var(--fonts-weight-medium);
 
-    color: $color-error;
+    color: var(--semantic-error);
   }
 }

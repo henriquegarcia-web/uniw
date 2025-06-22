@@ -1,21 +1,21 @@
 .adminDashboard {
-   &_screen {
+  &_screen {
     @include screen-fixed;
   }
 
   &_menu {
-    width: $wrapper-width;
+    width: var(--spacing-wrapper);
   }
 
   &_content {
-    width: $wrapper-width;
+    width: var(--spacing-wrapper);
   }
 
   &_header {
-    width: $wrapper-width;
+    width: var(--spacing-wrapper);
   }
 
   &_viewContainer {
-    width: $wrapper-width;
+    width: var(--spacing-wrapper);
   }
 }

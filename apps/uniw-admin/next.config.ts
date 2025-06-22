@@ -5,9 +5,7 @@ const nextConfig: NextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'src', 'styles')],
     additionalData: `
-      @use "abstracts/variables" as *;
-      @use "abstracts/mixins" as *;
-      @use "base/typography" as *;
+      @use "mixins" as *;
     `,
   },
   webpack(config) {
@@ -22,7 +20,12 @@ const nextConfig: NextConfig = {
     })
     return config
   },
-  transpilePackages: ["@uniw/shared-constants", "@uniw/shared-types", "@uniw/shared-services", "@uniw/shared-utils"],
+  transpilePackages: [
+    '@uniw/shared-constants',
+    '@uniw/shared-types',
+    '@uniw/shared-services',
+    '@uniw/shared-utils',
+  ],
 }
 
 export default nextConfig

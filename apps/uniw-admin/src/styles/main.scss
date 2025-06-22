@@ -1,20 +1,4 @@
-// ─── Abstracts ───────────────────────────────────────────
-@use './abstracts/variables' as *;
+// ─── IMPORTS ───────────────────────────────────────────
+
 @use './abstracts/mixins' as *;
-
-// ─── Base ────────────────────────────────────────────────
 @use './base/reset' as *;
-@use './base/typography' as *;
-
-.loading-screen {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: $spacing-xl;
-
-  svg {
-    font-size: $font-xl;
-
-    @include spin(0.8s);
-  }
-}
