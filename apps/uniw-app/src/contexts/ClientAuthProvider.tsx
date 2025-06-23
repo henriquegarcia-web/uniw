@@ -9,12 +9,9 @@ import React, {
   useMemo,
 } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { onAuthStateChanged } from 'firebase/auth'
 
 import * as services from '@uniw/shared-services'
-import { onValue, ref } from 'firebase/database'
 import { IBaseProfile, IUser } from '@uniw/shared-types'
-import { getFirebaseAuth, getFirebaseDb } from '@uniw/shared-services'
 
 type AuthContextData = {
   user: IUser | null
@@ -57,9 +54,6 @@ type AuthProviderProps = {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const auth = getFirebaseAuth()
-  const database = getFirebaseDb()
-
   const [user, setUser] = useState<IUser | null>(null)
 
   const [isLoadingAuth, setIsLoadingAuth] = useState(true)
@@ -69,27 +63,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(false)
   const [isLoadingOnboarding, setIsLoadingOnboarding] = useState(true)
 
+  // useEffect(() => {
+  //   const unsubscribe = services.listenForAuthChanges(({ user }) => {
+  //     setUser(user)
+  //     setIsLoadingAuth(false)
+  //   })
+
+  //   return () => unsubscribe()
+  // }, [])
+
   useEffect(() => {
-    const unsubscribeAuth = onAuthStateChanged(auth, (firebaseUser) => {
-      if (firebaseUser) {
-        const userProfileRef = ref(database, `users/${firebaseUser.uid}`)
-
-        const unsubscribeDb = onValue(userProfileRef, (snapshot) => {
-          if (snapshot.exists()) {
-            setUser(snapshot.val() as IUser)
-          } else {
-            setUser(null)
-          }
-          setIsLoadingAuth(false)
-        })
-
-        return () => unsubscribeDb()
-      } else {
-        setUser(null)
-        setIsLoadingAuth(false)
-      }
-    })
-
     const checkOnboarding = async () => {
       try {
         const onboardingStatus = await AsyncStorage.getItem('@Onboarding:completed')
@@ -104,7 +87,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     checkOnboarding()
-    return () => unsubscribeAuth()
   }, [])
 
   const isAuthenticated = useMemo(() => {
