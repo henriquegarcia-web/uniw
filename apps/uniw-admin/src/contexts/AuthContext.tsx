@@ -25,7 +25,6 @@ export const AuthContext = createContext<AuthContextType | null>(null)
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter()
-  // const auth = getFirebaseAuth()
 
   const [user, setUser] = useState<any>(null)
   const [isAuthLoading, setIsAuthLoading] = useState(true)
@@ -35,28 +34,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     console.log(user)
   }, [user])
 
-  // Ouve o estado de autenticação do Firebase em tempo real
   // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged(async (firebaseUser) => {
-  //     if (firebaseUser) {
-  //       // Usuário está logado, busca dados e define cookies
-  //       // const userData = await getCurrentUser()
-  //       // setUser(userData)
+  //   const unsubscribe = services.listenForAuthChanges(({ user, token }) => {
+  //     setUser(user)
 
-  //       // Sincroniza os cookies para o middleware
-  //       const token = await firebaseUser.getIdToken()
+  //     if (user && token) {
   //       setCookie('token', token)
-  //       // setCookie('role', userData.role)
+  //       setCookie('role', user.role)
   //     } else {
-  //       // Usuário está deslogado, limpa o estado e os cookies
-  //       setUser(null)
   //       deleteCookie('token')
   //       deleteCookie('role')
   //     }
   //     setIsAuthLoading(false)
   //   })
 
-  //   // Limpa o listener ao desmontar o componente
   //   return () => unsubscribe()
   // }, [])
 

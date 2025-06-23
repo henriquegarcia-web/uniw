@@ -1,4 +1,4 @@
-import { SignInSchemaType } from '@uniw/shared-schemas'
+// import { SignInSchemaType } from '@uniw/shared-schemas'
 import { AuthProvider, IUser, UserRole, UserStatus } from '@uniw/shared-types'
 import { getFirebaseAuth, getFirebaseDb, getFirebaseStorage } from './firebase'
 import {
@@ -13,9 +13,11 @@ import {
 } from 'firebase/database'
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  Unsubscribe,
   type User as FirebaseUser,
 } from '@firebase/auth'
 import {
@@ -55,6 +57,31 @@ export async function isCpfInUse(cpf: string): Promise<boolean> {
 }
 
 // =================================================== COMMON
+
+export function listenForAuthChanges(
+  callback: (authData: { user: IUser | null; token: string | null }) => void,
+): Unsubscribe {
+  const auth = getFirebaseAuth()
+
+  const unsubscribe = onAuthStateChanged(
+    auth,
+    async (firebaseUser: FirebaseUser | null) => {
+      if (firebaseUser) {
+        // Usuário está logado
+        const [fullUser, token] = await Promise.all([
+          getFullUserData(firebaseUser.uid),
+          firebaseUser.getIdToken(),
+        ])
+        callback({ user: fullUser, token })
+      } else {
+        // Usuário está deslogado
+        callback({ user: null, token: null })
+      }
+    },
+  )
+
+  return unsubscribe
+}
 
 export async function logout(): Promise<void> {
   try {
@@ -270,11 +297,11 @@ export async function clientSignUp(
 
 // =================================================== WEB (ADMIN, PARCEIRO E FORNECEDOR)
 
-export type WebLoginPayload = SignInSchemaType & {
-  roleToValidate: UserRole
-}
+// export type WebLoginPayload = SignInSchemaType & {
+//   roleToValidate: UserRole
+// }
 
-export async function webLoginUser({ email, password, roleToValidate }: WebLoginPayload) {
+export async function webLoginUser({ email, password, roleToValidate }: any) {
   const auth = getFirebaseAuth()
   const database = getFirebaseDb()
 

@@ -14,12 +14,12 @@ import { mainMetadata } from '@/configs/metadata'
 
 export const metadata = mainMetadata
 
-import { initializeFirebase } from '@uniw/shared-services'
-import { firebaseConfig } from '@/libs/firebase'
+// import { initializeFirebase } from '@uniw/shared-services'
+// import { firebaseConfig } from '@/libs/firebase'
 
 // Chame a função de inicialização AQUI, no escopo do módulo.
 // Isso garante que ela execute uma única vez, antes de qualquer renderização.
-initializeFirebase(firebaseConfig)
+// initializeFirebase(firebaseConfig)
 
 // ─── Função de Conversão JS para CSS ────────────────────────────────────────
 

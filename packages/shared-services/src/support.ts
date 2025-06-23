@@ -7,7 +7,7 @@ import {
   TicketPriority,
   TicketStatus,
 } from '@uniw/shared-types'
-import { getFirebaseDb } from '@uniw/shared-services'
+import { getFirebaseDb } from './firebase'
 
 export async function createSupportTicket(
   userId: string,

@@ -16,13 +16,13 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@uniw/shared-utils": "workspace:*",
     "firebase": "^10.13.0"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "@uniw/shared-schemas": "workspace:*",
     "@uniw/shared-types": "workspace:*",
-    "@uniw/shared-utils": "workspace:*",
     "typescript": "5.8.2"
   }
 }

@@ -1,14 +1,10 @@
 {
-  "extends": "@repo/typescript-config/base.json",
+  "extends": "@repo/typescript-config/shared-library.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src"
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"],
-  "references": [
-    { "path": "../shared-types" },
-    { "path": "../shared-utils" },
-    { "path": "../shared-schemas" }
-  ]
+  "references": [{ "path": "../shared-types" }, { "path": "../shared-utils" }]
 }

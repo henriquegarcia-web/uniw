@@ -1,5 +1,4 @@
 import * as yup from 'yup'
-import { isCpfInUse, isEmailInUse } from '@uniw/shared-services'
 import { isValidCep, isValidCpf, isValidPhone } from '@uniw/shared-utils'
 
 export const signInSchema = yup.object({
@@ -19,12 +18,12 @@ export const forgotPasswordSchema = yup.object({
   email: yup
     .string()
     .email('Por favor, insira um e-mail válido.')
-    .required('O campo de e-mail é obrigatório.')
-    .test('is-email-exists', 'Este e-mail não está em uso.', async (value) => {
-      if (!value) return true
-      const isExists = await isEmailInUse(value)
-      return !!isExists
-    }),
+    .required('O campo de e-mail é obrigatório.'),
+  // .test('is-email-exists', 'Este e-mail não está em uso.', async (value) => {
+  //   if (!value) return true
+  //   const isExists = await isEmailInUse(value)
+  //   return !!isExists
+  // }),
 })
 
 export type ForgotPasswordSchemaType = yup.InferType<typeof forgotPasswordSchema>
@@ -50,16 +49,16 @@ export const changeEmailSchema = yup.object({
   newEmail: yup
     .string()
     .email('Por favor, insira um e-mail válido.')
-    .required('O campo de novo e-mail é obrigatório.')
-    .test(
-      'is-email-unique',
-      'Este e-mail já está em uso por outra conta.',
-      async (value) => {
-        if (!value) return true
-        const isTaken = await isEmailInUse(value)
-        return !isTaken
-      },
-    ),
+    .required('O campo de novo e-mail é obrigatório.'),
+  // .test(
+  //   'is-email-unique',
+  //   'Este e-mail já está em uso por outra conta.',
+  //   async (value) => {
+  //     if (!value) return true
+  //     const isTaken = await isEmailInUse(value)
+  //     return !isTaken
+  //   },
+  // ),
   currentPassword: yup
     .string()
     .min(6, 'A senha deve ter no mínimo 6 caracteres.')
@@ -110,31 +109,18 @@ export const clientSignUpSchema = yup.object({
   email: yup
     .string()
     .email('Por favor, insira um e-mail válido.')
-    .required('O campo de e-mail é obrigatório.')
-    .test('is-email-unique', 'Este e-mail já está em uso.', async (value) => {
-      if (!value) return true
-      const isTaken = await isEmailInUse(value)
-      return !isTaken
-    }),
-
+    .required('O campo de e-mail é obrigatório.'),
   cpf: yup
     .string()
     .required('O campo de CPF é obrigatório.')
     .test('is-cpf-valid', 'Digite um CPF válido.', (value) => {
       if (!value) return true
       return isValidCpf(value)
-    })
-    .test('is-cpf-unique', 'Este CPF já está em uso.', async (value) => {
-      if (!value || !isValidCpf(value)) return true
-      const isTaken = await isCpfInUse(value)
-      return !isTaken
     }),
-
   password: yup
     .string()
     .min(6, 'A senha deve ter no mínimo 6 caracteres.')
     .required('O campo de senha é obrigatório.'),
-
   confirmPassword: yup
     .string()
     .oneOf([yup.ref('password')], 'As senhas devem ser iguais.')
