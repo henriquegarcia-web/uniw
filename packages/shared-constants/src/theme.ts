@@ -7,8 +7,10 @@ export const colors = {
   },
   ui: {
     background: '#FFFFFF',
+    backgroundDark: '#1f2937',
     surface: '#FAFAFA',
     border: '#E0E0E0',
+    borderDark: '#374151',
     disabled: '#D4D4D4',
     placeholder: '#F0F0F0',
   },
@@ -93,11 +95,11 @@ export const themeWeb = {
     lg: '20px',
     xl: '30px',
     xxl: '40px',
-    wrapper: '1000px',
+    wrapper: '1200px',
 
     custom: {
       'dashboard-header': '70px',
-      'dashboard-sidemenu-opened': '240px',
+      'dashboard-sidemenu-opened': '270px',
       'dashboard-sidemenu-closed': '60px',
     },
   },
@@ -112,7 +114,7 @@ export const themeWeb = {
       sm: '0.875rem', // 14px - Corpo de texto secundário, inputs
       md: '1rem', // 16px - Base/corpo de texto principal
       lg: '1.125rem', // 18px - Subtítulos
-      xl: '1.5rem', // 24px - Títulos de seção (h3)
+      xl: '1.375rem', // 22px - Títulos de seção (h3)
       '2xl': '2rem', // 32px - Títulos de página (h2)
       '3xl': '2.5rem', // 40px - Títulos de grande destaque (h1)
     },

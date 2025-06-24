@@ -1,39 +1,67 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { DASHBOARD_MENU_CONFIG } from './data/menu'
+import { UserRole } from '@uniw/shared-types'
 
-// ─── Middleware principal ────────────────────────────────────────────────
+// --- Constantes de Rota ---
+const AUTH_SIGN_IN_PATH = '/auth/entrar'
+const DASHBOARD_BASE_PATH = '/painel'
+const DEFAULT_DASHBOARD_PATH = '/painel/dashboard_overview'
+
+// --- Geração de Rotas Válidas (Otimizado) ---
+// Criamos um Set com todos os paths válidos do painel uma única vez.
+// Isso é muito mais performático do que percorrer o array de menus a cada requisição.
+const validDashboardPaths = new Set<string>(
+  DASHBOARD_MENU_CONFIG.flatMap((group) => group.items.map((item) => item.path)),
+)
+// Adicionamos a rota base do painel também como uma rota "válida" para o middleware
+validDashboardPaths.add(DASHBOARD_BASE_PATH)
+
+// ─── Middleware Principal ────────────────────────────────────────────────
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const url = request.nextUrl.clone()
 
-  // Verifica se o usuário tem um token de autenticação
   const token = request.cookies.get('token')?.value
+  const role = request.cookies.get('role')?.value
 
-  // Se o usuário não tem token e está tentando acessar a área do painel,
-  // redireciona para a página de login.
-  if (!token && pathname.startsWith('/painel')) {
-    url.pathname = '/auth/entrar'
-    return NextResponse.redirect(url)
+  // 1. Lógica para usuários AUTENTICADOS (possuem token)
+  if (token && role === UserRole.ADMINISTRADOR) {
+    // Redireciona de /auth/entrar para o painel
+    if (pathname === AUTH_SIGN_IN_PATH) {
+      url.pathname = DEFAULT_DASHBOARD_PATH
+      return NextResponse.redirect(url)
+    }
+
+    // Redireciona da rota base /painel para a página de visão geral
+    if (pathname === DASHBOARD_BASE_PATH) {
+      url.pathname = DEFAULT_DASHBOARD_PATH
+      return NextResponse.redirect(url)
+    }
+
+    // Se a rota está dentro do painel, mas não é uma rota válida, redireciona.
+    if (pathname.startsWith(DASHBOARD_BASE_PATH) && !validDashboardPaths.has(pathname)) {
+      console.warn(`[Middleware] Rota inválida acessada: ${pathname}. Redirecionando...`)
+      url.pathname = DEFAULT_DASHBOARD_PATH
+      return NextResponse.redirect(url)
+    }
   }
 
-  // Se o usuário tem um token e tenta acessar a página de login,
-  // redireciona para a página inicial do painel para evitar login duplicado.
-  if (token && pathname === '/auth/entrar') {
-    url.pathname = '/painel/inicio'
-    return NextResponse.redirect(url)
+  // 2. Lógica para usuários NÃO AUTENTICADOS (não possuem token)
+  if (!token) {
+    // Redireciona de qualquer rota do painel para a página de login
+    if (pathname.startsWith(DASHBOARD_BASE_PATH)) {
+      url.pathname = AUTH_SIGN_IN_PATH
+      return NextResponse.redirect(url)
+    }
   }
 
-  // Permite que a requisição continue para os outros casos
+  // 3. Permite que a requisição continue se nenhuma regra for aplicada.
   return NextResponse.next()
 }
 
 // ─── Matchers ─────────────────────────────────────────────────────────────
 export const config = {
-  /*
-   * Executa o middleware em todas as rotas, exceto aquelas que são
-   * para arquivos estáticos (assets), imagens ou chamadas de API.
-   * Isso garante que a verificação de autenticação ocorra apenas nas páginas.
-   */
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 }

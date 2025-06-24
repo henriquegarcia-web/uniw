@@ -1,22 +1,44 @@
-// ─── Imports ────────────────────────────────────────────────────────────────
+// ─── Imports
 
 import styles from './Logo.module.scss'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
-// ─── Componente Logo ────────────────────────────────────────────────────────
+// ─── Variáveis Auxiliares
 
-export default function Logo() {
+const imageDimensions = {
+  sm: {
+    width: 75,
+    height: 37,
+  },
+  md: {
+    width: 88,
+    height: 44,
+  },
+  lg: {
+    width: 104,
+    height: 52,
+  },
+}
+
+// ─── Componente Logo
+
+interface ILogo {
+  size?: 'sm' | 'md' | 'lg'
+}
+
+export default function Logo({ size = 'md' }: ILogo) {
+  const { width, height } = imageDimensions[size]
+
   return (
     <Link href="/">
       <Image
         src="/uniw_logo.png"
         alt="Logo da UNIW"
-        width={146}
-        height={44}
+        width={width}
+        height={height}
         priority
-        className={styles.logoImage}
       />
     </Link>
   )

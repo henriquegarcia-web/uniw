@@ -33,8 +33,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [authError, setAuthError] = useState<string | null>(null)
 
   // useEffect(() => {
-  //   console.log(user)
-  // }, [user])
+  //   if (!isInitialized) {
+  //     return
+  //   }
+  //   const teste = async () => await services.registerAdmin()
+  //   teste()
+  // }, [isInitialized])
 
   useEffect(() => {
     if (!isInitialized) {

@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: var(--spacing-xl);
+  width: 100%;
+  height: 100%;
+  padding: 0 var(--spacing-lg);
+
+  background-color: var(--ui-backgroundDark);
+
+  &_viewTitle {
+    h3 {
+      font-size: var(--fonts-size-xl);
+      line-height: var(--fonts-height-tight);
+      font-weight: var(--fonts-weight-medium);
+
+      color: var(--text-onBrand);
+    }
+  }
+
+  &_search {
+    width: 380px;
+    margin-right: auto;
+  }
+
+  &menus {
+    display: flex;
+  }
+}

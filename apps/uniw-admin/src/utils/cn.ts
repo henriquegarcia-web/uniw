@@ -1,5 +1,5 @@
-// ─── Utilitário de Classes Condicionais ─────────────────────────────────────
+import { type ClassValue, clsx } from 'clsx'
 
-export function cn(...classes: (string | false | null | undefined)[]): string {
-  return classes.filter(Boolean).join(' ')
+export function cn(...inputs: ClassValue[]) {
+  return clsx(inputs)
 }

@@ -1,6 +1,8 @@
 // ─── Imports ────────────────────────────────────────────────────────────────
 
 import { DashboardLayout } from '@/components/layouts'
+import { useAuth } from '@/contexts/AuthContext'
+import { Button } from '@mantine/core'
 
 // ─── Metadados da Rota ──────────────────────────────────────────────────────
 
@@ -15,3 +17,6 @@ export default function AdminLayout({
 }>) {
   return <DashboardLayout>{children}</DashboardLayout>
 }
+
+// const { logout } = useAuth()
+// <Button onClick={logout}>Sair</Button>

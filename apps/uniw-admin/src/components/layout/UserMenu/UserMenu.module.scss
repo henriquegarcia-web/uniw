@@ -1,0 +1,21 @@
+.userMenu {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-sm);
+  cursor: pointer;
+
+  p {
+    font-size: var(--fonts-size-sm);
+    line-height: var(--fonts-height-tight);
+    font-weight: var(--fonts-weight-regular);
+
+    color: var(--text-onBrand);
+  }
+}
+
+.userDropdown {
+  &_exitMenu {
+    display: flex;
+    flex-direction: column;
+  }
+}

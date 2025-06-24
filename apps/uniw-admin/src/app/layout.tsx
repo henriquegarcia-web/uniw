@@ -2,7 +2,7 @@
 
 import '@/libs/firebase'
 import '@mantine/core/styles.css'
-import { MantineProvider, mantineHtmlProps } from '@mantine/core'
+import { DEFAULT_THEME, MantineProvider, createTheme, mantineHtmlProps } from '@mantine/core'
 import { colors, themeWeb } from '@uniw/shared-constants'
 import '../styles/main.scss'
 
@@ -31,6 +31,28 @@ function toCssVariables(themeObject: object, prefix = ''): Record<string, string
   return variables
 }
 
+const theme = createTheme({
+  // 1. Defina um nome para sua cor customizada (ex: 'uniw-green')
+  colors: {
+    ...DEFAULT_THEME.colors, // Importante: inclua as cores padrão do Mantine
+    'uniw-green': [
+      "#e6fcee",
+      "#cff8dd",
+      "#a2efb9",
+      "#72e693",
+      "#4cdd73",
+      "#35d861",
+      // 6. Sua cor principal, geralmente no índice 5 ou 6
+      "#26b34e", // <--- O valor '#00CF00' pode ser ajustado para a escala
+      "#1b9c44",
+      "#0f8539",
+      "#006e2c"
+    ],
+  },
+  // 2. Agora, referencie o NOME da cor que você criou
+  primaryColor: 'uniw-green',
+})
+
 // ─── Componente RootLayout ──────────────────────────────────────────────────
 
 export default function RootLayout({
@@ -57,7 +79,7 @@ export default function RootLayout({
         style={allVariables}
       >
         <FirebaseProvider>
-          <MantineProvider>
+          <MantineProvider theme={theme}>
             <AuthProvider>{children}</AuthProvider>
           </MantineProvider>
         </FirebaseProvider>

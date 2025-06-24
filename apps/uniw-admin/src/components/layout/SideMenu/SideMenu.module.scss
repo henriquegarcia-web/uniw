@@ -1,0 +1,61 @@
+.sideMenu {
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--ui-backgroundDark);
+
+  &_header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: var(--spacing-custom-dashboard-header);
+
+    border-bottom: 1px solid var(--ui-borderDark);
+  }
+
+  &_wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--spacing-lg);
+    height: calc(100vh - var(--spacing-custom-dashboard-header));
+    padding: var(--spacing-md);
+    padding-bottom: var(--spacing-xl);
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 3px;
+      border-radius: 10px;
+      z-index: 1000;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--ui-backgroundDark);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: var(--brand-primary);
+    }
+  }
+
+  .menuGroup {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--spacing-sm);
+
+    &_title {
+      font-size: var(--fonts-size-xs);
+      line-height: var(--fonts-height-tight);
+      font-weight: var(--fonts-weight-regular);
+
+      color: var(--text-onBrand);
+    }
+
+    &_list {
+      display: flex;
+      flex-direction: column;
+      row-gap: var(--spacing-xs);
+    }
+  }
+}
