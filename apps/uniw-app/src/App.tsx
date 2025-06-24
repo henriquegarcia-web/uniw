@@ -3,12 +3,13 @@ import { useFonts } from 'expo-font'
 
 import { Routes } from '@/navigation'
 import { AuthProvider } from '@/contexts/ClientAuthProvider'
-import { ProfileProvider } from './contexts/ClientProfileProvider'
+import { ProfileProvider } from '@/contexts/ClientProfileProvider'
 import { MenuProvider } from '@/contexts/MenuProvider'
 import { SideMenu } from './components/SideMenu'
-import { SearchProvider } from './contexts/SearchProvider'
-import SplashScreen from './screens/SplashScreen'
-import { HelpCenterProvider } from './contexts/HelpCenterProvider'
+import { SearchProvider } from '@/contexts/SearchProvider'
+import { HelpCenterProvider } from '@/contexts/HelpCenterProvider'
+import { FirebaseProvider } from '@/contexts/FirebaseContext'
+import SplashScreen from '@/screens/SplashScreen'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,18 +29,20 @@ export default function App() {
   }
 
   return (
-    <AuthProvider>
-      <HelpCenterProvider>
-        <ProfileProvider>
-          <MenuProvider>
-            <SearchProvider>
-              <StatusBar style="auto" />
-              <Routes />
-              <SideMenu />
-            </SearchProvider>
-          </MenuProvider>
-        </ProfileProvider>
-      </HelpCenterProvider>
-    </AuthProvider>
+    <FirebaseProvider>
+      <AuthProvider>
+        <HelpCenterProvider>
+          <ProfileProvider>
+            <MenuProvider>
+              <SearchProvider>
+                <StatusBar style="auto" />
+                <Routes />
+                <SideMenu />
+              </SearchProvider>
+            </MenuProvider>
+          </ProfileProvider>
+        </HelpCenterProvider>
+      </AuthProvider>
+    </FirebaseProvider>
   )
 }

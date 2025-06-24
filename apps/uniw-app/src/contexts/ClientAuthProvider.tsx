@@ -12,6 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import * as services from '@uniw/shared-services'
 import { IBaseProfile, IUser } from '@uniw/shared-types'
+import { useFirebase } from './FirebaseContext'
 
 type AuthContextData = {
   user: IUser | null
@@ -54,6 +55,8 @@ type AuthProviderProps = {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
+  const { isInitialized } = useFirebase()
+
   const [user, setUser] = useState<IUser | null>(null)
 
   const [isLoadingAuth, setIsLoadingAuth] = useState(false)
@@ -64,13 +67,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLoadingOnboarding, setIsLoadingOnboarding] = useState(true)
 
   useEffect(() => {
+    if (!isInitialized) {
+      return
+    }
+
     const unsubscribe = services.listenForAuthChanges(({ user }) => {
       setUser(user)
       setIsLoadingAuth(false)
     })
 
     return () => unsubscribe()
-  }, [])
+  }, [isInitialized])
 
   useEffect(() => {
     const checkOnboarding = async () => {
