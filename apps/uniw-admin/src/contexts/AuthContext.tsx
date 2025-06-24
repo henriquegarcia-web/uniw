@@ -7,11 +7,12 @@ import * as services from '@uniw/shared-services'
 
 import { IUser, UserRole } from '@uniw/shared-types'
 import { SignInSchemaType } from '@uniw/shared-schemas'
+import { useFirebase } from './FirebaseContext'
 
 // ─── Tipagem do contexto ─────────────────────────────────────────────────────
 
 interface AuthContextType {
-  user: IUser
+  user: IUser | null
   isAuthLoading: boolean
   authError: string | null
   login: (data: SignInSchemaType) => Promise<void>
@@ -25,31 +26,38 @@ export const AuthContext = createContext<AuthContextType | null>(null)
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter()
+  const { isInitialized } = useFirebase()
 
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<IUser | null>(null)
   const [isAuthLoading, setIsAuthLoading] = useState(true)
   const [authError, setAuthError] = useState<string | null>(null)
 
-  useEffect(() => {
-    console.log(user)
-  }, [user])
-
   // useEffect(() => {
-  //   const unsubscribe = services.listenForAuthChanges(({ user, token }) => {
-  //     setUser(user)
+  //   console.log(user)
+  // }, [user])
 
-  //     if (user && token) {
-  //       setCookie('token', token)
-  //       setCookie('role', user.role)
-  //     } else {
-  //       deleteCookie('token')
-  //       deleteCookie('role')
-  //     }
-  //     setIsAuthLoading(false)
-  //   })
+  useEffect(() => {
+    if (!isInitialized) {
+      return
+    }
 
-  //   return () => unsubscribe()
-  // }, [])
+    const unsubscribe = services.listenForAuthChanges(({ user, token }) => {
+      setUser(user)
+
+      if (user && token) {
+        setCookie('token', token)
+        if (user.role) {
+          setCookie('role', user.role)
+        }
+      } else {
+        deleteCookie('token')
+        deleteCookie('role')
+      }
+      setIsAuthLoading(false)
+    })
+
+    return () => unsubscribe()
+  }, [isInitialized])
 
   const login = async (data: SignInSchemaType) => {
     if (user) {

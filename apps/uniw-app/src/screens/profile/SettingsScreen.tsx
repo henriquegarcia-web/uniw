@@ -6,8 +6,11 @@ import { StyleSheet, SafeAreaView, ScrollView } from 'react-native'
 import type { SettingsScreenProps } from '@uniw/shared-types'
 import { themeApp as theme, colors } from '@uniw/shared-constants'
 import { ProfileMenu, ProfileMenuItem } from './ProfileScreen'
+import { useClientAuth } from '@/contexts/ClientAuthProvider'
 
 const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
+  const { signOut } = useClientAuth()
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -43,7 +46,7 @@ const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
           />
         </ProfileMenu>
 
-        <ProfileMenuItem type="negative" label="Sair" onPress={() => {}} />
+        <ProfileMenuItem type="negative" label="Sair" onPress={signOut} />
       </ScrollView>
     </SafeAreaView>
   )

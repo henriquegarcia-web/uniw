@@ -1,7 +1,6 @@
 // ─── Imports ────────────────────────────────────────────────────────────────
 
 import { AuthLayout as AdminAuthLayout } from '@/components/layouts'
-import { AuthProvider } from '@/contexts/AuthContext'
 
 // ─── Metadados da Rota ──────────────────────────────────────────────────────
 
@@ -14,9 +13,5 @@ export default function AuthLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return (
-    <AdminAuthLayout>
-      <AuthProvider>{children}</AuthProvider>
-    </AdminAuthLayout>
-  )
+  return <AdminAuthLayout>{children}</AdminAuthLayout>
 }

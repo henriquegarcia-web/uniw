@@ -14,4 +14,4 @@ export const firebaseConfig: FirebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 }
 
-initializeFirebase(firebaseConfig)
+// initializeFirebase(firebaseConfig)

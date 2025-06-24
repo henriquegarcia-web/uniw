@@ -9,6 +9,8 @@ import '../styles/main.scss'
 import ColorSchemeScript from '@/components/ColorSchemeScript'
 import { roboto, lora } from '@/libs/fonts'
 import { mainMetadata } from '@/configs/metadata'
+import { FirebaseProvider } from '@/contexts/FirebaseContext'
+import { AuthProvider } from '@/contexts/AuthContext'
 
 // ─── Metadados da Aplicação ─────────────────────────────────────────────────
 
@@ -61,7 +63,11 @@ export default function RootLayout({
         className={`${roboto.variable} ${lora.variable} antialiased`}
         style={allVariables}
       >
-        <MantineProvider>{children}</MantineProvider>
+        <FirebaseProvider>
+          <MantineProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </MantineProvider>
+        </FirebaseProvider>
       </body>
     </html>
   )

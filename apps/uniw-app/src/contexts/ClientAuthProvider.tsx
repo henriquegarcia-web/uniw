@@ -56,21 +56,21 @@ type AuthProviderProps = {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<IUser | null>(null)
 
-  const [isLoadingAuth, setIsLoadingAuth] = useState(true)
+  const [isLoadingAuth, setIsLoadingAuth] = useState(false)
   const [isLoadingAuthFunctions, setIsLoadingAuthFunctions] = useState(false)
   const [errorAuth, setErrorAuth] = useState<any>(null)
 
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(false)
   const [isLoadingOnboarding, setIsLoadingOnboarding] = useState(true)
 
-  // useEffect(() => {
-  //   const unsubscribe = services.listenForAuthChanges(({ user }) => {
-  //     setUser(user)
-  //     setIsLoadingAuth(false)
-  //   })
+  useEffect(() => {
+    const unsubscribe = services.listenForAuthChanges(({ user }) => {
+      setUser(user)
+      setIsLoadingAuth(false)
+    })
 
-  //   return () => unsubscribe()
-  // }, [])
+    return () => unsubscribe()
+  }, [])
 
   useEffect(() => {
     const checkOnboarding = async () => {

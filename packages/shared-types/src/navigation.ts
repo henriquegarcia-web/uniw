@@ -1,7 +1,7 @@
 // src/navigation/types.ts
 
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { NavigatorScreenParams } from '@react-navigation/native'
+import type { NavigatorScreenParams } from '@react-navigation/core'
 
 // --- NAVEGADOR RAIZ (APP STACK) ---
 
