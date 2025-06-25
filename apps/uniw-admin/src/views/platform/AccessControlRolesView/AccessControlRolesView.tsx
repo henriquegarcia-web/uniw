@@ -1,62 +1,29 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import styles from './AccessControlRolesView.module.scss'
+
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { addAdminUserSchema } from '@uniw/shared-schemas'
-import { IUser, IAdminProfile, UserStatus, getStatusData } from '@uniw/shared-types'
+
+import {
+  addAdminUserSchema,
+  addAdminUserSchemaDefaultValues,
+  AddAdminUserSchemaType,
+  EditAdminUserSchemaTypes,
+} from '@uniw/shared-schemas'
+import {
+  IUser,
+  IAdminProfile,
+  UserStatus,
+  getStatusData,
+  permissionLabels,
+} from '@uniw/shared-types'
 import { useAccessManager } from '@/contexts/AccessManagerContext'
-import styles from './AccessControlRolesView.module.scss'
 
 // Importando a biblioteca de componentes customizada
 import { TextInput, Button, Checkbox, Table, Avatar, Badge, Drawer } from '@mantine/core'
 import { ViewBlock, ViewHeader } from '@/components/layout'
-
-// --- Tipos e Schemas ---
-type AddUserFormInputs = { nome: string; email: string; cpf: string }
-type EditUserFormInputs = { nome: string; permissoes: IAdminProfile['permissoes'] }
-
-const permissionLabels: Record<keyof IAdminProfile['permissoes'], string> = {
-  // ... (mesmo objeto permissionLabels de antes)
-  dashboard_view: 'Ver Dashboard',
-  adminAccess_view: 'Ver Controle de Acesso',
-  adminAccess_manage: 'Gerenciar Admins',
-  auditLogs_view: 'Ver Logs de Auditoria',
-  platformSettings_view: 'Ver Configurações',
-  platformSettings_manage: 'Gerenciar Configurações',
-  legalContent_view: 'Ver Termos e Políticas',
-  legalContent_manage: 'Gerenciar Termos e Políticas',
-  suppliers_moderate: 'Moderar Fornecedores',
-  suppliers_view: 'Ver Fornecedores',
-  suppliers_manage: 'Gerenciar Fornecedores',
-  b2bCatalog_view: 'Ver Catálogo B2B',
-  b2bCatalog_manage: 'Gerenciar Catálogo B2B',
-  b2bOrders_view: 'Ver Pedidos B2B',
-  b2bOrders_manage: 'Gerenciar Pedidos B2B',
-  partners_moderate: 'Moderar Parceiros',
-  partners_view: 'Ver Parceiros',
-  partners_manage: 'Gerenciar Parceiros',
-  partners_viewSchedules: 'Ver Agendas',
-  partners_manageStaff: 'Gerenciar Equipes',
-  b2cCatalog_view: 'Ver Catálogo B2C',
-  b2cCatalog_manage: 'Gerenciar Catálogo B2C',
-  b2cOrders_view: 'Ver Pedidos B2C',
-  b2cOrders_manage: 'Gerenciar Pedidos B2C',
-  endUsers_view: 'Ver Clientes Finais',
-  endUsers_manage: 'Gerenciar Clientes Finais',
-  appContent_manageBanners: 'Gerenciar Banners',
-  loyalty_manage: 'Gerenciar Fidelidade',
-  club_manage: 'Gerenciar Clube UNIW',
-  supportTickets_view: 'Ver Tickets de Suporte',
-  supportTickets_manage: 'Gerenciar Tickets de Suporte',
-  marketing_sendNotifications: 'Enviar Notificações',
-  marketing_managePromotions: 'Gerenciar Promoções',
-  marketing_manageRaffles: 'Gerenciar Sorteios',
-  finances_viewTransactions: 'Ver Transações',
-  finances_manageSubscriptions: 'Gerenciar Assinaturas',
-  reports_viewSales: 'Ver Relatórios de Vendas',
-  reports_viewUsers: 'Ver Relatórios de Usuários',
-}
 
 export default function AccessControlRolesView() {
   const { admins, loading, addUser, updateUserFields, deleteAdmin } = useAccessManager()
@@ -66,13 +33,13 @@ export default function AccessControlRolesView() {
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null)
 
   // Formulário para ADICIONAR usuário
-  const addForm = useForm<AddUserFormInputs>({
+  const addForm = useForm<AddAdminUserSchemaType>({
     resolver: yupResolver(addAdminUserSchema),
-    defaultValues: { nome: '', email: '', cpf: '' },
+    defaultValues: addAdminUserSchemaDefaultValues,
   })
 
   // Formulário para EDITAR usuário
-  const editForm = useForm<EditUserFormInputs>()
+  const editForm = useForm<EditAdminUserSchemaTypes>()
 
   // Popula o formulário de edição quando um usuário é selecionado
   useEffect(() => {
@@ -95,7 +62,7 @@ export default function AccessControlRolesView() {
     setSelectedUser(null)
   }
 
-  const onAddUserSubmit: SubmitHandler<AddUserFormInputs> = async (data) => {
+  const onAddUserSubmit: SubmitHandler<AddAdminUserSchemaType> = async (data) => {
     try {
       await addUser(data)
       addForm.reset()
@@ -104,7 +71,7 @@ export default function AccessControlRolesView() {
     }
   }
 
-  const onEditUserSubmit: SubmitHandler<EditUserFormInputs> = async (data) => {
+  const onEditUserSubmit: SubmitHandler<EditAdminUserSchemaTypes> = async (data) => {
     if (!selectedUser) return
     try {
       await updateUserFields(selectedUser.id, {
@@ -256,80 +223,74 @@ export default function AccessControlRolesView() {
         )}
       </ViewBlock>
 
-      {selectedUser && (
-        <Drawer
-          opened={isDrawerOpen}
-          onClose={handleCloseDrawer}
-          title={`Editando: ${selectedUser.baseProfile.nome}`}
-          size="xl"
-          position="right"
-          transitionProps={{
-            transition: 'rotate-left',
-            duration: 150,
-            timingFunction: 'linear',
-          }}
+      <Drawer
+        opened={isDrawerOpen && !!selectedUser}
+        onClose={handleCloseDrawer}
+        title={`Editando: ${selectedUser?.baseProfile.nome}`}
+        size="md"
+        position="right"
+      >
+        <form
+          onSubmit={editForm.handleSubmit(onEditUserSubmit)}
+          className={styles.drawerForm}
         >
-          <form
-            onSubmit={editForm.handleSubmit(onEditUserSubmit)}
-            className={styles.drawerForm}
-          >
-            {/* Nome Editável */}
-            <Controller
-              name="nome"
-              control={editForm.control}
-              render={({ field }) => <TextInput {...field} label="Nome" withAsterisk />}
-            />
+          {/* Nome Editável */}
+          <Controller
+            name="nome"
+            control={editForm.control}
+            render={({ field }) => <TextInput {...field} label="Nome" withAsterisk />}
+          />
 
-            {/* Dados não editáveis */}
-            <div className={styles.readOnlyData}>
-              <p>
-                <strong>Email:</strong> {selectedUser.baseProfile.email}
-              </p>
-              <p>
-                <strong>CPF:</strong> {selectedUser.baseProfile.cpf}
-              </p>
-            </div>
+          {/* Dados não editáveis */}
+          <div className={styles.readOnlyData}>
+            <p>
+              <strong>Email:</strong> {selectedUser?.baseProfile.email}
+            </p>
+            <p>
+              <strong>CPF:</strong> {selectedUser?.baseProfile.cpf}
+            </p>
+          </div>
 
-            {/* Permissões */}
-            <div className={styles.permissionsGrid}>
-              <h4>Permissões</h4>
-              {Object.entries(permissionLabels).map(([key, label]) => (
-                <Controller
-                  key={key}
-                  name={`permissoes.${key as keyof IAdminProfile['permissoes']}`}
-                  control={editForm.control}
-                  render={({ field }) => (
-                    <Checkbox
-                      checked={field.value}
-                      onChange={field.onChange}
-                      label={label}
-                    />
-                  )}
-                />
-              ))}
-            </div>
+          {/* Permissões */}
+          <div className={styles.permissionsGrid}>
+            <h4>Permissões</h4>
+            {Object.entries(permissionLabels).map(([key, label]) => (
+              <Controller
+                key={key}
+                name={`permissoes.${key as keyof IAdminProfile['permissoes']}`}
+                control={editForm.control}
+                render={({ field }) => (
+                  <Checkbox
+                    checked={field.value}
+                    onChange={field.onChange}
+                    label={label}
+                  />
+                )}
+              />
+            ))}
+          </div>
 
-            {/* Botões de Ação do Drawer */}
-            <div className={styles.drawerActions}>
-              <Button type="submit" loading={editForm.formState.isSubmitting}>
-                Salvar Alterações
-              </Button>
-              <Button color="yellow" variant="light" onClick={handleBlockUser}>
-                Bloquear Usuário
-              </Button>
-              <Button
-                color="red"
-                variant="subtle"
-                onClick={() =>
-                  handleDelete(selectedUser.id, selectedUser.baseProfile.nome)
-                }
-              >
-                Excluir
-              </Button>
-            </div>
-          </form>
-        </Drawer>
-      )}
+          {/* Botões de Ação do Drawer */}
+          <div className={styles.drawerActions}>
+            <Button type="submit" loading={editForm.formState.isSubmitting}>
+              Salvar Alterações
+            </Button>
+            <Button color="yellow" variant="light" onClick={handleBlockUser}>
+              Bloquear Usuário
+            </Button>
+            <Button
+              color="red"
+              variant="subtle"
+              onClick={() =>
+                selectedUser &&
+                handleDelete(selectedUser.id, selectedUser.baseProfile.nome)
+              }
+            >
+              Excluir
+            </Button>
+          </div>
+        </form>
+      </Drawer>
     </div>
   )
 }

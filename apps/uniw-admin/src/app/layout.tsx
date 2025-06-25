@@ -2,15 +2,16 @@
 
 import '@/libs/firebase'
 import '@mantine/core/styles.css'
+import '../styles/main.scss'
+
 import {
   DEFAULT_THEME,
   MantineProvider,
   createTheme,
   mantineHtmlProps,
 } from '@mantine/core'
-import { colors, themeWeb } from '@uniw/shared-constants'
-import '../styles/main.scss'
 
+import { colors, themeWeb } from '@uniw/shared-constants'
 import ColorSchemeScript from '@/components/ColorSchemeScript'
 import { roboto, lora } from '@/libs/fonts'
 import { mainMetadata } from '@/configs/metadata'

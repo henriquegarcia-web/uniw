@@ -327,72 +327,70 @@ export async function webLoginUser({ email, password, roleToValidate }: WebLogin
   }
 }
 
-export async function registerAdmin(): Promise<IUser> {
-  try {
-    const adminData = {
-      email: 'henrique@uniw.com',
-      password: 'adminadmin',
-      nome: 'Admin Henrique',
-      cpf: '84988258068',
-    }
+// export async function registerAdmin(): Promise<IUser> {
+//   try {
+//     const adminData = {
+//       email: 'henrique@uniw.com',
+//       password: 'adminadmin',
+//       nome: 'Admin Henrique',
+//       cpf: '84988258068',
+//     }
 
-    const auth = getFirebaseAuth()
-    const database = getFirebaseDb()
+//     const auth = getFirebaseAuth()
+//     const database = getFirebaseDb()
 
-    console.log(adminData)
+//     const userCredential = await createUserWithEmailAndPassword(
+//       auth,
+//       adminData.email,
+//       adminData.password,
+//     )
+//     const firebaseUser = userCredential.user
 
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      adminData.email,
-      adminData.password,
-    )
-    const firebaseUser = userCredential.user
+//     const now = Date.now()
+//     const newUser: IUser = {
+//       id: firebaseUser.uid,
+//       role: UserRole.ADMINISTRADOR,
+//       status: UserStatus.ATIVO,
+//       baseProfile: {
+//         nome: adminData.nome,
+//         email: adminData.email,
+//         cpf: adminData.cpf.replace(/\D/g, ''),
+//         foto: null,
+//         telefone: null,
+//         dataNascimento: null,
+//         verificacoes: {
+//           identidade: false,
+//           telefone: false,
+//         },
+//         authProviders: [
+//           {
+//             providerId: AuthProvider.EMAIL,
+//             uid: firebaseUser.uid,
+//             email: firebaseUser.email,
+//           },
+//         ],
+//       },
+//       clientProfile: null,
+//       partnerProfile: null,
+//       providerProfile: null,
+//       adminProfile: {
+//         permissoes: {
+//           gerenciarUsuarios: true,
+//           gerenciarProdutos: true,
+//           gerenciarFinancas: true,
+//           verRelatorios: true,
+//           moderarConteudo: true,
+//         },
+//       },
+//       createdAt: now,
+//       updatedAt: now,
+//     }
 
-    const now = Date.now()
-    const newUser: IUser = {
-      id: firebaseUser.uid,
-      role: UserRole.ADMINISTRADOR,
-      status: UserStatus.ATIVO,
-      baseProfile: {
-        nome: adminData.nome,
-        email: adminData.email,
-        cpf: adminData.cpf.replace(/\D/g, ''),
-        foto: null,
-        telefone: null,
-        dataNascimento: null,
-        verificacoes: {
-          identidade: false,
-          telefone: false,
-        },
-        authProviders: [
-          {
-            providerId: AuthProvider.EMAIL,
-            uid: firebaseUser.uid,
-            email: firebaseUser.email,
-          },
-        ],
-      },
-      clientProfile: null,
-      partnerProfile: null,
-      providerProfile: null,
-      adminProfile: {
-        permissoes: {
-          gerenciarUsuarios: true,
-          gerenciarProdutos: true,
-          gerenciarFinancas: true,
-          verRelatorios: true,
-          moderarConteudo: true,
-        },
-      },
-      createdAt: now,
-      updatedAt: now,
-    }
+//     const userRef = ref(database, `users/${firebaseUser.uid}`)
+//     await set(userRef, newUser)
 
-    const userRef = ref(database, `users/${firebaseUser.uid}`)
-    await set(userRef, newUser)
-
-    return newUser
-  } catch (error: any) {
-    throw new Error(error)
-  }
-}
+//     return newUser
+//   } catch (error: any) {
+//     throw new Error(error)
+//   }
+// }

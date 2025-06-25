@@ -1,5 +1,3 @@
-'use client'
-
 // ─── Imports
 
 import styles from './ViewBlock.module.scss'

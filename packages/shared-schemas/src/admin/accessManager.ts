@@ -1,5 +1,7 @@
 import * as yup from 'yup'
 
+// ==========================================
+
 export const addAdminUserSchema = yup.object().shape({
   nome: yup.string().required('O nome é obrigatório.'),
   email: yup
@@ -9,7 +11,16 @@ export const addAdminUserSchema = yup.object().shape({
   cpf: yup.string().required('O CPF é obrigatório.'),
 })
 
-// ATUALIZADO: Schema agora inclui todas as permissões granulares
+export type AddAdminUserSchemaType = yup.InferType<typeof addAdminUserSchema>
+
+export const addAdminUserSchemaDefaultValues = {
+  nome: '',
+  email: '',
+  cpf: '',
+}
+
+// ==========================================
+
 export const adminPermissionsSchema = yup.object().shape({
   dashboard_view: yup.boolean().required(),
   adminAccess_view: yup.boolean().required(),
@@ -50,3 +61,14 @@ export const adminPermissionsSchema = yup.object().shape({
   reports_viewSales: yup.boolean().required(),
   reports_viewUsers: yup.boolean().required(),
 })
+
+// ==========================================
+
+export const editAdminUserSchema = yup.object().shape({
+  nome: yup.string().required('O nome é obrigatório.'),
+  permissoes: adminPermissionsSchema,
+})
+
+export type EditAdminUserSchemaTypes = yup.InferType<typeof editAdminUserSchema>
+
+// ==========================================

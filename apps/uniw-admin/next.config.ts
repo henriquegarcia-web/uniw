@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     serverComponentsExternalPackages: ['@firebase/app', '@firebase/auth'],
   },
   sassOptions: {
-    includePaths: [path.join(__dirname, 'src', 'styles')],
+    includePaths: [path.join(__dirname, 'src/styles')],
     additionalData: `
       @use "mixins" as *;
     `,

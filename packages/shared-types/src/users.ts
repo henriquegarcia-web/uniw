@@ -1,3 +1,4 @@
+import { IAdminPermissions } from './admin/permissions'
 import { IClub } from './club'
 import { ILoyalty } from './loyalty'
 import { INotification, INotificationSettings } from './notification'
@@ -113,63 +114,7 @@ export interface IBusinessHours {
   }
 }
 
-// ─── ADMIN PERMISSIONS TYPES ────────────────────────────────────────────────
 
-export interface IAdminPermissions {
-    // Principal
-    dashboard_view: boolean; // Acesso à Visão Geral (Dashboard)
-    adminAccess_view: boolean;   // Ver a tela de Controle de Acessos
-    adminAccess_manage: boolean; // Criar, editar e remover outros administradores
-    auditLogs_view: boolean;     // Acesso aos Logs de Auditoria
-
-    // Plataforma
-    platformSettings_view: boolean;
-    platformSettings_manage: boolean;
-    legalContent_view: boolean;
-    legalContent_manage: boolean; // Gerenciar Termos e Políticas
-
-    // Gestão de Fornecedores (B2B)
-    suppliers_moderate: boolean;      // Moderar novos fornecedores
-    suppliers_view: boolean;
-    suppliers_manage: boolean;        // Editar e desativar fornecedores
-    b2bCatalog_view: boolean;
-    b2bCatalog_manage: boolean;
-    b2bOrders_view: boolean;
-    b2bOrders_manage: boolean;        // Alterar status de pedidos B2B
-    
-    // Gestão de Lojistas/Parceiros (B2C)
-    partners_moderate: boolean;       // Moderar novos parceiros
-    partners_view: boolean;
-    partners_manage: boolean;         // Editar e desativar parceiros
-    partners_viewSchedules: boolean;  // Ver agendas
-    partners_manageStaff: boolean;    // Gerenciar equipes e colaboradores
-    b2cCatalog_view: boolean;
-    b2cCatalog_manage: boolean;       // Gerenciar categorias e produtos B2C
-    b2cOrders_view: boolean;
-    b2cOrders_manage: boolean;
-
-    // Gestão de Clientes Finais (App)
-    endUsers_view: boolean;
-    endUsers_manage: boolean;         // Editar, bloquear e remover clientes
-    appContent_manageBanners: boolean; // Gerenciar Banners da Home
-    loyalty_manage: boolean;          // Gerenciar Fidelidade e Cupons
-    club_manage: boolean;             // Gerenciar Clube UNIW
-
-    // Suporte (agrupado por ser a mesma funcionalidade)
-    supportTickets_view: boolean;
-    supportTickets_manage: boolean;   // Responder e fechar tickets
-
-    // Conteúdo & Marketing
-    marketing_sendNotifications: boolean;
-    marketing_managePromotions: boolean;
-    marketing_manageRaffles: boolean; // Gerenciar sorteios
-
-    // Financeiro & Relatórios
-    finances_viewTransactions: boolean;
-    finances_manageSubscriptions: boolean;
-    reports_viewSales: boolean;
-    reports_viewUsers: boolean;
-  }
 
 // ─── USER TYPES ─────────────────────────────────────────────────────────────
 

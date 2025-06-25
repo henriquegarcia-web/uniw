@@ -29,3 +29,61 @@
   column-gap: var(--spacing-xs);
   width: 200px;
 }
+
+/* Adicione estas novas classes ao final do seu arquivo .scss */
+
+.drawerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.readOnlyData {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid #e9ecef;
+
+  p {
+    margin: 0;
+    color: #495057;
+    font-size: 0.9rem;
+
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+
+    strong {
+      color: #343a40;
+    }
+  }
+}
+
+.permissionsGrid {
+  border-top: 1px solid var(--ui-border);
+  border-bottom: 1px solid var(--ui-border);
+  padding-block: var(--spacing-md);
+
+  h4 {
+    margin-bottom: var(--spacing-md);
+
+    font-size: var(--fonts-size-md);
+    line-height: var(--fonts-height-tight);
+    font-weight: var(--fonts-weight-semiBold);
+
+    color: var(--text-primary);
+  }
+
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xs);
+}
+
+.drawerActions {
+  margin-top: auto;
+  padding-top: var(--spacing-md);
+  display: flex;
+  gap: var(--spacing-xs);
+  justify-content: flex-start;
+}
