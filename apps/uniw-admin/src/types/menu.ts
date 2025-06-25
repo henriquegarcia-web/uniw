@@ -3,41 +3,49 @@ export type ViewId =
   | 'meu-perfil'
   | 'sair'
 
-  // Plataforma & Acesso
-  | 'dashboard_overview'
-  | 'system_settings'
-  | 'access_control_roles'
-  | 'audit_logs'
+  // Principal
+  | 'visao-geral'
+  | 'controle-de-acessos'
+
+  // Plataforma
+  | 'configuracoes'
+  | 'termos-e-politicas'
+  | 'registros'
 
   // Gestão de Fornecedores (B2B)
-  | 'suppliers_list'
-  | 'suppliers_products'
-  | 'suppliers_orders'
+  | 'moderacao-fornecedores'
+  | 'fornecedores'
+  | 'catalogo-b2b'
+  | 'pedidos-b2b'
+  | 'suporte-fornecedores'
 
   // Gestão de Lojistas/Salões (Parceiros)
-  | 'partners_list'
-  | 'partners_services'
-  | 'partners_products_stock'
-  | 'partners_schedule'
-  | 'partners_staff'
-  | 'partners_clients'
+  | 'moderacao-parceiros'
+  | 'parceiros'
+  | 'categorias-b2c'
+  | 'catalogo-b2c'
+  | 'pedidos-b2c'
+  | 'agendamentos'
+  | 'equipes-e-colaboradores'
+  | 'suporte-parceiros'
 
   // Gestão de Clientes (App)
-  | 'clients_list'
-  | 'clients_loyalty_club'
-  | 'clients_support_tickets'
+  | 'clientes'
+  | 'banners-home'
+  | 'fidelidade'
+  | 'clube-uniw'
+  | 'suporte-clientes'
 
   // Conteúdo & Marketing
-  | 'content_banners'
-  | 'content_notifications'
-  | 'content_promotions'
-  | 'content_raffles'
+  | 'notificacoes'
+  | 'promocoes'
+  | 'sorteios'
 
   // Financeiro & Relatórios
-  | 'financial_transactions'
-  | 'financial_subscriptions'
-  | 'reports_sales'
-  | 'reports_users'
+  | 'financeiro'
+  | 'assinaturas'
+  | 'relatorio-de-vendas'
+  | 'relatorio-de-usuarios'
 
 export interface MenuItem {
   id: ViewId

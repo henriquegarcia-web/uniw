@@ -13,6 +13,8 @@ export const colors = {
     borderDark: '#374151',
     disabled: '#D4D4D4',
     placeholder: '#F0F0F0',
+    scrollbarTrack: '#D4D4D4',
+    scrollbarThumb: '#8f8f8f',
   },
   text: {
     primary: '#333333',

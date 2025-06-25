@@ -18,7 +18,7 @@ export default function SideMenu() {
   return (
     <div className={styles.sideMenu}>
       <div className={styles.sideMenu_header}>
-        <Logo size="sm" />
+        <Logo size="sm" href={DASHBOARD_MENU_CONFIG[1]?.items[0]?.path} />
       </div>
       <nav className={styles.sideMenu_wrapper}>
         {DASHBOARD_MENU_CONFIG.map((group) => {
@@ -30,6 +30,7 @@ export default function SideMenu() {
               <nav className={styles.menuGroup_list}>
                 {group.items.map((item) => {
                   const isActive = pathname === item.path
+                  const isDisabled = !item.active
                   const variant = isActive ? 'filled' : 'light'
                   return (
                     <Link key={item.id} href={item.path}>
@@ -38,6 +39,7 @@ export default function SideMenu() {
                         justify="left"
                         leftSection={item.icon}
                         rightSection={<span />}
+                        disabled={isDisabled}
                       >
                         {item.label}
                       </Button>

@@ -25,14 +25,15 @@ const imageDimensions = {
 // ─── Componente Logo
 
 interface ILogo {
+  href?: string
   size?: 'sm' | 'md' | 'lg'
 }
 
-export default function Logo({ size = 'md' }: ILogo) {
+export default function Logo({ size = 'md', href = '/' }: ILogo) {
   const { width, height } = imageDimensions[size]
 
   return (
-    <Link href="/">
+    <Link href={href}>
       <Image
         src="/uniw_logo.png"
         alt="Logo da UNIW"

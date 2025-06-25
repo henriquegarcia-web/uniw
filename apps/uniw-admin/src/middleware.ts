@@ -6,7 +6,7 @@ import { UserRole } from '@uniw/shared-types'
 // --- Constantes de Rota ---
 const AUTH_SIGN_IN_PATH = '/auth/entrar'
 const DASHBOARD_BASE_PATH = '/painel'
-const DEFAULT_DASHBOARD_PATH = '/painel/dashboard_overview'
+const DEFAULT_DASHBOARD_PATH = '/painel/visao-geral'
 
 // --- Geração de Rotas Válidas (Otimizado) ---
 // Criamos um Set com todos os paths válidos do painel uma única vez.

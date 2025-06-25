@@ -20,86 +20,104 @@ const viewMap: { [key in ViewId]: React.LazyExoticComponent<() => JSX.Element> }
     () => import('@/views/platform/DashboardOverviewView/DashboardOverviewView'),
   ),
 
-  // Plataforma & Acesso
-  dashboard_overview: React.lazy(
+  // Principal
+  'visao-geral': React.lazy(
     () => import('@/views/platform/DashboardOverviewView/DashboardOverviewView'),
   ),
-  system_settings: React.lazy(
-    () => import('@/views/platform/SystemSettingsView/SystemSettingsView'),
-  ),
-  access_control_roles: React.lazy(
+  'controle-de-acessos': React.lazy(
     () => import('@/views/platform/AccessControlRolesView/AccessControlRolesView'),
   ),
-  audit_logs: React.lazy(() => import('@/views/platform/AuditLogsView/AuditLogsView')),
+
+  // Plataforma
+  configuracoes: React.lazy(
+    () => import('@/views/platform/SystemSettingsView/SystemSettingsView'),
+  ),
+  'termos-e-politicas': React.lazy(
+    () => import('@/views/platform/TermsAndPoliciesView/TermsAndPoliciesView'),
+  ),
+  registros: React.lazy(() => import('@/views/platform/AuditLogsView/AuditLogsView')),
 
   // Gestão de Fornecedores (B2B)
-  suppliers_list: React.lazy(
+  'moderacao-fornecedores': React.lazy(
+    () => import('@/views/suppliers/SuppliersModerationView/SuppliersModerationView'),
+  ),
+  fornecedores: React.lazy(
     () => import('@/views/suppliers/SuppliersListView/SuppliersListView'),
   ),
-  suppliers_products: React.lazy(
+  'catalogo-b2b': React.lazy(
     () => import('@/views/suppliers/SuppliersProductsView/SuppliersProductsView'),
   ),
-  suppliers_orders: React.lazy(
+  'pedidos-b2b': React.lazy(
     () => import('@/views/suppliers/SuppliersOrdersView/SuppliersOrdersView'),
+  ),
+  'suporte-fornecedores': React.lazy(
+    () => import('@/views/suppliers/SuppliersSupportView/SuppliersSupportView'),
   ),
 
   // Gestão de Lojistas/Salões (Parceiros)
-  partners_list: React.lazy(
+  'moderacao-parceiros': React.lazy(
+    () => import('@/views/partners/PartnersModerationView/PartnersModerationView'),
+  ),
+  parceiros: React.lazy(
     () => import('@/views/partners/PartnersListView/PartnersListView'),
   ),
-  partners_services: React.lazy(
-    () => import('@/views/partners/PartnersServicesView/PartnersServicesView'),
+  'categorias-b2c': React.lazy(
+    () => import('@/views/partners/PartnersCategoriesView/PartnersCategoriesView'),
   ),
-  partners_products_stock: React.lazy(
-    () => import('@/views/partners/PartnersProductsStockView/PartnersProductsStockView'),
+  'catalogo-b2c': React.lazy(
+    () => import('@/views/partners/PartnersProductsView/PartnersProductsView'),
   ),
-  partners_schedule: React.lazy(
+  'pedidos-b2c': React.lazy(
+    () => import('@/views/partners/PartnersOrdersView/PartnersOrdersView'),
+  ),
+  agendamentos: React.lazy(
     () => import('@/views/partners/PartnersScheduleView/PartnersScheduleView'),
   ),
-  partners_staff: React.lazy(
+  'equipes-e-colaboradores': React.lazy(
     () => import('@/views/partners/PartnersStaffView/PartnersStaffView'),
   ),
-  partners_clients: React.lazy(
-    () => import('@/views/partners/PartnersClientsView/PartnersClientsView'),
+  'suporte-parceiros': React.lazy(
+    () => import('@/views/partners/PartnersSupportView/PartnersSupportView'),
   ),
 
   // Gestão de Clientes (App)
-  clients_list: React.lazy(
-    () => import('@/views/clients/ClientsListView/ClientsListView'),
+  clientes: React.lazy(() => import('@/views/clients/ClientsListView/ClientsListView')),
+  fidelidade: React.lazy(
+    () => import('@/views/clients/ClientsLoyaltyView/ClientsLoyaltyView'),
   ),
-  clients_loyalty_club: React.lazy(
-    () => import('@/views/clients/ClientsLoyaltyClubView/ClientsLoyaltyClubView'),
+  'clube-uniw': React.lazy(
+    () => import('@/views/clients/ClientsClubView/ClientsClubView'),
   ),
-  clients_support_tickets: React.lazy(
-    () => import('@/views/clients/ClientsSupportTicketsView/ClientsSupportTicketsView'),
+  'suporte-clientes': React.lazy(
+    () => import('@/views/clients/ClientsSupportView/ClientsSupportView'),
+  ),
+  'banners-home': React.lazy(
+    () => import('@/views/clients/ClientsBannersView/ClientsBannersView'),
   ),
 
   // Conteúdo & Marketing
-  content_banners: React.lazy(
-    () => import('@/views/content/ContentBannersView/ContentBannersView'),
-  ),
-  content_notifications: React.lazy(
+  notificacoes: React.lazy(
     () => import('@/views/content/ContentNotificationsView/ContentNotificationsView'),
   ),
-  content_promotions: React.lazy(
+  promocoes: React.lazy(
     () => import('@/views/content/ContentPromotionsView/ContentPromotionsView'),
   ),
-  content_raffles: React.lazy(
+  sorteios: React.lazy(
     () => import('@/views/content/ContentRafflesView/ContentRafflesView'),
   ),
 
   // Financeiro & Relatórios
-  financial_transactions: React.lazy(
+  financeiro: React.lazy(
     () => import('@/views/financial/FinancialTransactionsView/FinancialTransactionsView'),
   ),
-  financial_subscriptions: React.lazy(
+  assinaturas: React.lazy(
     () =>
       import('@/views/financial/FinancialSubscriptionsView/FinancialSubscriptionsView'),
   ),
-  reports_sales: React.lazy(
+  'relatorio-de-vendas': React.lazy(
     () => import('@/views/financial/ReportsSalesView/ReportsSalesView'),
   ),
-  reports_users: React.lazy(
+  'relatorio-de-usuarios': React.lazy(
     () => import('@/views/financial/ReportsUsersView/ReportsUsersView'),
   ),
 }
@@ -112,13 +130,5 @@ export const RenderedView = () => {
 
   const ViewComponent = viewMap[viewActive.id]
 
-  // if (!ViewComponent) {
-  //   return exhaustiveCheck(viewActive)
-  // }
-
-  return (
-    <ViewComponent />
-    // <React.Suspense fallback={<div>Carregando tela...</div>}>
-    // </React.Suspense>
-  )
+  return <ViewComponent />
 }
