@@ -2,7 +2,12 @@
 
 import '@/libs/firebase'
 import '@mantine/core/styles.css'
-import { DEFAULT_THEME, MantineProvider, createTheme, mantineHtmlProps } from '@mantine/core'
+import {
+  DEFAULT_THEME,
+  MantineProvider,
+  createTheme,
+  mantineHtmlProps,
+} from '@mantine/core'
 import { colors, themeWeb } from '@uniw/shared-constants'
 import '../styles/main.scss'
 
@@ -11,6 +16,8 @@ import { roboto, lora } from '@/libs/fonts'
 import { mainMetadata } from '@/configs/metadata'
 import { FirebaseProvider } from '@/contexts/FirebaseContext'
 import { AuthProvider } from '@/contexts/AuthContext'
+import { AccessManagerProvider } from '@/contexts/AccessManagerContext'
+import { AdminMenuProvider } from '@/contexts/AdminMenuContext'
 
 // ─── Metadados da Aplicação ─────────────────────────────────────────────────
 
@@ -36,17 +43,17 @@ const theme = createTheme({
   colors: {
     ...DEFAULT_THEME.colors, // Importante: inclua as cores padrão do Mantine
     'uniw-green': [
-      "#e6fcee",
-      "#cff8dd",
-      "#a2efb9",
-      "#72e693",
-      "#4cdd73",
-      "#35d861",
+      '#e6fcee',
+      '#cff8dd',
+      '#a2efb9',
+      '#72e693',
+      '#4cdd73',
+      '#35d861',
       // 6. Sua cor principal, geralmente no índice 5 ou 6
-      "#26b34e", // <--- O valor '#00CF00' pode ser ajustado para a escala
-      "#1b9c44",
-      "#0f8539",
-      "#006e2c"
+      '#26b34e', // <--- O valor '#00CF00' pode ser ajustado para a escala
+      '#1b9c44',
+      '#0f8539',
+      '#006e2c',
     ],
   },
   // 2. Agora, referencie o NOME da cor que você criou
@@ -80,7 +87,11 @@ export default function RootLayout({
       >
         <FirebaseProvider>
           <MantineProvider theme={theme}>
-            <AuthProvider>{children}</AuthProvider>
+            <AuthProvider>
+              <AdminMenuProvider>
+                <AccessManagerProvider>{children}</AccessManagerProvider>
+              </AdminMenuProvider>
+            </AuthProvider>
           </MantineProvider>
         </FirebaseProvider>
       </body>

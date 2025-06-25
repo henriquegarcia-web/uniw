@@ -1,3 +1,31 @@
 .accessControlRolesView {
   display: flex;
+  flex-direction: column;
+  row-gap: var(--spacing-xl);
+}
+
+.form {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-md);
+  width: 100%;
+
+  &__button_wrapper {
+    display: flex;
+  }
+}
+
+.permissionCell {
+  text-align: center;
+  input[type='checkbox'] {
+    width: 1.3rem;
+    height: 1.3rem;
+    cursor: pointer;
+  }
+}
+
+.actionsCell {
+  display: flex;
+  column-gap: var(--spacing-xs);
+  width: 200px;
 }

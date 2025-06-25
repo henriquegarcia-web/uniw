@@ -1,3 +1,5 @@
+import { IAdminProfile } from '@uniw/shared-types'
+
 export type ViewId =
   // Privados
   | 'meu-perfil'
@@ -50,9 +52,12 @@ export type ViewId =
 export interface MenuItem {
   id: ViewId
   label: string
+  title: string
+  subtitle: string
   path: string
   icon: React.ReactNode
   active: boolean
+  requiredPermission: keyof IAdminProfile['permissoes'] | null
   keywords: string[]
 }
 

@@ -97,7 +97,7 @@ export const themeWeb = {
     lg: '20px',
     xl: '30px',
     xxl: '40px',
-    wrapper: '1200px',
+    wrapper: '1400px',
 
     custom: {
       'dashboard-header': '70px',

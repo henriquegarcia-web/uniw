@@ -1,6 +1,6 @@
 // ─── Imports ────────────────────────────────────────────────────────────────
 
-import { RenderedView } from '@/components/layout/ViewRenderer/ViewRenderer'
+import { RenderedView } from '@/components/layout/'
 import styles from '@/components/layouts/DashboardLayout/DashboardLayout.module.scss'
 
 // ─── Tipagens ───────────────────────────────────────────────────────────────

@@ -1,11 +1,10 @@
 'use client'
 
 import React, { JSX } from 'react'
-import { usePathname } from 'next/navigation'
 
-import { getMenuItemFromPath } from '@/utils/navigation'
 import NotFoundView from '@/views/common/NotFoundView/NotFoundView'
-import type { ViewId, MenuItem } from '@/types/menu'
+import type { ViewId } from '@/types/menu'
+import { useAdminMenu } from '@/contexts/AdminMenuContext'
 
 // const exhaustiveCheck = (_never: never): never => {
 //   throw new Error(`Checagem de exaustividade da ViewId falhou: ${_never}`)
@@ -122,13 +121,16 @@ const viewMap: { [key in ViewId]: React.LazyExoticComponent<() => JSX.Element> }
   ),
 }
 
-export const RenderedView = () => {
-  const pathname = usePathname()
-  const viewActive: MenuItem | null = getMenuItemFromPath(pathname) || null
+const RenderedView = () => {
+  const { viewActive } = useAdminMenu()
 
-  if (!viewActive) return <NotFoundView />
+  if (!viewActive || !viewMap[viewActive.id]) {
+    return <NotFoundView />
+  }
 
   const ViewComponent = viewMap[viewActive.id]
 
   return <ViewComponent />
 }
+
+export default RenderedView

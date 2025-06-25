@@ -3,21 +3,18 @@
 // ─── Imports
 
 import { useState } from 'react'
-import { usePathname } from 'next/navigation'
 import styles from './Header.module.scss'
 
+import { TextInput } from '@mantine/core'
 import { Search } from 'lucide-react'
 
-import { getMenuItemFromPath } from '@/utils/navigation'
-import { InputText } from '@/components/inputs'
 import { UserMenu } from '@/components/layout'
-import { MenuItem } from '@/types/menu'
+import { useAdminMenu } from '@/contexts/AdminMenuContext'
 
 // ─── Componente Header
 
 export default function Header() {
-  const pathname = usePathname()
-  const viewActive: MenuItem | null = getMenuItemFromPath(pathname) || null
+  const { viewActive } = useAdminMenu()
 
   const [searchValue, setSearchValue] = useState('')
 
@@ -29,10 +26,10 @@ export default function Header() {
         <h3>{viewActive?.label || 'Tela não encontrada'}</h3>
       </div>
       <div className={styles.header_search}>
-        <InputText
+        <TextInput
           leftSection={<Search size={20} />}
           value={searchValue}
-          onChange={handleChangeSearchValue}
+          onChange={(e) => handleChangeSearchValue(e.currentTarget.value)}
           placeholder="Pesquisar"
           size="md"
         />

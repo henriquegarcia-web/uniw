@@ -1,47 +1,27 @@
 // ─── Imports
 
-import Image from 'next/image'
-import styles from './ProfilePicture.module.scss'
-
-// ─── Variáveis Auxiliares
-
-const profilePicureDimensions = {
-  sm: {
-    aspect: 30,
-  },
-  md: {
-    aspect: 40,
-  },
-  lg: {
-    aspect: 50,
-  },
-}
+import { Avatar } from '@mantine/core'
 
 // ─── Componente ProfilePicture
 
 interface IProfilePicture {
-  image?: string | null
-  size?: 'sm' | 'md' | 'lg'
+  userImage?: string | null
+  userName?: string
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
-export default function ProfilePicture({ image, size = 'md' }: IProfilePicture) {
-  const { aspect } = profilePicureDimensions[size]
-
+export default function ProfilePicture({
+  userImage,
+  userName,
+  size = 'md',
+}: IProfilePicture) {
   return (
-    <div
-      className={styles.profilePicture}
-      style={{
-        width: aspect,
-        height: aspect,
-      }}
-    >
-      <Image
-        src={image ?? '/avatar_placeholder.jpg'}
-        alt="Avatar"
-        width={aspect}
-        height={aspect}
-        priority
-      />
-    </div>
+    <Avatar
+      variant="filled"
+      src={userImage}
+      name={userName}
+      size={size}
+      color="initials"
+    />
   )
 }

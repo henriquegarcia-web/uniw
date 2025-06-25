@@ -37,9 +37,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'meu-perfil',
         label: 'Meu Perfil',
+        title: 'Meu Perfil',
+        subtitle:
+          'Gerencie suas informações pessoais, foto e configurações de segurança.',
         path: '/painel/meu-perfil',
         icon: <User size={18} />,
         active: true,
+        requiredPermission: null,
         keywords: [
           'meu perfil',
           'minha conta',
@@ -56,9 +60,12 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'sair',
         label: 'Sair',
+        title: 'Sair',
+        subtitle: 'Encerre sua sessão e saia da plataforma com segurança.',
         path: '#',
         icon: <LogOut size={18} />,
         active: true,
+        requiredPermission: null,
         keywords: [],
       },
     ],
@@ -71,9 +78,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'visao-geral',
         label: 'Visão Geral',
+        title: 'Visão Geral',
+        subtitle:
+          'Acompanhe os principais indicadores e métricas da plataforma em tempo real.',
         path: '/painel/visao-geral',
         icon: <LayoutDashboard size={18} />,
         active: true,
+        requiredPermission: 'dashboard_view',
         keywords: [
           'dashboard',
           'início',
@@ -94,9 +105,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'controle-de-acessos',
         label: 'Controle de Acessos',
+        title: 'Controle de Acessos',
+        subtitle:
+          'Gerencie os cargos, permissões e níveis de acesso dos administradores.',
         path: '/painel/controle-de-acesso',
         icon: <ShieldCheck size={18} />,
         active: true,
+        requiredPermission: 'adminAccess_view',
         keywords: [
           'acesso',
           'permissões',
@@ -115,9 +130,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'registros',
         label: 'Logs de Auditoria',
+        title: 'Logs de Auditoria',
+        subtitle:
+          'Visualize o histórico completo de atividades e eventos realizados no sistema.',
         path: '/painel/registros',
         icon: <FileClock size={18} />,
         active: false,
+        requiredPermission: 'auditLogs_view',
         keywords: [
           'logs',
           'auditoria',
@@ -143,9 +162,12 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'configuracoes',
         label: 'Configurações',
+        title: 'Configurações',
+        subtitle: 'Ajuste os parâmetros gerais, aparência, integrações e chaves de API.',
         path: '/painel/configuracoes',
         icon: <SlidersHorizontal size={18} />,
         active: true,
+        requiredPermission: 'platformSettings_view',
         keywords: [
           'configurações',
           'ajustes',
@@ -167,9 +189,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'termos-e-politicas',
         label: 'Termos & Políticas',
+        title: 'Termos & Políticas',
+        subtitle:
+          'Edite os documentos legais, como Termos de Uso e Política de Privacidade.',
         path: '/painel/termos-e-politicas',
         icon: <FileText size={18} />,
         active: true,
+        requiredPermission: 'legalContent_view',
         keywords: [
           'termos de uso',
           'política de privacidade',
@@ -194,9 +220,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'moderacao-fornecedores',
         label: 'Moderação',
+        title: 'Moderação de Fornecedores',
+        subtitle:
+          'Aprove, rejeite ou revise os cadastros de novos fornecedores pendentes.',
         path: '/painel/moderacao-fornecedores',
         icon: <ThumbsUp size={18} />,
         active: false,
+        requiredPermission: 'suppliers_moderate',
         keywords: [
           'moderar',
           'aprovar',
@@ -213,9 +243,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'fornecedores',
         label: 'Fornecedores',
+        title: 'Fornecedores',
+        subtitle:
+          'Visualize e gerencie a lista completa de fornecedores e parceiros B2B.',
         path: '/painel/fornecedores',
         icon: <Warehouse size={18} />,
         active: false,
+        requiredPermission: 'suppliers_view',
         keywords: [
           'fornecedores',
           'distribuidores',
@@ -234,9 +268,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'catalogo-b2b',
         label: 'Catálogo B2B',
+        title: 'Catálogo B2B',
+        subtitle:
+          'Gerencie o banco de dados universal de produtos e SKUs dos fornecedores.',
         path: '/painel/catalogo-b2b',
         icon: <Box size={18} />,
         active: false,
+        requiredPermission: 'b2bCatalog_view',
         keywords: [
           'catálogo b2b',
           'produtos de fornecedores',
@@ -252,9 +290,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'pedidos-b2b',
         label: 'Pedidos B2B',
+        title: 'Pedidos B2B',
+        subtitle:
+          'Acompanhe as ordens de compra, faturamento e logística dos pedidos de atacado.',
         path: '/painel/pedidos-b2b',
         icon: <ShoppingCart size={18} />,
         active: false,
+        requiredPermission: 'b2bOrders_view',
         keywords: [
           'pedidos b2b',
           'compras de lojistas',
@@ -270,9 +312,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'suporte-fornecedores',
         label: 'Suporte Fornecedores',
+        title: 'Suporte a Fornecedores',
+        subtitle:
+          'Responda a tickets e chamados de suporte abertos por marcas e distribuidores.',
         path: '/painel/suporte-fornecedores',
         icon: <Ticket size={18} />,
         active: false,
+        requiredPermission: 'supportTickets_view',
         keywords: [
           'suporte fornecedor',
           'atendimento indústria',
@@ -294,9 +340,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'moderacao-parceiros',
         label: 'Moderação',
+        title: 'Moderação de Lojistas',
+        subtitle:
+          'Libere o acesso de novos lojistas e salões que se cadastraram na plataforma.',
         path: '/painel/moderacao-parceiros',
         icon: <ThumbsUp size={18} />,
         active: false,
+        requiredPermission: 'partners_moderate',
         keywords: [
           'moderar lojistas',
           'aprovar salões',
@@ -311,9 +361,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'parceiros',
         label: 'Lojistas & Salões',
+        title: 'Lojistas & Salões',
+        subtitle:
+          'Gerencie a lista de parceiros, seus dados cadastrais e status na plataforma.',
         path: '/painel/parceiros',
         icon: <Building2 size={18} />,
         active: true,
+        requiredPermission: 'partners_view',
         keywords: [
           'lojistas',
           'salões',
@@ -330,9 +384,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'agendamentos',
         label: 'Agendas',
+        title: 'Agendamentos',
+        subtitle:
+          'Visualize e gerencie os calendários e horários marcados nos salões parceiros.',
         path: '/painel/agendamentos',
         icon: <CalendarClock size={18} />,
         active: false,
+        requiredPermission: 'partners_viewSchedules',
         keywords: [
           'agenda',
           'agendamentos',
@@ -349,9 +407,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'equipes-e-colaboradores',
         label: 'Equipes & Colaboradores',
+        title: 'Equipes & Colaboradores',
+        subtitle:
+          'Gerencie os profissionais e funcionários vinculados aos lojistas e salões.',
         path: '/painel/equipes-e-colaboradores',
         icon: <Users size={18} />,
         active: false,
+        requiredPermission: 'partners_manageStaff',
         keywords: [
           'equipe',
           'colaboradores',
@@ -369,9 +431,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'categorias-b2c',
         label: 'Categorias B2C',
+        title: 'Categorias B2C',
+        subtitle:
+          'Organize os departamentos e seções de produtos para o catálogo de varejo.',
         path: '/painel/categorias-b2c',
         icon: <LayoutGrid size={18} />,
         active: true,
+        requiredPermission: 'b2cCatalog_manage',
         keywords: [
           'categorias b2c',
           'departamentos',
@@ -386,9 +452,12 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'catalogo-b2c',
         label: 'Catálogo B2C',
+        title: 'Catálogo B2C',
+        subtitle: 'Gerencie os produtos de varejo e serviços oferecidos pelos lojistas.',
         path: '/painel/catalogo-b2c',
         icon: <Box size={18} />,
         active: true,
+        requiredPermission: 'b2cCatalog_view',
         keywords: [
           'catálogo b2c',
           'produtos de varejo',
@@ -404,9 +473,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'pedidos-b2c',
         label: 'Pedidos B2C',
+        title: 'Pedidos B2C',
+        subtitle:
+          'Acompanhe as vendas de varejo realizadas pelos clientes finais no aplicativo.',
         path: '/painel/pedidos-b2c',
         icon: <ShoppingCart size={18} />,
         active: false,
+        requiredPermission: 'b2cOrders_view',
         keywords: [
           'pedidos de clientes',
           'vendas no app',
@@ -420,9 +493,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'suporte-parceiros',
         label: 'Suporte Parceiros',
+        title: 'Suporte a Parceiros',
+        subtitle:
+          'Responda a tickets e chamados abertos por lojistas e salões de beleza.',
         path: '/painel/suporte-parceiros',
         icon: <Ticket size={18} />,
         active: false,
+        requiredPermission: 'supportTickets_view',
         keywords: [
           'suporte lojista',
           'atendimento parceiro',
@@ -443,9 +520,12 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'clientes',
         label: 'Clientes Finais',
+        title: 'Clientes Finais',
+        subtitle: 'Gerencie a base de usuários do aplicativo, seus perfis e histórico.',
         path: '/painel/clientes',
         icon: <CircleUserRound size={18} />,
         active: true,
+        requiredPermission: 'endUsers_view',
         keywords: [
           'clientes',
           'usuários do app',
@@ -462,9 +542,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'banners-home',
         label: 'Banners da Home',
+        title: 'Banners da Home',
+        subtitle:
+          'Gerencie os destaques visuais e o carrossel de imagens da tela inicial do app.',
         path: '/painel/banners-home',
         icon: <LayoutPanelTop size={18} />,
         active: true,
+        requiredPermission: 'appContent_manageBanners',
         keywords: [
           'banners',
           'destaques',
@@ -481,9 +565,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'fidelidade',
         label: 'Fidelidade & Cupons',
+        title: 'Fidelidade & Cupons',
+        subtitle:
+          'Crie e gerencie programas de pontos, recompensas e cupons de desconto.',
         path: '/painel/fidelidade',
         icon: <BadgePercent size={18} />,
         active: true,
+        requiredPermission: 'loyalty_manage',
         keywords: [
           'fidelidade',
           'cupons',
@@ -501,9 +589,12 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'clube-uniw',
         label: 'Clube UNIW',
+        title: 'Clube UNIW',
+        subtitle: 'Gerencie os membros e benefícios do programa de assinatura premium.',
         path: '/painel/clube-uniw',
         icon: <Crown size={18} />,
         active: true,
+        requiredPermission: 'club_manage',
         keywords: [
           'clube uniw',
           'assinatura premium',
@@ -518,9 +609,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'suporte-clientes',
         label: 'Suporte Clientes',
+        title: 'Suporte a Clientes',
+        subtitle:
+          'Responda a tickets, reclamações e dúvidas dos usuários finais do aplicativo.',
         path: '/painel/suporte-clientes',
         icon: <Ticket size={18} />,
         active: true,
+        requiredPermission: 'supportTickets_view',
         keywords: [
           'suporte cliente',
           'atendimento consumidor',
@@ -544,9 +639,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'notificacoes',
         label: 'Notificações',
+        title: 'Notificações Push',
+        subtitle:
+          'Envie mensagens, alertas e comunicados para os usuários do aplicativo.',
         path: '/painel/notificacoes',
         icon: <Megaphone size={18} />,
         active: true,
+        requiredPermission: 'marketing_sendNotifications',
         keywords: [
           'notificações',
           'push',
@@ -563,9 +662,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'promocoes',
         label: 'Promoções',
+        title: 'Campanhas Promocionais',
+        subtitle:
+          'Crie e gerencie ofertas, liquidações e campanhas de marketing sazonais.',
         path: '/painel/promocoes',
         icon: <BadgePercent size={18} />,
         active: false,
+        requiredPermission: 'marketing_managePromotions',
         keywords: [
           'promoções',
           'ofertas',
@@ -580,9 +683,12 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'sorteios',
         label: 'Sorteios',
+        title: 'Sorteios e Concursos',
+        subtitle: 'Organize sorteios, gerencie participantes e apure os resultados.',
         path: '/painel/sorteios',
         icon: <Trophy size={18} />,
         active: false,
+        requiredPermission: 'marketing_manageRaffles',
         keywords: [
           'sorteios',
           'prêmios',
@@ -606,9 +712,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'financeiro',
         label: 'Transações',
+        title: 'Transações Financeiras',
+        subtitle:
+          'Acompanhe todos os pagamentos, recebimentos e o extrato financeiro geral.',
         path: '/painel/financeiro',
         icon: <Banknote size={18} />,
         active: false,
+        requiredPermission: 'finances_viewTransactions',
         keywords: [
           'financeiro',
           'transações',
@@ -626,9 +736,12 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'assinaturas',
         label: 'Assinaturas',
+        title: 'Gestão de Assinaturas',
+        subtitle: 'Gerencie planos, mensalidades e a receita recorrente da plataforma.',
         path: '/painel/assinaturas',
         icon: <ReceiptText size={18} />,
         active: false,
+        requiredPermission: 'finances_manageSubscriptions',
         keywords: [
           'assinaturas',
           'mensalidades',
@@ -645,9 +758,12 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'relatorio-de-vendas',
         label: 'Relatório de Vendas',
+        title: 'Relatório de Vendas',
+        subtitle: 'Analise o desempenho de vendas, faturamento e produtos mais vendidos.',
         path: '/painel/relatorio-de-vendas',
         icon: <AreaChart size={18} />,
         active: false,
+        requiredPermission: 'reports_viewSales',
         keywords: [
           'relatórios de vendas',
           'desempenho',
@@ -663,9 +779,13 @@ export const DASHBOARD_MENU_CONFIG: MenuGroup[] = [
       {
         id: 'relatorio-de-usuarios',
         label: 'Relatório de Usuários',
+        title: 'Relatório de Usuários',
+        subtitle:
+          'Analise o crescimento, engajamento, retenção e LTV da base de usuários.',
         path: '/painel/relatorio-de-usuarios',
         icon: <AreaChart size={18} />,
         active: true,
+        requiredPermission: 'reports_viewUsers',
         keywords: [
           'relatórios de usuários',
           'engajamento',

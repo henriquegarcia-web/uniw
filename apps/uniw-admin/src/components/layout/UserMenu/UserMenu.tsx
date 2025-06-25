@@ -22,7 +22,11 @@ export default function UserMenu() {
       <Menu.Target>
         <div className={styles.userMenu}>
           <p>{user?.baseProfile.nome ?? 'Carregando...'}</p>
-          <ProfilePicture image={user?.baseProfile.foto} size="md" />
+          <ProfilePicture
+            userImage={user?.baseProfile.foto}
+            userName={user?.baseProfile.nome}
+            size="md"
+          />
         </div>
       </Menu.Target>
 

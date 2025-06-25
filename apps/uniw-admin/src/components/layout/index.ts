@@ -1,3 +1,6 @@
 export { default as Header } from './Header/Header'
 export { default as SideMenu } from './SideMenu/SideMenu'
 export { default as UserMenu } from './UserMenu/UserMenu'
+export { default as ViewHeader } from './ViewHeader/ViewHeader'
+export { default as ViewBlock } from './ViewBlock/ViewBlock'
+export { default as RenderedView } from './ViewRenderer/ViewRenderer'
