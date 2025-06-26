@@ -1,6 +1,8 @@
+'use client'
+
 // ─── Imports ────────────────────────────────────────────────────────────────
 
-import styles from './DashboardLayout.module.scss'
+import * as S from './styles'
 
 import { Header, SideMenu } from '@/components/layout'
 
@@ -14,18 +16,18 @@ interface IDashboardLayoutProps {
 
 export default function DashboardLayout({ children }: IDashboardLayoutProps) {
   return (
-    <div className={styles.adminDashboard_layout}>
-      <div className={styles.adminDashboard_menu}>
+    <S.DashboardLayoutScreen>
+      <S.DashboardLayoutMenu>
         <SideMenu />
-      </div>
-      <div className={styles.adminDashboard_content}>
-        <div className={styles.adminDashboard_header}>
+      </S.DashboardLayoutMenu>
+      <S.DashboardLayoutContent>
+        <S.DashboardLayoutHeader>
           <Header />
-        </div>
-        <div className={styles.adminDashboard_viewContainer}>
-          <div className={styles.adminDashboard_viewWrapper}>{children}</div>
-        </div>
-      </div>
-    </div>
+        </S.DashboardLayoutHeader>
+        <S.DashboardLayoutViewsContainer>
+          <S.DashboardLayoutViewsWrapper>{children}</S.DashboardLayoutViewsWrapper>
+        </S.DashboardLayoutViewsContainer>
+      </S.DashboardLayoutContent>
+    </S.DashboardLayoutScreen>
   )
 }

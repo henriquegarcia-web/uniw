@@ -2,14 +2,11 @@ import path from 'path'
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  compiler: {
+    styledComponents: true,
+  },
   experimental: {
     serverComponentsExternalPackages: ['@firebase/app', '@firebase/auth'],
-  },
-  sassOptions: {
-    includePaths: [path.join(__dirname, 'src/styles')],
-    additionalData: `
-      @use "mixins" as *;
-    `,
   },
   webpack(config) {
     config.module.rules.push({

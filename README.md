@@ -9,6 +9,7 @@
 ### Adicionar lib em app específico
 
 `yarn workspace <nome-do-app-ou-pacote> add <nome-da-lib>`
+`yarn workspace uniw-admin add styled-components`
 
 ### Para rodar SOMENTE o painel de administração (Next.js)
 

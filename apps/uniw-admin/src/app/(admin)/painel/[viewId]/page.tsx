@@ -1,7 +1,9 @@
+'use client'
+
 // ─── Imports ────────────────────────────────────────────────────────────────
 
 import { RenderedView } from '@/components/layout/'
-import styles from '@/components/layouts/DashboardLayout/DashboardLayout.module.scss'
+import { DashboardLayoutPage } from '@/components/layouts/DashboardLayout/styles'
 
 // ─── Tipagens ───────────────────────────────────────────────────────────────
 
@@ -9,8 +11,8 @@ import styles from '@/components/layouts/DashboardLayout/DashboardLayout.module.
 
 export default function AdminView() {
   return (
-    <div className={styles.adminDashboard_view}>
+    <DashboardLayoutPage>
       <RenderedView />
-    </div>
+    </DashboardLayoutPage>
   )
 }

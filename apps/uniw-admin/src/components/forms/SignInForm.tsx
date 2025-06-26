@@ -2,7 +2,7 @@
 
 // ─── Imports ────────────────────────────────────────────────────────────────
 
-import styles from './forms.module.scss'
+import * as S from './styles'
 
 import { TextInput, PasswordInput, Button } from '@mantine/core'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -34,7 +34,7 @@ export default function SignInForm() {
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(handleLogin)}>
+    <S.Form onSubmit={handleSubmit(handleLogin)}>
       <Controller
         name="email"
         control={control}
@@ -62,11 +62,11 @@ export default function SignInForm() {
         )}
       />
 
-      {authError && <p className={styles.form_error}>{authError}</p>}
+      {authError && <S.FormError>{authError}</S.FormError>}
 
       <Button type="submit" fullWidth loading={isAuthLoading || isSubmitting}>
         Entrar
       </Button>
-    </form>
+    </S.Form>
   )
 }

@@ -92,7 +92,7 @@ export const themeWeb = {
   spacing: {
     xxs: '4px',
     xs: '8px',
-    sm: '12px',
+    sm: '10px',
     md: '16px',
     lg: '20px',
     xl: '30px',
