@@ -1,5 +1,7 @@
 import * as yup from 'yup'
 
+import { isValidCpf, isValidEmail } from '@uniw/shared-utils'
+
 // ==========================================
 
 export const addAdminUserSchema = yup.object().shape({
@@ -7,8 +9,18 @@ export const addAdminUserSchema = yup.object().shape({
   email: yup
     .string()
     .email('Digite um e-mail válido.')
-    .required('O e-mail é obrigatório.'),
-  cpf: yup.string().required('O CPF é obrigatório.'),
+    .required('O e-mail é obrigatório.')
+    .test('is-email-valid', 'Digite um e-mail válido.', (value) => {
+      if (!value) return true
+      return isValidEmail(value)
+    }),
+  cpf: yup
+    .string()
+    .required('O CPF é obrigatório.')
+    .test('is-cpf-valid', 'Digite um CPF válido.', (value) => {
+      if (!value) return true
+      return isValidCpf(value)
+    }),
 })
 
 export type AddAdminUserSchemaType = yup.InferType<typeof addAdminUserSchema>

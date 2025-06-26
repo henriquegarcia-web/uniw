@@ -20,11 +20,17 @@ import {
 import { useAccessManager } from '@/contexts/AccessManagerContext'
 
 // Importando a biblioteca de componentes customizada
-import { TextInput, Button, Checkbox, Table, Avatar, Badge, Drawer } from '@mantine/core'
-import { ViewBlock, ViewHeader } from '@/components/layout'
+import { TextInput, Button, Checkbox, Table, Avatar, Badge } from '@mantine/core'
+import { FormHeader, ViewBlock, ViewHeader } from '@/components/layout'
+import { Drawer } from '@/components/shared'
+import { useConfirmationModal } from '@/contexts/ConfirmationModalContext'
+import { useAuth } from '@/contexts/AuthContext'
+import { applyMask } from '@uniw/shared-utils'
 
 export default function AccessControlRolesView() {
+  const { openModal } = useConfirmationModal()
   const { admins, loading, addUser, updateUserFields, deleteAdmin } = useAccessManager()
+  const { user } = useAuth()
 
   // Estado para controlar o drawer de edição
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
@@ -61,46 +67,53 @@ export default function AccessControlRolesView() {
   }
 
   const onAddUserSubmit: SubmitHandler<AddAdminUserSchemaType> = async (data) => {
-    try {
-      await addUser(data)
+    const response = await addUser(data)
+
+    if (response) {
       addForm.reset()
-    } catch (error) {
-      console.error('Falha ao adicionar administrador:', error)
     }
   }
 
   const onEditUserSubmit: SubmitHandler<EditAdminUserSchemaTypes> = async (data) => {
     if (!selectedUser) return
-    try {
-      await updateUserFields(selectedUser.id, {
-        'baseProfile/nome': data.nome,
-        'adminProfile/permissoes': data.permissoes,
-      })
-      handleCloseDrawer() // Fecha o drawer após salvar
-    } catch (error) {
-      console.error('Falha ao atualizar administrador:', error)
-    }
+
+    await updateUserFields(selectedUser.id, {
+      'baseProfile/nome': data.nome,
+      'adminProfile/permissoes': data.permissoes,
+    })
+    handleCloseDrawer()
   }
 
-  const handleBlockUser = async () => {
+  const handleBlockUser = () => {
     if (!selectedUser) return
-    if (
-      window.confirm(
-        `Tem certeza que deseja bloquear o usuário "${selectedUser.baseProfile.nome}"?`,
-      )
-    ) {
+
+    const blockUser = async () => {
       await updateUserFields(selectedUser.id, { status: UserStatus.BLOQUEADO })
       handleCloseDrawer()
     }
+
+    openModal({
+      type: 'negative',
+      title: 'Bloquear Administrador',
+      message: `Tem certeza que deseja bloquear o usuário "${selectedUser.baseProfile.nome}"?`,
+      onConfirm: blockUser,
+    })
   }
 
-  const handleDelete = async (userId: string, userName: string) => {
-    if (window.confirm(`Tem certeza que deseja excluir o administrador "${userName}"?`)) {
+  const handleDeleteUser = (userId: string, userName: string) => {
+    const deleteUser = async () => {
       await deleteAdmin(userId)
       if (selectedUser?.id === userId) {
         handleCloseDrawer()
       }
     }
+
+    openModal({
+      type: 'negative',
+      title: 'Deletar Administrador',
+      message: `Tem certeza que deseja excluir o administrador "${userName}"?`,
+      onConfirm: deleteUser,
+    })
   }
 
   return (
@@ -113,12 +126,13 @@ export default function AccessControlRolesView() {
             name="nome"
             control={addForm.control}
             render={({ field }) => (
-              <S.StyledTextInput
+              <TextInput
                 {...field}
                 label="Nome Completo"
                 placeholder="Nome do usuário"
                 error={addForm?.formState?.errors?.nome?.message}
                 withAsterisk
+                style={{ flex: 1 }}
               />
             )}
           />
@@ -126,12 +140,13 @@ export default function AccessControlRolesView() {
             name="email"
             control={addForm.control}
             render={({ field }) => (
-              <S.StyledTextInput
+              <TextInput
                 {...field}
                 label="Email"
                 placeholder="email@uniw.com.br"
                 error={addForm?.formState?.errors?.email?.message}
                 withAsterisk
+                style={{ flex: 1 }}
               />
             )}
           />
@@ -139,20 +154,22 @@ export default function AccessControlRolesView() {
             name="cpf"
             control={addForm.control}
             render={({ field }) => (
-              <S.StyledTextInput
+              <TextInput
                 {...field}
                 label="CPF"
                 placeholder="000.000.000-00"
+                onChange={(value) => field.onChange(applyMask(value.target.value, 'cpf'))}
                 error={addForm?.formState?.errors?.cpf?.message}
                 withAsterisk
+                style={{ flex: 1 }}
               />
             )}
           />
-          <S.FormButtonWrapper>
+          <S.FormFooter>
             <Button type="submit" loading={loading} fullWidth={false}>
               Adicionar Admin
             </Button>
-          </S.FormButtonWrapper>
+          </S.FormFooter>
         </S.FormWrapper>
       </ViewBlock>
 
@@ -160,7 +177,7 @@ export default function AccessControlRolesView() {
         {loading ? (
           <p>Carregando administradores...</p>
         ) : (
-          <Table withTableBorder withColumnBorders>
+          <S.AdminListTable withTableBorder withColumnBorders>
             <Table.Thead>
               <Table.Tr>
                 <Table.Th>Foto</Table.Th>
@@ -171,44 +188,52 @@ export default function AccessControlRolesView() {
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
-              {admins.map((admin) => (
-                <Table.Tr key={admin.id}>
-                  <Table.Td>
-                    <Avatar
-                      src={admin.baseProfile.foto}
-                      alt={admin.baseProfile.nome}
-                      radius="xl"
-                    >
-                      {admin.baseProfile.nome.charAt(0)}
-                    </Avatar>
-                  </Table.Td>
-                  <Table.Td>{admin.baseProfile.nome}</Table.Td>
-                  <Table.Td>{admin.baseProfile.email}</Table.Td>
-                  <Table.Td>
-                    <Badge color={getStatusData(admin.status).color} variant="light">
-                      {getStatusData(admin.status).label}
-                    </Badge>
-                  </Table.Td>
-                  <S.ActionsCell>
-                    <Button
-                      variant="light"
-                      color="blue"
-                      onClick={() => handleOpenEditDrawer(admin)}
-                    >
-                      Editar
-                    </Button>
-                    <Button
-                      variant="light"
-                      color="red"
-                      onClick={() => handleDelete(admin.id, admin.baseProfile.nome)}
-                    >
-                      Excluir
-                    </Button>
-                  </S.ActionsCell>
-                </Table.Tr>
-              ))}
+              {admins.map((admin) => {
+                const isLoggedUser = admin.id === user?.id
+
+                return (
+                  <S.AdminListTableTr key={admin.id} disabled={isLoggedUser ? 1 : 0}>
+                    <Table.Td>
+                      <Avatar
+                        src={admin.baseProfile.foto}
+                        alt={admin.baseProfile.nome}
+                        radius="xl"
+                      >
+                        {admin.baseProfile.nome.charAt(0)}
+                      </Avatar>
+                    </Table.Td>
+                    <Table.Td>
+                      {admin.baseProfile.nome} {isLoggedUser && ' (Você)'}
+                    </Table.Td>
+                    <Table.Td>{admin.baseProfile.email}</Table.Td>
+                    <Table.Td>
+                      <Badge color={getStatusData(admin.status).color} variant="light">
+                        {getStatusData(admin.status).label}
+                      </Badge>
+                    </Table.Td>
+                    <S.ActionsCell>
+                      <Button
+                        variant="light"
+                        color="blue"
+                        onClick={() => handleOpenEditDrawer(admin)}
+                        disabled={isLoggedUser}
+                      >
+                        Editar
+                      </Button>
+                      <Button
+                        variant="light"
+                        color="red"
+                        onClick={() => handleDeleteUser(admin.id, admin.baseProfile.nome)}
+                        disabled={isLoggedUser}
+                      >
+                        Excluir
+                      </Button>
+                    </S.ActionsCell>
+                  </S.AdminListTableTr>
+                )
+              })}
             </Table.Tbody>
-          </Table>
+          </S.AdminListTable>
         )}
       </ViewBlock>
 
@@ -217,26 +242,28 @@ export default function AccessControlRolesView() {
         onClose={handleCloseDrawer}
         title={`Editando: ${selectedUser?.baseProfile.nome}`}
         size="md"
-        position="right"
       >
-        <S.DrawerFormWrapper onSubmit={editForm.handleSubmit(onEditUserSubmit)}>
-          <Controller
-            name="nome"
-            control={editForm.control}
-            render={({ field }) => <TextInput {...field} label="Nome" withAsterisk />}
-          />
-
+        <S.EditAdminForm onSubmit={editForm.handleSubmit(onEditUserSubmit)}>
           <S.ReadOnlyData>
             <p>
-              <strong>Email:</strong> {selectedUser?.baseProfile.email}
+              <b>Email:</b> {selectedUser?.baseProfile.email}
             </p>
             <p>
-              <strong>CPF:</strong> {selectedUser?.baseProfile.cpf}
+              <b>CPF:</b> {selectedUser?.baseProfile.cpf}
             </p>
           </S.ReadOnlyData>
 
-          <S.PermissionsGrid>
-            <h4>Permissões</h4>
+          <S.EditAdminFormWrapper>
+            <FormHeader title="Perfil" />
+            <Controller
+              name="nome"
+              control={editForm.control}
+              render={({ field }) => <TextInput {...field} label="Nome" withAsterisk />}
+            />
+          </S.EditAdminFormWrapper>
+
+          <S.EditAdminFormWrapper>
+            <FormHeader title="Permissões" />
             {Object.entries(permissionLabels).map(([key, label]) => (
               <Controller
                 key={key}
@@ -251,10 +278,14 @@ export default function AccessControlRolesView() {
                 )}
               />
             ))}
-          </S.PermissionsGrid>
+          </S.EditAdminFormWrapper>
 
           <S.DrawerActions>
-            <Button type="submit" loading={editForm.formState.isSubmitting}>
+            <Button
+              type="submit"
+              disabled={!editForm.formState.isDirty}
+              loading={editForm.formState.isSubmitting}
+            >
               Salvar Alterações
             </Button>
             <Button color="yellow" variant="light" onClick={handleBlockUser}>
@@ -265,13 +296,13 @@ export default function AccessControlRolesView() {
               variant="subtle"
               onClick={() =>
                 selectedUser &&
-                handleDelete(selectedUser.id, selectedUser.baseProfile.nome)
+                handleDeleteUser(selectedUser.id, selectedUser.baseProfile.nome)
               }
             >
               Excluir
             </Button>
           </S.DrawerActions>
-        </S.DrawerFormWrapper>
+        </S.EditAdminForm>
       </Drawer>
     </S.AccessControlRolesView>
   )

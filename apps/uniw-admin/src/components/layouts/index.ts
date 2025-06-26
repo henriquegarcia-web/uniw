@@ -1,3 +1,3 @@
-export { default as AdminAuthLayout } from './AuthLayout/AuthLayout'
-export { default as AuthLayout } from './AuthLayout/AuthLayout'
-export { default as DashboardLayout } from './DashboardLayout/DashboardLayout'
+export { default as AdminAuthLayout } from './AuthLayout'
+export { default as AuthLayout } from './AuthLayout'
+export { default as DashboardLayout } from './DashboardLayout'

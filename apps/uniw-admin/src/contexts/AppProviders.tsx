@@ -9,6 +9,8 @@ import { AdminMenuProvider } from '@/contexts/AdminMenuContext'
 import StyledComponentsRegistry from '@/contexts/StyledComponentsContext'
 import { createTheme, DEFAULT_THEME, MantineProvider } from '@mantine/core'
 import GlobalStyle from '@/styles/globals'
+import { ToastContainer, Bounce } from 'react-toastify'
+import { ConfirmationModalProvider } from './ConfirmationModalContext'
 
 const theme = createTheme({
   // 1. Defina um nome para sua cor customizada (ex: 'uniw-green')
@@ -41,7 +43,20 @@ function AppProviders({ children }: { children: React.ReactNode }) {
             <AdminMenuProvider>
               <AccessManagerProvider>
                 <GlobalStyle />
-                {children}
+                <ToastContainer
+                  position="top-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick={false}
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="light"
+                  transition={Bounce}
+                />
+                <ConfirmationModalProvider>{children}</ConfirmationModalProvider>
               </AccessManagerProvider>
             </AdminMenuProvider>
           </AuthProvider>

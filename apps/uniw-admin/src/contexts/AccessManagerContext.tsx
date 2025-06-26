@@ -4,11 +4,12 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { IUser } from '@uniw/shared-types'
 import { adminAccessManagerService } from '@uniw/shared-services'
 import { useFirebase } from './FirebaseContext'
+import { toast } from 'react-toastify'
 
 interface AccessManagerContextType {
   admins: IUser[]
   loading: boolean
-  addUser: (userData: { nome: string; email: string; cpf: string }) => Promise<void>
+  addUser: (userData: { nome: string; email: string; cpf: string }) => Promise<boolean>
   updateUserFields: (
     userId: string,
     updates: Partial<{ [K in keyof IUser | string]: any }>,
@@ -46,14 +47,26 @@ export const AccessManagerProvider = ({ children }: { children: ReactNode }) => 
     email: string
     cpf: string
   }) => {
-    await adminAccessManagerService.addAdminUser(userData)
+    try {
+      await adminAccessManagerService.addAdminUser(userData)
+      toast.success('Administrador criado com sucesso')
+      return true
+    } catch (error: any) {
+      toast.error(error.message)
+      return false
+    }
   }
 
   const handleUpdateUserFields = async (
     userId: string,
     updates: Partial<{ [K in keyof IUser | string]: any }>,
   ) => {
-    await adminAccessManagerService.updateUserFields(userId, updates)
+    try {
+      await adminAccessManagerService.updateUserFields(userId, updates)
+      toast.success('Perfil editado com sucesso')
+    } catch (error) {
+      toast.error('Falha ao editar administrador, tente novamente')
+    }
   }
 
   const handleDeleteAdmin = async (userId: string) => {
