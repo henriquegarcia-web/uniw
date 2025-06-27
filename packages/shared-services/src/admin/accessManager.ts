@@ -120,7 +120,6 @@ export const adminAccessManagerService = {
             finances_manageSubscriptions: false,
             reports_viewSales: false,
             reports_viewUsers: false,
-            super_admin: false,
           },
         },
         createdAt: now,

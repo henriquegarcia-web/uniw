@@ -184,14 +184,12 @@ export default function AccessControlRolesView() {
                 <Table.Th>Nome</Table.Th>
                 <Table.Th>E-mail</Table.Th>
                 <Table.Th>Status</Table.Th>
-                <Table.Th>Super Admin</Table.Th>
                 <Table.Th>Ações</Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
               {admins.map((admin) => {
                 const isLoggedUser = admin.id === user?.id
-                const isSuperAdminUser = admin.adminProfile?.permissoes.super_admin
 
                 return (
                   <S.AdminListTableTr key={admin.id} disabled={isLoggedUser ? 1 : 0}>
@@ -213,23 +211,12 @@ export default function AccessControlRolesView() {
                         {getStatusData(admin.status).label}
                       </Badge>
                     </Table.Td>
-                    <Table.Td>
-                      {isSuperAdminUser ? (
-                        <Badge color="grape" variant="light">
-                          Sim
-                        </Badge>
-                      ) : (
-                        <Badge color="gray" variant="light">
-                          Não
-                        </Badge>
-                      )}
-                    </Table.Td>
                     <S.ActionsCell>
                       <Button
                         variant="light"
                         color="blue"
                         onClick={() => handleOpenEditDrawer(admin)}
-                        disabled={isSuperAdminUser && !isLoggedUser}
+                        disabled={isLoggedUser}
                       >
                         Editar
                       </Button>
@@ -237,7 +224,7 @@ export default function AccessControlRolesView() {
                         variant="light"
                         color="red"
                         onClick={() => handleDeleteUser(admin.id, admin.baseProfile.nome)}
-                        disabled={isLoggedUser || isSuperAdminUser}
+                        disabled={isLoggedUser}
                       >
                         Excluir
                       </Button>
