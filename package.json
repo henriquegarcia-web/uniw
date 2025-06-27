@@ -4,6 +4,7 @@
   "scripts": {
     "build": "turbo run build",
     "build:vercel": "yarn turbo run build --filter=@uniw/shared-types && yarn turbo run build --filter=@uniw/shared-schemas && yarn turbo run build --filter=@uniw/shared-utils && yarn turbo run build --filter=@uniw/shared-services && yarn turbo run build --filter=uniw-admin",
+    "postbuild:types": "mkdir -p packages/shared-services/node_modules/@uniw/shared-types/dist && cp packages/shared-types/dist/index.d.ts packages/shared-services/node_modules/@uniw/shared-types/dist/index.d.ts && mkdir -p packages/shared-services/node_modules/@uniw/shared-schemas/dist && cp packages/shared-schemas/dist/index.d.ts packages/shared-services/node_modules/@uniw/shared-schemas/dist/index.d.ts",
     "dev": "turbo run dev",
     "clean": "turbo run clean && rm -rf node_modules",
     "lint": "turbo run lint",

@@ -2,9 +2,11 @@
   "extends": "@repo/typescript-config/shared-library.json",
   "compilerOptions": {
     "outDir": "dist",
+    "declaration": true,
+    "declarationDir": "dist",
     "rootDir": "src"
   },
-  "include": ["src"],
+  "include": ["src", "src/types"],
   "exclude": ["node_modules", "dist"],
   "references": [
     { "path": "../shared-types" },

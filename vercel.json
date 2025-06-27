@@ -1,5 +1,5 @@
 {
-  "buildCommand": "yarn build:vercel",
+  "buildCommand": "yarn build:vercel && yarn postbuild:types",
   "installCommand": "yarn install",
   "framework": "nextjs"
 }
