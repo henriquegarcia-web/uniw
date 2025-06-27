@@ -16,9 +16,9 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@uniw/shared-utils": "workspace:*",
-    "@uniw/shared-types": "workspace:*",
     "@uniw/shared-schemas": "workspace:*",
+    "@uniw/shared-types": "workspace:*",
+    "@uniw/shared-utils": "workspace:*",
     "firebase": "^10.13.0"
   },
   "devDependencies": {
