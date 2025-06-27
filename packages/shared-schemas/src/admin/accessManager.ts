@@ -72,6 +72,7 @@ export const adminPermissionsSchema = yup.object().shape({
   finances_manageSubscriptions: yup.boolean().required(),
   reports_viewSales: yup.boolean().required(),
   reports_viewUsers: yup.boolean().required(),
+  super_admin: yup.boolean().required(),
 })
 
 // ==========================================

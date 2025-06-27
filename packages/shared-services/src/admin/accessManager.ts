@@ -82,6 +82,7 @@ export const adminAccessManagerService = {
         providerProfile: null,
         adminProfile: {
           permissoes: {
+            super_admin: false,
             dashboard_view: true,
             adminAccess_view: false,
             adminAccess_manage: false,

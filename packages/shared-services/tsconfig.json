@@ -6,5 +6,9 @@
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"],
-  "references": [{ "path": "../shared-types" }, { "path": "../shared-utils" }]
+  "references": [
+    { "path": "../shared-types" },
+    { "path": "../shared-schemas" },
+    { "path": "../shared-utils" }
+  ]
 }

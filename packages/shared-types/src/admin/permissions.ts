@@ -54,6 +54,9 @@ export interface IAdminPermissions {
   finances_manageSubscriptions: boolean
   reports_viewSales: boolean
   reports_viewUsers: boolean
+
+  // Super Admin
+  super_admin: boolean
 }
 
 export const permissionLabels: Record<keyof IAdminPermissions, string> = {
@@ -95,4 +98,5 @@ export const permissionLabels: Record<keyof IAdminPermissions, string> = {
   finances_manageSubscriptions: 'Gerenciar Assinaturas',
   reports_viewSales: 'Ver Relatórios de Vendas',
   reports_viewUsers: 'Ver Relatórios de Usuários',
+  super_admin: 'Super Admin',
 }
