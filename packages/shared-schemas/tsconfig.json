@@ -2,9 +2,14 @@
   "extends": "@repo/typescript-config/shared-library.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@uniw/shared-utils": ["../shared-utils/src"],
+      "@uniw/shared-utils/*": ["../shared-utils/src/*"]
+    }
   },
-  "include": ["src"],
+  "include": ["src", "src/types"],
   "exclude": ["node_modules", "dist"],
   "references": [{ "path": "../shared-utils" }]
 }

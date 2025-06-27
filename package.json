@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "build:vercel": "yarn build --filter=@uniw/shared-utils && yarn build --filter=@uniw/shared-schemas && yarn build --filter=uniw-admin",
     "dev": "turbo run dev",
     "clean": "turbo run clean && rm -rf node_modules",
     "lint": "turbo run lint",
