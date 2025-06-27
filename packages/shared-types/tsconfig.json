@@ -2,6 +2,8 @@
   "extends": "@repo/typescript-config/shared-library.json",
   "compilerOptions": {
     "outDir": "dist",
+    "declaration": true,
+    "declarationDir": "dist",
     "rootDir": "src"
   },
   "include": ["src"],

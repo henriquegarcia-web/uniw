@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "build:vercel": "yarn turbo run build --filter=@uniw/shared-types && yarn turbo run build --filter=@uniw/shared-schemas && yarn turbo run build --filter=@uniw/shared-utils && yarn turbo run build --filter=@uniw/shared-services && yarn turbo run build --filter=uniw-admin",    "dev": "turbo run dev",
+    "build:vercel": "yarn turbo run build --filter=@uniw/shared-types && yarn turbo run build --filter=@uniw/shared-schemas && yarn turbo run build --filter=@uniw/shared-utils && yarn turbo run build --filter=@uniw/shared-services && yarn turbo run build --filter=uniw-admin",
+    "dev": "turbo run dev",
     "clean": "turbo run clean && rm -rf node_modules",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
